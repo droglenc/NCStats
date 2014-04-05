@@ -1,4 +1,4 @@
-# # 0.4.1 ongoing
+# 0.4.1 ongoing
 
 * moved to github.
 
