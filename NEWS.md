@@ -7,7 +7,7 @@
 
 * Moved relax dependency to a suggest.  Modified all functions that used `slider()` or `gslider()` (see below).
 
-* `accuractyPrecision():  Modified.  Corrected bug that plotted a 0 on the y-axis.
+* `accuracyPrecision()`:  Modified.  Corrected bug that plotted a 0 on the y-axis.
 * `addSigLetters()`: Modified.  Made explicit that `typeoflm()` is in the FSA package as it is no longer exported.  Modified examples in help file with require(FSA).
 * `ciSim()`: Modified.  Added a require(relax) with a catch if not installed.
 * `cltSim()`: Modified.  Added a require(relax) with a catch if not installed.
