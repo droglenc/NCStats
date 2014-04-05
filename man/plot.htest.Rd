@@ -1,0 +1,100 @@
+\name{plot.htest}
+\alias{plot.htest}
+\title{Plots test statistic and p-value area for z-, t-, and chi-square tests.}
+\usage{
+\method{plot}{htest}(x, smoothness = 1000, shade.col = "red",
+  shade.col2 = "red3", ...)
+}
+\arguments{
+  \item{x}{an object saved from \code{z.test},
+  \code{t.test} or \code{chisq.test}}
+
+  \item{smoothness}{a single-length numeric indicating the
+  number of points for which to construct the plot.  The
+  larger the number the smoother the plot will appear.}
+
+  \item{shade.col}{a string indicating the color to use for
+  the (primary) shaded area.  If the alternative is
+  two.sided then this area is in the same tail as the test
+  statistic.}
+
+  \item{shade.col2}{a string indicating the color to use
+  for the (secondary) shaded area.  If the alternative is
+  two.sided then this area is in the opposite tail as the
+  test statistic.}
+
+  \item{\dots}{optional arguments that are not implemented
+  in this version.}
+}
+\value{
+None.  However, a plot is constructed.
+}
+\description{
+Plots test statistic and p-value area for z-, t-, and
+chi-square tests.
+}
+\details{
+This produces a plot of the named sampling distribution
+with the test statistic and p-value areas shown.  This plot
+is used primarily for students to visualize the calcualtion
+of the p-value in the \code{z.test}, \code{t.test}, and
+\code{chisq.test} functions.  The results from those
+functions must be saved to an object.
+}
+\note{
+Newbie students can benefit greatly from visualizing the
+position of the test statistic and the \dQuote{area} of the
+p-value for common statistical tests using the z-, t-, and
+chi-square tests.  This function produces a graphic from
+the results of \code{z.test}, \code{t.test}, and
+\code{chisq.test} to show these values.  An additional
+benefit of this function is that newbie students make fewer
+mistakes in choosing the alternative hypothesis when they
+can visualize the final result.
+}
+\examples{
+## 1-sample z-test example
+z.ex <- z.test(rnorm(25,100,5),99,5)
+z.ex
+plot(z.ex)
+
+## 1-sample t-test example from t.test
+t1.ex <- t.test(1:10,y=c(7:20))
+t1.ex
+plot(t1.ex)
+
+## 2-sample t-test example from t.test
+t2.ex <- t.test(extra~group,data=sleep)
+t2.ex
+plot(t2.ex)
+
+## same but with one-tailed alternative (for illustration)
+t3.ex <- t.test(extra~group,data=sleep,alt="less")
+t3.ex
+plot(t3.ex)
+
+## Chi-square test example from chisq.test
+chi1.ex <- chisq.test(InsectSprays$count > 7, InsectSprays$spray)
+chi1.ex
+plot(chi1.ex)
+
+## Another Chi-square test example from chisq.test
+x <- matrix(c(12, 5, 7, 7), ncol = 2)
+chi2.ex <- chisq.test(x)
+chi2.ex
+plot(chi2.ex)
+
+## Another Chi-square test example from chisq.test
+x <- c(89,37,30,28,2)
+p <- c(40,20,20,15,5)
+chi3.ex <- chisq.test(x, p = p, rescale.p = TRUE)
+chi3.ex
+plot(chi3.ex)
+}
+\seealso{
+\code{z.test} in \pkg{TeachingDemos} and
+\code{\link{t.test}} and \code{\link{chisq.test}}.
+}
+\keyword{distribution}
+\keyword{hplot}
+

@@ -1,0 +1,50 @@
+\name{limnoProfilePlot}
+\alias{limnoProfilePlot}
+\title{Constructs a plot of depth versus limnological measure.}
+\usage{
+limnoProfilePlot(depth, measure, type = "b", ...)
+}
+\arguments{
+  \item{depth}{A vector of depths at which the limnological
+  measure was recorded.}
+
+  \item{measure}{A vector of the recorded limnological
+  measure.}
+
+  \item{type}{A string indicating the type of plot to
+  construct.  Use \code{'p'} for points, \code{'l'} for
+  lines, or \code{'b'} (default) for both.}
+
+  \item{\dots}{Other arguments to be passed to the
+  \code{plot} function.}
+}
+\value{
+None.  However, a plot is produced.
+}
+\description{
+Constructs a plot of depth versus limnological measure with
+the depth increasing from top to bottom.
+}
+\examples{
+## Winter temperature profile -- Happles Lake, WI
+depth <- 1:32
+temp <- c(1,rep(4.2,24),4.6,4.6,4.8,5,5,5,5)
+limnoProfilePlot(depth,temp,xlab="Temperature (C)",ylab="Depth (ft)")
+# add marker for ice depth (20")
+abline(h=-20/12,lty=3)
+axis(2,-20/12,"Ice",las=1)
+
+## Side-by-side winter temp and DO profile -- Happles Lake, WI
+DO <- c(7.85,6.8,6.8,6.8,6.8,6.85,6.8,6.8,6.85,6.8,6.8,6.8,6.8,6.8,6.8,6.8,6.7,
+       6.7,6.7,6.6,6.6,6.6,6.6,6.3,6.0,2.6,2.1,1.2,1.1,0.6,0.6,0.45)
+op <- par(mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0),mfrow=c(1,2))
+limnoProfilePlot(depth,temp,xlab="Temperature (C)",ylab="Depth (ft)")
+abline(h=-20/12,lty=3)
+axis(2,-20/12,"Ice",las=1)
+limnoProfilePlot(depth,DO,xlab="Dissolved Oxygen (mg/l)",ylab="Depth (ft)",xlim=c(0,8))
+abline(h=-20/12,lty=3)
+axis(2,-20/12,"Ice",las=1)
+par(op)
+}
+\keyword{hplot}
+

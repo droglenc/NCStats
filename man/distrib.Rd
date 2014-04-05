@@ -1,0 +1,230 @@
+\name{distrib}
+\alias{distrib}
+\title{Plots calculated areas or values from a wide variety of continuous and
+discrete distribution functions.}
+\usage{
+distrib(val, distrib = c("norm", "t", "chisq", "f", "beta", "exp", "gamma",
+  "pois", "binom", "geom", "hypergeom", "nbinom"), type = c("p", "q", "d",
+  "forward", "reverse"), digits = getOption("digits"), mean = 0, sd = se,
+  se = 1, df = 1, df1 = df, df2 = 1, shape1 = 1, shape2 = 1,
+  shape = 1, rate = 1, scale = 1/rate, size = 10, prob = 0.5,
+  mu = NULL, lambda = 1, m = NULL, n = NULL, k = NULL,
+  lower.tail = TRUE, plot = TRUE, show.ans = TRUE, show.alt = FALSE,
+  main = NULL, xlab = NULL, ylab = NULL, yaxt = "n",
+  smoothness = 1000, shade.col = "red", shade.trans = 1,
+  lbl.col = "red", ...)
+}
+\arguments{
+  \item{val}{a single-length numeric containing a value or
+  probability/quantile.}
+
+  \item{distrib}{a string indicating the type of
+  distribution to use.  See details.}
+
+  \item{type}{a string indicating the type of calculation
+  to make -- \code{"p"} or \code{"forward"} is the
+  cumulative probability given a value, \code{"q"} or
+  \code{"reverse"} is the value given a
+  probability/quantile, and \code{"d"} is the probability
+  for a given value on a discrete distribution function.
+  See details.}
+
+  \item{digits}{A numeric indicating the number of decimals
+  to round the returned result when \code{plot=FALSE}.}
+
+  \item{mean}{a single-length numeric for the mean of the
+  normal distribution.}
+
+  \item{sd}{a single-length numeric for the standard
+  deviation of the normal distribution.}
+
+  \item{se}{a single-length numeric for the standard error
+  of the normal distribution.  See details.}
+
+  \item{df}{a single-length numeric for the
+  degrees-of-freedom for the t and chi-square
+  distributions.}
+
+  \item{df1}{a single-length numeric for the numerator
+  degrees-of-freedom for the F distribution.}
+
+  \item{df2}{a single-length numeric for the denominator
+  degrees-of-freedom for the F distribution.}
+
+  \item{shape1}{a single-length numeric for the first shape
+  parameter in the beta distribution.}
+
+  \item{shape2}{a single-length numeric for the first shape
+  parameter in the beta distribution.}
+
+  \item{shape}{a single-length numeric for the shape
+  parameter in the gamma distribution.}
+
+  \item{scale}{a single-length numeric for the scale
+  parameter in the gamma distribution.}
+
+  \item{rate}{a single-length numeric for the rate
+  parameter in the gamma and exponential distributions.
+  See details.}
+
+  \item{size}{a single-length numeric for the number of
+  trials in the binomial distribution.}
+
+  \item{prob}{a single-length numeric for the probability
+  of success on each trial in the binomial, geometric, and
+  negative binomial distributions.}
+
+  \item{mu}{a single-length numeric for the mean of
+  negative binomial distribution. see details}
+
+  \item{lambda}{a single-length numeric for the mean of the
+  Poisson distribution.}
+
+  \item{m}{a single-length numeric for the number of white
+  balls in the urn of a hypergeometric distribution.}
+
+  \item{n}{a single-length numeric for the number of black
+  balls in the urn of a hypergeometric distribution.}
+
+  \item{k}{a single-length numeric for the number of balls
+  drawn from the urn of a hypergeometric distribution.}
+
+  \item{lower.tail}{a logical indicating if the
+  probabilities are P[X<=x] (\code{=TRUE}; default) or
+  P[X>x].}
+
+  \item{plot}{a logical indicating if a plot should be
+  shown (\code{TRUE}) or not.}
+
+  \item{show.ans}{a logical indicating if the computational
+  results should be shown on the plot (\code{TRUE}) or
+  not.}
+
+  \item{show.alt}{a logical indicating if a message showing
+  alternaive (i.e,. traditional) code for obtaining the
+  answer should be shown (\code{TRUE}) or not (default).}
+
+  \item{main}{a character string for the plot's main label.
+  If null an appropriate string will be created.}
+
+  \item{xlab}{character string for plot's x-axis label.  If
+  null an appropriate string will be created.}
+
+  \item{ylab}{character string for plot's y-axis label.  If
+  null an appropriate string will be created.}
+
+  \item{yaxt}{a character which specifies the y axis type.
+  Specifying \code{"n"} (default) suppresses plotting.
+  Specifying \code{NULL} gives axis labels.}
+
+  \item{smoothness}{a single-length numeric indicating the
+  number of points for which to construct the plot.  The
+  larger the number the smoother the plot will appear.}
+
+  \item{shade.col}{a string indicating the color to use for
+  the shaded area.}
+
+  \item{shade.trans}{Value between 0 and 1 indicating the
+  transparency to use for the shaded area.}
+
+  \item{lbl.col}{a string indicating the color to use for
+  labeling the shaded area.}
+
+  \item{\dots}{optional parameters to send to the internal
+  \code{c.region} or \code{d.region} functions.  For
+  example, can change the size of the answer with
+  \code{cex.ans=}}
+}
+\value{
+A numeric answer is returned.  If \code{plot=TRUE} then a
+plot is constructed and a note on how to use one of the
+functions in \pkg{stats} is printed if
+\code{show.alt=TRUE}.
+}
+\description{
+Plots calculated areas or values from normal, Student's t,
+F, chi-square, beta, exponential, and gamma continuous
+density functions and binomial, geometric, negative
+binomial, Poisson, and hypergeometric discrete distribution
+functions.
+}
+\details{
+This function computes the same values as the \code{pXXX}
+and \code{qXXX} functions for both continuous density and
+discrete probability distributions and as the \code{dXXX}
+functions for the discrete probability distributions. This
+function is used primarily to include a plot with the
+calculation.  The original functions in the \pkg{stats}
+package should be consulted for more details on each
+distribution.  For example, use \code{?dbinom} to get help
+for computing the probability of a value in the binomial
+distribution, \code{?ppois} to get help for computing the
+cumulative probability of a value on the Poisson
+distribution, and \code{?qnorm} to get help for computing
+the quantile value of a normal distribution.
+
+The strings in the \code{distrib} argument are the same as
+the abbreviated function names in the \pkg{stats} package.
+For example, the normal distribution is \code{"norm"}, the
+chi-square distribution is \code{"chisq"}, and the
+hypergeometric distribution is \code{"hyper"}
+
+The strings in the \code{type} argument at the same as the
+prefixes to the abbreviated function names in the
+\pkg{stats} package.  For example, the density is computed
+with \code{"d"}, the cumulative probability with
+\code{"p"}, and the quantiles with \code{"q"}.  The
+\code{"forward"} and \code{"reverse"} types correspond to
+\code{"p"} and \code{"q"}, respectively, and are used to
+match terminology used in the Introductory Statistics
+course at Northland College.
+
+Other visualizations of the distribution can be seen with
+functions that are named with the \code{s} prefix (for
+simulation) on the abbreviated function name.  For example,
+try \code{sbinom()} to show a simulation of the binomial
+distribution.
+
+Note that for a normal distribution the \code{se=} argument
+is supplied for convenience only.  Whatever is supplied to
+\code{se=} is then applied to the \code{sd=} argument.  Use
+of \code{se=} may be somewhat simpler for students learning
+to distinguish between normal distribution calculations on
+a sampling versus a population distribution.
+}
+\note{
+Students often need to \dQuote{look up} values or
+probabilities from statistical tables in textbooks.  These
+values can be easily found in R with the \code{pXXX},
+\code{qXXX}, or \code{dXXX} distributional functions.
+However, these functions do not provide a visual
+representation of the computation.  This function also
+replaces the tables of distributional values found in texts
+but also provides a graph of the computation.
+
+I had hoped to add a \code{plot=} argument to any of the
+\code{pXXX}, \code{qXXX}, or \code{dXXX} distributional
+functions but this required replacing the base R functions.
+A compromise was to create this new function, using the
+\code{type=} argument with \code{p}, \code{q}, and \code{d}
+and printing a direction on how to use the base R function
+if \code{show.alt=TRUE}.
+}
+\examples{
+op <- par(mfrow=c(2,2),mar=c(3.5,1,3.5,1),mgp=c(2,0.75,0))
+distrib(46,distrib="binom",type="d",size=100,prob=0.5)
+distrib(5,distrib="pois",type="p",lambda=2)
+distrib(2.2,distrib="exp",type="p",rate=1/2)
+distrib(0.6,distrib="norm",type="q",mean=10,sd=3,lower.tail=FALSE)
+par(op)
+}
+\seealso{
+The \code{type=} and \code{distrib=} arguments can be
+concatenated to provide the typical function in base R.
+For example, for the examples below see
+\code{\link{dbinom}}, \code{\link{dpois}},
+\code{\link{pexp}}, and \code{\link{qnorm}}.
+}
+\keyword{distribution}
+\keyword{hplot}
+

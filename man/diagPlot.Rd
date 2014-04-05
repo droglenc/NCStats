@@ -1,0 +1,100 @@
+\name{diagPlot}
+\alias{diagPlot}
+\title{Constructs plots of diagnostic measures for linear models.}
+\usage{
+diagPlot(mdl)
+}
+\arguments{
+  \item{mdl}{an \code{lm} object (i.e., returned from
+  fitting a model with \code{lm}).}
+}
+\value{
+In addition to the graphic described in the details, a
+vector containing the row numbers of observations that were
+flagged as unusual by one of the diagnostic statistics.
+This vector can be assigned to an object and used to modify
+plots or easily remove the individuals from the data frame.
+}
+\description{
+Used to construct plots of diagnostic measures for linear
+models.  Also used to identify \dQuote{extreme} values of
+diagnostic measures for a linear model.
+}
+\details{
+This function produces a graphic that consists of at most
+six separate plots -- \enumerate{ \item Studentized
+residuals versus leverages, \item COVRATIO-1 versus fitted
+values, \item Cook's Distance versus fitted values, \item
+DFFits versus fitted values, \item DFBetas for slope versus
+DFBetas for intercept, and \item fitted line plot.  }
+
+Each separate graph may have various individuals marked
+with their observation number.  Observation numbers in red
+are the most extreme value that exceeds the cutoff value
+for the diagnostic measure plotted on that particular
+graph.  Observation numbers in blue are observations that
+exceeded a cutoff value for at least one of the diagnostic
+measures NOT plotted on that particular graph.  Thus,
+observations marked in red are \dQuote{unusual}
+observations for the diagnostic measure shown on the plot
+whereas observations marked in blue are \dQuote{unusual}
+observations for some other diagnostic measure but not for
+the diagnostic measure shown on the plot.  The fitted line
+plot has all \dQuote{unusual} observations marked with
+separate colors and the fitted line with that observation
+removed shown in the same color.
+
+If more than one observation has the same extreme value for
+one of the diagnostics then only the first individual with
+the value is returned.
+
+If the linear model object is other than a simple linear
+regression then only the first four plots are constructed.
+
+Diagnostic statistic values are computed with the
+\code{rstudent} and \code{influence.measaures} functions.
+}
+\note{
+This function is meant to allow newbie students the ability
+to easily construct plots for diagnosing \dQuote{problem
+individuals} for one-way ANOVA, two-way ANOVA, simple
+linear regression, and indicator variable regressions.  The
+plots can generally be constructed simply by submitting a
+saved linear model to this function.  This function thus
+allows newbie students to interact with and visualize
+moderately complex linear models in a fairly easy and
+efficient manner.
+}
+\examples{
+require(FSA)      # for fitPlot and Mirex data
+
+data(Mirex)
+Mirex$year <- factor(Mirex$year)
+
+## Indicator variable regression with two factors -- As a general example
+lm1 <- lm(mirex~weight*year*species,data=Mirex)
+diagPlot(lm1)
+## Simple linear regression
+lm4 <- lm(mirex~weight,data=Mirex)
+# Produces plot and saves flagged observations
+pts <- diagPlot(lm4)
+# Constructs a fitted line plot
+fitPlot(lm4,cex.main=0.8)
+# Highlights flagged observations on fitted-line plot
+highlight(Mirex$mirex~Mirex$weight,pts=pts)
+
+
+## Example showing outlier detection
+x <- c(runif(100))
+y <- c(7,runif(99))
+lma <- lm(y~x)
+diagPlot(lma)
+}
+\seealso{
+\code{fitPlot} and \code{residPlot} from \pkg{FSA};
+\code{\link{highlight}}; and \code{influence.measures},
+\code{outlierTest}, and \code{influence.plot} in \pkg{car}.
+}
+\keyword{hplot}
+\keyword{models}
+

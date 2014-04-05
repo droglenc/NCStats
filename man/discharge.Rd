@@ -1,0 +1,87 @@
+\name{discharge}
+\alias{discharge}
+\alias{plot.discharge}
+\alias{summary.discharge}
+\title{Conmputes stream discharge measurements using the mean-section or mid-section
+methods.}
+\usage{
+discharge(distance, depth, velocity, type = c("Mean", "Mid"))
+
+\method{summary}{discharge}(object, detail = TRUE, ...)
+
+\method{plot}{discharge}(x, pch = 19, xlab = "Distance (ft)",
+  ylab = "Depth (ft)", newwin = TRUE, ...)
+}
+\arguments{
+  \item{distance}{A vector of distance measurements at
+  intervals across the cross section.}
+
+  \item{depth}{A vector of depth measurements at intervals
+  across the cross section.}
+
+  \item{velocity}{A vector of velocity measurements at
+  intervals across the cross section.}
+
+  \item{type}{A string indicating the discharge method to
+  use.}
+
+  \item{object}{An object returned from \code{discharge}.}
+
+  \item{x}{An object returned from \code{discharge}.}
+
+  \item{detail}{A logical indicating whether the details of
+  the discharge calculations should be shown (\code{=TRUE})
+  or not.}
+
+  \item{pch}{The plotting character to be used for the
+  depth profile.  See \code{par}.}
+
+  \item{xlab}{A string for labeling the x-axis.}
+
+  \item{ylab}{A string for labeling the y-axis.}
+
+  \item{newwin}{A logical indicating whether a new graphics
+  window should be opened (only for Windows operating
+  systems).}
+
+  \item{\dots}{Other arguments to be passed to the
+  \code{plot} function.}
+}
+\value{
+\code{discharge} produces a list with a data frame of the
+original data, a data frame of computed values, the
+\code{type=} argument, and a label for the type of
+argument.  \code{plot} method produce a plot demonstrating
+the calculations.  \code{summary} returns the total
+discharge calculation and detailed intermediate
+calculations if asked for.
+}
+\description{
+Computes a cross-section profile of a stream demonstrating
+distance, velocity, and discharge measurements for the
+mean-section and mid-section methods.
+}
+\examples{
+dist1 <- c(seq(0,22,2),24.7)
+dep1 <- c(0,.9,1.1,1.1,1.1,.9,.9,.9,.9,.9,.9,.7,0)
+vel1 <- c(0,1.01,1.07,1.22,1.22,1.36,1.28,1.38,1.29,0.88,0.52,0,0)
+ex1 <- discharge(dist1,dep1,vel1)
+summary(ex1)
+plot(ex1)
+ex1a <- discharge(dist1,dep1,vel1,type="Mid")
+summary(ex1a)
+plot(ex1a)
+
+dist2 <- c(seq(0,18,2),19.7)
+dep2 <- c(0,1.2,1.5,1.4,1.4,1.4,1.5,1.7,2,1.5,0)
+vel2 <- c(0,.53,.76,.95,.90,.98,1.01,.9,.9,0,.0)
+ex2 <- discharge(dist2,dep2,vel2)
+summary(ex2)
+plot(ex2)
+ex2a <- discharge(dist2,dep2,vel2,type="Mid")
+summary(ex2a)
+plot(ex2a)
+}
+\keyword{hplot}
+\keyword{models}
+

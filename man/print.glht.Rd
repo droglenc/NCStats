@@ -1,0 +1,51 @@
+\name{print.summary.glht}
+\alias{print.confint.glht}
+\alias{print.summary.glht}
+\title{Modificaton of print.summary.glht() and print.confint.glth() to streamline output.}
+\usage{
+\method{print}{summary.glht}(x, digits = max(3, getOption("digits") - 3),
+  signif.stars = getOption("show.signif.stars"), justResults = TRUE, ...)
+}
+\arguments{
+  \item{x}{An object of class \code{summary.glht} or
+  \code{confint.glth} to be printed.}
+
+  \item{digits}{A single numeric that indicates the number
+  of digits to use.}
+
+  \item{justResults}{A single logical that indicates
+  whether just the most pertinent numerical results are
+  printed (\code{=TRUE}; default) or all information as in
+  the default functions from \pkg{multcomp}.}
+
+  \item{signif.stars}{A logical that if \code{=TRUE} then
+  \sQuote{significance stars} will be printed for each
+  coefficient.}
+
+  \item{\dots}{Not implemented.}
+}
+\value{
+Invisibly returns the sent \code{x}.
+}
+\description{
+Modifies the print.summary.glht() and
+confint.summary.glht() functions so that the output is less
+verbose.  For example, several labels and some intermediate
+calculations will not be printed unless asked for.  In
+addition, several \sQuote{extra} blank lines were removed.
+}
+\examples{
+# from glht() in multcomp
+require(multcomp)
+amod <- aov(breaks ~ tension, data = warpbreaks)
+mc1 <- glht(amod, linfct = mcp(tension = "Tukey"))
+
+# new printing versions
+summary(mc1)
+confint(mc1)
+
+# nearly the same as the original functions
+print(summary(mc1),justResults=FALSE)
+print(confint(mc1),justResults=FALSE)
+}
+

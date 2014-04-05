@@ -1,0 +1,34 @@
+\name{print.htest}
+\alias{print.htest}
+\title{Modificaton of print.htest() to streamline output.}
+\usage{
+\method{print}{htest}(x, digits = 4, quote = TRUE, ...)
+}
+\arguments{
+  \item{x}{An object of class \code{lm} to be printed.}
+
+  \item{digits}{A single numeric that indicates the number
+  of digits to use.}
+
+  \item{quote}{A single logical that indicates whether
+  strings should be printed with surrounding quotes.}
+
+  \item{\dots}{Not implemented.}
+}
+\value{
+Invisibly returns the sent \code{x}.
+}
+\description{
+Modifies the print.hstest() function so that the output is
+less verbose.  For example, several \sQuote{extra} blank
+lines are removed and the test name is placed on one line
+with the data.
+}
+\examples{
+## data from t.test and chisq.test examples
+t.test(1:10,y=c(7:20))
+
+M <- as.table(rbind(c(762, 327, 468), c(484,239,477)))
+chisq.test(M)
+}
+

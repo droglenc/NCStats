@@ -1,0 +1,79 @@
+\name{highlight}
+\alias{highlight}
+\alias{highlight.default}
+\alias{highlight.formula}
+\title{Labels a list of points on a two-dimensional plot.}
+\usage{
+highlight(x, ...)
+
+\method{highlight}{default}(x, y, lbls = NULL, pts = NULL, col = "red",
+  cex = 1.25, pos = NULL, ...)
+
+\method{highlight}{formula}(x, data = NULL, lbls = NULL, pts = NULL,
+  col = "red", cex = 1.25, pos = NULL, ...)
+}
+\arguments{
+  \item{x}{The vector of x coordinates or a formula of the
+  form \code{y~x}.}
+
+  \item{y}{The vector of y coordinates.}
+
+  \item{data}{The data frame from which the formula should
+  be evaluated.}
+
+  \item{lbls}{The name of the variable in \code{data} or
+  the parent environment that contains the labels for the
+  points.  If left as \code{NULL} then the points will be
+  labelled with the row number in \code{pts}.}
+
+  \item{pts}{The vector of row numbers corresponding to the
+  points to highlight.  If left as \code{NULL} then every
+  point will be labelled.}
+
+  \item{col}{A numeric or string indicating the color to
+  use when labeling the points.}
+
+  \item{cex}{A numeric characther expansion number for the
+  point labels.}
+
+  \item{pos}{A numeric indicating where to place the labels
+  (see \code{text}. If left as \code{NULL} then the labels
+  will be placed to minimize label overlap as determined
+  with \code{thigmophobe()} from \pkg{plotrix}.}
+
+  \item{\dots}{Other arguments to be passed to
+  \code{text()}.}
+}
+\value{
+None, but an active graphic is modified.
+}
+\description{
+Labels a list of points on a two-dimensional plot.
+}
+\details{
+A two dimensional plot must be active and the \code{x} and
+\code{y} vectors must correspond to the x- and y-axes of
+the plot or \code{x} must correspond to the formula used to
+produce the plot.
+}
+\examples{
+df <- data.frame(x=runif(10),y=runif(10),grp=factor(rep(c("Yes","No"),each=5)))
+plot(y~x,data=df)
+
+# highlight the first and second points with default positioning using the formula notation
+highlight(y~x,data=df,lbls=grp,pts=c(1,2))
+# highlight the third and fourth points with user-chosen positioning
+highlight(y~x,data=df,lbls=grp,pts=c(3,4),pos=c(1,2),col="blue")
+# highlight the fifth and sixth points illustrating lack of data= argument
+with(df,highlight(y~x,lbls=grp,pts=c(5,6),col="orange"))
+# highlight the seventh and eighth points illustrating no use of formula
+with(df,highlight(x,y,lbls=grp,pts=c(7,8),col="yellow"))
+# highlight the ninth and tenth points with numeric labeling
+highlight(y~x,data=df,pts=c(9,10),col="green")
+
+# label all points with their row numbers
+plot(y~x,data=df)
+highlight(y~x,data=df)
+}
+\keyword{hplot}
+

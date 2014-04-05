@@ -1,0 +1,53 @@
+\name{expandTable}
+\alias{expandTable}
+\title{Converts results in a contingency table into the original raw data.}
+\usage{
+expandTable(x, var.names = NULL, ...)
+}
+\arguments{
+  \item{x}{A matrix containing the contingency table.}
+
+  \item{var.names}{A vector of strings used to name the
+  variables in the new data frame.}
+
+  \item{\dots}{Additional arguments for the type.convert
+  function.}
+}
+\value{
+Returns a data frame of the expanded raw data from the
+contingency table.
+}
+\description{
+Converts results in a contingency table into the original
+raw data.
+}
+\note{
+This function is largely an implementation of the commands
+detailed in Mark Schwartz's R-help e-mail of 17Oct06 and
+5Oct07.
+}
+\examples{
+## Simple example
+d <- matrix(c(3,2,1,1,2,3,3,2,1),nrow=3,byrow=TRUE)
+colnames(d) <- c(2,4,6)
+rownames(d) <- c(1,2,3)
+d
+rawd <- expandTable(d,c("RowVar","ColVar"))
+rawd
+with(rawd,table(RowVar,ColVar))
+
+## Example with zeroes, that is not square, and factor label names
+f <- matrix(c(0,2,1,1,0,3,1,2,0,0),nrow=2,byrow=TRUE)
+colnames(f) <- c("c1","c2","c3","c4","c5")
+rownames(f) <- c("r1","r2")
+f
+rawf <- expandTable(f,c("RowVar","ColVar"))
+rawf
+with(rawf,table(RowVar,ColVar))
+}
+\seealso{
+\code{as.data.frame.table}, \code{type.convert}, and
+\code{expandTable} in \pkg{epitools}.
+}
+\keyword{manip}
+

@@ -1,0 +1,39 @@
+#'Data for lakes in Ashland, Bayfield, and Douglas counties, Wisconsin.
+#'
+#'Various data for lakes in Ashland, Bayfield, and Douglas counties, Wisconsin.
+#'
+#'@name ABDLakes
+#'@docType data
+#'@format A data frame with 1499 observations on the following 31 variables:
+#'\describe{ \item{county}{County that lake is in (Ashland, Bayfield,
+#'Douglas).} \item{waterbody.type}{Type of waterbody (LP=, RF=).} \item{wbic}{A
+#'lake code used by WiDNR} \item{name}{official name of lake.}
+#'\item{name.local}{local name of lake.} \item{named}{logical indicating
+#'whether lake is named or not.} \item{hydro.unit}{USGS hydrological unit
+#'code.} \item{basin.maj}{Major basin code ().} \item{basin.min}{Minor basin
+#'code ().} \item{seg.no}{???.} \item{landlock}{logical indicating whether lake
+#'is landlocked or not.} \item{lake.type}{type of lake (SE=seepage,
+#'DG=drainage, DP=???, DN=???).} \item{access}{type of lake access (BR=???,
+#'NW=???, T=???, P=???).} \item{area}{size of lake area (acres).}
+#'\item{impound}{total size of lake impoundment (in acres).} \item{size.code}{a
+#'qualitative size code (VS=very small, S=small, M=medium, L=large, VL=very
+#'large).} \item{dep.max}{maximum depth of lake (in ft).}
+#'\item{dep.avg}{average depth of lake (in ft).} \item{len.shore}{length of
+#'shoreline (in miles).} \item{len.shore.m}{length of shoreline (in meters).}
+#'\item{dist.ash}{approximate distance to Ashland (in miles).}
+#'\item{muskie}{muskellunge abundance code (C=common,A=abundant,P=present; NA
+#'is not present).} \item{nor.pike}{northern pike abundance code
+#'(C=common,A=abundant,P=present; NA is not present).} \item{wae}{walleye
+#'abundance code (C=common,A=abundant,P=present; NA is not present).}
+#'\item{lmb}{largemouth bass abundance code (C=common,A=abundant,P=present; NA
+#'is not present).} \item{smb}{smallmouth bass abundance code
+#'(C=common,A=abundant,P=present; NA is not present).} \item{pan}{Panfish
+#'abundance code (C=common,A=abundant,P=present; NA is not present).}
+#'\item{trout}{trout abundance code (C=common,A=abundant,P=present; NA is not
+#'present).} \item{cat}{catfish abundance code (C=common,A=abundant,P=present;
+#'NA is not present).} \item{sturg}{sturgeon abundance code
+#'(C=common,A=abundant,P=present; NA is not present).} \item{merc.warn}{mercury
+#'warning code (???).} }
+#'@source online information from Wisconsin Department of Natural Resources.
+#'@keywords datasets
+NULL

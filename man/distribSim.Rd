@@ -1,0 +1,94 @@
+\name{sbeta}
+\alias{sbeta}
+\alias{sbinom}
+\alias{schisq}
+\alias{sexp}
+\alias{sf}
+\alias{sgamma}
+\alias{sgeom}
+\alias{shyper}
+\alias{slnorm}
+\alias{snbinom}
+\alias{snorm}
+\alias{spois}
+\alias{st}
+\title{Demonstrates the shape of the PDF and CDF for the given distribution.}
+\usage{
+sbeta(show.both = TRUE, show.mnsd = TRUE)
+
+sbinom(show.both = TRUE, show.mnsd = TRUE)
+
+schisq(show.both = TRUE, show.mnsd = TRUE)
+
+sexp(show.both = TRUE, show.mnsd = TRUE)
+
+sf(show.both = TRUE, show.mnsd = TRUE)
+
+sgamma(show.both = TRUE, show.mnsd = TRUE)
+
+sgeom(show.both = TRUE, show.mnsd = TRUE)
+
+shyper(show.both = TRUE, show.mnsd = TRUE)
+
+slnorm(show.both = TRUE, show.mnsd = TRUE)
+
+snbinom(show.both = TRUE, show.mnsd = TRUE)
+
+snorm(show.both = TRUE, show.mnsd = TRUE)
+
+spois(show.both = TRUE, show.mnsd = TRUE)
+
+st(show.both = TRUE, show.mnsd = TRUE)
+}
+\arguments{
+  \item{show.both}{logical; if \code{TRUE} (default) then
+  show both the PDF and CDF, else just the PDF.}
+
+  \item{show.mnsd}{logical; if \code{TRUE} (default) then
+  show the mean and standard deviation on the PDF.}
+}
+\value{
+None, but a dynamic graphic with slider bars will be
+produced.
+}
+\description{
+Dynamically demonstrates the effect of parameter choices on
+the shape of the PDF and CDF for the given distribution.
+}
+\details{
+A graphic will be produced that is connected to a slider
+bar where the user can change the parameters of the
+distribution.  The real-time updating of the graphic allows
+the user to determine the effect of changing each parameter
+on the shape, mean, and standard deviation of the
+distribution.
+}
+\examples{
+if(interactive()) {
+
+sbeta()
+sbinom()
+schisq()
+sexp()
+sf()
+sgamma()
+sgeom()
+shyper()
+slnorm()
+snbinom()
+snorm()
+spois()
+st()
+
+}
+}
+\seealso{
+\code{vis.binom}, \code{vis.gamma}, \code{vis.normal},and
+\code{vis.t} of the \code{TeachingDemos} package.  Also see
+\code{\link{dbeta}}, \code{\link{dbinom}},
+\code{\link{dchisq}}, etc.
+}
+\keyword{distribution}
+\keyword{dynamic}
+\keyword{hplot}
+

@@ -1,0 +1,40 @@
+\name{rSquared}
+\alias{rSquared}
+\title{Extract the coefficient of determination from a linear model object.}
+\usage{
+rSquared(x, digits = getOption("digits"), percent = FALSE)
+}
+\arguments{
+  \item{x}{An object saved from \code{lm}.}
+
+  \item{digits}{A number indicating the number of digits to
+  round the returned result to.}
+
+  \item{percent}{A logical indicating if the result should
+  be returned as a percentage (\code{=TRUE}) or as a
+  proportion (\code{=FALSE}; default).}
+}
+\value{
+Returns a number representing the coefficient of
+determination as either a proportion or percentage.
+}
+\description{
+Extracts the coefficient of determination (i.e.,
+\dQuote{r-squared} from a linear model (i.e., \code{lm})
+object.
+}
+\details{
+This is a convenience function for extracting the
+\code{r.squared} part from \code{summary(lm)}.
+}
+\examples{
+require(FSA)  # for Mirex data
+data(Mirex)
+# Simple linear regression test HA:slope!=0.1
+lm1 <- lm(mirex~weight, data=Mirex)
+rSquared(lm1)
+rSquared(lm1,digits=3)
+rSquared(lm1,digits=1,percent=TRUE)
+}
+\keyword{misc}
+

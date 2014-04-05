@@ -1,0 +1,42 @@
+\name{glhtSig}
+\alias{glhtSig}
+\alias{glhtSig.glht}
+\title{Extracts names for significantly different comparisons.}
+\usage{
+glhtSig(object, ...)
+
+\method{glhtSig}{glht}(object, test = adjusted(), alpha = 0.05, ...)
+}
+\arguments{
+  \item{object}{An object saved from \code{glht()} from the
+  \pkg{multcomp} package.}
+
+  \item{test}{A function for computing p-values.  See help
+  for \code{glht}.}
+
+  \item{alpha}{A numeric indicated the rejection criterion
+  to be used for identifying significant comparisons.
+  Defaults to \code{0.05}.}
+
+  \item{\dots}{Other arguments to pass through to
+  \code{summary.glht()}.}
+}
+\value{
+A vector containing the names of the paired comparisons
+that have a p-value less than \code{alpha}.
+}
+\description{
+Extracts names for significantly different comparisons from
+a \code{glht} object.
+}
+\note{
+This can be very slow to process.  Be patient.
+}
+\examples{
+## NONE YET
+}
+\seealso{
+\code{glht} and \code{summary.glht} in \pkg{multcomp}.
+}
+\keyword{misc}
+

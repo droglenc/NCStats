@@ -1,0 +1,48 @@
+\name{ciSim}
+\alias{ciSim}
+\title{A dynamics graphic to illustrate the concept of confidence intervals for a mean.}
+\usage{
+ciSim(reps = 100, method = c("z", "Z", "t", "T"), mu = 100, sigma = 10)
+}
+\arguments{
+  \item{reps}{A single numeric indicating the number of
+  replicate samples to draw from the population.}
+
+  \item{method}{A single string indicating whether to make
+  confidence intervals using a normal (\code{="z"}) or t
+  (\code{="t"}) distribution.}
+
+  \item{mu}{A single numeric indicating the mean of the
+  known normal distribution.}
+
+  \item{sigma}{A single numeric indicating the standard
+  deviation of the known normal distribution.}
+}
+\value{
+None, but a dynamic graphic with slider bars is produced.
+}
+\description{
+This function demonstrates the concept of confidence
+regions by drawing a large number of random samples from a
+known normal distribution, computing a confidence interval
+for each sample, and ploting those confidence intervals.
+Slider bars then let the user change the level of
+confidence, the sample size, or the type of confidence
+region (interval or bound) to see how that effects the
+confidence interval widths (margin-of-error) and capture
+probability.
+}
+\examples{
+if (interactive()) {
+
+# Default using normal theory for confidence regions
+ciSim()
+
+# Using t-distribution theory for confidence regions
+ciSim(method="t")
+
+}
+}
+\keyword{dynamic}
+\keyword{misc}
+
