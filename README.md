@@ -10,6 +10,7 @@ This package can be installed from github to your R with the following code
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('FSA','droglenc')
+devtools::install_github('FSAdata','droglenc')
 devtools::install_github('NCStats','droglenc')
 ```
 

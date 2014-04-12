@@ -1,6 +1,7 @@
 # 0.4.1 ongoing
 
 * moved to github.
+* compiling under R 3.1.0.
 
 
 # 0.4.0 Apr14
