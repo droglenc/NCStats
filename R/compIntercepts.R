@@ -67,7 +67,7 @@
 #'tapply(res$adjvals,Mirex$year,Mirex$summary)  # summarized adjusted values by year
 #'
 #'@rdname compIntercepts
-#'@export compIntercepts
+#'@export
 compIntercepts <- function(mdl,common.cov=mean(x),alpha=0.05,digits=getOption("digits"),...) {
   conf.level <- 1-alpha
   lmtype <- FSA:::typeoflm(mdl)
@@ -93,8 +93,7 @@ compIntercepts <- function(mdl,common.cov=mean(x),alpha=0.05,digits=getOption("d
 }
 
 #'@rdname compIntercepts
-#'@method print compIntercepts
-#'@S3method print compIntercepts
+#'@export
 print.compIntercepts <- function(x,...) {
   cat("\nTukey HSD on adjusted means assuming parallel lines.\n")
   print(x$comparisons,digits=x$digits)

@@ -3,21 +3,19 @@
 #'Shows the steps in the manual calculation of the standard deviation.
 #'
 #'@aliases sdCalc print.sdCalc
+#'
 #'@param x A numeric vector.
-#'@param digits A numeric indicating the number of decimals to round the
-#'numeric summaries to.  If left at \code{NULL} (default) then the number of
-#'digits will be obtained from \code{getOption('digits')}.
-#'@param ... Other arguments to the generic \code{print} functions.  Not
-#'currently used.
-#'@return A list containing the sample size (\code{n}), sample mean
-#'(\code{mean}), data.frame of intermediate calculations (\code{tbl}), and
-#'number of digits to print (\code{digits))}.
-#'@note This function shows a table of intermediate output in the calculation
-#'of the standard deviation.  Used purely to demonstrate the hand-calculation
-#'of the standard deviation.  Use \code{sd()} to actually computer the standard
-#'deviation.
+#'@param digits A numeric indicating the number of decimals to round the numeric summaries to.  If left at \code{NULL} (default) then the number of digits will be obtained from \code{getOption('digits')}.
+#'@param \dots Other arguments to the generic \code{print} functions.  Not currently used.
+#'
+#'@return A list containing the sample size (\code{n}), sample mean (\code{mean}), data.frame of intermediate calculations (\code{tbl}), and number of digits to print (\code{digits))}. 
+#'
+#'@note This function shows a table of intermediate output in the calculation of the standard deviation.  Used purely to demonstrate the hand-calculation of the standard deviation.  Use \code{sd()} to actually computer the standard deviation.
+#'
 #'@seealso \code{sd}.
+#'
 #'@keywords misc
+#'
 #'@examples
 #'## Numeric vector
 #'y <- runif(8)
@@ -29,7 +27,7 @@
 #'sdCalc(y,digits=4)
 #'
 #'@rdname sdCalc
-#'@export sdCalc
+#'@export
 sdCalc <- function(x,digits=getOption("digits")) {
 # make sure the vector is numeric
   if (!is.numeric(x)) stop("x must be numeric to compute the sd.",call.=FALSE)
@@ -49,8 +47,7 @@ sdCalc <- function(x,digits=getOption("digits")) {
 }
 
 #'@rdname sdCalc
-#'@method print sdCalc
-#'@S3method print sdCalc
+#'@export
 print.sdCalc <- function(x,...) {
   cat("Demonstration of parts of a std. dev. calculation.\n\n")
   print(round(x$tbl,x$digits))

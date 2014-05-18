@@ -1,20 +1,17 @@
 #'Modificaton of print.summary.glht() and print.confint.glth() to streamline output.
 #' 
-#'Modifies the print.summary.glht() and confint.summary.glht() functions so that
-#'the output is less verbose.  For example, several labels and some intermediate
-#'calculations will not be printed unless asked for.  In addition, several 
-#'\sQuote{extra} blank lines were removed.
+#'Modifies the print.summary.glht() and confint.summary.glht() functions so that the output is less verbose.  For example, several labels and some intermediate calculations will not be printed unless asked for.  In addition, several  \sQuote{extra} blank lines were removed.
 #'
 #'@aliases print.summary.glht print.confint.glht
+#'
 #'@param x An object of class \code{summary.glht} or \code{confint.glth} to be printed.
 #'@param digits A single numeric that indicates the number of digits to use.
-#'@param justResults A single logical that indicates whether just the most pertinent
-#'numerical results are printed (\code{=TRUE}; default) or all information as in
-#'the default functions from \pkg{multcomp}.
-#'@param signif.stars A logical that if \code{=TRUE} then \sQuote{significance stars}
-#'will be printed for each coefficient.
+#'@param justResults A single logical that indicates whether just the most pertinent numerical results are printed (\code{=TRUE}; default) or all information as in the default functions from \pkg{multcomp}.
+#'@param signif.stars A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient.
 #'@param \dots Not implemented.
+#'
 #'@return Invisibly returns the sent \code{x}.
+#'
 #'@examples
 #'# from glht() in multcomp
 #'require(multcomp)
@@ -30,8 +27,7 @@
 #'print(confint(mc1),justResults=FALSE)
 #'
 #'@rdname print.glht
-#'@method print summary.glht
-#'@S3method print summary.glht
+#'@export
 print.summary.glht <- function (x,digits=max(3,getOption("digits")-3),signif.stars=getOption("show.signif.stars"),justResults=TRUE,...)  {
   if (!justResults) {
     cat("Simultaneous Tests for General Linear Hypotheses\n")
@@ -73,8 +69,8 @@ print.summary.glht <- function (x,digits=max(3,getOption("digits")-3),signif.sta
   invisible(x)
 }
 
-#'@method print confint.glht
-#'@S3method print confint.glht
+#'@rdname print.glht
+#'@export
 print.confint.glht <- function(x,digits=max(3,getOption("digits")-3),justResults=TRUE, ...) {
   xtmp <- x
     if (!justResults) {

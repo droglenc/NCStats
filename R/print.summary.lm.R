@@ -1,21 +1,19 @@
 #' Modificaton of print.summary.lm() to streamline output
 #' 
-#' Modifies the print.summary lm() function so that the output is less verbose.
-#' For example, the call and information about the residuals will not be re-printed
-#' unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
+#' Modifies the print.summary lm() function so that the output is less verbose.  For example, the call and information about the residuals will not be re-printed unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
 #' 
 #'@aliases print.summary.lm print.summary.glm
+#'
 #'@param x An object of class \code{summary.lm} to be printed.
 #'@param digits A single numeric that indicates the number of digits to use.
 #'@param show.call A single logical that indicates whether the call should be re-printed.
-#'@param show.resids A single logical that indicates whether the information about
-#'the residuals should be included when printing the object.
-#'@param symbolic.cor A logical that if \code{=TRUE} will print the correlations
-#'in a symbolic form rather than as numbers.
-#'@param signif.stars A logical that if \code{=TRUE} then \sQuote{significance stars}
-#'will be printed for each coefficient.
+#'@param show.resids A single logical that indicates whether the information about the residuals should be included when printing the object.
+#'@param symbolic.cor A logical that if \code{=TRUE} will print the correlations in a symbolic form rather than as numbers.
+#'@param signif.stars A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient.
 #'@param \dots Not implemented.
+#'
 #'@return Invisibly returns the sent \code{x}.
+#'
 #'@examples
 #'## from lm examples
 #'ctl <- c(4.17,5.58,5.18,6.11,4.50,4.61,5.17,4.53,5.33,5.14)
@@ -36,8 +34,8 @@
 #'glm.D93 <- glm(counts ~ outcome + treatment, family=poisson())
 #'summary(glm.D93)
 #'
-#'@method print summary.lm
-#'@S3method print summary.lm
+#'@rdname print.summary.lm
+#'@export
 print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=x$symbolic.cor,
                              signif.stars=getOption("show.signif.stars"),show.call=FALSE,show.resids=FALSE,...) {
   if (show.call) cat("Call: ",paste(deparse(x$call),sep="\n",collapse="\n"),"\n",sep="")
@@ -107,8 +105,8 @@ print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=
   invisible(x)
 }
 
-#'@method print summary.glm
-#'@S3method print summary.glm
+#'@rdname print.summary.lm
+#'@export
 print.summary.glm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=x$symbolic.cor,
                               signif.stars = getOption("show.signif.stars"),show.call=FALSE,show.resids=FALSE,...) {
   if (show.call) cat("Call:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")

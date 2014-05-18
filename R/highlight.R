@@ -43,14 +43,13 @@
 #'highlight(y~x,data=df)
 #'
 #'@rdname highlight
-#'@export highlight
+#'@export
 highlight <- function (x, ...) {
   UseMethod("highlight") 
 }
 
 #'@rdname highlight
-#'@method highlight default
-#'@S3method highlight default
+#'@export
 highlight.default <- function(x,y,lbls=NULL,pts=NULL,col="red",cex=1.25,pos=NULL,...) {
   if (is.null(y)) stop("Y-axis variable is missing",call.=FALSE)
   if (is.null(pts)) pts <- 1:length(x)
@@ -60,8 +59,7 @@ highlight.default <- function(x,y,lbls=NULL,pts=NULL,col="red",cex=1.25,pos=NULL
 }
 
 #'@rdname highlight
-#'@method highlight formula
-#'@S3method highlight formula
+#'@export
 highlight.formula <- function(x,data=NULL,lbls=NULL,pts=NULL,col="red",cex=1.25,pos=NULL,...) {
   mf <- model.frame(x,data)
   x <- mf[,2]

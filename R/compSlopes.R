@@ -75,7 +75,7 @@
 #'compSlopes(lm1,control="holm")
 #'
 #'@rdname compSlopes
-#'@export compSlopes
+#'@export
 compSlopes <- function(mdl,control=c("fdr","BH","BY","bonferroni","holm","hochberg","hommel"),alpha=0.05,order.slopes=TRUE,digits=getOption("digits")) {
   ## Internal functions
     extract.slopes <- function(sum,conf,isdf,i,conf.level) {
@@ -144,8 +144,7 @@ compSlopes <- function(mdl,control=c("fdr","BH","BY","bonferroni","holm","hochbe
 }
 
 #'@rdname compSlopes
-#'@method print compSlopes
-#'@S3method print compSlopes
+#'@export
 print.compSlopes <- function(x,...) {
   cat("\nMultiple Slope Comparisons\n")
   print(x$comparisons,digits=x$digits)

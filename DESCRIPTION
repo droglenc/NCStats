@@ -7,7 +7,7 @@ Description: This package contains functions and simulations to support the
     fully proofed all functions -- they work with the examples that I have
     developed but have not been thoroughly checked for all possibilities.
     Don't use this package for research-grade analyses.
-URL: http://www.rforge.net/NCStats/, http://droglenc.wordpress.com/
+URL: https://github.com/droglenc/NCStats, http://droglenc.wordpress.com/
 Author: Derek Ogle <dogle@northland.edu>
 Maintainer: Derek Ogle <dogle@northland.edu>
 Depends:
@@ -22,4 +22,5 @@ Imports:
 Suggests:
     relax,
     tcltk
+Roxygen: list(wrap=FALSE)
 License: GPL (>= 2)

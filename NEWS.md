@@ -1,13 +1,13 @@
 # 0.4.1 ongoing
-
-* moved to github.
-* compiling under R 3.1.0.
+* Moved to github, compiling under R 3.1.0, and using roxygen2 4.0.0.
+* Changed `@S3method` and `@Method` commands to `@export` as described [here](http://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/22598266#22598266)  This required changes to the following files: `compIntercepts`, `compSlopes`, `discharge`, `glhtSig`, `highlight`, `identify.formula`, `plot.htest`, `print.anova`, `print.glht`, `print.htest`, `print.summary.lm`, `sdCalc`, and `wetPerim`.
+* `discharge()`: Modified.  Removed `newwin=` argument which will force the user to put the graphic in a new window and size the windows as they see fit, size the windows as they see fit, and set the graphing parameters as they see fit.
+* `print.anova()`: Modified.  Had to use `:::` as `print.anova()` was made an internal file in the `stats` package.
+* `wetPerim()`: Modified.  Removed `newwin=` argument which will force the user to put the graphic in a new window, size the windows as they see fit, and set the graphing parameters as they see fit.
 
 
 # 0.4.0 Apr14
-
 * Moved relax dependency to a suggest.  Modified all functions that used `slider()` or `gslider()` (see below).
-
 * `accuracyPrecision()`:  Modified.  Corrected bug that plotted a 0 on the y-axis.
 * `addSigLetters()`: Modified.  Made explicit that `typeoflm()` is in the FSA package as it is no longer exported.  Modified examples in help file with require(FSA).
 * `ciSim()`: Modified.  Added a require(relax) with a catch if not installed.
@@ -28,7 +28,6 @@
 # 0.3.4 Nov13
 * Changed R dependency to >3.0.0 (because FSA package has that dependency).
 * Added importsFrom for `color.scale()` from plotrix for `discharge()` and `wetPerim()`.
-
 * `.onAttach(): Added, was `.onLoad()`.
 * `.onLoad(): Deleted, now `.onAttach()`.
 * `addMargins(): Added, back from FSA.

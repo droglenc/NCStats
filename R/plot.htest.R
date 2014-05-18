@@ -71,8 +71,7 @@
 #'plot(chi3.ex)
 #'
 #'@rdname plot.htest
-#'@method plot htest
-#'@S3method plot htest
+#'@export
 plot.htest <- function(x,smoothness=1000,shade.col="red",shade.col2="red3",...) {
   distrib <- xlab <- names(x$statistic)
   if (distrib %nin% c("z","t","X-squared")) stop("Plot.htest only works if test statistic is 'z','t', or 'X-squared'.",call.=FALSE)

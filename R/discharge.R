@@ -1,30 +1,30 @@
-#'Conmputes stream discharge measurements using the mean-section or mid-section
-#'methods.
+#'Conmputes stream discharge measurements using the mean-section or mid-section methods.
 #'
-#'Computes a cross-section profile of a stream demonstrating distance, velocity,
-#'and discharge measurements for the mean-section and mid-section methods.
+#'Computes a cross-section profile of a stream demonstrating distance, velocity, and discharge measurements for the mean-section and mid-section methods.
 #'
 #'@aliases discharge summary.discharge plot.discharge
+#'
 #'@param distance A vector of distance measurements at intervals across the cross section.
 #'@param depth A vector of depth measurements at intervals across the cross section.
 #'@param velocity A vector of velocity measurements at intervals across the cross section.
 #'@param type A string indicating the discharge method to use.
 #'@param object An object returned from \code{discharge}.
 #'@param x An object returned from \code{discharge}.
-#'@param detail A logical indicating whether the details of the discharge
-#'calculations should be shown (\code{=TRUE}) or not.
+#'@param detail A logical indicating whether the details of the discharge calculations should be shown (\code{=TRUE}) or not.
 #'@param pch The plotting character to be used for the depth profile.  See \code{par}.
 #'@param xlab A string for labeling the x-axis.
 #'@param ylab A string for labeling the y-axis.
-#'@param newwin A logical indicating whether a new graphics window should be
-#'opened (only for Windows operating systems).
+#'@param newwin A logical indicating whether a new graphics window should be opened (only for Windows operating systems).
 #'@param \dots Other arguments to be passed to the \code{plot} function.
+#'
 #'@return \code{discharge} produces a list with a data frame of the original
 #'data, a data frame of computed values, the \code{type=} argument, and a label
 #'for the type of argument.  \code{plot} method produce a plot demonstrating
 #'the calculations.  \code{summary} returns the total discharge calculation and
 #'detailed intermediate calculations if asked for.
+#'
 #'@keywords hplot models
+#'
 #'@examples
 #'
 #'dist1 <- c(seq(0,22,2),24.7)
@@ -48,7 +48,7 @@
 #'plot(ex2a)
 #'
 #'@rdname discharge
-#'@export discharge
+#'@export
 discharge <- function(distance,depth,velocity,type=c("Mean","Mid")) {
   discharge.mean.section <- function(raw.df,numpts) { # mean section method
     w <- diff(raw.df$b)                                                         # compute interval widths
@@ -84,8 +84,7 @@ discharge <- function(distance,depth,velocity,type=c("Mean","Mid")) {
 }
 
 #'@rdname discharge
-#'@method summary discharge
-#'@S3method summary discharge
+#'@export
 summary.discharge <- function(object,detail=TRUE,...) {
   if (detail) {
     print(object$calc.df)
@@ -95,8 +94,7 @@ summary.discharge <- function(object,detail=TRUE,...) {
 }
 
 #'@rdname discharge
-#'@method plot discharge
-#'@S3method plot discharge
+#'@export
 plot.discharge <- function(x,pch=19,xlab="Distance (ft)",ylab="Depth (ft)",newwin=TRUE,...) {
   mean.section.rects <- function(x,numpts,yloclab) { # put on rectangles, velocities in rectangle, discharges on top for mean section method
     vel.col <- color.scale(x$calc.df$vbar,0,c(1,0.5),c(1,0.5))
@@ -117,8 +115,6 @@ plot.discharge <- function(x,pch=19,xlab="Distance (ft)",ylab="Depth (ft)",newwi
   }
 
  # make the baseplot
-  if(.Platform$OS.type == "windows" & newwin) windows(7,3.5)
-  old.par <- par(mar=c(3.5,3.5,3,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
   numpts <- nrow(x$raw.df)
   ndepth <- -x$raw.df$d                                                               # needed so the depths increase as you move down the y-axis
   dstnc <- x$raw.df$b

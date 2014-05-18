@@ -3,26 +3,23 @@
 #'Computes the wetted perimeter of a stream from depth and distance measurements.
 #'
 #'@aliases wetPerim summary.wetPerim plot.wetPerim
-#'@param distance A vector of distance measurements at intervals across the
-#'cross section.
+#'
+#'@param distance A vector of distance measurements at intervals across the cross section.
 #'@param depth A vector of depth measurements at intervals across the cross-section.
 #'@param object An object returned from \code{discharge}.
 #'@param x An object returned from \code{discharge}.
-#'@param detail A logical indicating whether the details of the discharge
-#'calculations should be shown (\code{=TRUE}) or not.
+#'@param detail A logical indicating whether the details of the discharge calculations should be shown (\code{=TRUE}) or not.
 #'@param pch The plotting character to be used for the depth profile.  See \code{par}.
 #'@param xlab A string for labeling the x-axis.
 #'@param ylab A string for labeling the y-axis.
-#'@param newwin A logical indicating whether a new graphics window should be
-#'opened (only for Windows operating systems).
 #'@param \dots Other arguments to be passed to the \code{plot} function.
-#'@return \code{wetPerim} produces a list with a data frame of the original
-#'data, a vector of individual perimeter values, and the total perimeter.
-#'\code{plot} method produce a plot demonstrating the calculations.
-#'\code{summary} returns the total wetted perimeter and detailed intermediate
-#'calculations if asked for.
+
+#'@return \code{wetPerim} produces a list with a data frame of the original data, a vector of individual perimeter values, and the total perimeter.  \code{plot} method produce a plot demonstrating the calculations.  \code{summary} returns the total wetted perimeter and detailed intermediate calculations if asked for.
+#'
 #'@export
+#'
 #'@keywords hplot models
+#'
 #'@examples
 #'dist1 <- c(seq(0,22,2),24.7)
 #'dep1 <- c(0,.9,1.1,1.1,1.1,.9,.9,.9,.9,.9,.9,.7,0)
@@ -39,7 +36,7 @@
 #'plot(ex2w)
 #'
 #'@rdname wetPerim
-#'@export wetPerim
+#'@export
 wetPerim <- function(distance,depth) {
   raw.df <- data.frame(b=distance,d=depth)
   numpts <- nrow(raw.df)
@@ -50,8 +47,7 @@ wetPerim <- function(distance,depth) {
 }
 
 #'@rdname wetPerim
-#'@method summary wetPerim
-#'@S3method summary wetPerim
+#'@export
 summary.wetPerim <- function(object,detail=TRUE,...) {
   if (detail) {
     print(object$perims)
@@ -61,12 +57,8 @@ summary.wetPerim <- function(object,detail=TRUE,...) {
 }
 
 #'@rdname wetPerim
-#'@method plot wetPerim
-#'@S3method plot wetPerim
-plot.wetPerim <- function(x,pch=19,xlab="Distance (ft)",ylab="Depth (ft)",newwin=TRUE,...) {
- # make the baseplot
-  if(.Platform$OS.type == "windows" & newwin) windows(7,3.5)
-  old.par <- par(mar=c(3.5,3.5,3,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
+#'@export
+plot.wetPerim <- function(x,pch=19,xlab="Distance (ft)",ylab="Depth (ft)",...) {
   numpts <- nrow(x$raw.df)
   ndepth <- -x$raw.df$d                                                          # needed so the depths increase as you move down the y-axis
   dstnc <- x$raw.df$b
