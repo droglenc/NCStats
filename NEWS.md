@@ -3,6 +3,7 @@
 * Changed `@S3method` and `@Method` commands to `@export` as described [here](http://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/22598266#22598266)  This required changes to the following files: `compIntercepts`, `compSlopes`, `discharge`, `glhtSig`, `highlight`, `identify.formula`, `plot.htest`, `print.anova`, `print.glht`, `print.htest`, `print.summary.lm`, `sdCalc`, and `wetPerim`.
 * `discharge()`: Modified.  Removed `newwin=` argument which will force the user to put the graphic in a new window and size the windows as they see fit, size the windows as they see fit, and set the graphing parameters as they see fit.
 * `print.anova()`: Modified.  Had to use `:::` as `print.anova()` was made an internal file in the `stats` package.
+* `view()`:  Added (from the FSA package).
 * `wetPerim()`: Modified.  Removed `newwin=` argument which will force the user to put the graphic in a new window, size the windows as they see fit, and set the graphing parameters as they see fit.
 
 
