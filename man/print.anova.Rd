@@ -3,7 +3,7 @@
 \alias{print.anova}
 \title{Modificaton of print.anova() to streamline output}
 \usage{
-\method{print}{anova}(x, digits = max(getOption("digits") - 2, 3),
+print.anova(x, digits = max(getOption("digits") - 2, 3),
   signif.stars = getOption("show.signif.stars"), totalSS = TRUE,
   rm.heading = TRUE, ...)
 }

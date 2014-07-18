@@ -7,7 +7,7 @@
 compIntercepts(mdl, common.cov = mean(x), alpha = 0.05,
   digits = getOption("digits"), ...)
 
-\method{print}{compIntercepts}(x, ...)
+print.compIntercepts(x, ...)
 }
 \arguments{
 \item{mdl}{a \code{lm} object.}

@@ -20,6 +20,7 @@
 #' @importFrom Hmisc binconf "%nin%"
 #' @importFrom multcomp adjusted
 #' @importFrom plotrix color.scale thigmophobe
+#' @importFrom relax gslider slider
 #' 
 #' @docType package
 #' @name NCStats

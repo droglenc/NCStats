@@ -103,7 +103,7 @@
 #'@rdname transChooser
 #'@export transChooser
 transChooser <- function(object,shifty=0,shiftx=0,show.stats=TRUE,boxplot=TRUE,alpha=0.05,col.hist="gray90",...) {
-  object <- FSA:::typeoflm(object)
+  object <- FSA:::iTypeoflm(object)
   if (object$type %in% c("SLR","IVR")) transChooser_REGRESS(object,shifty=shifty,shiftx=shiftx,show.stats=show.stats,alpha=alpha,col.hist=col.hist,...)
   else if (object$type %in% c("ONEWAY","TWOWAY")) transChooser_ANOVA(object,shifty=shifty,show.stats=show.stats,boxplot=boxplot,alpha=alpha,col.hist=col.hist,...)
   else if (object$type=="MLR") stop("Multiple linear regression objects are not supported by transChooser.",call.=FALSE)
@@ -159,7 +159,7 @@ assumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.hi
     lblADTest(lm1,alpha)
     lblOutTest(lm1,alpha)
   }
-  residPlot(lm1,student=FALSE,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl)
+  residPlot(lm1,student=FALSE,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,inclHist=FALSE)
   if (show.stats) lblLevTest(lm1,alpha)
 } ## end internal assumPlot_ANOVA
 
@@ -195,7 +195,7 @@ assumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,show.stats,al
   old.par <- par(mar=c(3.5,3.5,3,1), mgp=c(2,0.5,0), mfcol=c(1,2))
   hist(lm1$residuals,main="",xlab=paste("Residuals from ",ylbl,"~",xlbl,sep=""),yaxt="n",ylab="",col=col.hist)
   if (show.stats) lblADTest(lm1,alpha,line=0.5)
-  residPlot(lm1,main="",xlab=paste("Fitted Values from ",ylbl,"~",xlbl,sep=""),ylab=paste("Residuals from ",ylbl,"~",xlbl,sep=""))
+  residPlot(lm1,main="",xlab=paste("Fitted Values from ",ylbl,"~",xlbl,sep=""),ylab=paste("Residuals from ",ylbl,"~",xlbl,sep=""),inclHist=FALSE)
   if (show.stats) lblOutTest(lm1,alpha,line=0.5)
   on.exit(par(old.par))
 } ## end internal assumPlot_REGRESS

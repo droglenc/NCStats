@@ -3,8 +3,8 @@
 \alias{print.lm}
 \title{Modificaton of print.lm() to streamline output}
 \usage{
-\method{print}{lm}(x, digits = max(3, getOption("digits") - 3),
-  show.call = FALSE, ...)
+print.lm(x, digits = max(3, getOption("digits") - 3), show.call = FALSE,
+  ...)
 }
 \arguments{
 \item{x}{An object of class \code{lm} or \code{summary.lm} to be printed.}

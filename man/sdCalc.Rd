@@ -6,7 +6,7 @@
 \usage{
 sdCalc(x, digits = getOption("digits"))
 
-\method{print}{sdCalc}(x, ...)
+print.sdCalc(x, ...)
 }
 \arguments{
 \item{x}{A numeric vector.}

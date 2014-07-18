@@ -87,7 +87,7 @@ diagPlot <- function(mdl) {
     val <- c(val,max(inf$infmat[,"cook.d"])); obs <- c(obs,which(inf$infmat[,"cook.d"]==val[3])[1])             # Cook's Distance
     val <- c(val,max(abs(inf$infmat[,"dffit"]))); obs <- c(obs,which(abs(inf$infmat[,"dffit"])==val[4])[1])     # DFFits
     cutoff <- round(c(3*(k+1)/n,3*(k+1)/n,4/(n-k-1),2*sqrt((k+1)/(n-k-1))),5)                                   # cutoff values -- same order
-    if (FSA:::typeoflm(mdl)$type=="SLR") {
+    if (FSA:::iTypeoflm(mdl)$type=="SLR") {
       meas <- c(meas,"Slope DFBetas","Intercept DFBetas")
       val <- c(val,max(inf$infmat[,2])); obs <- c(obs,which(inf$infmat[,2]==val[5])[1])                         # DFBetas -- slope
       val <- c(val,max(inf$infmat[,1])); obs <- c(obs,which(inf$infmat[,1]==val[6])[1])                         # DFBetas -- intercept
@@ -103,7 +103,7 @@ diagPlot <- function(mdl) {
     df
   }
 
-  lmtype <- FSA:::typeoflm(mdl)
+  lmtype <- FSA:::iTypeoflm(mdl)
   if (lmtype$type=="SLR") { old.par <- par(mfrow=c(3,2),mar=c(3,3,1,1),mgp=c(2,0.75,0),xpd=TRUE); on.exit(par(old.par)) }
     else { old.par <- par(mfrow=c(2,2),mar=c(3,3,1,1),mgp=c(2,0.75,0),xpd=TRUE); on.exit(par(old.par)) } 
   res <- sig.diag(mdl); inf <- influence.measures(mdl)

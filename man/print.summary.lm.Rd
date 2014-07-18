@@ -4,12 +4,12 @@
 \alias{print.summary.lm}
 \title{Modificaton of print.summary.lm() to streamline output}
 \usage{
-\method{print}{summary.lm}(x, digits = max(3, getOption("digits") - 3),
+print.summary.lm(x, digits = max(3, getOption("digits") - 3),
   symbolic.cor = x$symbolic.cor,
   signif.stars = getOption("show.signif.stars"), show.call = FALSE,
   show.resids = FALSE, ...)
 
-\method{print}{summary.glm}(x, digits = max(3, getOption("digits") - 3),
+print.summary.glm(x, digits = max(3, getOption("digits") - 3),
   symbolic.cor = x$symbolic.cor,
   signif.stars = getOption("show.signif.stars"), show.call = FALSE,
   show.resids = FALSE, ...)

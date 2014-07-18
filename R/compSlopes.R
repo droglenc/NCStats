@@ -113,7 +113,7 @@ compSlopes <- function(mdl,control=c("fdr","BH","BY","bonferroni","holm","hochbe
   # start compSlopes main function
   control <- match.arg(control)
   conf.level <- 1-alpha                                                         # set confidence level from significance level  
-  lmtype <- FSA:::typeoflm(mdl)
+  lmtype <- FSA:::iTypeoflm(mdl)
   if (lmtype$type!="IVR") stop("\n  Function only works for an indicator variable regression.",call.=FALSE)
   y <- mdl$model[,1]                                                            # isolate model information
   x <- mdl$model[,2]

@@ -62,7 +62,7 @@ ciSim <- function(reps=100,method=c("z","Z","t","T"),mu=100,sigma=10) {
                     }
              ) # end tail switch within Z method
            }, # end Z method
-           T=, t= {                                                                                  # Make CIs for each resample for t method
+           T=, t= { # Make CIs for each resample for t method
              SE = apply(rnd.reps,2,sd)/sqrt(n)
              switch(tail,
                     less.than = {

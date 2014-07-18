@@ -3,7 +3,7 @@
 \alias{print.htest}
 \title{Modificaton of print.htest() to streamline output.}
 \usage{
-\method{print}{htest}(x, digits = 4, quote = TRUE, ...)
+print.htest(x, digits = 4, quote = TRUE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{lm} to be printed.}

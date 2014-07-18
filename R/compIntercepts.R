@@ -70,7 +70,7 @@
 #'@export
 compIntercepts <- function(mdl,common.cov=mean(x),alpha=0.05,digits=getOption("digits"),...) {
   conf.level <- 1-alpha
-  lmtype <- FSA:::typeoflm(mdl)
+  lmtype <- FSA:::iTypeoflm(mdl)
   if (lmtype$type!="IVR") stop("\nFunction only works for an indicator variable regression.",call.=FALSE)
   if (dim(mdl$model)[2]>3) stop("\nFunction only works for a one-way indicator variable\n regression (not a multiple regression of two-way IVR)!",call.=FALSE)
   if (dim(mdl$model)[2]==3) warning("\nModel contains an interaction term which will be\n removed (i.e., assume parallel lines) for testing intercepts.\n",call.=FALSE)

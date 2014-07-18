@@ -8,7 +8,7 @@ compSlopes(mdl, control = c("fdr", "BH", "BY", "bonferroni", "holm",
   "hochberg", "hommel"), alpha = 0.05, order.slopes = TRUE,
   digits = getOption("digits"))
 
-\method{print}{compSlopes}(x, ...)
+print.compSlopes(x, ...)
 }
 \arguments{
 \item{mdl}{a \code{lm} object.}

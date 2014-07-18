@@ -61,7 +61,7 @@ predictPlot <- function(...) {
 #'@rdname predictionPlot
 #'@export predictionPlot
 predictionPlot <- function(mdl,newdata,interval="prediction",conf.level=0.95,lty=1,lwd=3,...) {
-  lmtype <- FSA:::typeoflm(mdl)
+  lmtype <- FSA:::iTypeoflm(mdl)
   if (lmtype$type!="SLR" & lmtype$type!="IVR") stop("\n  Function only works for SLR or IVR models.",call.=FALSE)
   if (dim(lmtype$mf)[2]>4) stop("\n  Function only works for IVR models with one covariate and two or fewer factors.",call.=FALSE)
   if (missing(newdata)) stop("\n newdata argument is missing.",call.=FALSE)

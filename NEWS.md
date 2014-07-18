@@ -1,8 +1,18 @@
-# 0.4.1 ongoing
+# 0.4.2 ongoing
+* Moved `relax` package to a import.
+* `addSigLetters()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
+* `compIntercept()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
+* `compSlope()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
+* `diagPlot()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
+* `predictionPlot()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
+* `transChooser()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
+
+# 0.4.1 Jul14
 * Moved to github, compiling under R 3.1.0, and using roxygen2 4.0.0.
 * Changed `@S3method` and `@Method` commands to `@export` as described [here](http://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/22598266#22598266)  This required changes to the following files: `compIntercepts`, `compSlopes`, `discharge`, `glhtSig`, `highlight`, `identify.formula`, `plot.htest`, `print.anova`, `print.glht`, `print.htest`, `print.summary.lm`, `sdCalc`, and `wetPerim`.
 * `discharge()`: Modified.  Removed `newwin=` argument which will force the user to put the graphic in a new window and size the windows as they see fit, size the windows as they see fit, and set the graphing parameters as they see fit.
 * `print.anova()`: Modified.  Had to use `:::` as `print.anova()` was made an internal file in the `stats` package.
+* `transChooser()`: Modified.  Added `inclHist=FALSE` to two `residPlot()` calls to adjust for changes in `residPlot()` in FSA.
 * `view()`:  Added (from the FSA package).
 * `wetPerim()`: Modified.  Removed `newwin=` argument which will force the user to put the graphic in a new window, size the windows as they see fit, and set the graphing parameters as they see fit.
 
