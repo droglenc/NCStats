@@ -9,7 +9,7 @@ This package can be installed from github to your R with the following code
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
-devtools::install_github('droglenc/FSA','droglenc/FSAdata','droglenc/NCStats')
+devtools::install_github(c('droglenc/FSA','droglenc/FSAdata','droglenc/NCStats'))
 ```
 
 Descriptions of recent changes can be found in the [News.md file](https://github.com/droglenc/NCStats/blob/master/NEWS.md)
