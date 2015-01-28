@@ -1,4 +1,6 @@
-# 0.4.2 ongoing
+# 0.4.3 ongoing
+
+# 0.4.2 Aug14
 * Moved `relax` package to a import.
 * `addSigLetters()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
 * `compIntercept()`:  Modified.  Changed `typeoflm()` to `iTypeoflm()` due to changes in `FSA`.
