@@ -1,4 +1,8 @@
 # 0.4.3 ongoing
+* `kAnova()`: Added from `FSA`.
+* `kGLHT()`: Added from `FSA`.
+* `kHtest()`: Added from `FSA`.
+* `kREG()`: Added from `FSA`.
 
 # 0.4.2 Aug14
 * Moved `relax` package to a import.
