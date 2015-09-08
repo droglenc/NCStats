@@ -2,19 +2,25 @@ NCStats
 =======
 
 ## Introduction
-This is the github page for the NCStats package for R developed by Derek Ogle at Northland College.  This package contains helper functions for statistics courses at Northland College.
+The **NCStats** contains helper functions for statistics courses taught by [Dr. Derek H. Ogle](http://derekogle.com) at [Northland College](http://www.northland.edu).
+
+You can [browse function help pages here](http://rforge.net/doc/packages/NCStats/00Index.html).  Recent changes are described in the [News file](https://github.com/droglenc/NCStats/blob/master/NEWS.md)
 
 ## Installation
-This package can be installed from github to your R with the following code
+**NCStats** has not yet been released on CRAN.  The latest version can be installed from GitHub (requires the **devtools** package) with ...
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github(c('droglenc/FSA','droglenc/FSAdata','droglenc/NCStats'))
 ```
 
-Descriptions of recent changes can be found in the [News.md file](https://github.com/droglenc/NCStats/blob/master/NEWS.md)
+Alternatively, **NCStats** can be installed from **RForge.net** with ...
 
-## Contact
-Contact me with questions by sending a friendly e-mail to <dogle@northland.edu>.
+```r
+source("http://www.rforge.net/NCStats/InstallNCStats.R")
+```
 
+These installations fail in a few situations.  [Send me an e-mail](mailto:fishr@derekogle.com?Subject=FSA%20Installation%20Question) if you experience difficulties installing **NCStats**.
 
+## Note About Using Macs
+**NCStats** uses **TCL/TK** for some interactive plots.  Some Mac users report problems with using **TCL/TK**.  I do not have access to a Mac to test these problems, some students have reported success installing the **TCL/TK** universal build [located here](http://cran.r-project.org/bin/macosx/tools/) (or [direct link to the file](http://cran.r-project.org/bin/macosx/tools/tcltk-8.5.5-x11.dmg)).  You may have to reinstall **NCStats** after installing this file. 

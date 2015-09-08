@@ -1,4 +1,5 @@
 # 0.4.3 ongoing
+* Updated `README.md` and `DESCRIPTION` to reflect the new websites.
 * `kAnova()`: Added from `FSA`.
 * `kGLHT()`: Added from `FSA`.
 * `kHtest()`: Added from `FSA`.
