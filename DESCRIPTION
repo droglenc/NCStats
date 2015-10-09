@@ -1,9 +1,8 @@
 Package: NCStats
 Version: 0.4.3
-Title: Functions to support statistics classes at Northland College.
-Description: This package contains functions and simulations to support the
-    Introductory Statistics, Biometry, and Fisheries Science courses at
-    Northland College in Ashland, WI (http://www.northland.edu/).  I have not
+Title: Functions to Support Statistics Classes at Northland College
+Description: Functions and simulations to support the Introductory
+    Statistics and Biometry courses at Northland College.  I have not
     fully proofed all functions -- they work with the examples that I have
     developed but have not been thoroughly checked for all possibilities.
     Don't use this package for research-grade analyses.
