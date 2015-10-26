@@ -18,11 +18,8 @@
 #' @keywords htest
 #' 
 #' @examples
-#' adTest(rnorm(100, mean = 5, sd = 3))
-#' adTest(runif(100, min = 2, max = 4))
+#' adTest(rnorm(100,mean=5,sd=3))
+#' adTest(runif(100,min=2,max=4))
 #' 
 #' @export
-adTest <- function(x) {
-  if (!requireNamespace("nortest")) stop("'adTest' requires the 'nortest' package to be installed.",call.=FALSE)
-  nortest::ad.test(x)
-}
+adTest <- function(x) if (iChk4Namespace("nortest")) nortest::ad.test(x)

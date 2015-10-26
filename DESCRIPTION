@@ -13,7 +13,9 @@ Depends:
     car,
     FSAdata
 Imports:
-    Hmisc,
+    graphics,
+    stats,
+    utils,
     multcomp,
     nortest,
     plotrix,

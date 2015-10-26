@@ -38,8 +38,7 @@ meanMedian <- function(x=NULL,outlier=c("none","max","min")) {
     meanMedianPlots(x)
   } else {
     outlier <- match.arg(outlier)
-    if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-    else meanMedianBeta(outlier)
+    if (iChk4Namespace("relax")) meanMedianBeta(outlier)
   }
 }
 

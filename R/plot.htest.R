@@ -61,7 +61,7 @@
 #' @export
 plot.htest <- function(x,smoothness=1000,shade.col="red",shade.col2="red3",...) {
   distrib <- xlab <- names(x$statistic)
-  if (distrib %nin% c("z","t","X-squared")) stop("Plot.htest only works if test statistic is 'z','t', or 'X-squared'.",call.=FALSE)
+  if (!distrib %in% c("z","t","X-squared")) stop("Plot.htest only works if test statistic is 'z','t', or 'X-squared'.",call.=FALSE)
   val <- x$statistic
   val1 <- NA
   lower.tail <- FALSE

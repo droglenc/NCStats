@@ -19,20 +19,15 @@ highlight(x, ...)
 
 \item{y}{The vector of y coordinates.}
 
-\item{lbls}{The name of the variable in \code{data} or the parent environment
-that contains the labels for the points.  If left as \code{NULL} then the
-points will be labelled with the row number in \code{pts}.}
+\item{lbls}{The name of the variable in \code{data} or the parent environment that contains the labels for the points.  If left as \code{NULL} then the points will be labelled with the row number in \code{pts}.}
 
-\item{pts}{The vector of row numbers corresponding to the points to
-highlight.  If left as \code{NULL} then every point will be labelled.}
+\item{pts}{The vector of row numbers corresponding to the points to highlight.  If left as \code{NULL} then every point will be labelled.}
 
 \item{col}{A numeric or string indicating the color to use when labeling the points.}
 
 \item{cex}{A numeric characther expansion number for the point labels.}
 
-\item{pos}{A numeric indicating where to place the labels (see \code{text}.
-If left as \code{NULL} then the labels will be placed to minimize label
-overlap as determined with \code{thigmophobe()} from \pkg{plotrix}.}
+\item{pos}{A numeric indicating where to place the labels (see \code{text}.  If left as \code{NULL} then the labels will be placed to minimize label overlap as determined with \code{thigmophobe()} from \pkg{plotrix}.}
 
 \item{data}{The data frame from which the formula should be evaluated.}
 
@@ -45,9 +40,7 @@ None, but an active graphic is modified.
 Labels a list of points on a two-dimensional plot.
 }
 \details{
-A two dimensional plot must be active and the \code{x} and \code{y} vectors
-must correspond to the x- and y-axes of the plot or \code{x} must correspond
-to the formula used to produce the plot.
+A two dimensional plot must be active and the \code{x} and \code{y} vectors must correspond to the x- and y-axes of the plot or \code{x} must correspond to the formula used to produce the plot.
 }
 \examples{
 df <- data.frame(x=runif(10),y=runif(10),grp=factor(rep(c("Yes","No"),each=5)))

@@ -33,7 +33,7 @@ x <- rnorm(25, 100, 5)
 z.test(x, 99, 5)
 }
 \author{
-This is \code{\link[stats]{z.test}} in \pkg{TeachingDemos} but imported and exported here.
+This is \code{\link[TeachingDemos]{z.test}} in \pkg{TeachingDemos} but imported and exported here.
 }
 \seealso{
 \code{\link{t.test}}

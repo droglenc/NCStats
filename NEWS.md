@@ -5,10 +5,12 @@
 * `adTest()`: Modified.  Send `x` directly to `ad.test()` from `nortest` package.  Added a check to see if the namespace for `nortest` was available.
 * `chisqPostHoc()`: Modified.  Changed default `control=` to match that in `p.adjust.methods` (i.e., defaults to "Holm" method).
 * `ci.t()`: Modified.  Streamlined code.
-* `ciSim()`: Modified.  Changed to using `se()` from `FSA` for `method="t"`.  Streamline code.
+* `ciSim()`: Modified.  Changed to using `se()` from `FSA` for `method="t"`.  Streamlined code.
 * `compIntercepts()`: Deleted.  Moved to `FSA`.
 * `compSlopes()`: Deleted.  Moved to `FSA`.
 * `discharge()`: Deleted.  Moved to `FSAmisc`.
+* `gofCI()`: Modified.  Replaced use of `binconf()` from `Hmisc` with `binCI()` from `FSA`.  Streamlined code.
+* `iChk4Namespace()`: Added.  Allowed `requireNamespaces()`s to be replaced throughout.
 * `kAnova()`: Added from `FSA`.
 * `kGLHT()`: Added from `FSA`.
 * `kHtest()`: Added from `FSA`.

@@ -26,8 +26,8 @@ Performs the Anderson-Darling test for the composite hypothesis of normality.  T
 This is exactly the same as \code{\link[nortest]{ad.test}} in \pkg{nortest} package except that it uses \sQuote{camel-case} naming conventions.
 }
 \examples{
-adTest(rnorm(100, mean = 5, sd = 3))
-adTest(runif(100, min = 2, max = 4))
+adTest(rnorm(100,mean=5,sd=3))
+adTest(runif(100,min=2,max=4))
 }
 \keyword{htest}
 

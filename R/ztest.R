@@ -15,7 +15,7 @@
 #' 
 #' @note This function should be used for learning only, real data should generally use \code{\link[stats]{t.test}}.
 #' 
-#' @author This is \code{\link[stats]{z.test}} in \pkg{TeachingDemos} but imported and exported here.
+#' @author This is \code{\link[TeachingDemos]{z.test}} in \pkg{TeachingDemos} but imported and exported here.
 #' 
 #' @seealso \code{\link{t.test}}
 #' 

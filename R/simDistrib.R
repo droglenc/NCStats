@@ -38,7 +38,7 @@
 #'
 #'}
 #'
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export sbeta
 #'
 sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta Distribution Simulator
@@ -57,8 +57,7 @@ sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta 
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("alpha","beta"),
              sl.mins=    c(    0.2,    0.2),
@@ -69,7 +68,7 @@ sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta 
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export sbinom
 sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomial Distribution Simulator
   refresh <- function(...) {
@@ -85,8 +84,7 @@ sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomi
       dPDF.plot(x,dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Sample Size (n)", "PR(Success)"),
              sl.mins=    c(                1,             0.01),
@@ -97,7 +95,7 @@ sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomi
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export schisq
 schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # chi-square Distribution Simulator
   refresh <- function(...) {
@@ -114,8 +112,7 @@ schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # ch
       cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",xlim=xr,main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("df"),
              sl.mins=    c(   1),
@@ -126,7 +123,7 @@ schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # ch
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export sexp
 sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Exponential Distribution Simulator
   refresh <- function(...) {
@@ -143,8 +140,7 @@ sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Expone
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Lambda"),
              sl.mins=    c(     0.2),
@@ -155,7 +151,7 @@ sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Expone
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export sf
 sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distribution Simulator
   refresh <- function(...) {
@@ -173,8 +169,7 @@ sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distri
       cPDF.plot(x,fx,xlab="F",ylab="f(F)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("numerator df","denominator df"),
              sl.mins=    c(            1,                 5),
@@ -185,7 +180,7 @@ sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distri
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export sgamma
 sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamma Distribution Simulator
   refresh <- function(...) {
@@ -203,8 +198,7 @@ sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamm
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("alpha","Lambda"),
              sl.mins=    c(    0.2,      0.2),
@@ -215,7 +209,7 @@ sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamm
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export sgeom
 sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geometric Distribution Simulator
   refresh <- function(...) {
@@ -233,8 +227,7 @@ sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geomet
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("PR(Success)"),
              sl.mins=    c(          0.05),
@@ -245,7 +238,7 @@ sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geomet
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export shyper
 shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hypergeometric Distribution Simulator
   refresh <- function(...) {
@@ -263,8 +256,7 @@ shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hyperg
       dPDF.plot(x,dhyper(x,M,N-M,n),xlab="Number of Successs",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Successes in Popn (M)","Failures in Popn (N-M)","Sample Size (n)"),
              sl.mins=    c(                     10,                      10,                2),
@@ -275,7 +267,7 @@ shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hyperg
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export slnorm
 slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Normal Distribution Simulator
   refresh <- function(...) {
@@ -293,8 +285,7 @@ slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Nor
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("log mu","log sigma"),
              sl.mins=    c(  0,      0.2),
@@ -305,7 +296,7 @@ slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Nor
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export snbinom
 snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negative Binomial Distribution Simulator
   refresh <- function(...) {
@@ -324,8 +315,7 @@ snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negati
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Successes to Observe (r)","PR(Success)"),
              sl.mins=    c(                         1,         0.05),
@@ -336,7 +326,7 @@ snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negati
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export snorm
 snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Normal Distribution Simulator
   refresh <- function(...) {
@@ -354,8 +344,7 @@ snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Norm
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("mu","sigma"),
              sl.mins=    c( -5,      0.2),
@@ -366,7 +355,7 @@ snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Norm
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export spois
 spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisson Distribution Simulator
   refresh <- function(...) {
@@ -384,8 +373,7 @@ spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisso
       dPDF.plot(x1,fx1,xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Lambda"),
              sl.mins=    c(       1),
@@ -396,7 +384,7 @@ spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisso
   }
 }
 
-#'@rdname distribSim
+#'@rdname simDistrib
 #'@export st
 st <- function(show.both=TRUE,show.mnsd=TRUE) {                         # t Distribution Simulator
   refresh <- function(...) {
@@ -416,8 +404,7 @@ st <- function(show.both=TRUE,show.mnsd=TRUE) {                         # t Dist
       lines(x,fx.norm,col="gray")
     }
   } ## end internal function
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("df"),
              sl.mins=    c(   1),

@@ -169,7 +169,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(mean-4*sd,mean+4*sd,length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x     
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x     
         fx <- dnorm(x,mean=mean,sd=sd)
       }
       msg <- paste0(type,distrib,"(",val,",mean=",mean,",sd=",sd,",lower.tail=",lower.tail,")")
@@ -186,7 +186,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(qt(0.001,df=df),qt(0.999,df=df),length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x     
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x     
         fx <- dt(x,df=df)
       }
       msg <- paste0(type,distrib,"(",val,",df=",df,",lower.tail=",lower.tail,")")
@@ -203,7 +203,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(0,qchisq(0.999,df=df),length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dchisq(x,df=df)
       }
       msg <- paste0(type,distrib,"(",val,",df=",df,",lower.tail=",lower.tail,")")
@@ -220,7 +220,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(0,qf(0.994,df1=df1,df2=df2),length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- df(x,df1=df1,df2=df2)
       }
       msg <- paste0(type,distrib,"(",val,",df1=",df1,",df2=",df2,",lower.tail=",lower.tail,")")
@@ -237,7 +237,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(0,1,length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dbeta(x,shape1=shape1,shape2=shape2)
       }
       msg <- paste0(type,distrib,"(",val,",shape1=",shape1,",shape2=",shape2,",lower.tail=",lower.tail,")")
@@ -254,7 +254,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(0,qexp(0.999,rate),length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dexp(x,rate=rate)
       }
       msg <- paste0(type,distrib,"(",val,",rate=",rate,",lower.tail=",lower.tail,")")
@@ -271,7 +271,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
       }
       if (plot) {
         x <- seq(0,1,length.out=smoothness)
-        if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
+        if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dgamma(x,shape=shape,scale=scale)
       }
       msg <- paste0(type,distrib,"(",val,",shape=",shape,",scale=",scale,",lower.tail=",lower.tail,")")

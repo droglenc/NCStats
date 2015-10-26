@@ -36,7 +36,7 @@ sdCalc(y)
 sdCalc(y,digits=4)
 }
 \seealso{
-\code{\link[stats]{sd()}}
+\code{\link[stats]{sd}}
 }
 \keyword{misc}
 

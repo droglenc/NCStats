@@ -12,7 +12,7 @@
 #' 
 #' @note This function shows a table of intermediate output in the calculation of the standard deviation.  Used purely to demonstrate the hand-calculation of the standard deviation.  Use \code{\link[stats]{sd}} to actually compute the standard deviation.
 #' 
-#' @seealso \code{\link[stats]{sd()}}
+#' @seealso \code{\link[stats]{sd}}
 #' 
 #' @keywords misc
 #' 

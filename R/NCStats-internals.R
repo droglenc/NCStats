@@ -1,26 +1,24 @@
-#'Internal functions used in NCStats.
-#'
-#'Internal functions used in NCStats
-#'
-#'These functions perform code required by other functions in the NCStats
-#'package.  These functions are not to be called by the user.
-#'
-#'@note Take note of the following uses:
-#'\itemize{
-#'\item \code{c.region} and \code{d.region} are used in \code{\link{distrib}}, \code{\link{plot.htest}}
-#'and \code{\link{powerSim}}.
-#'\item \code{cCDF.plot}, \code{cPDF.plot}, \code{dCDF.plot}, and \code{dPDF.plot} are all used
-#'in the distribution simulators -- e.g., \code{\link{sbeta}}, \code{\link{snorm}}, etc..
-#'\item \code{assumPlot_ANOVA}, \code{assumPlot_REGRESS}, \code{lblADTest}, \code{lblNCVTest},
-#'\code{lblOutTest}, and \code{lblLevTest} functions are all used in \code{\link{transChooser}}.
-#'}
-#'
-#'@rdname NCStats-internals
-#'@name NCStats-internals
-#'@keywords internal
-#'@aliases .onAttach cCDF.plot cPDF.plot dCDF.plot dPDF.plot c.region d.region
-#'assumPlot_ANOVA assumPlot_REGRESS lblADTest lblNCVTest lblOutTest lblLevTest
-#'
+#' Internal functions used in NCStats.
+#' 
+#' Internal functions used in NCStats
+#' 
+#' These functions perform code required by other functions in the NCStats
+#' package.  These functions are not to be called by the user.
+#' 
+#' @note Take note of the following uses:
+#'   \itemize{
+#'     \item \code{c.region} and \code{d.region} are used in \code{\link{distrib}}, \code{\link{plot.htest}} and \code{\link{powerSim}}.
+#'     \item \code{cCDF.plot}, \code{cPDF.plot}, \code{dCDF.plot}, and \code{dPDF.plot} are all used in the distribution simulators -- e.g., \code{\link{sbeta}}, \code{\link{snorm}}, etc..
+#'     \item \code{assumPlot_ANOVA}, \code{assumPlot_REGRESS}, \code{lblADTest}, \code{lblNCVTest}, \code{lblOutTest}, and \code{lblLevTest} functions are all used in \code{\link{transChooser}}.
+#' }
+#' 
+#' @rdname NCStats-internals
+#' @name NCStats-internals
+#' 
+#' @keywords internal
+#' 
+#' @aliases .onAttach cCDF.plot cPDF.plot dCDF.plot dPDF.plot c.region d.region assumPlot_ANOVA assumPlot_REGRESS lblADTest lblNCVTest lblOutTest lblLevTest
+#' 
 
 ##################################################################
 ## Sends a start-up message to the console when the package is loaded.
@@ -38,6 +36,18 @@
   msg <- paste(msg,"############################################\n\n")
   packageStartupMessage(msg)
 }
+
+
+##################################################################
+# Check if a required namespaced can be loaded and, if not, send
+#   an error message.
+##################################################################
+iChk4Namespace <- function(pkg) {
+  res <- requireNamespace(pkg,quietly=TRUE)
+  if (!res) stop(paste0("The '",pkg," package must be installed."))
+  res
+}
+
 
 ##################################################################
 # Internal functions used in distrib().

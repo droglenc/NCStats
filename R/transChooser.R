@@ -115,8 +115,7 @@ transChooser_ANOVA <- function(object,shifty=0,show.stats=TRUE,boxplot=TRUE,alph
     assumPlot_ANOVA(object,lambda=relax::slider(no=1),shifty=shifty,show.stats=show.stats,boxplot=boxplot,alpha=alpha,col.hist=col.hist,...)
   } # end refresh internal function
   
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE,hscale=2,title="ANOVA Power Transformation Chooser",sl.names= c("lambda"),
                           sl.mins=c(-1.0),sl.maxs=c(1.0),sl.deltas=c(0.05),sl.defaults=c(1.0),pos.of.panel="left")
   }
@@ -127,8 +126,7 @@ transChooser_REGRESS <- function(object,shifty=0,shiftx=0,show.stats=TRUE,alpha=
     assumPlot_REGRESS(object,lambday=relax::slider(no=1),lambdax=relax::slider(no=2),shifty=shifty,shiftx=shiftx,show.stats=show.stats,alpha=alpha,col.hist=col.hist,...)
   }  # end refresh internal function
   
-  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
-  else {
+  if (iChk4Namespace("relax")) {
     relax::gslider(refresh,prompt=TRUE,hscale=2,title="Regression Power Transformation Chooser",sl.names=c("lambday","lambdax"),
                           sl.mins=c(-1.0,-1.0),sl.maxs=c(1.0,1.0),sl.deltas=c(0.05,0.05),sl.defaults=c(1.0,1.0),pos.of.panel="left")
   }
