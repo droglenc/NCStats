@@ -1,27 +1,27 @@
-#'Modificaton of print.htest() to streamline output.
+#' Modificaton of print.htest() to streamline output.
+#'  
+#' Modifies the print.hstest() function so that the output is less verbose.  For example, several \sQuote{extra} blank lines are removed and the test name is placed on one line with the data.
 #' 
-#'Modifies the print.hstest() function so that the output is less verbose.  For example, several \sQuote{extra} blank lines are removed and the test name is placed on one line with the data.
-#'
-#'@aliases print.htest 
-#'
-#'@param x An object of class \code{lm} to be printed.
-#'@param digits A single numeric that indicates the number of digits to use.
-#'@param quote A single logical that indicates whether strings should be printed
-#'with surrounding quotes.
-#'@param \dots Not implemented.
-#'
-#'@return Invisibly returns the sent \code{x}.
-#'
-#'@examples
-#'## data from t.test and chisq.test examples
-#'t.test(1:10,y=c(7:20))
-#'
-#'M <- as.table(rbind(c(762, 327, 468), c(484,239,477)))
-#'chisq.test(M)
-#'
-#'@rdname print.htest
-#'@export
-#'
+#' @aliases print.htest 
+#' 
+#' @param x An object of class \code{lm} to be printed
+#' @param digits A single numeric that indicates the number of digits to use
+#' @param quote A single logical that indicates whether strings should be printed with surrounding quotes
+#' @param \dots Not implemented
+#' 
+#' @return Invisibly returns the sent \code{x}.
+#' 
+#' @examples
+#' ## data from t.test and chisq.test examples
+#' t.test(1:10,y=c(7:20))
+#' 
+#' M <- as.table(rbind(c(762, 327, 468), c(484,239,477)))
+#' chisq.test(M)
+#' 
+#' @rdname print.htest
+#' @method print htest
+#' @export
+#' 
 print.htest <- function(x,digits=4,quote=TRUE,...) {
   cat(x$method,"with",x$data.name,"\n")
   out <- character()

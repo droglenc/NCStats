@@ -1,39 +1,39 @@
-#'Shows the steps in the manual calculation of the standard deviation.
-#'
-#'Shows the steps in the manual calculation of the standard deviation.
-#'
-#'@aliases sdCalc print.sdCalc
-#'
-#'@param x A numeric vector.
-#'@param digits A numeric indicating the number of decimals to round the numeric summaries to.  If left at \code{NULL} (default) then the number of digits will be obtained from \code{getOption('digits')}.
-#'@param \dots Other arguments to the generic \code{print} functions.  Not currently used.
-#'
-#'@return A list containing the sample size (\code{n}), sample mean (\code{mean}), data.frame of intermediate calculations (\code{tbl}), and number of digits to print (\code{digits))}. 
-#'
-#'@note This function shows a table of intermediate output in the calculation of the standard deviation.  Used purely to demonstrate the hand-calculation of the standard deviation.  Use \code{sd()} to actually computer the standard deviation.
-#'
-#'@seealso \code{sd}.
-#'
-#'@keywords misc
-#'
-#'@examples
-#'## Numeric vector
-#'y <- runif(8)
-#'# typical computation
-#'sd(y)   
-#'# this function           
-#'sdCalc(y)            
-#'# this function, controlling the number of digits
-#'sdCalc(y,digits=4)
-#'
-#'@rdname sdCalc
-#'@export
+#' Shows the steps in the manual calculation of the standard deviation.
+#' 
+#' Shows the steps in the manual calculation of the standard deviation.
+#' 
+#' @aliases sdCalc print.sdCalc
+#' 
+#' @param x A numeric vector
+#' @param digits A numeric indicating the number of decimals to round the numeric summaries to.  If left at \code{NULL} (default) then the number of digits will be obtained from \code{getOption('digits')}
+#' @param \dots Other arguments to the generic \code{print} functions (not currently used)
+#' 
+#' @return A list containing the sample size (\code{n}), sample mean (\code{mean}), data.frame of intermediate calculations (\code{tbl}), and number of digits to print (\code{digits))}. 
+#' 
+#' @note This function shows a table of intermediate output in the calculation of the standard deviation.  Used purely to demonstrate the hand-calculation of the standard deviation.  Use \code{\link[stats]{sd}} to actually compute the standard deviation.
+#' 
+#' @seealso \code{\link[stats]{sd()}}
+#' 
+#' @keywords misc
+#' 
+#' @examples
+#' ## Numeric vector
+#' y <- runif(8)
+#' # typical computation
+#' sd(y)   
+#' # this function           
+#' sdCalc(y)            
+#' # this function, controlling the number of digits
+#' sdCalc(y,digits=4)
+#' 
+#' @rdname sdCalc
+#' @export
 sdCalc <- function(x,digits=getOption("digits")) {
-# make sure the vector is numeric
+  # make sure the vector is numeric
   if (!is.numeric(x)) stop("x must be numeric to compute the sd.",call.=FALSE)
-# remove missing values
+  # remove missing values
   x1 <- x[!is.na(x)]
-# calculate parts
+  # calculate parts
   n <- length(x1)
   xbar <- mean(x1)
   diffs <- x1-mean(x1)
@@ -46,8 +46,9 @@ sdCalc <- function(x,digits=getOption("digits")) {
   res
 }
 
-#'@rdname sdCalc
-#'@export
+#' @rdname sdCalc
+#' @method print sdCalc
+#' @export
 print.sdCalc <- function(x,...) {
   cat("Demonstration of parts of a std. dev. calculation.\n\n")
   print(round(x$tbl,x$digits))

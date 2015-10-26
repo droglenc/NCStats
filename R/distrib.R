@@ -149,9 +149,9 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
   if (type=="q" & (val<=0 | val>=1)) stop("When solving for a value of X (type='q') then area (val=) must be between 0 and 1.",call.=FALSE)
   if (length(mean)>1 | length(sd)>1 | length(df)>1 | length(df1)>1 | length(df2)>1 | length(shape1)>1 | length(shape2)>1 | length(shape)>1 | length(rate)>1 | length(scale)>1 | length(size)>1 | length(prob)>1 | length(mu)>1 | length(lambda)>1 | length(m)>1 | length(n)>1 | length(k)>1) stop("All parameter arguments must have length not greater than 1.",call.=FALSE)
   ifelse(distrib %in% c("norm","t","chisq","f","beta","exp","gamma"),continuous <- TRUE,continuous <- FALSE) 
-  if (type=="d" & continuous & plot) stop(paste("No plot will be constructed for the density (type='d') of a continuous distribution.  Use ",type,distrib,"() instead.",sep=""),call.=FALSE)
+  if (type=="d" & continuous & plot) stop(paste0("No plot will be constructed for the density (type='d') of a continuous distribution.  Use ",type,distrib,"() instead."),call.=FALSE)
   if (length(val)>1) {
-    warning(paste("This function only works for one value.  Use ",type,distrib,"() for multiple values.\nWill continue with your first value.",sep=""),call.=FALSE)
+    warning(paste0("This function only works for one value.  Use ",type,distrib,"() for multiple values.\nWill continue with your first value."),call.=FALSE)
     val <- val[1]
   }
   switch(distrib,
@@ -172,7 +172,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x     
         fx <- dnorm(x,mean=mean,sd=sd)
       }
-      msg <- paste(type,distrib,"(",val,",mean=",mean,",sd=",sd,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",mean=",mean,",sd=",sd,",lower.tail=",lower.tail,")")
     },
     t={
       if (is.null(main)) main <- bquote(paste(t[.(df)]," Distribution"))
@@ -189,7 +189,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x     
         fx <- dt(x,df=df)
       }
-      msg <- paste(type,distrib,"(",val,",df=",df,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",df=",df,",lower.tail=",lower.tail,")")
     },
     chisq={
       if (is.null(main)) main <- bquote(paste(chi[.(df)]^2," Distribution"))
@@ -206,7 +206,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dchisq(x,df=df)
       }
-      msg <- paste(type,distrib,"(",val,",df=",df,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",df=",df,",lower.tail=",lower.tail,")")
     },
     f={
       if (is.null(main)) main <- "F Distribution"
@@ -223,7 +223,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- df(x,df1=df1,df2=df2)
       }
-      msg <- paste(type,distrib,"(",val,",df1=",df1,",df2=",df2,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",df1=",df1,",df2=",df2,",lower.tail=",lower.tail,")")
     },
     beta={
       if (is.null(main)) main <- bquote(paste("Beta(shape1=",.(shape1),",shape2=",.(shape2),") Distribution"))
@@ -240,7 +240,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dbeta(x,shape1=shape1,shape2=shape2)
       }
-      msg <- paste(type,distrib,"(",val,",shape1=",shape1,",shape2=",shape2,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",shape1=",shape1,",shape2=",shape2,",lower.tail=",lower.tail,")")
     },
     exp={
       if (is.null(main)) main <- bquote(paste("Exponential(rate=",.(rate),") Distribution"))
@@ -257,7 +257,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dexp(x,rate=rate)
       }
-      msg <- paste(type,distrib,"(",val,",rate=",rate,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",rate=",rate,",lower.tail=",lower.tail,")")
     },
     gamma={
       if (is.null(main)) main <- bquote(paste("Gamma(shape=",.(shape),",scale=",.(scale),") Distribution"))
@@ -274,7 +274,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         if (xval %nin% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- dgamma(x,shape=shape,scale=scale)
       }
-      msg <- paste(type,distrib,"(",val,",shape=",shape,",scale=",scale,",lower.tail=",lower.tail,")",sep="")
+      msg <- paste0(type,distrib,"(",val,",shape=",shape,",scale=",scale,",lower.tail=",lower.tail,")")
     },
     binom={
       if (is.null(main)) main <- bquote(paste("Binomial(n=",.(size),",p=",.(prob),") Distribution"))
@@ -298,8 +298,8 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         x <- 0:size
         fx <- dbinom(x,size=size,prob=prob)
       }
-      if (type=="d") msg <- paste(type,distrib,"(",val,",size=",size,",prob=",prob,")",sep="")
-        else msg <- paste(type,distrib,"(",val,",size=",size,",prob=",prob,",lower.tail=",lower.tail,")",sep="")
+      if (type=="d") msg <- paste0(type,distrib,"(",val,",size=",size,",prob=",prob,")")
+        else msg <- paste0(type,distrib,"(",val,",size=",size,",prob=",prob,",lower.tail=",lower.tail,")")
     },
     geom={
       if (is.null(main)) main <- bquote(paste("Geometric(p=",.(prob),") Distribution"))
@@ -323,8 +323,8 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         x <- 0:qgeom(0.9999,prob=prob)
         fx <- dgeom(x,prob=prob)
       }
-      if (type=="d") msg <- paste(type,distrib,"(",val,",prob=",prob,")",sep="")
-        else msg <- paste(type,distrib,"(",val,",prob=",prob,",lower.tail=",lower.tail,")",sep="")
+      if (type=="d") msg <- paste0(type,distrib,"(",val,",prob=",prob,")")
+        else msg <- paste0(type,distrib,"(",val,",prob=",prob,",lower.tail=",lower.tail,")")
     },
     hypergeom={
       if (is.null(n) | is.null(m) | is.null(k)) stop("All of n, m, and k arguments must be non-null for a hypergeometric distribution.",call.=FALSE)
@@ -350,8 +350,8 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         x <- 0:k
         fx <- dhyper(x,m=m,n=n,k=k)
       }
-      if (type=="d") msg <- paste(type,distrib,"(",val,",m=",m,",n=",n,"k=",k,")",sep="")
-        else msg <- paste(type,distrib,"(",val,",m=",m,",n=",n,"k=",k,",lower.tail=",lower.tail,")",sep="")
+      if (type=="d") msg <- paste0(type,distrib,"(",val,",m=",m,",n=",n,"k=",k,")")
+        else msg <- paste0(type,distrib,"(",val,",m=",m,",n=",n,"k=",k,",lower.tail=",lower.tail,")")
     },
     nbinom={
       if (!is.null(mu)) {
@@ -379,11 +379,11 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         fx <- dnbinom(x,size=size,prob=prob)
       }
       if (is.null(mu)) {
-        if (type=="d") msg <- paste(type,distrib,"(",val,",size=",size,",prob=",prob,")",sep="")
-          else msg <- paste(type,distrib,"(",val,",size=",size,",prob=",prob,",lower.tail=",lower.tail,")",sep="")
+        if (type=="d") msg <- paste0(type,distrib,"(",val,",size=",size,",prob=",prob,")")
+          else msg <- paste0(type,distrib,"(",val,",size=",size,",prob=",prob,",lower.tail=",lower.tail,")")
       } else {
-        if (type=="d") msg <- paste(type,distrib,"(",val,",size=",size,",mu=",mu,")",sep="")
-          else msg <- paste(type,distrib,"(",val,",size=",size,",mu=",mu,",lower.tail=",lower.tail,")",sep="")
+        if (type=="d") msg <- paste0(type,distrib,"(",val,",size=",size,",mu=",mu,")")
+          else msg <- paste0(type,distrib,"(",val,",size=",size,",mu=",mu,",lower.tail=",lower.tail,")")
       }
     },
     pois={
@@ -408,8 +408,8 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         x <- 0:qpois(0.9999,lambda=lambda)
         fx <- dpois(x,lambda=lambda)
       }
-      if (type=="d") msg <- paste(type,distrib,"(",val,",lambda=",lambda,")",sep="")
-        else msg <- paste(type,distrib,"(",val,",lambda=",lambda,",lower.tail=",lower.tail,")",sep="")
+      if (type=="d") msg <- paste0(type,distrib,"(",val,",lambda=",lambda,")")
+        else msg <- paste0(type,distrib,"(",val,",lambda=",lambda,",lower.tail=",lower.tail,")")
     }
   ) # end switch(distrib)
 

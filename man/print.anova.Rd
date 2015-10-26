@@ -4,31 +4,28 @@
 \alias{print.anova}
 \title{Modificaton of print.anova() to streamline output}
 \usage{
-print.anova(x, digits = max(getOption("digits") - 2, 3),
+\method{print}{anova}(x, digits = max(getOption("digits") - 2, 3),
   signif.stars = getOption("show.signif.stars"), totalSS = TRUE,
   rm.heading = TRUE, ...)
 }
 \arguments{
-\item{x}{An object of class \code{anova} to be printed.}
+\item{x}{An object of class \code{anova} to be printed}
 
-\item{digits}{A single numeric that indicates the number of digits to use.}
+\item{digits}{A single numeric that indicates the number of digits to use}
 
-\item{signif.stars}{A logical indicating whether significance starts should be printed.}
+\item{signif.stars}{A logical indicating whether significance starts should be printed}
 
-\item{totalSS}{A logical indicating whether the total df and SS row should be included or not.}
+\item{totalSS}{A logical indicating whether the total df and SS row should be included or not}
 
-\item{rm.heading}{A logical indicating whether the heading in the anova object should
-be included or not.}
+\item{rm.heading}{A logical indicating whether the heading in the anova object should be included or not}
 
-\item{\dots}{Other arguments passed to \code{printCoefMat}.}
+\item{\dots}{Other arguments passed to \code{printCoefMat}}
 }
 \value{
 Invisibly returns the sent, and possibly modified, \code{x}.
 }
 \description{
-Modifies the print.anova()) function so that the output is less verbose (the
-heading and several \sQuote{extra} blank lines were removed) and, if a single
-anova object is sent, then a \sQuote{total} row will be added to the anova table.
+Modifies the print.anova()) function so that the output is less verbose (the heading and several \sQuote{extra} blank lines were removed) and, if a single anova object is sent, then a \sQuote{total} row will be added to the anova table.
 }
 \examples{
 ## example of one-way ANOVA results

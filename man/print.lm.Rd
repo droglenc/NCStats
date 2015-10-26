@@ -4,8 +4,8 @@
 \alias{print.lm}
 \title{Modificaton of print.lm() to streamline output}
 \usage{
-print.lm(x, digits = max(3, getOption("digits") - 3), show.call = FALSE,
-  ...)
+\method{print}{lm}(x, digits = max(3, getOption("digits") - 3),
+  show.call = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{lm} or \code{summary.lm} to be printed.}
@@ -20,9 +20,7 @@ print.lm(x, digits = max(3, getOption("digits") - 3), show.call = FALSE,
 Invisibly returns the sent \code{x}.
 }
 \description{
-Modifies the print.lm() function so that the output is less verbose.  For
-example, the call will not be re-printed unless asked for.  In addition,
-several \sQuote{extra} blank lines were removed.
+Modifies the print.lm() function so that the output is less verbose.  For example, the call will not be re-printed unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
 }
 \examples{
 ## from lm examples

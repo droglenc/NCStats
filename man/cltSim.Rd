@@ -7,40 +7,24 @@
 cltSim(reps = 1000, incl.norm = FALSE)
 }
 \arguments{
-\item{reps}{Number of samples to take from the population distribution and
-means to calculate.}
+\item{reps}{Number of samples to take from the population distribution and means to calculate}
 
-\item{incl.norm}{A logical indicating whether a normal density curve should
-be superimposed on the sampling distribution.}
+\item{incl.norm}{A logical indicating whether a normal density curve should be superimposed on the sampling distribution}
 }
 \value{
 None, but a dynamic graphic with slider bars will be produced.
 }
 \description{
-A dynamic graphic to illustrate the Central Limit Theorem.  The user can
-change the population distribution that is sampled from and the sample size.
+A dynamic graphic to illustrate the Central Limit Theorem.  The user can change the population distribution that is sampled from and the sample size.
 }
 \details{
-This function produces two graphics.  The left-most graphic is a histogram of
-the individuals in the population and the right-most graphic is a histogram
-of the simulated sampling distribution (i.e., means from the multiple
-samples).  The right-most graphic may include a normal distribution density
-curve if the \code{incl.norm} argument is used.
+This function produces two graphics.  The left-most graphic is a histogram of the individuals in the population and the right-most graphic is a histogram of the simulated sampling distribution (i.e., means from the multiple samples).  The right-most graphic may include a normal distribution density curve if the \code{incl.norm} argument is used.
 
-The two graphics are dynamically controlled by three slider bars.  The first
-two slider bars control the shape parameters of the beta distribution used to
-model the population distribution that will be sampled from.  The beta
-distribution allows for a wide variety of shapes for the population
-distribution.  The last slider bar controls the size of each sample taken
-from the population distribution.  The slider bars can be used to detect how
-changes in the shape of the population and the size of the sample effect the
-shape, center, and dispersion of the sampling distribution.
+The two graphics are dynamically controlled by three slider bars.  The first two slider bars control the shape parameters of the beta distribution used to model the population distribution that will be sampled from.  The beta distribution allows for a wide variety of shapes for the population distribution.  The last slider bar controls the size of each sample taken from the population distribution.  The slider bars can be used to detect how changes in the shape of the population and the size of the sample effect the shape, center, and dispersion of the sampling distribution.
 }
 \examples{
 if (interactive()) {
-
 cltSim()
-
 }
 }
 \keyword{dynamic}

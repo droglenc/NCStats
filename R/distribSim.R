@@ -57,7 +57,7 @@ sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta 
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("alpha","beta"),
@@ -85,7 +85,7 @@ sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomi
       dPDF.plot(x,dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Sample Size (n)", "PR(Success)"),
@@ -114,7 +114,7 @@ schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # ch
       cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",xlim=xr,main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("df"),
@@ -143,7 +143,7 @@ sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Expone
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Lambda"),
@@ -173,7 +173,7 @@ sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distri
       cPDF.plot(x,fx,xlab="F",ylab="f(F)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("numerator df","denominator df"),
@@ -203,7 +203,7 @@ sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamm
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("alpha","Lambda"),
@@ -233,7 +233,7 @@ sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geomet
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("PR(Success)"),
@@ -263,7 +263,7 @@ shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hyperg
       dPDF.plot(x,dhyper(x,M,N-M,n),xlab="Number of Successs",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Successes in Popn (M)","Failures in Popn (N-M)","Sample Size (n)"),
@@ -293,7 +293,7 @@ slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Nor
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("log mu","log sigma"),
@@ -324,7 +324,7 @@ snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negati
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Successes to Observe (r)","PR(Success)"),
@@ -354,7 +354,7 @@ snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Norm
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("mu","sigma"),
@@ -384,7 +384,7 @@ spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisso
       dPDF.plot(x1,fx1,xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("Lambda"),
@@ -416,7 +416,7 @@ st <- function(show.both=TRUE,show.mnsd=TRUE) {                         # t Dist
       lines(x,fx.norm,col="gray")
     }
   } ## end internal function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE, hscale=2,
              sl.names=   c("df"),

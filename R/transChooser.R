@@ -115,7 +115,7 @@ transChooser_ANOVA <- function(object,shifty=0,show.stats=TRUE,boxplot=TRUE,alph
     assumPlot_ANOVA(object,lambda=relax::slider(no=1),shifty=shifty,show.stats=show.stats,boxplot=boxplot,alpha=alpha,col.hist=col.hist,...)
   } # end refresh internal function
   
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE,hscale=2,title="ANOVA Power Transformation Chooser",sl.names= c("lambda"),
                           sl.mins=c(-1.0),sl.maxs=c(1.0),sl.deltas=c(0.05),sl.defaults=c(1.0),pos.of.panel="left")
@@ -127,7 +127,7 @@ transChooser_REGRESS <- function(object,shifty=0,shiftx=0,show.stats=TRUE,alpha=
     assumPlot_REGRESS(object,lambday=relax::slider(no=1),lambdax=relax::slider(no=2),shifty=shifty,shiftx=shiftx,show.stats=show.stats,alpha=alpha,col.hist=col.hist,...)
   }  # end refresh internal function
   
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE,hscale=2,title="Regression Power Transformation Chooser",sl.names=c("lambday","lambdax"),
                           sl.mins=c(-1.0,-1.0),sl.maxs=c(1.0,1.0),sl.deltas=c(0.05,0.05),sl.defaults=c(1.0,1.0),pos.of.panel="left")
@@ -148,7 +148,7 @@ assumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.hi
     lbl <- "Residuals from Original Y"
   } else {
     y <- (object$mf[,1]+shifty)^lambda
-    lbl <- paste("Residuals from Y^(",formatC(lambda,format="f",digits=2),")",sep="") 
+    lbl <- paste0("Residuals from Y^(",formatC(lambda,format="f",digits=2),")") 
   }
   # below controls for whether it is a one-way or two-way ANOVA
   ifelse(any(class(object)=="ONEWAY"), gf <- object$mf[,2], gf <- object$mf[,2]:object$mf[,3])
@@ -173,7 +173,7 @@ assumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,show.stats,al
     ylbl <- "Original Y"
   } else { 
     y <- (object$mf[,1]+shifty)^lambday
-    ylbl <- paste("Y^(",formatC(lambday,format="f",digits=2),")",sep="")
+    ylbl <- paste0("Y^(",formatC(lambday,format="f",digits=2),")")
   }
   lambdax <- round(lambdax,2)
   if (lambdax == 0) {
@@ -184,7 +184,7 @@ assumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,show.stats,al
     xlbl <- "Original X"
   } else { 
     x <- (object$mf[,2]+shiftx)^lambdax
-    xlbl <- paste("X^(",formatC(lambdax,format="f",digits=2),")",sep="") 
+    xlbl <- paste0("X^(",formatC(lambdax,format="f",digits=2),")") 
   }
   # Below handles differences between SLR and IVR
   if (!any(class(object)=="IVR")) lm1 <- lm(y~x)
@@ -193,9 +193,9 @@ assumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,show.stats,al
   else if (dim(object$mf)[2]==4) lm1 <- lm(y~x*object$mf[,3]*object$mf[,4])
   else stop("Function only works with IVR models with 1 or 2 factors.",call.=FALSE)
   old.par <- par(mar=c(3.5,3.5,3,1), mgp=c(2,0.5,0), mfcol=c(1,2))
-  hist(lm1$residuals,main="",xlab=paste("Residuals from ",ylbl,"~",xlbl,sep=""),yaxt="n",ylab="",col=col.hist)
+  hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),yaxt="n",ylab="",col=col.hist)
   if (show.stats) lblADTest(lm1,alpha,line=0.5)
-  residPlot(lm1,main="",xlab=paste("Fitted Values from ",ylbl,"~",xlbl,sep=""),ylab=paste("Residuals from ",ylbl,"~",xlbl,sep=""),inclHist=FALSE)
+  residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE)
   if (show.stats) lblOutTest(lm1,alpha,line=0.5)
   on.exit(par(old.par))
 } ## end internal assumPlot_REGRESS

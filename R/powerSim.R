@@ -69,7 +69,7 @@ powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=
   } # end powerSimPlot internal function
 
   # Start of main function
-  if (!require(relax)) warning("This function requires that you have the relax package installed.",call.=FALSE)
+  if (!requireNamespace("relax")) warning("This function requires that you have the relax package installed.",call.=FALSE)
   else {
     relax::gslider(refresh,prompt=TRUE,vscale=1.5,
              sl.names=   c(             "Actual mu",   "sigma", "n", "alpha"),

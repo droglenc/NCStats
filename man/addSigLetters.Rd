@@ -9,56 +9,35 @@ addSigLetters(mdl, lets, which, change.order = FALSE, pos = rep(2,
   length(mns)), ...)
 }
 \arguments{
-\item{mdl}{A \code{lm} object or formula depicting an ANOVA.}
+\item{mdl}{A \code{lm} object or formula depicting an ANOVA}
 
-\item{lets}{A vector of characters to be placed next to each group mean point.}
+\item{lets}{A vector of characters to be placed next to each group mean point}
 
-\item{which}{A character string listing terms in the fitted model for which
-the means should be calculated and the letters placed.}
+\item{which}{A character string listing terms in the fitted model for which the means should be calculated and the letters placed}
 
-\item{change.order}{A logical that is used to change the order of the factors
-in the \code{lm} object.  This is used to change which factor is plotted on
-the x-axis and which is used to connect means.  Used only with a two-way
-ANOVA and only if the same argument is used with the \code{fitPlot} function.}
+\item{change.order}{A logical that is used to change the order of the factors in the \code{lm} object.  This is used to change which factor is plotted on the x-axis and which is used to connect means.  Used only with a two-way ANOVA and only if the same argument is used with the \code{fitPlot} function}
 
-\item{pos}{A value or vector of values indicating the positiong to place the
-characters relative to each group mean point.  Note that \code{1}=below,
-\code{2}=left, \code{3}=above, and \code{4}=right.}
+\item{pos}{A value or vector of values indicating the positiong to place the characters relative to each group mean point.  Note that \code{1}=below, \code{2}=left, \code{3}=above, and \code{4}=right}
 
-\item{offset}{A value indicating a proportion of character widths to move the
-character away from each group mean point.}
+\item{offset}{A value indicating a proportion of character widths to move the character away from each group mean point}
 
-\item{col}{A single or vector of numeric or character representations of
-colors used for each character.}
+\item{col}{A single or vector of numeric or character representations of colors used for each character}
 
-\item{cex}{A single or vector of numeric values used to represent the
-character expansion values.}
+\item{cex}{A single or vector of numeric values used to represent the character expansion values}
 
-\item{\dots}{Other arguments to be passed to the \code{text} function.}
+\item{\dots}{Other arguments to be passed to the \code{text} function}
 }
 \value{
 None.  However, an active graphic is modified.
 }
 \description{
-Places significance letters next to mean points on an active fitPlot from a
-one-way or a two-way ANOVA.
+Places significance letters next to mean points on an active \code{\link[FSA]{fitPlot}} from a one-way or a two-way ANOVA.
 }
 \details{
-The graphic of group means must be active for this function to place the
-characters next to the group mean points.  Typically this graphic is made
-with the \code{fitPlot} function.
+The graphic of group means must be active for this function to place the characters next to the group mean points.  Typically this graphic is made with the \code{\link[FSA]{fitPlot}} function.
 }
 \note{
-Students are often asked to determine which level means are different
-if a significant one-way or two-way ANOVA is encountered.  The results of
-these multiple comparisons are often illustrated by placing
-\dQuote{significance letters} next to mean points on an interaction of main
-effects plot.  In R this can be accomplished with a number of \code{text}
-calls.  This function, however, simplifies this process so that newbie
-students can create the graphic in an efficient and relatively easy manner
-(in conjunction with \code{\link{fitPlot}}).  This function thus allows newbie
-students to interact with and visualize moderately complex linear models in a
-fairly easy and efficient manner.
+Students are often asked to determine which level means are different if a significant one-way or two-way ANOVA is encountered.  The results of these multiple comparisons are often illustrated by placing \dQuote{significance letters} next to mean points on an interaction of main effects plot.  In R this can be accomplished with a number of \code{text} calls.  This function, however, simplifies this process so that newbie students can create the graphic in an efficient and relatively easy manner (in conjunction with \code{\link[FSA]{fitPlot}}).  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
 require(FSA)  # for the Mirex dataframe
@@ -102,7 +81,7 @@ addSigLetters(lm2,which="species",c("a","a"),pos=c(2,4))
 par(op)
 }
 \seealso{
-\code{\link{fitPlot}}.
+\code{\link[FSA]{fitPlot}}.
 }
 \keyword{hplot}
 

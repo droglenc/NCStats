@@ -4,17 +4,16 @@
 \alias{print.htest}
 \title{Modificaton of print.htest() to streamline output.}
 \usage{
-print.htest(x, digits = 4, quote = TRUE, ...)
+\method{print}{htest}(x, digits = 4, quote = TRUE, ...)
 }
 \arguments{
-\item{x}{An object of class \code{lm} to be printed.}
+\item{x}{An object of class \code{lm} to be printed}
 
-\item{digits}{A single numeric that indicates the number of digits to use.}
+\item{digits}{A single numeric that indicates the number of digits to use}
 
-\item{quote}{A single logical that indicates whether strings should be printed
-with surrounding quotes.}
+\item{quote}{A single logical that indicates whether strings should be printed with surrounding quotes}
 
-\item{\dots}{Not implemented.}
+\item{\dots}{Not implemented}
 }
 \value{
 Invisibly returns the sent \code{x}.

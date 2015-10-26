@@ -4,7 +4,7 @@
 \alias{accuracyPrecision}
 \title{Plot targets and histograms for illustrating accuracy and precision.}
 \usage{
-accuracyPrecision(n = 50, r = 4, pts.col = "red", pts.trans = 1,
+accuracyPrecision(n = 50, r = 4, pts.col = "red", pts.trans = 0.6,
   pts.cex = 1, mns.col = "blue", mns.pch = 3, mns.lwd = 2)
 }
 \arguments{
@@ -12,30 +12,23 @@ accuracyPrecision(n = 50, r = 4, pts.col = "red", pts.trans = 1,
 
 \item{r}{Number of rings (i.e., circles) on the target.}
 
-\item{pts.col}{String indicating color to use for plotting points on the
-target.}
+\item{pts.col}{String indicating color to use for plotting points on the target.}
 
-\item{pts.trans}{Value between 0 and 1 indicating the transparency to use for
-plotting points on the target.  The inverse of this value indicates how many
-points must be overplotted before the full color is shown.}
+\item{pts.trans}{Value between 0 and 1 indicating the transparency to use for plotting points on the target.  The inverse of this value indicates how many points must be overplotted before the full color is shown.}
 
 \item{pts.cex}{Character expansion amount for points on target.}
 
-\item{mns.col}{String indicating color to use for line marking the mean on
-the targets and the histograms.}
+\item{mns.col}{String indicating color to use for line marking the mean on the targets and the histograms.}
 
-\item{mns.pch}{Value indicating the plotting character to use for the mean on
-the targets.}
+\item{mns.pch}{Value indicating the plotting character to use for the mean on the targets.}
 
-\item{mns.lwd}{Value indicating the line width to use use for the mean on the
-histograms.}
+\item{mns.lwd}{Value indicating the line width to use use for the mean on the histograms.}
 }
 \value{
 None.  A plot is produced.
 }
 \description{
-Plot \dQuote{targets} and histograms for illustrating accuracy and precision.
-The user can choose the number of points to sample.
+Plot \dQuote{targets} and histograms for illustrating accuracy and precision.  The user can choose the number of points to sample.
 }
 \examples{
 accuracyPrecision()

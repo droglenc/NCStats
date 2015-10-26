@@ -1,11 +1,21 @@
 # 0.4.3 ongoing
+* Added `ImportFrom` for `nortest`.
 * Updated `README.md` and `DESCRIPTION` to reflect the new websites.
+* `accuracyPrecision()`: Modified.  Changed default for `pts.trans=`.  Streamlined code.
+* `adTest()`: Modified.  Send `x` directly to `ad.test()` from `nortest` package.  Added a check to see if the namespace for `nortest` was available.
+* `chisqPostHoc()`: Modified.  Changed default `control=` to match that in `p.adjust.methods` (i.e., defaults to "Holm" method).
+* `ci.t()`: Modified.  Streamlined code.
+* `ciSim()`: Modified.  Changed to using `se()` from `FSA` for `method="t"`.  Streamline code.
 * `compIntercepts()`: Deleted.  Moved to `FSA`.
 * `compSlopes()`: Deleted.  Moved to `FSA`.
+* `discharge()`: Deleted.  Moved to `FSAmisc`.
 * `kAnova()`: Added from `FSA`.
 * `kGLHT()`: Added from `FSA`.
 * `kHtest()`: Added from `FSA`.
 * `kREG()`: Added from `FSA`.
+* `limnoProfilePlot()`: Deleted.  Moved to `FSAmisc`.
+* `wetPerim()`: Deleted.  Moved to `FSAmisc`.
+* `z.test()`: Modified.  Imported and then exported `z.test()` from `TeachingDemos`.
 
 # 0.4.2 Aug14
 * Moved `relax` package to a import.

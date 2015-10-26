@@ -5,20 +5,20 @@
 \alias{print.summary.glht}
 \title{Modificaton of print.summary.glht() and print.confint.glth() to streamline output.}
 \usage{
-print.summary.glht(x, digits = max(3, getOption("digits") - 3),
+\method{print}{summary.glht}(x, digits = max(3, getOption("digits") - 3),
   signif.stars = getOption("show.signif.stars"), justResults = TRUE, ...)
 
-print.confint.glht(x, digits = max(3, getOption("digits") - 3),
+\method{print}{confint.glht}(x, digits = max(3, getOption("digits") - 3),
   justResults = TRUE, ...)
 }
 \arguments{
-\item{x}{An object of class \code{summary.glht} or \code{confint.glth} to be printed.}
+\item{x}{An object of class \code{summary.glht} or \code{confint.glth} to be printed}
 
-\item{digits}{A single numeric that indicates the number of digits to use.}
+\item{digits}{A single numeric that indicates the number of digits to use}
 
-\item{signif.stars}{A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient.}
+\item{signif.stars}{A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient}
 
-\item{justResults}{A single logical that indicates whether just the most pertinent numerical results are printed (\code{=TRUE}; default) or all information as in the default functions from \pkg{multcomp}.}
+\item{justResults}{A single logical that indicates whether just the most pertinent numerical results are printed (\code{=TRUE}; default) or all information as in the default functions from \pkg{multcomp}}
 
 \item{\dots}{Not implemented.}
 }

@@ -5,30 +5,30 @@
 \alias{print.summary.lm}
 \title{Modificaton of print.summary.lm() to streamline output}
 \usage{
-print.summary.lm(x, digits = max(3, getOption("digits") - 3),
+\method{print}{summary.lm}(x, digits = max(3, getOption("digits") - 3),
   symbolic.cor = x$symbolic.cor,
   signif.stars = getOption("show.signif.stars"), show.call = FALSE,
   show.resids = FALSE, ...)
 
-print.summary.glm(x, digits = max(3, getOption("digits") - 3),
+\method{print}{summary.glm}(x, digits = max(3, getOption("digits") - 3),
   symbolic.cor = x$symbolic.cor,
   signif.stars = getOption("show.signif.stars"), show.call = FALSE,
   show.resids = FALSE, ...)
 }
 \arguments{
-\item{x}{An object of class \code{summary.lm} to be printed.}
+\item{x}{An object of class \code{summary.lm} to be printed}
 
-\item{digits}{A single numeric that indicates the number of digits to use.}
+\item{digits}{A single numeric that indicates the number of digits to use}
 
-\item{symbolic.cor}{A logical that if \code{=TRUE} will print the correlations in a symbolic form rather than as numbers.}
+\item{symbolic.cor}{A logical that if \code{=TRUE} will print the correlations in a symbolic form rather than as numbers}
 
-\item{signif.stars}{A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient.}
+\item{signif.stars}{A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient}
 
-\item{show.call}{A single logical that indicates whether the call should be re-printed.}
+\item{show.call}{A single logical that indicates whether the call should be re-printed}
 
-\item{show.resids}{A single logical that indicates whether the information about the residuals should be included when printing the object.}
+\item{show.resids}{A single logical that indicates whether the information about the residuals should be included when printing the object}
 
-\item{\dots}{Not implemented.}
+\item{\dots}{Not implemented}
 }
 \value{
 Invisibly returns the sent \code{x}.

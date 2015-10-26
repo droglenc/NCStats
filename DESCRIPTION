@@ -1,11 +1,9 @@
 Package: NCStats
 Version: 0.4.3
-Title: Functions to Support Statistics Classes at Northland College
-Description: Functions and simulations to support the Introductory
-    Statistics and Biometry courses at Northland College.  I have not
-    fully proofed all functions -- they work with the examples that I have
-    developed but have not been thoroughly checked for all possibilities.
-    Don't use this package for research-grade analyses.
+Title: Support for Statistics Classes at Northland College
+Description: Functions and simulations to support the Introductory 
+    Statistics and Biometry courses at Northland College. Do not
+    use this package for research-grade analyses.
 URL: https://github.com/droglenc/NCStats, http://derekogle.com/
 Author: Derek Ogle <dogle@northland.edu>
 Maintainer: Derek Ogle <dogle@northland.edu>
@@ -17,8 +15,10 @@ Depends:
 Imports:
     Hmisc,
     multcomp,
+    nortest,
     plotrix,
-    relax
+    relax,
+    TeachingDemos
 Suggests:
     tcltk
 License: GPL (>= 2)

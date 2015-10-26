@@ -2,43 +2,30 @@
 % Please edit documentation in R/chisqPostHoc.R
 \name{chisqPostHoc}
 \alias{chisqPostHoc}
-\title{Tests for significant differences among all pairs of populations in a
-chi-square test.}
+\title{Tests for significant differences among all pairs of populations in a chi-square test.}
 \usage{
-chisqPostHoc(chi, popsInRows = TRUE, control = c("fdr", "BH", "BY",
-  "bonferroni", "holm", "hochberg", "hommel"), digits = 4)
+chisqPostHoc(chi, popsInRows = TRUE, control = stats::p.adjust.methods,
+  digits = 4)
 }
 \arguments{
-\item{chi}{A \code{chisq.test} object.}
+\item{chi}{A \code{chisq.test} object}
 
-\item{popsInRows}{A logical indicating whether the populations form the rows
-(default; \code{=TRUE}) of the table or not (\code{=FALSE}).}
+\item{popsInRows}{A logical indicating whether the populations form the rows (default; \code{=TRUE}) of the table or not (\code{=FALSE})}
 
-\item{control}{A string indicating the method of control to use.  See
-details.}
+\item{control}{A string indicating the method of control to use (see details)}
 
-\item{digits}{A numeric that controls the number of digits to print.}
+\item{digits}{A numeric that controls the number of digits to print}
 
-\item{\dots}{Other arguments sent to \code{print}.}
+\item{\dots}{Other arguments sent to \code{print}}
 }
 \value{
-A data.frame with a description of the pairwise comparisons, the raw
-p-values, and the adjusted p-values.
+A data.frame with a description of the pairwise comparisons, the raw p-values, and the adjusted p-values.
 }
 \description{
-Tests for significant differences among all pairs of populations in a
-chi-square test.
+Tests for significant differences among all pairs of populations in a chi-square test.
 }
 \details{
-Post-hoc tests for which pairs of populations differ following a significant
-chi-square test can be constructed by performing all chi-square tests for all
-pairs of populations and then adjusting the resulting p-values for inflation
-due to multiple comparisons.  The adjusted p-values can be computed with a
-wide variety of methods -- fdr, BH, BY, bonferroni, holm, hochberg, and
-hommel.  This function basically works as a wrapper function that sends the
-unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the
-\code{p.adjust} function in the base R program.  The \code{p.adjust} function
-should be consulted for further description of the methods used.
+Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons.  The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust.methods}}).  This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program.  The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
 }
 \examples{
 # Makes a table of observations -- similar to first example in chisq.test
@@ -55,7 +42,7 @@ chisqPostHoc(chi1)
 chisqPostHoc(chi2,popsInRows=FALSE)
 }
 \seealso{
-\code{chisq.test} and \code{p.adjust}.
+\code{\link[stats]{chisq.test}} and \code{\link[stats]{p.adjust}}.
 }
 \keyword{htest}
 

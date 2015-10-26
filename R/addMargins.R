@@ -1,54 +1,51 @@
-#'Puts Arbitrary Margins on Two-way Tables or Arrays
-#'
-#'Used to put marginal values on the two-way table or array.  For tables or
-#'arrays with more dimensions see \code{addmargins()}.  This version is
-#'designed for use in introductory classes where the \code{margin=} argument
-#'has been modified to be more intuitive to students.  Specifically, This function
-#'is a pass-through to \code{addmargins()} with the exception that \code{margin=1}
-#'adds a marginal value at the end of the rows and \code{margin=2} adds a marginal
-#'value at the end of the columns.  The numeric values in \code{margin=} are opposite
-#'of what is used in \code{addmargins()}.
-#'
-#'@param A table or array.
-#'@param margin A numeric value over which to form margins.  See details.
-#'@param \dots Additional arguments to be sent to \code{addmargins}.  See \code{?addmargins}.
-#'@return A table or array with the same number of dimensions as \code{A}, but
-#'with extra levels of the dimensions mentioned in \code{margin}.
-#'@note This is primarily a wrapper function for \code{addmargins} in \pkg{stats}.
-#'@seealso \code{\link{table}}, \code{\link{addmargins}}, and \code{percTable} in \pkg{NCStats}.
-#'@keywords manip array
-#'@examples
-#'Aye <- sample(c("Yes", "Si", "Oui"), 177, replace = TRUE)
-#'( A1 <- table(Aye) )
-#'Bee <- sample(c("Hum", "Buzz"), 177, replace = TRUE)
-#'( A2 <- table(Aye, Bee) )
-#'
-#'## 1-D table
-#'# Add sums to margin
-#'addMargins(A1)
-#'# Add sums to margin of proportions table
-#'addMargins(prop.table(A1))
-#'
-#'## 2-D table
-#'# Add sums to all margins
-#'addMargins(A2)
-#'# Add sums to end of rows (row totals)
-#'addMargins(A2,margin=1)
-#'# Add sums to end of columns (column totals)
-#'addMargins(A2,margin=2)
-#'# Add sums to end of a row proportions table
-#'A2.row <- prop.table(A2,margin=1)
-#'addMargins(A2.row,margin=1)
-#'# Add sums to end of a column proportions table
-#'A2.col <- prop.table(A2,margin=2)
-#'addMargins(A2.col,margin=2)
-#'# Add sums to all margins of proportions table
-#'A2.tbl <- prop.table(A2)
-#'addMargins(A2.tbl)
-#'
-#'@export
+#' Puts Arbitrary Margins on Two-way Tables or Arrays
+#' 
+#' Used to put marginal values on the two-way table or array.  For tables or arrays with more dimensions see \code{addmargins()}.  This version is designed for use in introductory classes where the \code{margin=} argument has been modified to be more intuitive to students.  Specifically, This function is a pass-through to \code{addmargins()} with the exception that \code{margin=1} adds a marginal value at the end of the rows and \code{margin=2} adds a marginal value at the end of the columns.  The numeric values in \code{margin=} are opposite of what is used in \code{addmargins()}.
+#' 
+#' @param A table or array
+#' @param margin A numeric value over which to form margins (see details)
+#' @param \dots Additional arguments to be sent to \code{\link[stats]{addmargins}}
+#' 
+#' @return A table or array with the same number of dimensions as \code{A}, but with extra levels of the dimensions mentioned in \code{margin}.
+#' 
+#' @note This is primarily a wrapper function for \code{\link[stats]{addmargins}} in \pkg{stats}.
+#' 
+#' @seealso \code{\link{table}}, \code{\link[stats]{addmargins}}, and \code{\link{percTable}} in \pkg{NCStats}.
+#' 
+#' @keywords manip array
+#' 
+#' @examples
+#' Aye <- sample(c("Yes", "Si", "Oui"), 177, replace = TRUE)
+#' ( A1 <- table(Aye) )
+#' Bee <- sample(c("Hum", "Buzz"), 177, replace = TRUE)
+#' ( A2 <- table(Aye, Bee) )
+#' 
+#' ## 1-D table
+#' # Add sums to margin
+#' addMargins(A1)
+#' # Add sums to margin of proportions table
+#' addMargins(prop.table(A1))
+#' 
+#' ## 2-D table
+#' # Add sums to all margins
+#' addMargins(A2)
+#' # Add sums to end of rows (row totals)
+#' addMargins(A2,margin=1)
+#' # Add sums to end of columns (column totals)
+#' addMargins(A2,margin=2)
+#' # Add sums to end of a row proportions table
+#' A2.row <- prop.table(A2,margin=1)
+#' addMargins(A2.row,margin=1)
+#' # Add sums to end of a column proportions table
+#' A2.col <- prop.table(A2,margin=2)
+#' addMargins(A2.col,margin=2)
+#' # Add sums to all margins of proportions table
+#' A2.tbl <- prop.table(A2)
+#' addMargins(A2.tbl)
+#' 
+#' @export
 addMargins <- function(A,margin=seq_along(dim(A)),...) {
   if (length(dim(A))>2) stop("addMargins only works with one or two dimensional tables.\n  See addmargins() for more complex tables.\n",call.=FALSE)
   if (length(dim(A))==2 & length(margin)==1) ifelse(margin==1,margin <- 2,margin <- 1)
-  addmargins(A,margin,...)
+  stats::addmargins(A,margin,...)
 }
