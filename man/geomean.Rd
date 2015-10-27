@@ -14,30 +14,21 @@ geosd(x, na.rm = FALSE, zneg.rm = FALSE)
 
 \item{na.rm}{Logical indicating whether to remove missing values or not.}
 
-\item{zneg.rm}{Logical indicating whether to ignore or remove zero or
-negative values found in \code{x}.}
+\item{zneg.rm}{Logical indicating whether to ignore or remove zero or negative values found in \code{x}.}
 }
 \value{
-A numeric value that is the geometric mean or geometric standard
-deviation of the numeric values in \code{x}.
+A numeric value that is the geometric mean or geometric standard deviation of the numeric values in \code{x}.
 }
 \description{
-Calculates the geometric mean or standard deviation of a vector of numeric
-values.
+Calculates the geometric mean or standard deviation of a vector of numeric values.
 }
 \details{
-The geometric mean is computed by log transforming the raw data in \code{x},
-computing the arithmetic mean of the transformed data, and back-transforming
-this mean to the geometric mean by exponentiating.
+The geometric mean is computed by log transforming the raw data in \code{x}, computing the arithmetic mean of the transformed data, and back-transforming this mean to the geometric mean by exponentiating.
 
-The geometric standard deviation is computed by log transforming the raw data
-in \code{x}, computing the arithmetic standar deviation of the transformed
-data, and back-transforming this standard deviation to the geometric standard
-deviation by exponentiating.
+The geometric standard deviation is computed by log transforming the raw data in \code{x}, computing the arithmetic standar deviation of the transformed data, and back-transforming this standard deviation to the geometric standard deviation by exponentiating.
 }
 \note{
-This function is largely an implementation of the code suggested by
-Russell Senior on R-help in November, 1999.
+This function is largely an implementation of the code suggested by Russell Senior on R-help in November, 1999.
 }
 \examples{
 ## generate random lognormal data

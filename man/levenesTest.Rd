@@ -7,20 +7,19 @@
 levenesTest(...)
 }
 \arguments{
-\item{\dots}{Arguments to pass through to \code{leveneTest} in \pkg{car}.}
+\item{\dots}{Arguments to pass through to \code{\link[car]{leveneTest}} in \pkg{car}.}
 }
 \value{
-See help for \code{leveneTest} in \pkg{car}.
+See help for \code{\link[car]{leveneTest}} in \pkg{car}.
 }
 \description{
 Perform Levene's test for homogeneity of variances
 }
 \note{
-This is a simple pass-through to  \code{leveneTest} in \pkg{car} for those
-of us that always put the \sQuote{s} on \sQuote{Levenes}.
+This is a simple pass-through to  \code{\link[car]{leveneTest}} in \pkg{car} for those of us that always put the \sQuote{s} on \sQuote{Levenes}.
 }
 \seealso{
-\code{leveneTest} in \pkg{car}.
+\code{\link[car]{leveneTest}} in \pkg{car}.
 }
 \keyword{misc}
 

@@ -9,13 +9,13 @@ Author: Derek Ogle <dogle@northland.edu>
 Maintainer: Derek Ogle <dogle@northland.edu>
 Depends:
     R (>= 3.0.0),
-    FSA,
-    car,
-    FSAdata
+    FSA
 Imports:
     graphics,
+    grDevices,
     stats,
     utils,
+    car,
     multcomp,
     nortest,
     plotrix,

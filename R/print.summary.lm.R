@@ -75,7 +75,7 @@ print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=
       coefs <- matrix(NA, length(aliased), 4, dimnames = list(cn,colnames(coefs)))
       coefs[!aliased, ] <- x$coefficients
     }
-    printCoefmat(coefs, digits = digits, signif.stars = signif.stars,na.print = "NA", ...)
+    stats::printCoefmat(coefs, digits = digits, signif.stars = signif.stars,na.print = "NA", ...)
   }
   cat("\nResidual standard error:", format(signif(x$sigma,digits)), "on", rdf, "degrees of freedom\n")
   if (nzchar(mess <- naprint(x$na.action))) 
@@ -135,7 +135,7 @@ print.summary.glm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor
       coefs <- matrix(NA, length(aliased), 4L, dimnames = list(cn,colnames(coefs)))
       coefs[!aliased, ] <- x$coefficients
     }
-    printCoefmat(coefs, digits = digits, signif.stars = signif.stars,na.print = "NA", ...)
+    stats::printCoefmat(coefs, digits = digits, signif.stars = signif.stars,na.print = "NA", ...)
   }
   cat("\n(Dispersion parameter for ", x$family$family, " family taken to be ", 
       format(x$dispersion), ")\n\n", apply(cbind(paste(format(c("Null","Residual"), 

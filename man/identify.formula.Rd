@@ -11,7 +11,7 @@
 
 \item{data}{The data frame from which the formula should be evaluated.}
 
-\item{\dots}{Other arguments to be passed to \code{identify()}.}
+\item{\dots}{Other arguments to be passed to \code{\link[graphics]{identify}}.}
 }
 \value{
 See \code{identify}
@@ -20,7 +20,7 @@ See \code{identify}
 identify reads the position of the graphics pointer when the (first) mouse button is pressed. It then searches the coordinates given in x and y for the point closest to the pointer. If this point is close enough to the pointer, its index will be returned as part of the value of the call.
 }
 \details{
-This function is meant to make it easier to call \code{identify()} after \code{plot()} has been called using a formula and the \code{data=} argument.
+This function is meant to make it easier to call \code{\link[graphics]{identify}} after \code{plot} has been called using a formula and the \code{data=} argument.
 
 A two dimensional plot must be active and the vectors in \code{x} and data frame  in \code{data} must correspond to the x- and y-axes and the data of the plot.
 }

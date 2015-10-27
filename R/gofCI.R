@@ -50,10 +50,10 @@
 #' gofCI(x.chi,type="goodman")
 #' 
 #' # A chi-square (not goodness-of-fit) test from chisq.test()
-#' M <- as.table(rbind(c(762, 327, 468), c(484,239,477)))
-#' dimnames(M) <- list(gender=c("M","F"), party=c("Democrat","Independent", "Republican"))
-#' ( Xsq <- chisq.test(M) )
-#' try( gofCI(Xsq) )
+#' #M <- as.table(rbind(c(762, 327, 468), c(484,239,477)))
+#' #dimnames(M) <- list(gender=c("M","F"), party=c("Democrat","Independent", "Republican"))
+#' #( Xsq <- chisq.test(M) )
+#' #try( gofCI(Xsq) )
 #' # Gives an error as gofCI only works for goodness-of-fit results
 #' 
 #' # An example with only two levels (i.e., binomial situation)

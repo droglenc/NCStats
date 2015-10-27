@@ -5,6 +5,7 @@
 #' A two dimensional plot must be active and the \code{x} and \code{y} vectors must correspond to the x- and y-axes of the plot or \code{x} must correspond to the formula used to produce the plot.
 #' 
 #' @aliases highlight highlight.default highlight.formula
+#' 
 #' @param x The vector of x coordinates or a formula of the form \code{y~x}.
 #' @param y The vector of y coordinates.
 #' @param data The data frame from which the formula should be evaluated.
@@ -59,7 +60,7 @@ highlight.default <- function(x,y,lbls=NULL,pts=NULL,col="red",cex=1.25,pos=NULL
 #' @rdname highlight
 #' @export
 highlight.formula <- function(x,data=NULL,lbls=NULL,pts=NULL,col="red",cex=1.25,pos=NULL,...) {
-  mf <- model.frame(x,data)
+  mf <- stats::model.frame(x,data)
   x <- mf[,2]
   y <- mf[,1]
   if (!is.null(data)) lbls <- eval(substitute(lbls), data, environment(formula))

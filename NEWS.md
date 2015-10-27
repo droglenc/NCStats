@@ -9,6 +9,8 @@
 * `compIntercepts()`: Deleted.  Moved to `FSA`.
 * `compSlopes()`: Deleted.  Moved to `FSA`.
 * `discharge()`: Deleted.  Moved to `FSAmisc`.
+* `distrib()`: Modified.  Changed to use `col2rgbt()` from `FSA`.
+* `faqNC()`: Deleted.  Woefully out-of-data.
 * `gofCI()`: Modified.  Replaced use of `binconf()` from `Hmisc` with `binCI()` from `FSA`.  Streamlined code.
 * `iChk4Namespace()`: Added.  Allowed `requireNamespaces()`s to be replaced throughout.
 * `kAnova()`: Added from `FSA`.
@@ -16,6 +18,7 @@
 * `kHtest()`: Added from `FSA`.
 * `kREG()`: Added from `FSA`.
 * `limnoProfilePlot()`: Deleted.  Moved to `FSAmisc`.
+* `print.anova()`: Deleted.  Too problematic.
 * `wetPerim()`: Deleted.  Moved to `FSAmisc`.
 * `z.test()`: Modified.  Imported and then exported `z.test()` from `TeachingDemos`.
 

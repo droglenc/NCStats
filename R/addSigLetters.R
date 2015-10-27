@@ -66,7 +66,7 @@
 #' @export
 addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns)),
                                      offset=0.5,col=rep(1,length(mns)),cex=rep(0,length(mns)),...) {
-  mdl <- FSA:::iTypeoflm(mdl)
+  mdl <- iTypeoflm(mdl)
   if (mdl$type!="ONEWAY" & mdl$type!="TWOWAY")
     stop("\n addSigLetters only works with one or two factors in the model.",call.=FALSE)
   if (mdl$type=="ONEWAY" | (mdl$type=="TWOWAY" & !missing(which))) {

@@ -102,33 +102,46 @@
 #'
 #'@rdname transChooser
 #'@export transChooser
-transChooser <- function(object,shifty=0,shiftx=0,show.stats=TRUE,boxplot=TRUE,alpha=0.05,col.hist="gray90",...) {
-  object <- FSA:::iTypeoflm(object)
+transChooser <- function(object,shifty=0,shiftx=0,show.stats=TRUE,
+                         boxplot=TRUE,alpha=0.05,col.hist="gray90",...) {
+  object <- iTypeoflm(object)
   if (object$type %in% c("SLR","IVR")) transChooser_REGRESS(object,shifty=shifty,shiftx=shiftx,show.stats=show.stats,alpha=alpha,col.hist=col.hist,...)
   else if (object$type %in% c("ONEWAY","TWOWAY")) transChooser_ANOVA(object,shifty=shifty,show.stats=show.stats,boxplot=boxplot,alpha=alpha,col.hist=col.hist,...)
   else if (object$type=="MLR") stop("Multiple linear regression objects are not supported by transChooser.",call.=FALSE)
   else stop("The object supplied in 'object' is not supported by transChooser.",call.=FALSE)
 }
 
-transChooser_ANOVA <- function(object,shifty=0,show.stats=TRUE,boxplot=TRUE,alpha=0.05,col.hist="gray90",...) {
+transChooser_ANOVA <- function(object,shifty=0,show.stats=TRUE,
+                               boxplot=TRUE,alpha=0.05,col.hist="gray90",...) {
   refresh <- function(...) {
-    assumPlot_ANOVA(object,lambda=relax::slider(no=1),shifty=shifty,show.stats=show.stats,boxplot=boxplot,alpha=alpha,col.hist=col.hist,...)
+    assumPlot_ANOVA(object,lambda=relax::slider(no=1),
+                    shifty=shifty,show.stats=show.stats,boxplot=boxplot,
+                    alpha=alpha,col.hist=col.hist,...)
   } # end refresh internal function
   
   if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE,hscale=2,title="ANOVA Power Transformation Chooser",sl.names= c("lambda"),
-                          sl.mins=c(-1.0),sl.maxs=c(1.0),sl.deltas=c(0.05),sl.defaults=c(1.0),pos.of.panel="left")
+    relax::gslider(refresh,prompt=TRUE,hscale=2,
+                   title="ANOVA Power Transformation Chooser",
+                   sl.names= c("lambda"),sl.mins=c(-1.0),sl.maxs=c(1.0),
+                   sl.deltas=c(0.05),sl.defaults=c(1.0),pos.of.panel="left")
   }
 }
 
-transChooser_REGRESS <- function(object,shifty=0,shiftx=0,show.stats=TRUE,alpha=0.05,col.hist="gray90",...) {  
+transChooser_REGRESS <- function(object,shifty=0,shiftx=0,
+                                 show.stats=TRUE,alpha=0.05,col.hist="gray90",...) {  
   refresh <- function(...) {
-    assumPlot_REGRESS(object,lambday=relax::slider(no=1),lambdax=relax::slider(no=2),shifty=shifty,shiftx=shiftx,show.stats=show.stats,alpha=alpha,col.hist=col.hist,...)
+    assumPlot_REGRESS(object,lambday=relax::slider(no=1),lambdax=relax::slider(no=2),
+                      shifty=shifty,shiftx=shiftx,show.stats=show.stats,
+                      alpha=alpha,col.hist=col.hist,...)
   }  # end refresh internal function
   
   if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE,hscale=2,title="Regression Power Transformation Chooser",sl.names=c("lambday","lambdax"),
-                          sl.mins=c(-1.0,-1.0),sl.maxs=c(1.0,1.0),sl.deltas=c(0.05,0.05),sl.defaults=c(1.0,1.0),pos.of.panel="left")
+    relax::gslider(refresh,prompt=TRUE,hscale=2,
+                   title="Regression Power Transformation Chooser",
+                   sl.names=c("lambday","lambdax"),
+                   sl.mins=c(-1.0,-1.0),sl.maxs=c(1.0,1.0),
+                   sl.deltas=c(0.05,0.05),sl.defaults=c(1.0,1.0),
+                   pos.of.panel="left")
   }
 }
 
@@ -150,14 +163,15 @@ assumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.hi
   }
   # below controls for whether it is a one-way or two-way ANOVA
   ifelse(any(class(object)=="ONEWAY"), gf <- object$mf[,2], gf <- object$mf[,2]:object$mf[,3])
-  lm1 <- lm(y~gf)
-  old.par <- par(mar=c(3.5,3.5,2,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
-  hist(lm1$residuals,main="",xlab=lbl,yaxt="n",ylab="",col=col.hist)
+  lm1 <- stats::lm(y~gf)
+  old.par <- graphics::par(mar=c(3.5,3.5,2,1), mgp=c(2,0.75,0), mfcol=c(1,2))
+  on.exit(graphics::par(old.par))
+  graphics::hist(lm1$residuals,main="",xlab=lbl,yaxt="n",ylab="",col=col.hist)
   if (show.stats) {
     lblADTest(lm1,alpha)
     lblOutTest(lm1,alpha)
   }
-  residPlot(lm1,student=FALSE,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,inclHist=FALSE)
+  FSA::residPlot(lm1,student=FALSE,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,inclHist=FALSE)
   if (show.stats) lblLevTest(lm1,alpha)
 } ## end internal assumPlot_ANOVA
 
@@ -185,38 +199,44 @@ assumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,show.stats,al
     xlbl <- paste0("X^(",formatC(lambdax,format="f",digits=2),")") 
   }
   # Below handles differences between SLR and IVR
-  if (!any(class(object)=="IVR")) lm1 <- lm(y~x)
+  if (!any(class(object)=="IVR")) lm1 <- stats::lm(y~x)
   # Below determines if it is a one-way or a two-way IVR and adjusts accordingly
-  else if (dim(object$mf)[2]==3) lm1 <- lm(y~x*object$mf[,3])
-  else if (dim(object$mf)[2]==4) lm1 <- lm(y~x*object$mf[,3]*object$mf[,4])
+  else if (dim(object$mf)[2]==3) lm1 <- stats::lm(y~x*object$mf[,3])
+  else if (dim(object$mf)[2]==4) lm1 <- stats::lm(y~x*object$mf[,3]*object$mf[,4])
   else stop("Function only works with IVR models with 1 or 2 factors.",call.=FALSE)
-  old.par <- par(mar=c(3.5,3.5,3,1), mgp=c(2,0.5,0), mfcol=c(1,2))
-  hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),yaxt="n",ylab="",col=col.hist)
+  old.par <- graphics::par(mar=c(3.5,3.5,3,1), mgp=c(2,0.5,0), mfcol=c(1,2))
+  graphics::hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),
+                 yaxt="n",ylab="",col=col.hist)
   if (show.stats) lblADTest(lm1,alpha,line=0.5)
-  residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE)
+  FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
+                 ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE)
   if (show.stats) lblOutTest(lm1,alpha,line=0.5)
   on.exit(par(old.par))
 } ## end internal assumPlot_REGRESS
 
 lblADTest <- function(lmobj,alpha,line=1) {
   ad.p <- formatC(adTest(lmobj$residuals)$p.value,digits=4,format="f")
-  mtext(paste("Anderson-Darling p-value=",ad.p),line=line,col=ifelse(ad.p<alpha,"red","black"))
+  graphics::mtext(paste("Anderson-Darling p-value=",ad.p),
+                  line=line,col=ifelse(ad.p<alpha,"red","black"))
 }
 
 lblOutTest <- function(lmobj,alpha,line=0) {
-  out.p <- outlierTest(lmobj)$bonf.p
+  out.p <- car::outlierTest(lmobj)$bonf.p
   if (length(out.p)>1) { out.p <- min(out.p) }
   if (is.na(out.p) | out.p>1) { out.p <- 1 }
   out.p <- formatC(out.p,digits=4,format="f")
-  mtext(paste("Outlier test p-value=",out.p),line=line,col=ifelse(out.p<alpha,"red","black"))
+  graphics::mtext(paste("Outlier test p-value=",out.p),
+                  line=line,col=ifelse(out.p<alpha,"red","black"))
 }
 
 lblLevTest <- function(lmobj,alpha,line=0.5) {
-  lev.p <- formatC(leveneTest(lmobj)[1,3],digits=4,format="f")
-  mtext(paste("Levene's test p-value=",lev.p),line=line,col=ifelse(lev.p<alpha,"red","black"))
+  lev.p <- formatC(car::leveneTest(lmobj)[1,3],digits=4,format="f")
+  graphics::mtext(paste("Levene's test p-value=",lev.p),line=line,
+                  col=ifelse(lev.p<alpha,"red","black"))
 }
 
 lblNCVTest <- function(lmobj,alpha,line=0.5) {
-  ncv.p <- formatC(ncvTest(lmobj)$p,digits=4,format="f")
-  mtext(paste("NCV test p-value=",ncv.p),line=line,col=ifelse(ncv.p<alpha,"red","black"))
+  ncv.p <- formatC(car::ncvTest(lmobj)$p,digits=4,format="f")
+  graphics::mtext(paste("NCV test p-value=",ncv.p),line=line,
+                  col=ifelse(ncv.p<alpha,"red","black"))
 }

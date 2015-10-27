@@ -58,7 +58,7 @@ print.summary.glht <- function (x,digits=max(3,getOption("digits")-3),signif.sta
   if (!justResults) cat("Linear Hypotheses:\n")
   alt <- switch(x$alternative, two.sided = "==", less = ">=", greater = "<=")
   rownames(mtests) <- paste(rownames(mtests), alt, x$rhs)
-  printCoefmat(mtests, digits = digits, has.Pvalue = TRUE, P.values = TRUE, eps.Pvalue = sig)
+  stats::printCoefmat(mtests, digits = digits, has.Pvalue = TRUE, P.values = TRUE, eps.Pvalue = sig)
   if (!justResults) {
     switch(type, univariate = cat("(Univariate p values reported)"), 
            `single-step` = cat("(Adjusted p values reported -- single-step method)"), 

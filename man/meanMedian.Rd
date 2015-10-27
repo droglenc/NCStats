@@ -9,20 +9,13 @@ meanMedian(x = NULL, outlier = c("none", "max", "min"))
 \arguments{
 \item{x}{An optional numeric vector (of actual data) to be used in the visual.}
 
-\item{outlier}{A string indicating whether the outlier should be modeled at the
-maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).
-This is ignored if \code{x} is not \code{NULL}.}
+\item{outlier}{A string indicating whether the outlier should be modeled at the maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).  This is ignored if \code{x} is not \code{NULL}.}
 }
 \value{
-None, but a graphic (if \code{x} is not \code{null}) or a dynamic
-graphic with slider bars (if \code{x} is \code{null}) is produced.
+None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with slider bars (if \code{x} is \code{null}) is produced.
 }
 \description{
-This function visually illustrates how the mean \dQuote{balances} distances
-and the median \dQuote{balances} individuals in a random sample from a known
-population.  The user can manipulate the number of individuals in the sample
-and the shape of the population to determine how these attributes affect the
-calculation of the mean and median.
+This function visually illustrates how the mean \dQuote{balances} distances and the median \dQuote{balances} individuals in a random sample from a known population.  The user can manipulate the number of individuals in the sample and the shape of the population to determine how these attributes affect the calculation of the mean and median.
 }
 \examples{
 if (interactive()) {

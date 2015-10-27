@@ -9,21 +9,18 @@ expandTable(x, var.names = NULL, ...)
 \arguments{
 \item{x}{A matrix containing the contingency table.}
 
-\item{var.names}{A vector of strings used to name the variables in the new
-data frame.}
+\item{var.names}{A vector of strings used to name the variables in the new data frame.}
 
 \item{\dots}{Additional arguments for the type.convert function.}
 }
 \value{
-Returns a data frame of the expanded raw data from the contingency
-table.
+Returns a data frame of the expanded raw data from the contingency table.
 }
 \description{
 Converts results in a contingency table into the original raw data.
 }
 \note{
-This function is largely an implementation of the commands detailed in
-Mark Schwartz's R-help e-mail of 17Oct06 and 5Oct07.
+This function is largely an implementation of the commands detailed in Mark Schwartz's R-help e-mail of 17Oct06 and 5Oct07.
 }
 \examples{
 ## Simple example
@@ -45,8 +42,7 @@ rawf
 with(rawf,table(RowVar,ColVar))
 }
 \seealso{
-\code{as.data.frame.table}, \code{type.convert}, and
-\code{expandTable} in \pkg{epitools}.
+\code{as.data.frame.table}, \code{type.convert}, and \code{expandTable} in \pkg{epitools}.
 }
 \keyword{manip}
 

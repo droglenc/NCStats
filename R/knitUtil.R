@@ -38,7 +38,7 @@
 #' @rdname knitUtil
 #' @export
 kANOVA <- function(x) {
-  x <- anova(x)
+  x <- stats::anova(x)
   attr(x,"heading") <- NULL
   x
 }
@@ -67,10 +67,10 @@ kREG <- function(x,digits=max(3,getOption("digits")-3)) {
     coefs <- matrix(NA, length(aliased), 4, dimnames = list(cn, colnames(coefs)))
     coefs[!aliased, ] <- x$coefficients
   }
-  printCoefmat(coefs, digits = digits, na.print = "NA")
+  stats::printCoefmat(coefs, digits = digits, na.print = "NA")
   cat("---")
   cat("\nResidual standard error:", format(signif(x$sigma,digits)), "on", rdf, "degrees of freedom\n")
-  if (nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep = "")
+  if (nzchar(mess <- stats::naprint(x$na.action))) cat("  (", mess, ")\n", sep = "")
   if (!is.null(x$fstatistic)) {
     cat("Multiple R-squared:", formatC(x$r.squared, digits = digits))
     cat(",\tAdjusted R-squared:", formatC(x$adj.r.squared,digits = digits), "\nF-statistic:",

@@ -7,16 +7,17 @@
 \usage{
 glhtSig(object, ...)
 
-\method{glhtSig}{glht}(object, test = adjusted(), alpha = 0.05, ...)
+\method{glhtSig}{glht}(object, test = multcomp::adjusted(), alpha = 0.05,
+  ...)
 }
 \arguments{
-\item{object}{An object saved from \code{glht()} from the \pkg{multcomp} package.}
+\item{object}{An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.}
 
-\item{test}{A function for computing p-values.  See help for \code{glht}.}
+\item{test}{A function for computing p-values (see \code{\link[multcomp]{glht}}).}
 
 \item{alpha}{A numeric indicated the rejection criterion to be used for identifying significant comparisons.  Defaults to \code{0.05}.}
 
-\item{\dots}{Other arguments to pass through to \code{summary.glht()}.}
+\item{\dots}{Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.}
 }
 \value{
 A vector containing the names of the paired comparisons that have a p-value less than \code{alpha}.
@@ -31,7 +32,7 @@ This can be very slow to process.  Be patient.
 ## NONE YET
 }
 \seealso{
-\code{glht} and \code{summary.glht} in \pkg{multcomp}.
+\code{\link[multcomp]{glht}} and \code{\link[multcomp]{summary.glht}} in \pkg{multcomp}.
 }
 \keyword{misc}
 
