@@ -23,7 +23,7 @@ This function produces two graphics.  The left-most graphic is a histogram of th
 The two graphics are dynamically controlled by three slider bars.  The first two slider bars control the shape parameters of the beta distribution used to model the population distribution that will be sampled from.  The beta distribution allows for a wide variety of shapes for the population distribution.  The last slider bar controls the size of each sample taken from the population distribution.  The slider bars can be used to detect how changes in the shape of the population and the size of the sample effect the shape, center, and dispersion of the sampling distribution.
 }
 \examples{
-if (interactive()) {
+\dontrun{
 cltSim()
 }
 }

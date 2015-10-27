@@ -22,14 +22,11 @@ None, but a dynamic graphic with slider bars is produced.
 This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and ploting those confidence intervals.  Slider bars then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
 }
 \examples{
-if (interactive()) {
-
+\dontrun{
 # Default using normal theory for confidence regions
 ciSim()
-
 # Using t-distribution theory for confidence regions
 ciSim(method="t")
-
 }
 }
 \keyword{dynamic}

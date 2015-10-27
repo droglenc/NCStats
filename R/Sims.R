@@ -12,14 +12,11 @@
 #' @keywords misc dynamic
 #' 
 #' @examples
-#' if (interactive()) {
-#' 
+#' \dontrun{
 #' # Default using normal theory for confidence regions
 #' ciSim()
-#' 
 #' # Using t-distribution theory for confidence regions
 #' ciSim(method="t")
-#' 
 #' }
 #' 
 #' @export
@@ -156,7 +153,7 @@ iCISimPlot <- function(n,conf,tail,reps,method,mu,sigma,...) {
 #' @keywords misc dynamic
 #' 
 #' @examples
-#' if (interactive()) {
+#' \dontrun{
 #' cltSim()
 #' }
 #' 
@@ -246,12 +243,11 @@ iCLTSimPlot <- function(n,sh1,sh2,reps,incl.norm) {
 #' @keywords dynamic
 #' 
 #' @examples
-#' if (interactive()) {
-#' 
+#' \dontrun{
 #' powerSim()
 #' powerSim(lower.tail=FALSE)
-#' 
 #' }
+#' 
 #' @export
 #' 
 powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=TRUE) {

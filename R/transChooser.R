@@ -80,8 +80,7 @@
 #'data(Mirex)
 #'Mirex$year <- factor(Mirex$year)
 #'
-#'if (interactive()) {
-#'
+#' \dontrun{
 #'## example with one-way ANOVA
 #'lm1 <- lm(mirex~year,data=Mirex)
 #'transChooser(lm1)
@@ -97,7 +96,6 @@
 #'## example with IVR
 #'lm4 <- lm(mirex~weight*year,data=Mirex)
 #'transChooser(lm4)
-#'
 #'}
 #'
 #'@rdname transChooser

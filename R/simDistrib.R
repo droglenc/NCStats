@@ -1,46 +1,40 @@
-#'Demonstrates the shape of the PDF and CDF for the given distribution.
-#'
-#'Dynamically demonstrates the effect of parameter choices on the shape of the
-#'PDF and CDF for the given distribution.
-#'
-#'A graphic will be produced that is connected to a slider bar where the user
-#'can change the parameters of the distribution.  The real-time updating of the
-#'graphic allows the user to determine the effect of changing each parameter on
-#'the shape, mean, and standard deviation of the distribution.
-#'
-#'@aliases sbeta sbinom schisq sexp sf sgamma sgeom shyper slnorm snbinom snorm
-#'spois st
-#'@param show.both logical; if \code{TRUE} (default) then show both the PDF and
-#'CDF, else just the PDF.
-#'@param show.mnsd logical; if \code{TRUE} (default) then show the mean and
-#'standard deviation on the PDF.
-#'@return None, but a dynamic graphic with slider bars will be produced.
-#'@seealso \code{vis.binom}, \code{vis.gamma}, \code{vis.normal},and
-#'\code{vis.t} of the \code{TeachingDemos} package.  Also see
-#'\code{\link{dbeta}}, \code{\link{dbinom}}, \code{\link{dchisq}}, etc.
-#'@keywords hplot distribution dynamic
-#'@examples
-#'if(interactive()) {
-#'
-#'sbeta()
-#'sbinom()
-#'schisq()
-#'sexp()
-#'sf()
-#'sgamma()
-#'sgeom()
-#'shyper()
-#'slnorm()
-#'snbinom()
-#'snorm()
-#'spois()
-#'st()
-#'
-#'}
-#'
-#'@rdname simDistrib
-#'@export sbeta
-#'
+#' Demonstrates the shape of the PDF and CDF for the given distribution.
+#' 
+#' Dynamically demonstrates the effect of parameter choices on the shape of the PDF and CDF for the given distribution.
+#' 
+#' A graphic will be produced that is connected to a slider bar where the user can change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.
+#' 
+#' @aliases sbeta sbinom schisq sexp sf sgamma sgeom shyper slnorm snbinom snorm spois st
+#' 
+#' @param show.both logical; if \code{TRUE} (default) then show both the PDF and CDF, else just the PDF.
+#' @param show.mnsd logical; if \code{TRUE} (default) then show the mean and standard deviation on the PDF.
+#' 
+#' @return None, but a dynamic graphic with slider bars will be produced.
+#' 
+#' @seealso \code{vis.binom}, \code{vis.gamma}, \code{vis.normal}, and \code{vis.t} of the \code{TeachingDemos} package.  Also see \code{\link{dbeta}}, \code{\link{dbinom}}, \code{\link{dchisq}}, etc.
+#' 
+#' @keywords hplot distribution dynamic
+#' 
+#' @examples
+#' \dontrun{
+#' sbeta()
+#' sbinom()
+#' schisq()
+#' sexp()
+#' sf()
+#' sgamma()
+#' sgeom()
+#' shyper()
+#' slnorm()
+#' snbinom()
+#' snorm()
+#' spois()
+#' st()
+#' }
+#' 
+#' @rdname simDistrib
+#' @export sbeta
+#' 
 sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta Distribution Simulator
   refresh <- function(...) {
     alpha <- relax::slider(no=1)
@@ -68,8 +62,8 @@ sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta 
   }
 }
 
-#'@rdname simDistrib
-#'@export sbinom
+#' @rdname simDistrib
+#' @export sbinom
 sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomial Distribution Simulator
   refresh <- function(...) {
     n <- relax::slider(no=1)
@@ -95,8 +89,8 @@ sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomi
   }
 }
 
-#'@rdname simDistrib
-#'@export schisq
+#' @rdname simDistrib
+#' @export schisq
 schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # chi-square Distribution Simulator
   refresh <- function(...) {
     df <- relax::slider(no=1)
@@ -123,8 +117,8 @@ schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # ch
   }
 }
 
-#'@rdname simDistrib
-#'@export sexp
+#' @rdname simDistrib
+#' @export sexp
 sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Exponential Distribution Simulator
   refresh <- function(...) {
     lambda <- relax::slider(no=1)
@@ -151,8 +145,8 @@ sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Expone
   }
 }
 
-#'@rdname simDistrib
-#'@export sf
+#' @rdname simDistrib
+#' @export sf
 sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distribution Simulator
   refresh <- function(...) {
     ndf <- relax::slider(no=1)
@@ -180,8 +174,8 @@ sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distri
   }
 }
 
-#'@rdname simDistrib
-#'@export sgamma
+#' @rdname simDistrib
+#' @export sgamma
 sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamma Distribution Simulator
   refresh <- function(...) {
     alpha <- relax::slider(no=1)
@@ -209,8 +203,8 @@ sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamm
   }
 }
 
-#'@rdname simDistrib
-#'@export sgeom
+#' @rdname simDistrib
+#' @export sgeom
 sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geometric Distribution Simulator
   refresh <- function(...) {
     p <- relax::slider(no=1)
@@ -238,8 +232,8 @@ sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geomet
   }
 }
 
-#'@rdname simDistrib
-#'@export shyper
+#' @rdname simDistrib
+#' @export shyper
 shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hypergeometric Distribution Simulator
   refresh <- function(...) {
     M <- relax::slider(no=1)
@@ -267,8 +261,8 @@ shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hyperg
   }
 }
 
-#'@rdname simDistrib
-#'@export slnorm
+#' @rdname simDistrib
+#' @export slnorm
 slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Normal Distribution Simulator
   refresh <- function(...) {
     mu <- relax::slider(no=1)
@@ -296,8 +290,8 @@ slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Nor
   }
 }
 
-#'@rdname simDistrib
-#'@export snbinom
+#' @rdname simDistrib
+#' @export snbinom
 snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negative Binomial Distribution Simulator
   refresh <- function(...) {
     r <- relax::slider(no=1)
@@ -326,8 +320,8 @@ snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negati
   }
 }
 
-#'@rdname simDistrib
-#'@export snorm
+#' @rdname simDistrib
+#' @export snorm
 snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Normal Distribution Simulator
   refresh <- function(...) {
     mu <- relax::slider(no=1)
@@ -355,8 +349,8 @@ snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Norm
   }
 }
 
-#'@rdname simDistrib
-#'@export spois
+#' @rdname simDistrib
+#' @export spois
 spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisson Distribution Simulator
   refresh <- function(...) {
     lambda <- relax::slider(no=1)
@@ -384,8 +378,8 @@ spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisso
   }
 }
 
-#'@rdname simDistrib
-#'@export st
+#' @rdname simDistrib
+#' @export st
 st <- function(show.both=TRUE,show.mnsd=TRUE) {                         # t Distribution Simulator
   refresh <- function(...) {
     df <- relax::slider(no=1)

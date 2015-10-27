@@ -1,5 +1,7 @@
 # 0.4.3 ongoing
-* Added `ImportFrom` for `nortest`.
+* **`gofCI()` and `predictionPlot()` have the examples wrapped in `\dontrun{}` -- try to fix this**
+
+* Added `ImportFrom` for `nortest` and the "base" packages that are needed.  Moved `car` from `Depends` to `ImportFrom`.  Removed `FSAdata` from `Depends`.
 * Updated `README.md` and `DESCRIPTION` to reflect the new websites.
 * `accuracyPrecision()`: Modified.  Changed default for `pts.trans=`.  Streamlined code.
 * `adTest()`: Modified.  Send `x` directly to `ad.test()` from `nortest` package.  Added a check to see if the namespace for `nortest` was available.

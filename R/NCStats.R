@@ -9,4 +9,6 @@
 #' @docType package
 #' 
 #' @name NCStats
+#' 
+#' @import FSA
 NULL

@@ -10,8 +10,7 @@
 #' @keywords dynamic
 #' 
 #' @examples
-#' if (interactive()) {
-#' 
+#' \dontrun{
 #' ## Examples with simulated data
 #' ##   no outlier
 #' meanMedian()
@@ -21,7 +20,6 @@
 #' 
 #' ##   no outlier
 #' meanMedian(outlier="max")
-#' 
 #' }
 #' 
 #' ## Example with user-derived data

@@ -33,6 +33,7 @@
 #' @keywords htest
 #' 
 #' @examples
+#' \dontrun{
 #' # example from chisq.test()
 #' x <- c(A = 20, B = 15, C = 25)
 #' ( x.chi <- chisq.test(x) )
@@ -75,6 +76,7 @@
 #' p <- obs/sum(obs) 
 #' se.p <- sqrt(p[1]*p[2]/sum(obs))
 #' rbind(p[1]+c(1,-1)*qnorm(0.025)*se.p,p[2]+c(1,-1)*qnorm(0.025)*se.p)
+#' }
 #' 
 #' @export
 gofCI <- function(chi,conf.level=0.95,

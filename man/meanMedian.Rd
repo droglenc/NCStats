@@ -18,8 +18,7 @@ None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with s
 This function visually illustrates how the mean \dQuote{balances} distances and the median \dQuote{balances} individuals in a random sample from a known population.  The user can manipulate the number of individuals in the sample and the shape of the population to determine how these attributes affect the calculation of the mean and median.
 }
 \examples{
-if (interactive()) {
-
+\dontrun{
 ## Examples with simulated data
 ##   no outlier
 meanMedian()
@@ -29,7 +28,6 @@ meanMedian(outlier="min")
 
 ##   no outlier
 meanMedian(outlier="max")
-
 }
 
 ## Example with user-derived data

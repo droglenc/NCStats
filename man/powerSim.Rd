@@ -27,11 +27,9 @@ None, but a dynamic graphic with slider bars is produced.
 This function plots the null and actual distributions, highlights the rejection region and the power region, and allows the user to manipulate the effect size, standard deviation, sample size, and alpha to determine the effect on power.
 }
 \examples{
-if (interactive()) {
-
+\dontrun{
 powerSim()
 powerSim(lower.tail=FALSE)
-
 }
 }
 \keyword{dynamic}

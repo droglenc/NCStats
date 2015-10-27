@@ -25,8 +25,7 @@
 #' @keywords hplot models
 #' 
 #' @examples
-#' require(FSA)  # for Mirex data
-#' 
+#' \dontrun{
 #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' lm2a <- lm(mirex~weight*species,data=Mirex)
@@ -39,6 +38,7 @@
 #' predictionPlot(lm4,newdf)
 #' predictionPlot(lm4,newdf,interval="c")
 #' par(op)
+#' }
 #' 
 #' @rdname predictionPlot
 #' @export predictPlot

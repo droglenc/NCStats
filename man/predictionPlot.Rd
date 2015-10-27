@@ -39,8 +39,7 @@ This function is only appropriate for SLR and IVR with a single quantitative cov
 The \code{predictPlot()} is just a pass-through to \code{predictionPlot()}.
 }
 \examples{
-require(FSA)  # for Mirex data
-
+\dontrun{
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
 lm2a <- lm(mirex~weight*species,data=Mirex)
@@ -53,6 +52,7 @@ predictionPlot(lm3a,newdf,legend=c(0,0.47))
 predictionPlot(lm4,newdf)
 predictionPlot(lm4,newdf,interval="c")
 par(op)
+}
 }
 \seealso{
 \code{predict} specifically \code{predict.lm} and \code{fitPlot} from \pkg{FSA}.

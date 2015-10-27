@@ -42,7 +42,7 @@ mrnorm <- function(n,mean,sd,exact=TRUE,grp.labels=LETTERS[1:length(n)],
     d1 <- stats::rnorm(n[i],mean[i],sd[i])
     if (exact) {
       z <- (d1-mean(d1))/stats::sd(d1)
-      d1 <- stats::sd[i]*z+mean[i]
+      d1 <- sd[i]*z+mean[i]
     }
     d <- c(d,d1)
     grps <- c(grps,rep(grp.labels[i],each=n[i]))

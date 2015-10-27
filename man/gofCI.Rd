@@ -33,6 +33,7 @@ This function was developed largely for use by my Introductory Statistics studen
 This function is the Goodman method modified from code provided by Paul Rabie (then at the University  of Minnesota).
 }
 \examples{
+\dontrun{
 # example from chisq.test()
 x <- c(A = 20, B = 15, C = 25)
 ( x.chi <- chisq.test(x) )
@@ -75,6 +76,7 @@ gofCI(chi1,type="asymptotic")
 p <- obs/sum(obs)
 se.p <- sqrt(p[1]*p[2]/sum(obs))
 rbind(p[1]+c(1,-1)*qnorm(0.025)*se.p,p[2]+c(1,-1)*qnorm(0.025)*se.p)
+}
 }
 \references{
 Glaz, J. and C.P. Sison.  1999.  Simultaneous confidence intervals for multinomial proportions.  Journal of Statistical Planning and Inference 82:251-262.
