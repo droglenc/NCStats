@@ -40,6 +40,7 @@ The graphic of group means must be active for this function to place the charact
 Students are often asked to determine which level means are different if a significant one-way or two-way ANOVA is encountered.  The results of these multiple comparisons are often illustrated by placing \dQuote{significance letters} next to mean points on an interaction of main effects plot.  In R this can be accomplished with a number of \code{text} calls.  This function, however, simplifies this process so that newbie students can create the graphic in an efficient and relatively easy manner (in conjunction with \code{\link[FSA]{fitPlot}}).  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
+if (require(FSA)) {
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
 
@@ -78,6 +79,7 @@ addSigLetters(lm2,which="year",c("a","a","a","a","ab","b"),pos=c(2,2,4,4,4,4))
 fitPlot(lm2,which="species",type="b",pch=19,ylim=c(0.05,0.35),main="")
 addSigLetters(lm2,which="species",c("a","a"),pos=c(2,4))
 par(op)
+}
 }
 \seealso{
 \code{\link[FSA]{fitPlot}}.

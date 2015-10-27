@@ -25,12 +25,14 @@
 #' @examples
 #' # using default names
 #' rand.data <- mrnorm(n=c(10,15,20),mean=c(10,15,15),sd=c(3,4,5))
-#' Summarize(measure~group,data=rand.data)
-#'   
 #' # using custom names
 #' rand.data1 <- mrnorm(n=c(10,15),mean=c(10,15),sd=c(3,4),
 #'   grp.labels=c("First","Second"),var.labels=c("Y","X"))
+#' 
+#' if (require(FSA)) { 
+#' Summarize(measure~group,data=rand.data)
 #' Summarize(Y~X,data=rand.data1)
+#' }
 #' 
 #' @export
 mrnorm <- function(n,mean,sd,exact=TRUE,grp.labels=LETTERS[1:length(n)],

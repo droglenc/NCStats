@@ -80,7 +80,7 @@ iCISimPlot <- function(n,conf,tail,reps,method,mu,sigma,...) {
            ) # end tail switch within Z method
          }, # end Z method
          T=, t= { # Make CIs for each resample for t method
-           SE = apply(rnd.reps,2,FSA::se)
+           SE = apply(rnd.reps,2,function(x) stats::sd(x)/length(x))
            switch(tail,
                   less.than = {
                     crit <- stats::qt(conf,df=n-1)

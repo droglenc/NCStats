@@ -13,12 +13,14 @@
 #' @keywords misc
 #' 
 #' @examples
+#' if (require(FSA)) {
 #' data(Mirex)
 #' # Simple linear regression test HA:slope!=0.1
 #' lm1 <- lm(mirex~weight, data=Mirex)
 #' rSquared(lm1)
 #' rSquared(lm1,digits=3)
 #' rSquared(lm1,digits=1,percent=TRUE)
+#' }
 #' 
 #' @export
 rSquared <- function(x,digits=getOption("digits"),percent=FALSE) {

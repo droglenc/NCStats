@@ -29,10 +29,11 @@
 #' @keywords hplot models dynamic
 #' 
 #' @examples
-#' data(Mirex)
+#' \dontrun{
+#' if (require(FSA)) {
+#' #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' 
-#'  \dontrun{
 #' ## example with one-way ANOVA
 #' lm1 <- lm(mirex~year,data=Mirex)
 #' transChooser(lm1)
@@ -48,6 +49,7 @@
 #' ## example with IVR
 #' lm4 <- lm(mirex~weight*year,data=Mirex)
 #' transChooser(lm4)
+#' }
 #' }
 #' 
 #' @rdname transChooser
@@ -100,69 +102,73 @@ transChooser_REGRESS <- function(object,shifty=0,shiftx=0,
 # Internal functions used in transChooser().
 ################################################################################
 assumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.hist,...) {
-  lambda <- round(lambda,2)
-  if (lambda == 0) { 
-    y <- log(object$mf[,1]+shifty)
-    lbl <- "Residuals from log(Y)"
-  } else if (lambda == 1) {
-    y <- object$mf[,1]+shifty
-    lbl <- "Residuals from Original Y"
-  } else {
-    y <- (object$mf[,1]+shifty)^lambda
-    lbl <- paste0("Residuals from Y^(",formatC(lambda,format="f",digits=2),")") 
+  if (iChk4Namespace("FSA")) {
+    lambda <- round(lambda,2)
+    if (lambda == 0) { 
+      y <- log(object$mf[,1]+shifty)
+      lbl <- "Residuals from log(Y)"
+    } else if (lambda == 1) {
+      y <- object$mf[,1]+shifty
+      lbl <- "Residuals from Original Y"
+    } else {
+      y <- (object$mf[,1]+shifty)^lambda
+      lbl <- paste0("Residuals from Y^(",formatC(lambda,format="f",digits=2),")") 
+    }
+    # below controls for whether it is a one-way or two-way ANOVA
+    ifelse(any(class(object)=="ONEWAY"), gf <- object$mf[,2], gf <- object$mf[,2]:object$mf[,3])
+    lm1 <- stats::lm(y~gf)
+    old.par <- graphics::par(mar=c(3.5,3.5,2,1), mgp=c(2,0.75,0), mfcol=c(1,2))
+    on.exit(graphics::par(old.par))
+    graphics::hist(lm1$residuals,main="",xlab=lbl,yaxt="n",ylab="",col=col.hist)
+    if (show.stats) {
+      lblADTest(lm1,alpha)
+      lblOutTest(lm1,alpha)
+    }
+    FSA::residPlot(lm1,student=FALSE,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,inclHist=FALSE)
+    if (show.stats) lblLevTest(lm1,alpha)
   }
-  # below controls for whether it is a one-way or two-way ANOVA
-  ifelse(any(class(object)=="ONEWAY"), gf <- object$mf[,2], gf <- object$mf[,2]:object$mf[,3])
-  lm1 <- stats::lm(y~gf)
-  old.par <- graphics::par(mar=c(3.5,3.5,2,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-  on.exit(graphics::par(old.par))
-  graphics::hist(lm1$residuals,main="",xlab=lbl,yaxt="n",ylab="",col=col.hist)
-  if (show.stats) {
-    lblADTest(lm1,alpha)
-    lblOutTest(lm1,alpha)
-  }
-  FSA::residPlot(lm1,student=FALSE,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,inclHist=FALSE)
-  if (show.stats) lblLevTest(lm1,alpha)
 } ## end internal assumPlot_ANOVA
 
 assumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
                               show.stats,alpha,col.hist,...) {
-  lambday <- round(lambday,2)
-  if (lambday == 0) {
-    y <- log(object$mf[,1]+shifty)
-    ylbl <- "log(Y)"
-  } else if (lambday == 1) {
-    y <- object$mf[,1]+shifty
-    ylbl <- "Original Y"
-  } else { 
-    y <- (object$mf[,1]+shifty)^lambday
-    ylbl <- paste0("Y^(",formatC(lambday,format="f",digits=2),")")
+  if (iChk4Namespace("FSA")) {
+    lambday <- round(lambday,2)
+    if (lambday == 0) {
+      y <- log(object$mf[,1]+shifty)
+      ylbl <- "log(Y)"
+    } else if (lambday == 1) {
+      y <- object$mf[,1]+shifty
+      ylbl <- "Original Y"
+    } else { 
+      y <- (object$mf[,1]+shifty)^lambday
+      ylbl <- paste0("Y^(",formatC(lambday,format="f",digits=2),")")
+    }
+    lambdax <- round(lambdax,2)
+    if (lambdax == 0) {
+      x <- log(object$mf[,2]+shiftx)
+      xlbl <- "log(X)"
+    } else if (lambdax == 1) {
+      x <- object$mf[,2]+shiftx
+      xlbl <- "Original X"
+    } else { 
+      x <- (object$mf[,2]+shiftx)^lambdax
+      xlbl <- paste0("X^(",formatC(lambdax,format="f",digits=2),")") 
+    }
+    # Below handles differences between SLR and IVR
+    if (!any(class(object)=="IVR")) lm1 <- stats::lm(y~x)
+    # Below determines if it is a one-way or a two-way IVR and adjusts accordingly
+    else if (dim(object$mf)[2]==3) lm1 <- stats::lm(y~x*object$mf[,3])
+    else if (dim(object$mf)[2]==4) lm1 <- stats::lm(y~x*object$mf[,3]*object$mf[,4])
+    else stop("Function only works with IVR models with 1 or 2 factors.",call.=FALSE)
+    old.par <- graphics::par(mar=c(3.5,3.5,3,1), mgp=c(2,0.5,0), mfcol=c(1,2))
+    graphics::hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),
+                   yaxt="n",ylab="",col=col.hist)
+    if (show.stats) lblADTest(lm1,alpha,line=0.5)
+    FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
+                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE)
+    if (show.stats) lblOutTest(lm1,alpha,line=0.5)
+    on.exit(graphics::par(old.par))
   }
-  lambdax <- round(lambdax,2)
-  if (lambdax == 0) {
-    x <- log(object$mf[,2]+shiftx)
-    xlbl <- "log(X)"
-  } else if (lambdax == 1) {
-    x <- object$mf[,2]+shiftx
-    xlbl <- "Original X"
-  } else { 
-    x <- (object$mf[,2]+shiftx)^lambdax
-    xlbl <- paste0("X^(",formatC(lambdax,format="f",digits=2),")") 
-  }
-  # Below handles differences between SLR and IVR
-  if (!any(class(object)=="IVR")) lm1 <- stats::lm(y~x)
-  # Below determines if it is a one-way or a two-way IVR and adjusts accordingly
-  else if (dim(object$mf)[2]==3) lm1 <- stats::lm(y~x*object$mf[,3])
-  else if (dim(object$mf)[2]==4) lm1 <- stats::lm(y~x*object$mf[,3]*object$mf[,4])
-  else stop("Function only works with IVR models with 1 or 2 factors.",call.=FALSE)
-  old.par <- graphics::par(mar=c(3.5,3.5,3,1), mgp=c(2,0.5,0), mfcol=c(1,2))
-  graphics::hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),
-                 yaxt="n",ylab="",col=col.hist)
-  if (show.stats) lblADTest(lm1,alpha,line=0.5)
-  FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
-                 ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE)
-  if (show.stats) lblOutTest(lm1,alpha,line=0.5)
-  on.exit(graphics::par(old.par))
 } ## end internal assumPlot_REGRESS
 
 lblADTest <- function(lmobj,alpha,line=1) {

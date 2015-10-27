@@ -38,26 +38,22 @@ Diagnostic statistic values are computed with the \code{rstudent} and \code{\lin
 This function is meant to allow newbie students the ability to easily construct plots for diagnosing \dQuote{problem individuals} for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can generally be constructed simply by submitting a saved linear model to this function.  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
-data(Mirex)
-Mirex$year <- factor(Mirex$year)
-
-## Indicator variable regression with two factors -- As a general example
-lm1 <- lm(mirex~weight*year*species,data=Mirex)
+lm1 <- lm(Sepal.Length~Petal.Length*Species,data=iris)
 diagPlot(lm1)
 ## Simple linear regression
-lm4 <- lm(mirex~weight,data=Mirex)
+lm2 <- lm(Sepal.Length~Petal.Length,data=iris)
 # Produces plot and saves flagged observations
-pts <- diagPlot(lm4)
-# Constructs a fitted line plot
-fitPlot(lm4,cex.main=0.8)
-# Highlights flagged observations on fitted-line plot
-highlight(Mirex$mirex~Mirex$weight,pts=pts)
-
+pts <- diagPlot(lm2)
+if (require(FSA)) {
+  # Constructs a fitted line plot
+  fitPlot(lm2)
+  # Highlights flagged observations on fitted-line plot
+  highlight(Sepal.Length~Petal.Length,data=iris,pts=pts)
+}
 
 ## Example showing outlier detection
-x <- c(runif(100))
-y <- c(7,runif(99))
-lma <- lm(y~x)
+df <- data.frame(x=runif(100),y=c(7,runif(99)))
+lma <- lm(y~x,data=df)
 diagPlot(lma)
 }
 \seealso{

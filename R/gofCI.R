@@ -90,11 +90,13 @@ gofCI <- function(chi,conf.level=0.95,
   obs <- chi$observed
   lvls <- length(obs)
   if (type!="goodman") {
-    # Ogle's ad hoc brute-force methods
-    cis <- matrix(NA,nrow=lvls,ncol=2)
-    # get CIs
-    for (i in 1:lvls) cis[i,] <- FSA::binCI(obs[i],sum(obs),conf.level,type)
-    res <- cbind(prop.table(obs),cis,chi$expected/sum(chi$expected))
+    if (iChk4Namespace("FSA")) {
+      # Ogle's ad hoc brute-force methods
+      cis <- matrix(NA,nrow=lvls,ncol=2)
+      # get CIs
+      for (i in 1:lvls) cis[i,] <- FSA::binCI(obs[i],sum(obs),conf.level,type)
+      res <- cbind(prop.table(obs),cis,chi$expected/sum(chi$expected))
+    }
   } else {
     # Goodman's method, modified from code by by Paul Rabie
     # Generally better if lvls<10

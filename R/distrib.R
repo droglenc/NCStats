@@ -77,7 +77,9 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
                    smoothness=1000,shade.col="red",shade.trans=1,lbl.col="red",...) {
   distrib <- match.arg(distrib)
   type <- match.arg(type)
-  shade.col <- FSA::col2rgbt(shade.col,shade.trans)
+  if (shade.trans!=1) {
+    if (iChk4Namespace("FSA")) shade.col <- FSA::col2rgbt(shade.col,shade.trans)
+  }
   if (type=="forward") type <- "p"
     else if (type=="reverse") type <- "q"
   if (type=="q" & (val<=0 | val>=1)) stop("When solving for a value of X (type='q') then area (val=) must be between 0 and 1.",call.=FALSE)

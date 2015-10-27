@@ -22,46 +22,48 @@
 #' @export
 accuracyPrecision <- function(n=50,r=4,pts.col="red",pts.trans=0.6,pts.cex=1,
                                        mns.col="blue",mns.pch=3,mns.lwd=2) {
-  old.par <- graphics::par(mfcol=c(4,2),mar=c(1.5,3,1.5,0)); on.exit(graphics::par(old.par))
-  # Standard deviation for precise situations
-  ps <- 1/2                                                         
-  # Standard deviation for imprecise situations
-  is <- r/3                                                         
-  ap.x <- stats::rnorm(n,0,ps)
-  ai.x <- stats::rnorm(n,0,is)
-  ip.x <- stats::rnorm(n,1.5,ps)
-  ii.x <- stats::rnorm(n,1.5,is)
-
-  iMakeTarget(r,ap.x,stats::rnorm(n,0,ps),"Accurate","Precise",
-              pts.cex,pts.col,pts.trans,mns.col,mns.pch) 
-  iMakeTarget(r,ai.x,stats::rnorm(n,0,is),"Accurate","Imprecise",
-              pts.cex,pts.col,pts.trans,mns.col,mns.pch)
-  iMakeTarget(r,ip.x,stats::rnorm(n,-1.5,ps),"Inaccurate","Precise",
-              pts.cex,pts.col,pts.trans,mns.col,mns.pch)
-  iMakeTarget(r,ii.x,stats::rnorm(n,-1.5,is),"Inaccurate","Imprecise",
-              pts.cex,pts.col,pts.trans,mns.col,mns.pch)
-
-  tmp <- c(graphics::hist(ap.x,plot=FALSE)$counts,
-           graphics::hist(ai.x,plot=FALSE)$counts,
-           graphics::hist(ip.x,plot=FALSE)$counts,
-           graphics::hist(ii.x,plot=FALSE)$counts)
-  ylmts <- c(0,max(tmp))
-  tmp <- c(graphics::hist(ap.x,plot=FALSE)$breaks,
-           graphics::hist(ai.x,plot=FALSE)$breaks,
-           graphics::hist(ip.x,plot=FALSE)$breaks,
-           graphics::hist(ii.x,plot=FALSE)$breaks) 
-  minbrk <- min(tmp)
-  maxbrk <- max(tmp)
-  brks <- seq(minbrk,maxbrk,by=0.5)
-  graphics::par(mar=c(2,1,1,1))
-  # Dist - Accurate and Precise
-  iMakeDist(ap.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)       
-  # Dist - Accurate and Imprecise
-  iMakeDist(ai.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)
-  # Dist - Inaccurate and Precise
-  iMakeDist(ip.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)
-  # Dist - Inaccurate and Imprecise
-  iMakeDist(ii.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)
+  if (iChk4Namespace("FSA")) {
+    old.par <- graphics::par(mfcol=c(4,2),mar=c(1.5,3,1.5,0)); on.exit(graphics::par(old.par))
+    # Standard deviation for precise situations
+    ps <- 1/2                                                         
+    # Standard deviation for imprecise situations
+    is <- r/3                                                         
+    ap.x <- stats::rnorm(n,0,ps)
+    ai.x <- stats::rnorm(n,0,is)
+    ip.x <- stats::rnorm(n,1.5,ps)
+    ii.x <- stats::rnorm(n,1.5,is)
+    
+    iMakeTarget(r,ap.x,stats::rnorm(n,0,ps),"Accurate","Precise",
+                pts.cex,pts.col,pts.trans,mns.col,mns.pch) 
+    iMakeTarget(r,ai.x,stats::rnorm(n,0,is),"Accurate","Imprecise",
+                pts.cex,pts.col,pts.trans,mns.col,mns.pch)
+    iMakeTarget(r,ip.x,stats::rnorm(n,-1.5,ps),"Inaccurate","Precise",
+                pts.cex,pts.col,pts.trans,mns.col,mns.pch)
+    iMakeTarget(r,ii.x,stats::rnorm(n,-1.5,is),"Inaccurate","Imprecise",
+                pts.cex,pts.col,pts.trans,mns.col,mns.pch)
+    
+    tmp <- c(graphics::hist(ap.x,plot=FALSE)$counts,
+             graphics::hist(ai.x,plot=FALSE)$counts,
+             graphics::hist(ip.x,plot=FALSE)$counts,
+             graphics::hist(ii.x,plot=FALSE)$counts)
+    ylmts <- c(0,max(tmp))
+    tmp <- c(graphics::hist(ap.x,plot=FALSE)$breaks,
+             graphics::hist(ai.x,plot=FALSE)$breaks,
+             graphics::hist(ip.x,plot=FALSE)$breaks,
+             graphics::hist(ii.x,plot=FALSE)$breaks) 
+    minbrk <- min(tmp)
+    maxbrk <- max(tmp)
+    brks <- seq(minbrk,maxbrk,by=0.5)
+    graphics::par(mar=c(2,1,1,1))
+    # Dist - Accurate and Precise
+    iMakeDist(ap.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)       
+    # Dist - Accurate and Imprecise
+    iMakeDist(ai.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)
+    # Dist - Inaccurate and Precise
+    iMakeDist(ip.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)
+    # Dist - Inaccurate and Imprecise
+    iMakeDist(ii.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)
+  }
 }
 
 

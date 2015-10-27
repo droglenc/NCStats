@@ -23,6 +23,7 @@
 #' @keywords hplot
 #' 
 #' @examples
+#' if (require(FSA)) {
 #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' 
@@ -61,6 +62,7 @@
 #' fitPlot(lm2,which="species",type="b",pch=19,ylim=c(0.05,0.35),main="")
 #' addSigLetters(lm2,which="species",c("a","a"),pos=c(2,4))
 #' par(op)
+#' }
 #' 
 #' @export
 addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns)),

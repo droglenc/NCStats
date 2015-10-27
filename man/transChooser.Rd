@@ -43,10 +43,11 @@ The \code{shifty} and \code{shiftx} arguments are used to provide a constant val
 This function is designed to allow \sQuote{newbie} students a method that can be used to interactively choose appropriate transformations for the response or explanatory variables in one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  This function allows students to choose possible transformations based on an intuitive analysis of diagnostic plots, in contrast, to depending on a non-intuitive method such as the Box-Cox method.  While this function can be used for research purposes that was not its intent and that is why it is limited to use with only these four simple models.
 }
 \examples{
-data(Mirex)
+\dontrun{
+if (require(FSA)) {
+#' data(Mirex)
 Mirex$year <- factor(Mirex$year)
 
- \dontrun{
 ## example with one-way ANOVA
 lm1 <- lm(mirex~year,data=Mirex)
 transChooser(lm1)
@@ -62,6 +63,7 @@ transChooser(lm3)
 ## example with IVR
 lm4 <- lm(mirex~weight*year,data=Mirex)
 transChooser(lm4)
+}
 }
 }
 \seealso{

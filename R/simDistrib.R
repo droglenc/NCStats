@@ -418,7 +418,7 @@ st <- function(show.both=TRUE,show.mnsd=TRUE) {
       cCDF.plot(x,stats::pt(x,df),xlab="t",ylab="F(t)",main="CDF",xlim=xr)
     } else {
       cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=c(0,max(fx.norm)),show.mnsd)
-      lines(x,fx.norm,col="gray")
+      graphics::lines(x,fx.norm,col="gray")
     }
   } ## end internal function
   if (iChk4Namespace("relax")) {

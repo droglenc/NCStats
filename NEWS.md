@@ -1,4 +1,6 @@
-# 0.4.3 ongoing
+# 0.4.4 ongoing
+
+# 0.4.3 Oct15
 * **`gofCI()` and `predictionPlot()` have the examples wrapped in `\dontrun{}` -- try to fix this**
 
 * Added `ImportFrom` for `nortest` and the "base" packages that are needed.  Moved `car` from `Depends` to `ImportFrom`.  Removed `FSAdata` from `Depends`.

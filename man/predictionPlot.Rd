@@ -8,7 +8,7 @@
 predictPlot(...)
 
 predictionPlot(mdl, newdata, interval = "prediction", conf.level = 0.95,
-  lty = 1, lwd = 3, ...)
+  lty = 1, lwd = 3, legend = "topright", ...)
 }
 \arguments{
 \item{mdl}{an \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls})}
@@ -22,6 +22,8 @@ predictionPlot(mdl, newdata, interval = "prediction", conf.level = 0.95,
 \item{lty}{a numeric indicating the type of line used for representing the intervals (see \code{par})}
 
 \item{lwd}{a numeric indicating the width of line used for representing the intervals (see \code{par})}
+
+\item{legend}{Controls use and placement of the legend (see details in \code{\link[FSA]{fitPlot}})}
 
 \item{\dots}{Other arguments to the \code{fitPlot} function.  For example, include \code{legend=TRUE} to include a legend on the fitted line plot for an IVR.}
 }
@@ -40,17 +42,15 @@ The \code{predictPlot()} is just a pass-through to \code{predictionPlot()}.
 }
 \examples{
 \dontrun{
-data(Mirex)
-Mirex$year <- factor(Mirex$year)
-lm2a <- lm(mirex~weight*species,data=Mirex)
-lm3a <- lm(mirex~weight+species,data=Mirex)
-lm4 <- lm(mirex~weight,data=Mirex)
+lm1 <- lm(Sepal.Length~Petal.Length*Species,data=iris)
+lm2 <- lm(Sepal.Length~Petal.Length+Species,data=iris)
+lm3 <- lm(Sepal.Length~Petal.Length,data=iris)
 op <- par(mfrow=c(2,2),mar=c(3,3,2,1),mgp=c(2,0.7,0))
-newdf <- data.frame(weight=c(2,10),species=c("chinook","coho"),year=c("1977","1992"))
-predictionPlot(lm2a,newdf,legend=c(0,0.47))
-predictionPlot(lm3a,newdf,legend=c(0,0.47))
-predictionPlot(lm4,newdf)
-predictionPlot(lm4,newdf,interval="c")
+newdf <- data.frame(Petal.Length=c(2,4),Species=c("setosa","versicolor"))
+predictionPlot(lm1,newdf,legend="topleft")
+predictionPlot(lm2,newdf,legend="topleft")
+predictionPlot(lm3,newdf,legend="topleft")
+predictionPlot(lm3,newdf,legend="topleft",interval="confidence")
 par(op)
 }
 }

@@ -23,12 +23,14 @@ Extracts the coefficient of determination (i.e., \dQuote{r-squared} from a linea
 This is a convenience function for extracting the \code{r.squared} part from \code{summary(lm)}.
 }
 \examples{
+if (require(FSA)) {
 data(Mirex)
 # Simple linear regression test HA:slope!=0.1
 lm1 <- lm(mirex~weight, data=Mirex)
 rSquared(lm1)
 rSquared(lm1,digits=3)
 rSquared(lm1,digits=1,percent=TRUE)
+}
 }
 \keyword{misc}
 

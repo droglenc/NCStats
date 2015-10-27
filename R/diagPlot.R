@@ -31,26 +31,22 @@
 #' @keywords hplot models
 #' 
 #' @examples
-#' data(Mirex)
-#' Mirex$year <- factor(Mirex$year)
-#' 
-#' ## Indicator variable regression with two factors -- As a general example
-#' lm1 <- lm(mirex~weight*year*species,data=Mirex)
+#' lm1 <- lm(Sepal.Length~Petal.Length*Species,data=iris)
 #' diagPlot(lm1)
 #' ## Simple linear regression
-#' lm4 <- lm(mirex~weight,data=Mirex)
+#' lm2 <- lm(Sepal.Length~Petal.Length,data=iris)
 #' # Produces plot and saves flagged observations
-#' pts <- diagPlot(lm4)
-#' # Constructs a fitted line plot
-#' fitPlot(lm4,cex.main=0.8)
-#' # Highlights flagged observations on fitted-line plot
-#' highlight(Mirex$mirex~Mirex$weight,pts=pts)
-#' 
+#' pts <- diagPlot(lm2)
+#' if (require(FSA)) {
+#'   # Constructs a fitted line plot
+#'   fitPlot(lm2)
+#'   # Highlights flagged observations on fitted-line plot
+#'   highlight(Sepal.Length~Petal.Length,data=iris,pts=pts)
+#' }
 #' 
 #' ## Example showing outlier detection
-#' x <- c(runif(100))
-#' y <- c(7,runif(99))
-#' lma <- lm(y~x)
+#' df <- data.frame(x=runif(100),y=c(7,runif(99)))
+#' lma <- lm(y~x,data=df)
 #' diagPlot(lma)
 #' 
 #' @export
@@ -104,16 +100,18 @@ diagPlot <- function(mdl) {
     if (res$inf[6]) graphics::text(x[res$obs[6]],y[res$obs[6]],res$obs[6],col="red",cex=1.5)
     if (res$inf[7]) graphics::text(x[res$obs[7]],y[res$obs[7]],res$obs[7],col="red",cex=1.5)
     
-    FSA::fitPlot(mdl,main="",pch=19)
-    if (length(all.pts)>=1) {
-      clrs <- c("blue","red","cyan","darkgreen","magenta","pink","orange")
-      for (i in 1:length(all.pts)) { 
-        lm2 <- stats::lm(lmtype$mf[-all.pts[i],1]~lmtype$mf[-all.pts[i],2])
-        graphics::abline(lm2,col=clrs[i],xpd=FALSE)
-        graphics::text(lmtype$mf[all.pts[i],2],lmtype$mf[all.pts[i],1],all.pts[i],
-                       col=clrs[i],cex=1.5)
-      } # end i
-    } # end if
+    if (iChk4Namespace("FSA")) {
+      FSA::fitPlot(mdl,main="",pch=19)
+      if (length(all.pts)>=1) {
+        clrs <- c("blue","red","cyan","darkgreen","magenta","pink","orange")
+        for (i in 1:length(all.pts)) { 
+          lm2 <- stats::lm(lmtype$mf[-all.pts[i],1]~lmtype$mf[-all.pts[i],2])
+          graphics::abline(lm2,col=clrs[i],xpd=FALSE)
+          graphics::text(lmtype$mf[all.pts[i],2],lmtype$mf[all.pts[i],1],all.pts[i],
+                         col=clrs[i],cex=1.5)
+        } # end i
+      } # end if      
+    }
   }
   cat("\nUnusual Observation Results\n")
   print(res)
@@ -128,7 +126,7 @@ diagPlot <- function(mdl) {
 iSigDiag <- function(mdl) {
   k <- dim(mdl$model)[2]-1
   n <- dim(mdl$model)[1]
-  cat(k,"predictors and",n,"individuals\n\n")
+  cat(k,"predictors and",n,"individuals\n")
   inf <- stats::influence.measures(mdl)
   meas <- c("|Studentized Residuals|","Leverage","|COVRATIO-1|","Cook's Distance","|DFFits|")
   val <- cutoff <- obs <- sig <- NULL
