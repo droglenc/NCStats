@@ -1,6 +1,6 @@
-#' Constructs confidence intervals assuming normal distribution.
+#' @title Constructs confidence intervals assuming normal distribution.
 #' 
-#' Returns the confidence interval endpoints given an estimate, SE, and df assuming that the estimate follows a normal distribution so that the t-distribution can be used when constructing the CI.
+#' @description Returns the confidence interval endpoints given an estimate, SE, and df assuming that the estimate follows a normal distribution so that the t-distribution can be used when constructing the CI.
 #' 
 #' @param est A value that estimates a parameter (i.e., a statistic)
 #' @param SE The standard error of the estimate

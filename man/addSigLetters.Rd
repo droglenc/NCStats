@@ -40,7 +40,6 @@ The graphic of group means must be active for this function to place the charact
 Students are often asked to determine which level means are different if a significant one-way or two-way ANOVA is encountered.  The results of these multiple comparisons are often illustrated by placing \dQuote{significance letters} next to mean points on an interaction of main effects plot.  In R this can be accomplished with a number of \code{text} calls.  This function, however, simplifies this process so that newbie students can create the graphic in an efficient and relatively easy manner (in conjunction with \code{\link[FSA]{fitPlot}}).  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
-require(FSA)  # for the Mirex dataframe
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
 
@@ -48,30 +47,30 @@ Mirex$year <- factor(Mirex$year)
 lm1 <- lm(mirex~year,data=Mirex)
 anova(lm1)
 # suppose multiple comparison results from following
-\dontrun{
-library(multcomp)
-mc1 <- glht(lm1,mcp(year="Tukey"))
-summary(mc1)
+if (require(multcomp)) {
+  mc1 <- glht(lm1,mcp(year="Tukey"))
+  summary(mc1)
 }
 fitPlot(lm1,main="")
 addSigLetters(lm1,c("a","a","a","a","ab","b"),pos=c(2,2,4,4,4,4))
 
 # same example, but using cld() from multcomp
-\dontrun{
-( sl1 <- cld(mc1) )
-fitPlot(lm1,main="")
-addSigLetters(lm1,lets=sl1,pos=c(2,2,4,4,4,4))
+if (require(multcomp)) {
+  ( sl1 <- cld(mc1) )
+  fitPlot(lm1,main="")
+  addSigLetters(lm1,lets=sl1,pos=c(2,2,4,4,4,4))
 }
+
 ## two-way ANOVA
 lm2 <- lm(mirex~year*species,data=Mirex)
 anova(lm2)
 
 # suppose multiple comparison results from following
-\dontrun{
-mc2y <- glht(lm2,mcp(year="Tukey"))
-summary(mc2y)
-mc2s <- glht(lm2,mcp(species="Tukey"))
-summary(mc2s)
+if (require(multcomp)) {
+  mc2y <- glht(lm2,mcp(year="Tukey"))
+  summary(mc2y)
+  mc2s <- glht(lm2,mcp(species="Tukey"))
+  summary(mc2s)
 }
 op <- par(mfcol=c(1,2))
 fitPlot(lm2,which="year",type="b",pch=19,ylim=c(0.05,0.35),main="")

@@ -8,28 +8,19 @@ percTable(x, margin = NULL, digits = getOption("digits"),
   addMargins = TRUE)
 }
 \arguments{
-\item{x}{A frequency table likely constructed with table().}
+\item{x}{A frequency table likely constructed with \code{\link{table}} or \code{\link{xtabs}}.}
 
-\item{margin}{A numeric representing an index, or vector of indices, to
-generate the margin for -- \code{margin=1} computes row percentages,
-\code{margin=2} computes column percentages, and \code{margin=NULL} (default)
-produces table percentages.}
+\item{margin}{A numeric representing an index, or vector of indices, to generate the margin for -- \code{margin=1} computes row percentages, \code{margin=2} computes column percentages, and \code{margin=NULL} (default) produces table percentages.}
 
-\item{digits}{A numeric indicating the number of decimals to round the
-percentages to..}
+\item{digits}{A numeric indicating the number of decimals to round the percentages to.}
 
-\item{addMargins}{A logical indicating whether marginal totals should be
-appended to the table or not.  If \code{addMargins=TRUE} then the appended
-marginal totals will correspond to which margin is chosen with
-\code{margin=}.}
+\item{addMargins}{A logical indicating whether marginal totals should be appended to the table or not.  If \code{addMargins=TRUE} then the appended marginal totals will correspond to which margin is chosen with \code{margin=} (as in \code{\link{addMargins}}).}
 }
 \value{
-Same type as \code{x} except with percentages of a margin rather than
-frequencies.
+Same type as \code{x} except with percentages of a margin rather than frequencies.
 }
 \description{
-Same as \code{prop.table()} except that it returns percentages rather than
-proportions.
+Same as \code{\link{prop.table}} except that it returns percentages rather than proportions.
 }
 \examples{
 Aye <- sample(c("Yes", "Si", "Oui"), 177, replace = TRUE)
@@ -50,9 +41,6 @@ percTable(A)
 
 ## No marginal totals
 percTable(A,addMargins=FALSE)
-}
-\seealso{
-\code{\link{prop.table}}, \code{\link{addmargins}}, and \code{addMargins} in \pkg{FSA}.
 }
 \keyword{manip}
 

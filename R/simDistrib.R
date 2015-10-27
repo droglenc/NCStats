@@ -1,8 +1,8 @@
-#' Demonstrates the shape of the PDF and CDF for the given distribution.
+#' @title Demonstrates the shape of the PDF and CDF for the given distribution.
 #' 
-#' Dynamically demonstrates the effect of parameter choices on the shape of the PDF and CDF for the given distribution.
+#' @description Dynamically demonstrates the effect of parameter choices on the shape of the PDF and CDF for the given distribution.
 #' 
-#' A graphic will be produced that is connected to a slider bar where the user can change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.
+#' @details A graphic will be produced that is connected to a slider bar where the user can change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.
 #' 
 #' @aliases sbeta sbinom schisq sexp sf sgamma sgeom shyper slnorm snbinom snorm spois st
 #' 
@@ -35,19 +35,21 @@
 #' @rdname simDistrib
 #' @export sbeta
 #' 
-sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta Distribution Simulator
+# Beta Distribution Simulator
+sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     alpha <- relax::slider(no=1)
     beta <- relax::slider(no=2)
     xr <- c(0,1)
     x <- seq(0.01,0.99,by=0.01)
-    fx <- dbeta(x,alpha,beta)
+    fx <- stats::dbeta(x,alpha,beta)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,pbeta(x,alpha,beta),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pbeta(x,alpha,beta),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
@@ -64,18 +66,20 @@ sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Beta 
 
 #' @rdname simDistrib
 #' @export sbinom
-sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomial Distribution Simulator
+# Binomial Distribution Simulator
+sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     n <- relax::slider(no=1)
     p <- relax::slider(no=2)
     x <- 0:n
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
-      dPDF.plot(x,dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x,pbinom(x,n,p),xlab="Number of Successes",ylab="F(x)",main="CDF")
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
+      dPDF.plot(x,stats::dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
+      dCDF.plot(x,stats::pbinom(x,n,p),xlab="Number of Successes",ylab="F(x)",main="CDF")
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
-      dPDF.plot(x,dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
+      dPDF.plot(x,stats::dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
   if (iChk4Namespace("relax")) {
@@ -91,18 +95,20 @@ sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Binomi
 
 #' @rdname simDistrib
 #' @export schisq
-schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # chi-square Distribution Simulator
+# chi-square Distribution Simulator
+schisq <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     df <- relax::slider(no=1)
     xr <- c(0,50)
     x <- seq(0.01,xr[2],by=0.01)
-    fx <- dchisq(x,df)
+    fx <- stats::dchisq(x,df)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",xlim=xr,main="PDF",show.mnsd)
-      cCDF.plot(x,pchisq(x,df),xlab="Chi-Square",ylab="F(chi)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pchisq(x,df),xlab="Chi-Square",ylab="F(chi)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",xlim=xr,main="PDF",show.mnsd)
     }
   } ## end internal function
@@ -119,18 +125,18 @@ schisq <- function(show.both=TRUE,show.mnsd=TRUE) {                         # ch
 
 #' @rdname simDistrib
 #' @export sexp
-sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Exponential Distribution Simulator
+# Exponential Distribution Simulator
+sexp <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     lambda <- relax::slider(no=1)
     xr <- c(0,7)
     x <- seq(xr[1],xr[2],by=0.01)
-    fx <- dexp(x,lambda)
+    fx <- stats::dexp(x,lambda)
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,pexp(x,lambda),xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pexp(x,lambda),xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
@@ -147,19 +153,19 @@ sexp <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Expone
 
 #' @rdname simDistrib
 #' @export sf
-sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distribution Simulator
+# F Distribution Simulator
+sf <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     ndf <- relax::slider(no=1)
     ddf <- relax::slider(no=2)
     xr <- c(0,6)
     x <- seq(0.01,xr[2],by=0.01)
-    fx <- df(x,ndf,ddf)
+    fx <- stats::df(x,ndf,ddf)
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="F",ylab="f(F)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,pf(x,ndf,ddf),xlab="F",ylab="F(F)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pf(x,ndf,ddf),xlab="F",ylab="F(F)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="F",ylab="f(F)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
@@ -176,19 +182,21 @@ sf <- function(show.both=TRUE,show.mnsd=TRUE) {                       # F Distri
 
 #' @rdname simDistrib
 #' @export sgamma
-sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamma Distribution Simulator
+# Gamma Distribution Simulator
+sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     alpha <- relax::slider(no=1)
     lambda <- relax::slider(no=2)
     xr <- c(0,15)
     x <- seq(0.01,xr[2],by=0.01)
-    fx <- dgamma(x,alpha,lambda)
+    fx <- stats::dgamma(x,alpha,lambda)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,pgamma(x,alpha,lambda),xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pgamma(x,alpha,lambda),xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
@@ -205,19 +213,21 @@ sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {                       # Gamm
 
 #' @rdname simDistrib
 #' @export sgeom
-sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geometric Distribution Simulator
+# Geometric Distribution Simulator
+sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     p <- relax::slider(no=1)
     x <- 0:300
-    fx <- dgeom(x,p)
+    fx <- stats::dgeom(x,p)
     x2keep <- which(fx>0.001)
     x1 <- x[c(x2keep,max(x2keep)+1)]; fx1 <- c(fx[x2keep],0)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x1,pgeom(x1,p),xlab="Number of Failures",ylab="F(x)",main="CDF")
+      dCDF.plot(x1,stats::pgeom(x1,p),xlab="Number of Failures",ylab="F(x)",main="CDF")
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
@@ -234,20 +244,23 @@ sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Geomet
 
 #' @rdname simDistrib
 #' @export shyper
-shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hypergeometric Distribution Simulator
+# Hypergeometric Distribution Simulator
+shyper <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     M <- relax::slider(no=1)
     N <- M+relax::slider(no=2)
     n <- relax::slider(no=3)
     if (n > N) stop("Sample size (n) can not be greater than population size (N)",call.=FALSE)
     x <- 0:(M+1)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
-      dPDF.plot(x,dhyper(x,M,N-M,n),xlab="Number of Successs",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x,phyper(x,M,N-M,n),xlab="Number of Successs",ylab="F(x)",main="CDF")
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
+      dPDF.plot(x,stats::dhyper(x,M,N-M,n),xlab="Number of Successs",
+                ylab="f(x)",main="PDF",show.mnsd)
+      dCDF.plot(x,stats::phyper(x,M,N-M,n),xlab="Number of Successs",ylab="F(x)",main="CDF")
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
-      dPDF.plot(x,dhyper(x,M,N-M,n),xlab="Number of Successs",ylab="f(x)",main="PDF",show.mnsd)
+      dPDF.plot(x,stats::dhyper(x,M,N-M,n),xlab="Number of Successs",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
   if (iChk4Namespace("relax")) {
@@ -263,19 +276,21 @@ shyper <- function(show.both=TRUE,show.mnsd=TRUE) {                     # Hyperg
 
 #' @rdname simDistrib
 #' @export slnorm
-slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Normal Distribution Simulator
+# Normal Distribution Simulator
+slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     mu <- relax::slider(no=1)
     sigma <- relax::slider(no=2)
     xr <- c(0,25)
     x <- seq(xr[1],xr[2],by=0.01)
-    fx <- dlnorm(x,mu,sigma)
+    fx <- stats::dlnorm(x,mu,sigma)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,pnorm(x,mu,sigma),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pnorm(x,mu,sigma),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
@@ -292,20 +307,22 @@ slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Nor
 
 #' @rdname simDistrib
 #' @export snbinom
-snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negative Binomial Distribution Simulator
+# Negative Binomial Distribution Simulator
+snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     r <- relax::slider(no=1)
     p <- relax::slider(no=2)
     x <- 0:(r*300)
-    fx <- dnbinom(x,r,p)
+    fx <- stats::dnbinom(x,r,p)
     x2keep <- which(fx>0.001)
     x1 <- x[c(x2keep,max(x2keep)+1)]; fx1 <- c(fx[x2keep],0)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x1,pnbinom(x1,r,p),xlab="Number of Failures",ylab="F(x)",main="CDF")
+      dCDF.plot(x1,stats::pnbinom(x1,r,p),xlab="Number of Failures",ylab="F(x)",main="CDF")
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
@@ -322,19 +339,21 @@ snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {                    # Negati
 
 #' @rdname simDistrib
 #' @export snorm
-snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Normal Distribution Simulator
+# Normal Distribution Simulator
+snorm <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     mu <- relax::slider(no=1)
     sigma <- relax::slider(no=2)
     xr <- c(-10,10)
     x <- seq(xr[1],xr[2],by=0.01)
-    fx <- dnorm(x,mu,sigma)
+    fx <- stats::dnorm(x,mu,sigma)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,pnorm(x,mu,sigma),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
+      cCDF.plot(x,stats::pnorm(x,mu,sigma),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
     }
   } ## end internal function
@@ -351,19 +370,21 @@ snorm <- function(show.both=TRUE,show.mnsd=TRUE) {                        # Norm
 
 #' @rdname simDistrib
 #' @export spois
-spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisson Distribution Simulator
+# Poisson Distribution Simulator
+spois <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     lambda <- relax::slider(no=1)
     x <- 0:200
-    fx <- dpois(x,lambda)
+    fx <- stats::dpois(x,lambda)
     x2keep <- which(fx>0.001)
     x1 <- x[c(x2keep,max(x2keep)+1)]; fx1 <- c(fx[x2keep],0)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       dPDF.plot(x1,fx1,xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x1,ppois(x1,lambda),xlab="Number of Successes",ylab="F(x)",main="CDF")
+      dCDF.plot(x1,stats::ppois(x1,lambda),xlab="Number of Successes",ylab="F(x)",main="CDF")
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       dPDF.plot(x1,fx1,xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
     }
   } ## end internal function
@@ -380,20 +401,22 @@ spois <- function(show.both=TRUE,show.mnsd=TRUE) {                      # Poisso
 
 #' @rdname simDistrib
 #' @export st
-st <- function(show.both=TRUE,show.mnsd=TRUE) {                         # t Distribution Simulator
+# t Distribution Simulator
+st <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {
     df <- relax::slider(no=1)
     xr <- c(-4,4)
     x <- seq(xr[1],xr[2],by=0.01)
-    fx <- dt(x,df)
-    fx.norm <- dnorm(x,0,1)
+    fx <- stats::dt(x,df)
+    fx.norm <- stats::dnorm(x,0,1)
+    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+    on.exit(graphics::par(old.par))
     if (show.both) {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2)); on.exit(par(old.par))
+      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
       cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=c(0,max(fx.norm)),show.mnsd)
-      lines(x,fx.norm,col="gray")
-      cCDF.plot(x,pt(x,df),xlab="t",ylab="F(t)",main="CDF",xlim=xr)
+      graphics::lines(x,fx.norm,col="gray")
+      cCDF.plot(x,stats::pt(x,df),xlab="t",ylab="F(t)",main="CDF",xlim=xr)
     } else {
-      old.par <- par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
       cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=c(0,max(fx.norm)),show.mnsd)
       lines(x,fx.norm,col="gray")
     }

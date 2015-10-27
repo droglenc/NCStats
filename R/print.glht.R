@@ -1,10 +1,10 @@
-#' Modificaton of print.summary.glht() and print.confint.glth() to streamline output.
+#' @title Modificaton of print.summary.glht() and print.confint.glth() to streamline output.
 #'  
-#' Modifies the print.summary.glht() and confint.summary.glht() functions so that the output is less verbose.  For example, several labels and some intermediate calculations will not be printed unless asked for.  In addition, several  \sQuote{extra} blank lines were removed.
+#' @description Modifies the print.summary.glht() and confint.summary.glht() functions so that the output is less verbose.  For example, several labels and some intermediate calculations will not be printed unless asked for.  In addition, several  \sQuote{extra} blank lines were removed.
 #' 
 #' @aliases print.summary.glht print.confint.glht
 #' 
-#' @param x An object of class \code{summary.glht} or \code{confint.glth} to be printed
+#' @param x An object of class \code{\link[multcomp]{summary.glht}} or \code{\link[multcomp]{confint.glht}} to be printed
 #' @param digits A single numeric that indicates the number of digits to use
 #' @param justResults A single logical that indicates whether just the most pertinent numerical results are printed (\code{=TRUE}; default) or all information as in the default functions from \pkg{multcomp}
 #' @param signif.stars A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient
@@ -14,22 +14,23 @@
 #' 
 #' @examples
 #' # from glht() in multcomp
-#' require(multcomp)
-#' amod <- aov(breaks ~ tension, data = warpbreaks)
-#' mc1 <- glht(amod, linfct = mcp(tension = "Tukey"))
-#'  
-#' # new printing versions
-#' summary(mc1)
-#' confint(mc1)
-#'  
-#' # nearly the same as the original functions
-#' print(summary(mc1),justResults=FALSE)
-#' print(confint(mc1),justResults=FALSE)
+#' if (require(multcomp)) {
+#'   amod <- aov(breaks ~ tension, data = warpbreaks)
+#'   mc1 <- glht(amod, linfct = mcp(tension = "Tukey"))
+#'   # new printing versions
+#'   summary(mc1)
+#'   confint(mc1)
+#'   # nearly the same as the original functions
+#'   print(summary(mc1),justResults=FALSE)
+#'   print(confint(mc1),justResults=FALSE)
+#' }
 #' 
 #' @rdname print.glht
 #' @method print summary.glht
 #' @export
-print.summary.glht <- function (x,digits=max(3,getOption("digits")-3),signif.stars=getOption("show.signif.stars"),justResults=TRUE,...)  {
+print.summary.glht <- function (x,digits=max(3,getOption("digits")-3),
+                                signif.stars=getOption("show.signif.stars"),
+                                justResults=TRUE,...)  {
   if (!justResults) {
     cat("Simultaneous Tests for General Linear Hypotheses\n")
     if (!is.null(x$type)) cat("Multiple Comparisons of Means:", x$type, "Contrasts\n")

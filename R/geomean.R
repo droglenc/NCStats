@@ -1,8 +1,8 @@
-#' Calculates the geometric mean or geometric standard deviation.
+#' @title Calculates the geometric mean or geometric standard deviation.
 #' 
-#' Calculates the geometric mean or standard deviation of a vector of numeric values.
+#' @description Calculates the geometric mean or standard deviation of a vector of numeric values.
 #' 
-#' The geometric mean is computed by log transforming the raw data in \code{x}, computing the arithmetic mean of the transformed data, and back-transforming this mean to the geometric mean by exponentiating.
+#' @details The geometric mean is computed by log transforming the raw data in \code{x}, computing the arithmetic mean of the transformed data, and back-transforming this mean to the geometric mean by exponentiating.
 #' 
 #' The geometric standard deviation is computed by log transforming the raw data in \code{x}, computing the arithmetic standar deviation of the transformed data, and back-transforming this standard deviation to the geometric standard deviation by exponentiating.
 #' 

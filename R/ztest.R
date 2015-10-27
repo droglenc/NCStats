@@ -1,8 +1,8 @@
-#' Z test for known population standard deviation
+#' @title Z test for known population standard deviation
 #' 
-#' Compute the test of hypothesis and compute confidence interval on the mean of a population when the standard deviation of the population is known.
+#' @description Compute the test of hypothesis and compute confidence interval on the mean of a population when the standard deviation of the population is known.
 #' 
-#' Most introductory statistical texts introduce inference by using the Z test and Z based confidence intervals based on knowing the population standard deviation.  Most statistical packages do not include functions to do Z tests because the T test is usually more appropriate for real world situations.  This function is meant to be used during that short period of learning when the student is learning about inference using Z procedures, but has not learned the T based procedures yet.  Once the student has learned about the T distribution the \code{\link[stats]{t.test}} function should be used instead of this one (but the syntax is very similar, so this function should be an appropriate introductory step to learning \code{\link[stats]{t.test}}).
+#' @details Most introductory statistical texts introduce inference by using the Z test and Z based confidence intervals based on knowing the population standard deviation.  Most statistical packages do not include functions to do Z tests because the T test is usually more appropriate for real world situations.  This function is meant to be used during that short period of learning when the student is learning about inference using Z procedures, but has not learned the T based procedures yet.  Once the student has learned about the T distribution the \code{\link[stats]{t.test}} function should be used instead of this one (but the syntax is very similar, so this function should be an appropriate introductory step to learning \code{\link[stats]{t.test}}).
 #' 
 #' @param x Vector of data values
 #' @param mu Hypothesized mean of the population

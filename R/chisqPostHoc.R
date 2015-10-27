@@ -1,8 +1,8 @@
-#' Tests for significant differences among all pairs of populations in a chi-square test.
+#' @title Tests for significant differences among all pairs of populations in a chi-square test.
 #' 
-#' Tests for significant differences among all pairs of populations in a chi-square test.
+#' @description Tests for significant differences among all pairs of populations in a chi-square test.
 #' 
-#' Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons.  The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust.methods}}).  This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program.  The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
+#' @details Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons.  The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust.methods}}).  This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program.  The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
 #' 
 #' @param chi A \code{chisq.test} object
 #' @param popsInRows A logical indicating whether the populations form the rows (default; \code{=TRUE}) of the table or not (\code{=FALSE})

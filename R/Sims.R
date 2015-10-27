@@ -1,6 +1,6 @@
-#' A dynamics graphic to illustrate the concept of confidence intervals for a mean.
+#' @title A dynamics graphic to illustrate the concept of confidence intervals for a mean.
 #' 
-#' This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and ploting those confidence intervals.  Slider bars then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
+#' @description This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and ploting those confidence intervals.  Slider bars then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
 #' 
 #' @param reps A single numeric indicating the number of replicate samples to draw from the population
 #' @param method A single string indicating whether to make confidence intervals using a normal (\code{="z"}) or t (\code{="t"}) distribution
@@ -220,7 +220,7 @@ iCLTSimPlot <- function(n,sh1,sh2,reps,incl.norm) {
   graphics::lines(c(mn.mns-sd.mns,mn.mns+sd.mns),rep(0.6*max(mns.hist$density),2),col="red",lwd=2)
   if (incl.norm) {
     norm.vals <- seq(min(mns.hist$breaks),max(mns.hist$breaks),length.out=50)
-    graphics::lines(norm.vals,dnorm(norm.vals,mn.mns,sd.mns),col="blue")
+    graphics::lines(norm.vals,stats::dnorm(norm.vals,mn.mns,sd.mns),col="blue")
   }
 } # end iCLTSimPlot internal function
 

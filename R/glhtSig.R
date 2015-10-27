@@ -1,11 +1,11 @@
-#' Extracts names for significantly different comparisons.
+#' @title Extracts names for significantly different comparisons.
 #' 
-#' Extracts names for significantly different comparisons from a \code{glht} object.
+#' @description Extracts names for significantly different comparisons from a \code{glht} object.
 #' 
 #' @aliases glhtSig glhtSig.glht
 #' 
 #' @param object An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.
-#' @param test A function for computing p-values (see \code{\link[multcomp]{glht}}).
+#' @param type A function for computing p-values (see \code{\link[multcomp]{glht}}).
 #' @param alpha A numeric indicated the rejection criterion to be used for identifying significant comparisons.  Defaults to \code{0.05}.
 #' @param \dots Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.
 #' 
@@ -28,7 +28,11 @@ glhtSig <- function (object, ...) {
 
 #' @rdname glhtSig
 #' @export
-glhtSig.glht <- function(object,test=multcomp::adjusted(),alpha=0.05,...) {
-  ts <- test(object)
-  names(ts$coefficients)[ts$pvalues<alpha]
+glhtSig.glht <- function(object,type=c("single-step","Shaffer","Westfall","free",
+                                       stats::p.adjust.methods),alpha=0.05,...) {
+  if(iChk4Namespace("multcomp")) {
+    test <- multcomp::adjusted(type)
+    ts <- test(object)
+    names(ts$coefficients)[ts$pvalues<alpha]
+  }
 }

@@ -1,8 +1,8 @@
-#' Identify points in a plot using a formula.
+#' @title Identify points in a plot using a formula.
 #' 
-#' identify reads the position of the graphics pointer when the (first) mouse button is pressed. It then searches the coordinates given in x and y for the point closest to the pointer. If this point is close enough to the pointer, its index will be returned as part of the value of the call.
+#' @description Reads the position of the graphics pointer when the (first) mouse button is pressed, searches the coordinates given in x and y for the point closest to the pointer, and return the index if this point is close enough to the pointer.
 #' 
-#' This function is meant to make it easier to call \code{\link[graphics]{identify}} after \code{plot} has been called using a formula and the \code{data=} argument.
+#' @details This function is meant to make it easier to call \code{\link[graphics]{identify}} after \code{plot} has been called using a formula and the \code{data=} argument.
 #' 
 #' A two dimensional plot must be active and the vectors in \code{x} and data frame  in \code{data} must correspond to the x- and y-axes and the data of the plot.
 #' 

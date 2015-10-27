@@ -12,7 +12,7 @@
   justResults = TRUE, ...)
 }
 \arguments{
-\item{x}{An object of class \code{summary.glht} or \code{confint.glth} to be printed}
+\item{x}{An object of class \code{\link[multcomp]{summary.glht}} or \code{\link[multcomp]{confint.glht}} to be printed}
 
 \item{digits}{A single numeric that indicates the number of digits to use}
 
@@ -30,16 +30,15 @@ Modifies the print.summary.glht() and confint.summary.glht() functions so that t
 }
 \examples{
 # from glht() in multcomp
-require(multcomp)
-amod <- aov(breaks ~ tension, data = warpbreaks)
-mc1 <- glht(amod, linfct = mcp(tension = "Tukey"))
-
-# new printing versions
-summary(mc1)
-confint(mc1)
-
-# nearly the same as the original functions
-print(summary(mc1),justResults=FALSE)
-print(confint(mc1),justResults=FALSE)
+if (require(multcomp)) {
+  amod <- aov(breaks ~ tension, data = warpbreaks)
+  mc1 <- glht(amod, linfct = mcp(tension = "Tukey"))
+  # new printing versions
+  summary(mc1)
+  confint(mc1)
+  # nearly the same as the original functions
+  print(summary(mc1),justResults=FALSE)
+  print(confint(mc1),justResults=FALSE)
+}
 }
 

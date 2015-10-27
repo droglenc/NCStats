@@ -1,6 +1,6 @@
-#' Dynamic simulations to demonstrate `how' the mean and median are computed.
+#' @title Dynamic simulations to demonstrate `how' the mean and median are computed.
 #' 
-#' This function visually illustrates how the mean \dQuote{balances} distances and the median \dQuote{balances} individuals in a random sample from a known population.  The user can manipulate the number of individuals in the sample and the shape of the population to determine how these attributes affect the calculation of the mean and median.
+#' @description This function visually illustrates how the mean \dQuote{balances} distances and the median \dQuote{balances} individuals in a random sample from a known population.  The user can manipulate the number of individuals in the sample and the shape of the population to determine how these attributes affect the calculation of the mean and median.
 #' 
 #' @param x An optional numeric vector (of actual data) to be used in the visual.
 #' @param outlier A string indicating whether the outlier should be modeled at the maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).  This is ignored if \code{x} is not \code{NULL}.
@@ -73,7 +73,7 @@ iMeanMedianBeta <- function(outlier) {
 iMeanMedianPlots <- function(x) {
   x <- x[order(x)]
   mn.x <- mean(x)
-  mdn.x <- median(x)
+  mdn.x <- stats::median(x)
   n <- length(x)
   mdn.pos <- (n+1)/2
   old.par <- graphics::par(mfcol=c(2,1)); on.exit(graphics::par(old.par))
@@ -107,7 +107,7 @@ iMeanMedianPlots <- function(x) {
   graphics::abline(v=mn.x,col="red",lwd=2)
   # put residuals from mean on graph
   for (i in 1:n) {
-    if (x[i] < mn.x) lines(c(x[i],mn.x),c(i,i),col="black",lty=3)
-    else lines(c(x[i],mn.x),c(i,i),col="red",lty=3)
+    if (x[i] < mn.x) graphics::lines(c(x[i],mn.x),c(i,i),col="black",lty=3)
+    else graphics::lines(c(x[i],mn.x),c(i,i),col="red",lty=3)
   }
 } # end internal iMeanMedianPlots

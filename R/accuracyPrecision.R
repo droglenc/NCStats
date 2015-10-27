@@ -1,6 +1,6 @@
-#' Plot targets and histograms for illustrating accuracy and precision.
+#' @title Plot targets and histograms for illustrating accuracy and precision.
 #' 
-#' Plot \dQuote{targets} and histograms for illustrating accuracy and precision.  The user can choose the number of points to sample.
+#' @description Plot \dQuote{targets} and histograms for illustrating accuracy and precision.  The user can choose the number of points to sample.
 #' 
 #' @param n Number of random points to put on each target and histogram.
 #' @param r Number of rings (i.e., circles) on the target.
@@ -69,8 +69,8 @@ accuracyPrecision <- function(n=50,r=4,pts.col="red",pts.trans=0.6,pts.cex=1,
 ## Internal function to make the bullseye target graph with random points on it.
 iMakeTarget<-function(r,px,py,t1,t2,pts.cex,pts.col,pts.trans,mns.col,mns.pch){  
   # Make the schematic plot with a bullseye in the middle
-  plot(0,0,xlim=c(-r,r),ylim=c(-r,r),type="p",pch=19,
-       axes=FALSE,yaxt="n",xaxt="n",xlab="",ylab="")
+  graphics::plot(0,0,xlim=c(-r,r),ylim=c(-r,r),type="p",pch=19,
+                 axes=FALSE,yaxt="n",xaxt="n",xlab="",ylab="")
   # Put on circles with integer radii to r
   for (i in 1:r) {
     # Find x-coords of circle
@@ -82,9 +82,9 @@ iMakeTarget<-function(r,px,py,t1,t2,pts.cex,pts.col,pts.trans,mns.col,mns.pch){
     # Inner circles are ligher grey
     clr <- ifelse(i==r,"grey30","grey80")
     # Draw upper half of circle
-    lines(cx,cyt,lwd=2,col=clr)
+    graphics::lines(cx,cyt,lwd=2,col=clr)
     # Draw lower half of circle
-    lines(cx,cyb,lwd=2,col=clr)
+    graphics::lines(cx,cyb,lwd=2,col=clr)
   }
   pts.col <- FSA::col2rgbt(pts.col,pts.trans)
   # Put random points on graph in red

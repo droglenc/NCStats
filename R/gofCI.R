@@ -1,8 +1,8 @@
-#' Pseudo- confidence intervals for multinomial levels.
+#' @title Pseudo- confidence intervals for multinomial levels.
 #' 
-#' Pseudo- confidence intervals for the proportions found in the multinomial levels of a goodness-of-fit test computed using \code{\link[stats]{chisq.test}}.
+#' @description Pseudo- confidence intervals for the proportions found in the multinomial levels of a goodness-of-fit test computed using \code{\link[stats]{chisq.test}}.
 #' 
-#' Computes confidence intervals for the proportion of the total in each level found in \code{$observed} of the \code{chi} object.  The confidence intervals are computed by treating each level as if it is the \dQuote{success} in a binomial confidence interval calculation (using \code{\link[FSA]{binCI}} from \pkg{FSA}).  One of three methods for computing each confidence interval can be used and is declared in the \code{type=} argument.  The three methods are described in detail for \code{\link[FSA]{binCI}}.
+#' @details Computes confidence intervals for the proportion of the total in each level found in \code{$observed} of the \code{chi} object.  The confidence intervals are computed by treating each level as if it is the \dQuote{success} in a binomial confidence interval calculation (using \code{\link[FSA]{binCI}} from \pkg{FSA}).  One of three methods for computing each confidence interval can be used and is declared in the \code{type=} argument.  The three methods are described in detail for \code{\link[FSA]{binCI}}.
 #' 
 #' It should be noted that this is NOT the ideal method for computing confidence intervals for multinomial probabilities.  This area appears to receive a great deal of discussion, but two methoeds that appear to be generally accepted are due to Sison and Ganz (1995) when the number of cells (k) is \dQuote{large} (i.e., greater than 10) and Goodman (1965) when k is small (see May and Johnson 2000).  I have been unable to locate R code for the method of Sison and Ganz (1995) in any existing package, nor could I convert the SAS code provided by May and Johnson (2000) to R code.  As of July, 2011 there were at least two queries on R-help for the Sison and Ganz (1995) code with no replies.
 #' 

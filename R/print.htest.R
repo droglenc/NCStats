@@ -1,6 +1,6 @@
-#' Modificaton of print.htest() to streamline output.
+#' @title Modificaton of print.htest() to streamline output.
 #'  
-#' Modifies the print.hstest() function so that the output is less verbose.  For example, several \sQuote{extra} blank lines are removed and the test name is placed on one line with the data.
+#' @description Modifies the print.hstest() function so that the output is less verbose.  For example, several \sQuote{extra} blank lines are removed and the test name is placed on one line with the data.
 #' 
 #' @aliases print.htest 
 #' 

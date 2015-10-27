@@ -1,6 +1,6 @@
-#' Converts results in a contingency table into the original raw data.
+#' @title Converts results in a contingency table into the original raw data.
 #' 
-#' Converts results in a contingency table into the original raw data.
+#' @description Converts results in a contingency table into the original raw data.
 #' 
 #' @param x A matrix containing the contingency table.
 #' @param var.names A vector of strings used to name the variables in the new data frame.

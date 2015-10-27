@@ -1,8 +1,8 @@
-#' Plots test statistic and p-value area for z-, t-, and chi-square tests.
+#' @title Plots test statistic and p-value area for z-, t-, and chi-square tests.
 #' 
-#' Plots test statistic and p-value area for z-, t-, and chi-square tests.
+#' @description Plots test statistic and p-value area for z-, t-, and chi-square tests.
 #' 
-#' This produces a plot of the named sampling distribution with the test statistic and p-value areas shown.  This plot is used primarily for students  to visualize the calcualtion of the p-value in the \code{\link{z.test}}, \code{\link[stats]{t.test}}, and \code{\link[stats]{chisq.test}} functions.  The results from those functions must be saved to an object.
+#' @details This produces a plot of the named sampling distribution with the test statistic and p-value areas shown.  This plot is used primarily for students  to visualize the calcualtion of the p-value in the \code{\link{z.test}}, \code{\link[stats]{t.test}}, and \code{\link[stats]{chisq.test}} functions.  The results from those functions must be saved to an object.
 #' 
 #' @param x an object saved from \code{\link{z.test}}, \code{\link[stats]{t.test}}, or \code{\link[stats]{chisq.test}}
 #' @param smoothness a single-length numeric indicating the number of points for which to construct the plot.  The larger the number the smoother the plot will appear
@@ -79,12 +79,12 @@ plot.htest <- function(x,smoothness=1000,shade.col="red",shade.col2="red3",...) 
       msg <- ""
     },
     t= {
-      xvals <- sort(c(val,val1,seq(qt(0.001,df=x$parameter),qt(0.999,df=x$parameter),length.out=smoothness)))
+      xvals <- sort(c(val,val1,seq(stats::qt(0.001,df=x$parameter),stats::qt(0.999,df=x$parameter),length.out=smoothness)))
       fx <- stats::dt(xvals,df=x$parameter)
       msg <- paste("df=",round(x$parameter,2),"; ")
     },
     "X-squared"= {
-      xvals <- sort(c(val,val1,seq(0,qchisq(0.999,df=x$parameter),length.out=smoothness)))
+      xvals <- sort(c(val,val1,seq(0,stats::qchisq(0.999,df=x$parameter),length.out=smoothness)))
       fx <- stats::dchisq(xvals,df=x$parameter)
       msg <- paste("df=",x$parameter,";")
     }

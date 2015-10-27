@@ -1,8 +1,8 @@
-#' Places significance letters next to mean points on a fitPlot.
+#' @title Places significance letters next to mean points on a fitPlot.
 #' 
-#' Places significance letters next to mean points on an active \code{\link[FSA]{fitPlot}} from a one-way or a two-way ANOVA.
+#' @description Places significance letters next to mean points on an active \code{\link[FSA]{fitPlot}} from a one-way or a two-way ANOVA.
 #' 
-#' The graphic of group means must be active for this function to place the characters next to the group mean points.  Typically this graphic is made with the \code{\link[FSA]{fitPlot}} function.
+#' @details The graphic of group means must be active for this function to place the characters next to the group mean points.  Typically this graphic is made with the \code{\link[FSA]{fitPlot}} function.
 #' 
 #' @param mdl A \code{lm} object or formula depicting an ANOVA
 #' @param lets A vector of characters to be placed next to each group mean point
@@ -23,7 +23,6 @@
 #' @keywords hplot
 #' 
 #' @examples
-#' require(FSA)  # for the Mirex dataframe
 #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' 
@@ -31,30 +30,30 @@
 #' lm1 <- lm(mirex~year,data=Mirex)
 #' anova(lm1)
 #' # suppose multiple comparison results from following
-#' \dontrun{
-#' library(multcomp)
-#' mc1 <- glht(lm1,mcp(year="Tukey"))
-#' summary(mc1)
+#' if (require(multcomp)) {
+#'   mc1 <- glht(lm1,mcp(year="Tukey"))
+#'   summary(mc1)
 #' }
 #' fitPlot(lm1,main="")
 #' addSigLetters(lm1,c("a","a","a","a","ab","b"),pos=c(2,2,4,4,4,4))
 #' 
 #' # same example, but using cld() from multcomp
-#' \dontrun{
-#' ( sl1 <- cld(mc1) )
-#' fitPlot(lm1,main="")
-#' addSigLetters(lm1,lets=sl1,pos=c(2,2,4,4,4,4))
+#' if (require(multcomp)) {
+#'   ( sl1 <- cld(mc1) )
+#'   fitPlot(lm1,main="")
+#'   addSigLetters(lm1,lets=sl1,pos=c(2,2,4,4,4,4))
 #' }
+#' 
 #' ## two-way ANOVA
 #' lm2 <- lm(mirex~year*species,data=Mirex)
 #' anova(lm2)
 #' 
 #' # suppose multiple comparison results from following
-#' \dontrun{
-#' mc2y <- glht(lm2,mcp(year="Tukey"))
-#' summary(mc2y)
-#' mc2s <- glht(lm2,mcp(species="Tukey"))
-#' summary(mc2s)
+#' if (require(multcomp)) {
+#'   mc2y <- glht(lm2,mcp(year="Tukey"))
+#'   summary(mc2y)
+#'   mc2s <- glht(lm2,mcp(species="Tukey"))
+#'   summary(mc2s)
 #' }
 #' op <- par(mfcol=c(1,2))
 #' fitPlot(lm2,which="year",type="b",pch=19,ylim=c(0.05,0.35),main="")

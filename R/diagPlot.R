@@ -1,8 +1,8 @@
-#' Constructs plots of diagnostic measures for linear models.
+#' @title Constructs plots of diagnostic measures for linear models.
 #' 
-#' Used to construct plots of diagnostic measures for linear models.  Also used to identify \dQuote{extreme} values of diagnostic measures for a linear model.
+#' @description Used to construct plots of diagnostic measures for linear models.  Also used to identify \dQuote{extreme} values of diagnostic measures for a linear model.
 #' 
-#' This function produces a graphic that consists of at most six separate plots --
+#' @details This function produces a graphic that consists of at most six separate plots --
 #'   \enumerate{
 #'     \item Studentized residuals versus leverages,
 #'     \item COVRATIO-1 versus fitted values,
@@ -31,8 +31,6 @@
 #' @keywords hplot models
 #' 
 #' @examples
-#' require(FSA)      # for fitPlot and Mirex data
-#' 
 #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' 

@@ -1,8 +1,8 @@
-#' Multiple Simulations from Normal Distributions
+#' @title Multiple Simulations from Normal Distributions
 #' 
-#' Random generation from multiple normal distributions with potentially different means and standard deviations.
+#' @description Random generation from multiple normal distributions with potentially different means and standard deviations.
 #' 
-#' All of \code{n}, \code{mean}, \code{sd}, and \code{grp.labels} must be of the same length.
+#' @details All of \code{n}, \code{mean}, \code{sd}, and \code{grp.labels} must be of the same length.
 #' 
 #' If \code{digits} is non-null and \code{exact=TRUE} the resulting quantitative data will only be approximately exact (due to the rounding).
 #' 
@@ -23,7 +23,6 @@
 #' @keywords distribution
 #' 
 #' @examples
-#' require(FSA)  # for Summarize()
 #' # using default names
 #' rand.data <- mrnorm(n=c(10,15,20),mean=c(10,15,15),sd=c(3,4,5))
 #' Summarize(measure~group,data=rand.data)

@@ -37,7 +37,6 @@ If \code{digits} is non-null and \code{exact=TRUE} the resulting quantitative da
 This function can be used to generate \dQuote{realistic} data when one knows the sample size, mean, and standard deviation for several groups and it can be assumed that the data in each group follows a normal distribution.  Thus, this function can be used to generate \dQuote{actual} data for, for example, one-way and two-way ANOVA from summaries of group sample sizes, means, and standard deviations.  Note that standard deviations can often be estimated by \dQuote{back-calculating} from given standard errors or confidence intervals.
 }
 \examples{
-require(FSA)  # for Summarize()
 # using default names
 rand.data <- mrnorm(n=c(10,15,20),mean=c(10,15,15),sd=c(3,4,5))
 Summarize(measure~group,data=rand.data)

@@ -1,8 +1,8 @@
-#' Shows the predicted value and interval on a fitted line plot.
+#' @title Shows the predicted value and interval on a fitted line plot.
 #' 
-#' Shows the predicted value and interval on a fitted line plot.  This function is used to illustrate predictions with SLR or IVR models and to show distinctions between confidence and prediction intervals.
+#' @description Shows the predicted value and interval on a fitted line plot.  This function is used to illustrate predictions with SLR or IVR models and to show distinctions between confidence and prediction intervals.
 #' 
-#' This function produces a fitted line plot with both confidence and prediction bands shown.  It then constructs vertical bars representing the predicted values with the corresponding interval (chosen with \code{interval}) for all observations found in \code{newdata}.
+#' @details This function produces a fitted line plot with both confidence and prediction bands shown.  It then constructs vertical bars representing the predicted values with the corresponding interval (chosen with \code{interval}) for all observations found in \code{newdata}.
 #' 
 #' This function is only appropriate for SLR and IVR with a single quantitative covariate and two or fewer factors.
 #' 

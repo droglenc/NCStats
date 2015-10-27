@@ -1,6 +1,6 @@
-#' Puts Arbitrary Margins on Two-way Tables or Arrays
+#' @title Puts Arbitrary Margins on Two-way Tables or Arrays
 #' 
-#' Used to put marginal values on the two-way table or array.  For tables or arrays with more dimensions see \code{addmargins()}.  This version is designed for use in introductory classes where the \code{margin=} argument has been modified to be more intuitive to students.  Specifically, This function is a pass-through to \code{addmargins()} with the exception that \code{margin=1} adds a marginal value at the end of the rows and \code{margin=2} adds a marginal value at the end of the columns.  The numeric values in \code{margin=} are opposite of what is used in \code{addmargins()}.
+#' @description Used to put marginal values on the two-way table or array.  For tables or arrays with more dimensions see \code{addmargins()}.  This version is designed for use in introductory classes where the \code{margin=} argument has been modified to be more intuitive to students.  Specifically, This function is a pass-through to \code{addmargins()} with the exception that \code{margin=1} adds a marginal value at the end of the rows and \code{margin=2} adds a marginal value at the end of the columns.  The numeric values in \code{margin=} are opposite of what is used in \code{addmargins()}.
 #' 
 #' @param A table or array
 #' @param margin A numeric value over which to form margins (see details)

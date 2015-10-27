@@ -1,6 +1,6 @@
-#' Modificaton of print.summary.lm() to streamline output
+#' @title Modificaton of print.summary.lm() to streamline output
 #'  
-#' Modifies the print.summary lm() function so that the output is less verbose.  For example, the call and information about the residuals will not be re-printed unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
+#' @description Modifies the print.summary lm() function so that the output is less verbose.  For example, the call and information about the residuals will not be re-printed unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
 #'  
 #' @aliases print.summary.lm print.summary.glm
 #' 
@@ -37,19 +37,22 @@
 #' @rdname print.summary.lm
 #' @method print summary.lm
 #' @export
-print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=x$symbolic.cor,
-                             signif.stars=getOption("show.signif.stars"),show.call=FALSE,show.resids=FALSE,...) {
+print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),
+                             symbolic.cor=x$symbolic.cor,
+                             signif.stars=getOption("show.signif.stars"),
+                             show.call=FALSE,show.resids=FALSE,...) {
   if (show.call) cat("Call: ",paste(deparse(x$call),sep="\n",collapse="\n"),"\n",sep="")
   resid <- x$residuals
   df <- x$df
   rdf <- df[2L]
   if (show.resids) {
-    cat("\n",if (!is.null(x$weights) && diff(range(x$weights))) "Weighted ", "Residuals:\n", sep = "")
+    cat("\n",if (!is.null(x$weights) && diff(range(x$weights))) "Weighted ","Residuals:\n",sep="")
     if (rdf > 5L) {
       nam <- c("Min", "1Q", "Median", "3Q", "Max")
-      rq <- if (length(dim(resid)) == 2L) structure(apply(t(resid), 1L, quantile), dimnames = list(nam,dimnames(resid)[[2L]]))
+      rq <- if (length(dim(resid)) == 2L) structure(apply(t(resid),1L,stats::quantile),
+                                                    dimnames=list(nam,dimnames(resid)[[2L]]))
       else {
-        zz <- zapsmall(quantile(resid), digits + 1)
+        zz <- zapsmall(stats::quantile(resid), digits + 1)
         structure(zz, names = nam)
       }
       print(rq, digits = digits, ...)
@@ -78,14 +81,15 @@ print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=
     stats::printCoefmat(coefs, digits = digits, signif.stars = signif.stars,na.print = "NA", ...)
   }
   cat("\nResidual standard error:", format(signif(x$sigma,digits)), "on", rdf, "degrees of freedom\n")
-  if (nzchar(mess <- naprint(x$na.action))) 
+  if (nzchar(mess <- stats::naprint(x$na.action))) 
     cat("  (", mess, ")\n", sep = "")
   if (!is.null(x$fstatistic)) {
     cat("Multiple R-squared:", formatC(x$r.squared, digits = digits))
     cat(",\tAdjusted R-squared:", formatC(x$adj.r.squared,digits = digits),
-        "\nF-statistic:", formatC(x$fstatistic[1L],digits = digits), "on", x$fstatistic[2L], "and", 
-        x$fstatistic[3L], "DF,  p-value:", format.pval(pf(x$fstatistic[1L],x$fstatistic[2L],
-                                                          x$fstatistic[3L], lower.tail = FALSE),digits = digits), "\n")
+        "\nF-statistic:", formatC(x$fstatistic[1L],digits = digits), "on",
+        x$fstatistic[2L],"and",x$fstatistic[3L], "DF,  p-value:",
+        format.pval(stats::pf(x$fstatistic[1L],x$fstatistic[2L],x$fstatistic[3L],
+                              lower.tail=FALSE),digits = digits), "\n")
   }
   correl <- x$correlation
   if (!is.null(correl)) {
@@ -93,7 +97,7 @@ print.summary.lm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor=
     if (p > 1L) {
       cat("\nCorrelation of Coefficients:\n")
       if (is.logical(symbolic.cor) && symbolic.cor) {
-        print(symnum(correl, abbr.colnames = NULL))
+        print(stats::symnum(correl, abbr.colnames = NULL))
       }
       else {
         correl <- format(round(correl,2),nsmall=2,digits=digits)
@@ -115,7 +119,7 @@ print.summary.glm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor
   if (show.resids) {
     cat("Deviance Residuals: \n")
     if (x$df.residual > 5) {
-      x$deviance.resid <- quantile(x$deviance.resid, na.rm = TRUE)
+      x$deviance.resid <- stats::quantile(x$deviance.resid, na.rm = TRUE)
       names(x$deviance.resid) <- c("Min", "1Q", "Median", "3Q", "Max")
     }
     xx <- zapsmall(x$deviance.resid, digits + 1)
@@ -139,20 +143,23 @@ print.summary.glm <- function(x,digits=max(3,getOption("digits")-3),symbolic.cor
   }
   cat("\n(Dispersion parameter for ", x$family$family, " family taken to be ", 
       format(x$dispersion), ")\n\n", apply(cbind(paste(format(c("Null","Residual"), 
-      justify = "right"), "deviance:"), format(unlist(x[c("null.deviance","deviance")]), digits = max(5, digits + 1)), " on", 
-      format(unlist(x[c("df.null", "df.residual")])), " degrees of freedom\n"),1L, paste, collapse = " "), sep = "")
-  if (nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep = "")
-  cat("AIC: ", format(x$aic, digits = max(4, digits + 1)),"\n\n", "Number of Fisher Scoring iterations: ", x$iter,"\n", sep = "")
+      justify = "right"), "deviance:"),
+      format(unlist(x[c("null.deviance","deviance")]), digits = max(5, digits + 1)), " on", 
+      format(unlist(x[c("df.null", "df.residual")])), " degrees of freedom\n"),1L,
+      paste, collapse = " "), sep = "")
+  if (nzchar(mess <- stats::naprint(x$na.action))) cat("  (", mess, ")\n",sep="")
+  cat("AIC: ",format(x$aic,digits=max(4,digits+1)),"\n\n",
+      "Number of Fisher Scoring iterations: ",x$iter,"\n",sep="")
   correl <- x$correlation
   if (!is.null(correl)) {
     p <- NCOL(correl)
     if (p > 1) {
       cat("\nCorrelation of Coefficients:\n")
-      if (is.logical(symbolic.cor) && symbolic.cor) print(symnum(correl, abbr.colnames = NULL))
+      if (is.logical(symbolic.cor) && symbolic.cor) print(stats::symnum(correl,abbr.colnames=NULL))
       else {
-        correl <- format(round(correl, 2), nsmall = 2, digits = digits)
+        correl <- format(round(correl, 2),nsmall=2,digits=digits)
         correl[!lower.tri(correl)] <- ""
-        print(correl[-1, -p, drop = FALSE], quote = FALSE)
+        print(correl[-1,-p,drop=FALSE],quote=FALSE)
       }
     }
   }

@@ -1,6 +1,6 @@
-#' Modificaton of print.lm() to streamline output
+#' @title Modificaton of print.lm() to streamline output
 #'  
-#' Modifies the print.lm() function so that the output is less verbose.  For example, the call will not be re-printed unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
+#' @description Modifies the print.lm() function so that the output is less verbose.  For example, the call will not be re-printed unless asked for.  In addition, several \sQuote{extra} blank lines were removed.
 #'  
 #' @aliases print.lm
 #' 
@@ -28,9 +28,9 @@
 #' @export
 print.lm <- function(x,digits=max(3,getOption("digits")-3),show.call=FALSE,...) {
   if (show.call) cat("Call:",paste(deparse(x$call),sep="\n",collapse="\n"),"\n\n",sep="")
-  if (length(coef(x))) {
+  if (length(stats::coef(x))) {
     cat("Coefficients:\n")
-    print.default(format(coef(x),digits=digits),print.gap=2,quote=FALSE)
+    print.default(format(stats::coef(x),digits=digits),print.gap=2,quote=FALSE)
   }
   else cat("No coefficients\n")
   invisible(x)

@@ -1,6 +1,6 @@
-#'Shows a random selection of rows from a data frame or matrix.
+#' @title Shows a random selection of rows from a data frame or matrix.
 #'
-#'Shows a random selection of rows from a data frame or matrix.
+#' @description Shows a random selection of rows from a data frame or matrix.
 #'
 #' @param x A data frame or matrix.
 #' @param which A numeric or string vector that contains the column numbers or names to display.  Defaults to showing all columns.

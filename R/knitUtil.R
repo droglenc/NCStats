@@ -52,7 +52,7 @@ kGLHT <- function(x,type=c("hypothesis","confidence")) {
     res <- cbind(int$coefficients,int$sigma,int$tstat,int$pvalues)
     colnames(res) <- c("Estimate","Std. Error","t value","p value")
     rownames(res) <- paste (rownames(res),"= 0")
-  } else res <- confint(x)$confint[,1:3]
+  } else res <- stats::confint(x)$confint[,1:3]
   res
 }
 
@@ -75,7 +75,7 @@ kREG <- function(x,digits=max(3,getOption("digits")-3)) {
     cat("Multiple R-squared:", formatC(x$r.squared, digits = digits))
     cat(",\tAdjusted R-squared:", formatC(x$adj.r.squared,digits = digits), "\nF-statistic:",
         formatC(x$fstatistic[1],digits=digits), "on", x$fstatistic[2], "and", x$fstatistic[3], 
-        "DF,  p-value:",base::format.pval(pf(x$fstatistic[1L],x$fstatistic[2L],x$fstatistic[3L],lower.tail=FALSE),digits=digits), "\n")
+        "DF,  p-value:",base::format.pval(stats::pf(x$fstatistic[1L],x$fstatistic[2L],x$fstatistic[3L],lower.tail=FALSE),digits=digits), "\n")
     }
   cat("\n")
 }

@@ -7,13 +7,13 @@
 \usage{
 glhtSig(object, ...)
 
-\method{glhtSig}{glht}(object, test = multcomp::adjusted(), alpha = 0.05,
-  ...)
+\method{glhtSig}{glht}(object, type = c("single-step", "Shaffer", "Westfall",
+  "free", stats::p.adjust.methods), alpha = 0.05, ...)
 }
 \arguments{
 \item{object}{An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.}
 
-\item{test}{A function for computing p-values (see \code{\link[multcomp]{glht}}).}
+\item{type}{A function for computing p-values (see \code{\link[multcomp]{glht}}).}
 
 \item{alpha}{A numeric indicated the rejection criterion to be used for identifying significant comparisons.  Defaults to \code{0.05}.}
 

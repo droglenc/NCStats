@@ -11,19 +11,15 @@ srsdf(df, n, replace = FALSE, vars = NULL)
 
 \item{n}{Number of individuals (i.e., rows) to sample.}
 
-\item{replace}{A logical indicating whether sampling with replacement should
-be used or not (default).}
+\item{replace}{A logical indicating whether sampling with replacement should be used or not (default).}
 
-\item{vars}{A vector of strings indicating which variables to include in the
-returned data.frame.}
+\item{vars}{A vector of strings indicating which variables to include in the returned data.frame.}
 }
 \value{
-Returns a data.frame of rows sampled from \code{df}.  Optionally,
-only includes the columns listed in \code{vars}.
+Returns a data.frame of rows sampled from \code{df}.  Optionally, only includes the columns listed in \code{vars}.
 }
 \description{
-Extract a simple random sample from a data.frame, allowing user to choose
-particular variables.
+Extract a simple random sample from a data.frame, allowing user to choose particular variables.
 }
 \examples{
 data(ABDLakes)

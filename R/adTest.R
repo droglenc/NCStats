@@ -1,6 +1,6 @@
-#' Anderson-Darling test for normality
+#' @title Anderson-Darling test for normality
 #' 
-#' Performs the Anderson-Darling test for the composite hypothesis of normality.  This is simply a camel-case wrapper to the \code{\link[nortest]{ad.test}} in \pkg{nortest}.
+#' @description Performs the Anderson-Darling test for the composite hypothesis of normality.  This is simply a camel-case wrapper to the \code{\link[nortest]{ad.test}} in \pkg{nortest}.
 #' 
 #' @param x a numeric vector of data values, the number of which must be greater
 #' than 7. Missing values are allowed.

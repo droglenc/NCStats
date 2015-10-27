@@ -38,8 +38,6 @@ Diagnostic statistic values are computed with the \code{rstudent} and \code{\lin
 This function is meant to allow newbie students the ability to easily construct plots for diagnosing \dQuote{problem individuals} for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can generally be constructed simply by submitting a saved linear model to this function.  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
-require(FSA)      # for fitPlot and Mirex data
-
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
 

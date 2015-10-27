@@ -1,8 +1,8 @@
-#' Plots calculated areas or values from a wide variety of continuous and discrete distribution functions.
+#' @title Plots calculated areas or values from a wide variety of continuous and discrete distribution functions.
 #' 
-#' Plots calculated areas or values from normal, Student's t, F, chi-square, beta, exponential, and gamma continuous density functions and binomial, geometric, negative binomial, Poisson, and hypergeometric discrete distribution functions.
+#' @description Plots calculated areas or values from normal, Student's t, F, chi-square, beta, exponential, and gamma continuous density functions and binomial, geometric, negative binomial, Poisson, and hypergeometric discrete distribution functions.
 #' 
-#' This function computes the same values as the \code{pXXX} and \code{qXXX} functions for both continuous density and discrete probability distributions and as the \code{dXXX} functions for the discrete probability distributions.  This function is used primarily to include a plot with the calculation.  The original functions in the \pkg{stats} package should be consulted for more details on each distribution.  For example, use \code{?dbinom} to get help for computing the probability of a value in the binomial distribution, \code{?ppois} to get help for computing the cumulative probability of a value on the Poisson distribution, and \code{?qnorm} to get help for computing the quantile value of a normal distribution.
+#' @details This function computes the same values as the \code{pXXX} and \code{qXXX} functions for both continuous density and discrete probability distributions and as the \code{dXXX} functions for the discrete probability distributions.  This function is used primarily to include a plot with the calculation.  The original functions in the \pkg{stats} package should be consulted for more details on each distribution.  For example, use \code{?dbinom} to get help for computing the probability of a value in the binomial distribution, \code{?ppois} to get help for computing the cumulative probability of a value on the Poisson distribution, and \code{?qnorm} to get help for computing the quantile value of a normal distribution.
 #' 
 #' The strings in the \code{distrib} argument are the same as the abbreviated function names in the \pkg{stats} package.  For example, the normal distribution is \code{"norm"}, the chi-square distribution is \code{"chisq"}, and the hypergeometric distribution is \code{"hyper"}
 #' 
@@ -272,7 +272,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         reg <- "single"
       }
       if (plot) {
-        x <- 0:qgeom(0.9999,prob=prob)
+        x <- 0:stats::qgeom(0.9999,prob=prob)
         fx <- stats::dgeom(x,prob=prob)
       }
       if (type=="d") msg <- paste0(type,distrib,"(",val,",prob=",prob,")")

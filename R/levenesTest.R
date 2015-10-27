@@ -1,6 +1,6 @@
-#' Perform Levene's test for homogeneity of variances
+#' @title Perform Levene's test for homogeneity of variances
 #'
-#' Perform Levene's test for homogeneity of variances
+#' @description Perform Levene's test for homogeneity of variances
 #'
 #' @param \dots Arguments to pass through to \code{\link[car]{leveneTest}} in \pkg{car}.
 #'

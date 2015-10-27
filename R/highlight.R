@@ -1,8 +1,8 @@
-#' Labels a list of points on a two-dimensional plot.
+#' @title Labels a list of points on a two-dimensional plot.
 #' 
-#' Labels a list of points on a two-dimensional plot.
+#' @description Labels a list of points on a two-dimensional plot.
 #' 
-#' A two dimensional plot must be active and the \code{x} and \code{y} vectors must correspond to the x- and y-axes of the plot or \code{x} must correspond to the formula used to produce the plot.
+#' @details A two dimensional plot must be active and the \code{x} and \code{y} vectors must correspond to the x- and y-axes of the plot or \code{x} must correspond to the formula used to produce the plot.
 #' 
 #' @aliases highlight highlight.default highlight.formula
 #' 
@@ -63,7 +63,7 @@ highlight.formula <- function(x,data=NULL,lbls=NULL,pts=NULL,col="red",cex=1.25,
   mf <- stats::model.frame(x,data)
   x <- mf[,2]
   y <- mf[,1]
-  if (!is.null(data)) lbls <- eval(substitute(lbls), data, environment(formula))
-    else lbls <- eval(substitute(lbls), sys.parent(), environment(formula))
+  if (!is.null(data)) lbls <- eval(substitute(lbls), data, environment(stats::formula))
+    else lbls <- eval(substitute(lbls), sys.parent(), environment(stats::formula))
   highlight.default(x,y,lbls,pts,col,cex,pos,...)
 }

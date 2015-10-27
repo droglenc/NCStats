@@ -84,7 +84,8 @@ cPDF.plot <- function(x,fx,show.mnsd=TRUE,...) {
   graphics::plot(x,fx,type="l",lwd=2,...)
   if (show.mnsd) {
     x.vals <- rep(x,round(10000*fx,0))
-    mu <- mean(x.vals); sigma <- sd(x.vals)
+    mu <- mean(x.vals)
+    sigma <- stats::sd(x.vals)
     graphics::mtext(paste("Mean = ",round(mu,1),", SD = ",round(sigma,1)),line=0.25,col="blue")
     d.max <- max(fx)
     graphics::lines(rep(mu,2),c(0,d.max),col="blue",lwd=2)

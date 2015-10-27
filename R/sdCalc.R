@@ -1,6 +1,6 @@
-#' Shows the steps in the manual calculation of the standard deviation.
+#' @title Shows the steps in the manual calculation of the standard deviation.
 #' 
-#' Shows the steps in the manual calculation of the standard deviation.
+#' @description Shows the steps in the manual calculation of the standard deviation.
 #' 
 #' @aliases sdCalc print.sdCalc
 #' 
