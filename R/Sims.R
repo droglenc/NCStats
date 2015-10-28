@@ -59,7 +59,7 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
                        relax::slider(obj.name="rerand",obj.value="Y")
                        iCIRefresh()
                      },
-                     but.names=c("Re-Randomize"),
+                     but.names=c("Rerandomize"),
                      pos.of.panel="left",vscale=1.5)
     }
   }
@@ -166,69 +166,95 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
 #' 
 #' @export
 cltSim <- function(reps=1000,incl.norm=FALSE) {
-  iCLTrefresh <- function(...) {
-    n <- relax::slider(no=1)
-    sh1 <- relax::slider(no=2)
-    sh2 <- relax::slider(no=3)
-    iCLTSimPlot(n,sh1,sh2,reps,incl.norm)
-  } # end iCLTrefresh internal function
-  
-  # begin main function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(iCLTrefresh,prompt=TRUE,hscale=2,
-                   sl.names=   c( "n", "Shape 1 (alpha)", "Shape 2 (beta)"),
-                   sl.mins=    c(  10,                 1,                1),
-                   sl.maxs=    c( 100,                20,               20),
-                   sl.deltas=  c(   5,                 1,                1),
-                   sl.defaults=c(  10,                 1,                1),
-                   title = "Sampling Distribution Simulator",
-                   but.functions= function(...){
-                     relax::slider(obj.name="rerand",obj.value="Y");iCLTrefresh()
-                   },
-                   but.names=c("Re-Randomize"),
-                   pos.of.panel="left")
+  if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
+    rerand <- TRUE
+    manipulate::manipulate(
+      {
+        if (rerand) set.seed(sample(1:10000))
+        iCLTSimPlot(n,sh1,sh2,reps,incl.norm)
+      },
+      n=manipulate::slider(10,100,step=5,initial=10),
+      sh1=manipulate::slider(1,20,step=1,label="Shape 1 (alpha)"),
+      sh2=manipulate::slider(1,20,step=1,label="Shape 2 (beta)"),
+      rerand=manipulate::button("Rerandomize")
+    ) # end manipulate
+  } else {
+    ## internal referesher function
+    iCLTrefresh <- function(...) {
+      n <- relax::slider(no=1)
+      sh1 <- relax::slider(no=2)
+      sh2 <- relax::slider(no=3)
+      iCLTSimPlot(n,sh1,sh2,reps,incl.norm)
+    } # end iCLTrefresh internal function
+    if (iChk4Namespace("relax")) {
+      relax::gslider(iCLTrefresh,prompt=TRUE,hscale=2,
+                     sl.names=   c( "n", "Shape 1 (alpha)", "Shape 2 (beta)"),
+                     sl.mins=    c(  10,                 1,                1),
+                     sl.maxs=    c( 100,                20,               20),
+                     sl.deltas=  c(   5,                 1,                1),
+                     sl.defaults=c(  10,                 1,                1),
+                     title = "Sampling Distribution Simulator",
+                     but.functions= function(...){
+                       relax::slider(obj.name="rerand",obj.value="Y")
+                       iCLTrefresh()
+                     },
+                     but.names=c("Rerandomize"),
+                     pos.of.panel="left")
+    }
   }
 }
 
 iCLTSimPlot <- function(n,sh1,sh2,reps,incl.norm) {
-  # create values for popn graph  
+  ## Create a population with a beta distribution
   x <- seq(0,0.95,0.05)
   y <- round(1000*stats::dbeta(x,sh1,sh2),0)
   x <- rep(x,y)
-  # Plot the population distribution
-  old.par <- graphics::par(mar=c(3,2,2.25,1),mgp=c(2,0.4,0),tcl=-0.2,mfcol=c(1,2))
-  on.exit(graphics::par(old.par))
-  graphics::hist(x,right=FALSE,freq=FALSE,breaks=seq(0,1,0.05),yaxt="n",
-                 xlab="Variable (X)",ylab="",main="Population Distribution",col="gray90")
-  graphics::mtext("Frequency of Individuals",2,line=0.5)
-  # Show mean and SD of population on population distribution
-  mn.pop <- sh1/(sh1+sh2)
-  sd.pop <- sqrt((sh1*sh2)/(((sh1+sh2)^2)*(sh1+sh2+1)))
-  graphics::mtext(paste("Mean =",round(mn.pop,3),"SD =",round(sd.pop,3)),line=-0.4,col="red")
-  # Construct random samples from population
+  # make the label
+  title.popn <- substitute(paste(mu,"=",muval,", ",sigma,"=",sigmaval),
+                list(muval=formatC(sh1/(sh1+sh2),format="f",digits=2),
+                     sigmaval=formatC(sqrt((sh1*sh2)/(((sh1+sh2)^2)*(sh1+sh2+1))),
+                                      format="f",digits=3)))
+  
+  ## Construct random samples from pop and their mean
   rnd.reps <- matrix(stats::rbeta(n*reps,sh1,sh2),nrow=n)
-  # compute means of random samples
   rnd.mns <- apply(rnd.reps,2,mean)
-  # Plot the sampling distribution
-  # Set limits differently depending on sh1 and sha2
-  if (!(sh1+sh2)==2) { lmts <- stats::quantile(x,c(0.10,0.90)) } 
-  else { lmts <- stats::quantile(x,c(0.05,0.95)) }
-  mns.hist <- graphics::hist(rnd.mns,freq=FALSE,breaks=15,xlim=lmts,yaxt="n",
-                             xlab=expression(paste("Mean( ",bar(X)," )")),
-                             ylab="",main="Sampling Distribution",col="gray90")
-  graphics::mtext("Frequency of Samples",2,line=0.5)
-  # compute mean and SE of sampling dist & shown on the sampling distribution
+  # compute mean and SE of sampling dist
   mn.mns <- mean(rnd.mns)
-  sd.mns <- stats::sd(rnd.mns)                                              
-  graphics::mtext(paste("Mean =",round(mn.mns,3),"SE =",round(sd.mns,3)),line=-0.4,col="red")
+  sd.mns <- stats::sd(rnd.mns)
+  title.smplng <- substitute(paste("Mean=",xbar,", SE=",se),
+                          list(xbar=formatC(mn.mns,format="f",digits=2),
+                               se=formatC(sd.mns,format="f",digits=3)))
+  
+  ## Construct the graphic -- popn and sampling distributions
+  old.par <- graphics::par(mfcol=c(1,2),mar=c(3,2,2.25,1),mgp=c(1.7,0.4,0),
+                           tcl=-0.2,yaxs="i")
+  # Plot the popn dist
+  graphics::hist(x,freq=FALSE,breaks=seq(0,1,0.05),yaxt="n",
+                 xlab="Variable (X)",ylab="",main="",right=FALSE,col="gray90")
+  graphics::mtext("Population Distribution",3,line=1.3)
+  graphics::mtext(title.popn,3,line=0.1)
+  graphics::mtext("Frequency of Individuals",2,line=0.1)
+  # Plot the sampling distribution
+  # Set limits differently depending on sh1 and sh2
+  if ((sh1+sh2)==2) tmp <- c(0.05,0.95)
+    else tmp <- c(0.10,0.95)
+  mns.hist <- graphics::hist(rnd.mns,freq=FALSE,breaks=15,
+                             xlim=stats::quantile(x,tmp),
+                             xlab=expression(paste("Mean ( ",bar(X)," )")),
+                             yaxt="n",ylab="",main="",right=FALSE,col="gray90")
+  graphics::mtext("Sampling Distribution",3,line=1.3)
+  graphics::mtext(title.smplng,3,line=0.1)
+  graphics::mtext("Frequency of Samples",2,line=0)
   # vertical line at mean
   graphics::lines(c(mn.mns,mn.mns),c(0,max(mns.hist$density)),col="red",lwd=2)
   # horiz line represent +/- SD of mean
   graphics::lines(c(mn.mns-sd.mns,mn.mns+sd.mns),rep(0.6*max(mns.hist$density),2),col="red",lwd=2)
+  # potentially include normal distribution
   if (incl.norm) {
     norm.vals <- seq(min(mns.hist$breaks),max(mns.hist$breaks),length.out=50)
     graphics::lines(norm.vals,stats::dnorm(norm.vals,mn.mns,sd.mns),col="blue")
   }
+  graphics::par(old.par)
 } # end iCLTSimPlot internal function
 
 
