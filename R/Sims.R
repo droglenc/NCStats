@@ -222,8 +222,8 @@ iCLTSimPlot <- function(n,sh1,sh2,reps,incl.norm) {
   mn.mns <- mean(rnd.mns)
   sd.mns <- stats::sd(rnd.mns)
   title.smplng <- substitute(paste("Mean=",xbar,", SE=",se),
-                          list(xbar=formatC(mn.mns,format="f",digits=2),
-                               se=formatC(sd.mns,format="f",digits=3)))
+                             list(xbar=formatC(mn.mns,format="f",digits=2),
+                                  se=formatC(sd.mns,format="f",digits=3)))
   
   ## Construct the graphic -- popn and sampling distributions
   old.par <- graphics::par(mfcol=c(1,2),mar=c(3,2,2.25,1),mgp=c(1.7,0.4,0),
@@ -284,40 +284,59 @@ iCLTSimPlot <- function(n,sh1,sh2,reps,incl.norm) {
 #' @export
 #' 
 powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=TRUE) {
-  iPowerRefresh <- function(...) {
-    mua <- relax::slider(no=1)
-    sigma <- relax::slider(no=2)
-    n <- relax::slider(no=3)
-    alpha <- relax::slider(no=4)
-    iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
-  }
-  
-  # Start of main function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(iPowerRefresh,prompt=TRUE,vscale=1.5,
-                   sl.names=   c(             "Actual mu",   "sigma", "n", "alpha"),
-                   sl.mins=    c(min(mu0,s.mua)-2*s.sigma,         1,   2,    0.01),
-                   sl.maxs=    c(max(mu0,s.mua)+2*s.sigma, 3*s.sigma, 100,    0.30),
-                   sl.deltas=  c(                       1,         1,   1,    0.01),
-                   sl.defaults=c(                   s.mua,   s.sigma, s.n, s.alpha),
-                   title = "Power Simulator",pos.of.panel="left")
+  if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
+    rerand <- TRUE
+    manipulate::manipulate(
+      {
+        if (rerand) set.seed(sample(1:10000))
+        iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
+      },
+      mua=manipulate::slider(min(mu0,s.mua)-2*s.sigma,max(mu0,s.mua)+2*s.sigma,step=1,
+                             initial=s.mua,label="Actual mu"),
+      sigma=manipulate::slider(1,3*s.sigma,step=1,initial=s.sigma),
+      n=manipulate::slider(2,100,step=1,initial=s.n),
+      alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha)
+    ) # end manipulate
+  } else {
+    ## internal referesher function
+    iPowerRefresh <- function(...) {
+      mua <- relax::slider(no=1)
+      sigma <- relax::slider(no=2)
+      n <- relax::slider(no=3)
+      alpha <- relax::slider(no=4)
+      iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
+    }
+    if (iChk4Namespace("relax")) {
+      relax::gslider(iPowerRefresh,prompt=TRUE,vscale=1.5,
+                     sl.names=   c(             "Actual mu",   "sigma", "n", "alpha"),
+                     sl.mins=    c(min(mu0,s.mua)-2*s.sigma,         1,   2,    0.01),
+                     sl.maxs=    c(max(mu0,s.mua)+2*s.sigma, 3*s.sigma, 100,    0.30),
+                     sl.deltas=  c(                       1,         1,   1,    0.01),
+                     sl.defaults=c(                   s.mua,   s.sigma, s.n, s.alpha),
+                     title = "Power Simulator",pos.of.panel="left")
+    }
   }
 }
-
+  
 iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
-  old.par <- graphics::par(mgp=c(2,0.75,0),mfrow=c(2,1)); on.exit(graphics::par(old.par))
-  SE <- sigma/sqrt(n)
-  xlmts <- c(min(mu0,s.mua)-1*s.sigma,max(mu0,s.mua)+1*s.sigma)
-  ylmts <- c(0,stats::dnorm(0,0,s.sigma/sqrt(2*s.n)))
+  ## Set up the null and alternative distributions
   # Find critical value
-  ifelse(lower.tail, cv <- stats::qnorm(alpha,mu0,SE), cv <- stats::qnorm(1-alpha,mu0,SE))
-  cv <- round(cv,2)
+  SE <- sigma/sqrt(n)
+  tmp <- ifelse(lower.tail,alpha,1-alpha)
+  cv <- round(stats::qnorm(tmp,mu0,SE),2)
   # Create the null distribution values
   x0 <- sort(c(cv,seq(-4*SE+mu0,4*SE+mu0,by=0.01)))
   norm0 <- stats::dnorm(x0,mu0,SE)
   # create the actual distribution values
   xa <- sort(c(cv,seq(-4*SE+mua,4*SE+mua,by=0.01)))
   norma <- stats::dnorm(xa,mua,SE)
+
+  ## Construct the graphics  
+  # set commonalities
+  old.par <- graphics::par(mgp=c(2,0.75,0),mfrow=c(2,1))
+  xlmts <- c(min(mu0,s.mua)-1*s.sigma,max(mu0,s.mua)+1*s.sigma)
+  ylmts <- c(0,stats::dnorm(0,0,s.sigma/sqrt(2*s.n)))
+  # build the null distribution
   graphics::par(mar=c(2,1,2,3))
   c.region(cv,x0,norm0,lower.tail,area=NULL,plot=TRUE,show.ans=FALSE,
            shade.col="red",lbl.col="red",show.lbl=TRUE,
@@ -325,10 +344,12 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
   graphics::mtext("Null Dist.",4,cex=1.5,line=1)
   graphics::lines(c(mu0,mu0),c(0,max(norm0)),lty=3,lwd=2,col="blue")
   graphics::abline(v=cv,lty=2,lwd=2,col="red")
-  ifelse(lower.tail,pos <- 2, pos <- 4)
-  graphics::text(cv,0.9*ylmts[2],"Reject Ho",pos=pos,col="red")
-  graphics::mtext(paste("mu=",mua,", sigma=",sigma,", n=",n,", alpha=",
-                        format(alpha,nsmall=2)),3,line=0.5)
+  
+  graphics::text(cv,0.9*ylmts[2],"Reject Ho",pos=ifelse(lower.tail,2,4),col="red")
+  tmp <- substitute(paste(mu,"=",mua,", ",sigma,"=",sigmaval,", n=",n,", ",alpha,"=",alphaval),
+                    list(mua=mua,sigmaval=sigma,n=n,alphaval=format(alpha,nsmall=2)))
+  graphics::mtext(tmp,3,line=0.5)
+  # build the actual distribution
   graphics::par(mar=c(3,1,1,3))
   c.region(cv,xa,norma,lower.tail,area=NULL,plot=TRUE,show.ans=FALSE,
            shade.col="green",lbl.col="green",show.lbl=FALSE,
@@ -339,8 +360,10 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
   graphics::abline(v=cv,lty=2,lwd=2,col="red")
   graphics::abline(v=mu0,lty=3,lwd=2,col="gray")
   pwr <- round(stats::pnorm(cv,mua,SE),3)
-  ifelse(lower.tail, pos <- "topleft", pos <- "topright")
-  graphics::legend(pos,legend=paste("power=",format(pwr,nsmall=3)),bty="n")
-  ifelse(lower.tail, pos <- "topright", pos <- "topleft")
-  graphics::legend(pos,legend=paste("beta=",format(1-pwr,nsmall=3)),bty="n")    
+  graphics::legend(ifelse(lower.tail,"topleft","topright"),
+                   legend=paste("power=",format(pwr,nsmall=3)),bty="n")
+  
+  graphics::legend(ifelse(lower.tail,"topright","topleft"),
+                   legend=paste("beta=",format(1-pwr,nsmall=3)),bty="n")
+  graphics::par(old.par)
 } # end iPowerSimPlot internal function
