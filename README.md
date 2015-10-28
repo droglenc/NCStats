@@ -10,6 +10,7 @@ The **NCStats** contains helper functions for statistics courses taught by [Dr. 
 
 You can [browse function help pages here](http://rforge.net/doc/packages/NCStats/00Index.html).  Recent changes are described in the [News file](https://github.com/droglenc/NCStats/blob/master/NEWS.md)
 
+
 ## Installation
 **NCStats** has not yet been released on CRAN.  The latest version can be installed from GitHub (requires the **devtools** package) with ...
 
