@@ -19,8 +19,8 @@ Imports:
     multcomp,
     nortest,
     plotrix,
-    relax,
     TeachingDemos
 Suggests:
-    tcltk
+    tcltk,
+    relax
 License: GPL (>= 2)

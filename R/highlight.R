@@ -51,9 +51,7 @@ highlight.default <- function(x,y,lbls=NULL,pts=NULL,col="red",cex=1.25,pos=NULL
   if (is.null(y)) stop("Y-axis variable is missing",call.=FALSE)
   if (is.null(pts)) pts <- 1:length(x)
   if (is.null(lbls)) lbls <- as.character(1:length(x))
-  if (iChk4Namespace("plotrix")) {
-    if (is.null(pos)) pos <- plotrix::thigmophobe(x,y)
-  }
+  if (is.null(pos)) pos <- plotrix::thigmophobe(x,y)
   graphics::text(x[pts],y[pts],lbls[pts],col=col,cex=cex,xpd=NA,pos=pos,...)
 }
 

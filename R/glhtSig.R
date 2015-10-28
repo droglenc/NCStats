@@ -30,9 +30,7 @@ glhtSig <- function (object, ...) {
 #' @export
 glhtSig.glht <- function(object,type=c("single-step","Shaffer","Westfall","free",
                                        stats::p.adjust.methods),alpha=0.05,...) {
-  if(iChk4Namespace("multcomp")) {
-    test <- multcomp::adjusted(type)
-    ts <- test(object)
-    names(ts$coefficients)[ts$pvalues<alpha]
-  }
+  test <- multcomp::adjusted(type)
+  ts <- test(object)
+  names(ts$coefficients)[ts$pvalues<alpha]
 }

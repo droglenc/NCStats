@@ -100,18 +100,16 @@ diagPlot <- function(mdl) {
     if (res$inf[6]) graphics::text(x[res$obs[6]],y[res$obs[6]],res$obs[6],col="red",cex=1.5)
     if (res$inf[7]) graphics::text(x[res$obs[7]],y[res$obs[7]],res$obs[7],col="red",cex=1.5)
     
-    if (iChk4Namespace("FSA")) {
-      FSA::fitPlot(mdl,main="",pch=19)
-      if (length(all.pts)>=1) {
-        clrs <- c("blue","red","cyan","darkgreen","magenta","pink","orange")
-        for (i in 1:length(all.pts)) { 
-          lm2 <- stats::lm(lmtype$mf[-all.pts[i],1]~lmtype$mf[-all.pts[i],2])
-          graphics::abline(lm2,col=clrs[i],xpd=FALSE)
-          graphics::text(lmtype$mf[all.pts[i],2],lmtype$mf[all.pts[i],1],all.pts[i],
-                         col=clrs[i],cex=1.5)
-        } # end i
-      } # end if      
-    }
+    FSA::fitPlot(mdl,main="",pch=19)
+    if (length(all.pts)>=1) {
+      clrs <- c("blue","red","cyan","darkgreen","magenta","pink","orange")
+      for (i in 1:length(all.pts)) { 
+        lm2 <- stats::lm(lmtype$mf[-all.pts[i],1]~lmtype$mf[-all.pts[i],2])
+        graphics::abline(lm2,col=clrs[i],xpd=FALSE)
+        graphics::text(lmtype$mf[all.pts[i],2],lmtype$mf[all.pts[i],1],all.pts[i],
+                       col=clrs[i],cex=1.5)
+      } # end i
+    } # end if
   }
   cat("\nUnusual Observation Results\n")
   print(res)

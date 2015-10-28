@@ -41,7 +41,6 @@ This function is only appropriate for SLR and IVR with a single quantitative cov
 The \code{predictPlot()} is just a pass-through to \code{predictionPlot()}.
 }
 \examples{
-\dontrun{
 lm1 <- lm(Sepal.Length~Petal.Length*Species,data=iris)
 lm2 <- lm(Sepal.Length~Petal.Length+Species,data=iris)
 lm3 <- lm(Sepal.Length~Petal.Length,data=iris)
@@ -52,7 +51,6 @@ predictionPlot(lm2,newdf,legend="topleft")
 predictionPlot(lm3,newdf,legend="topleft")
 predictionPlot(lm3,newdf,legend="topleft",interval="confidence")
 par(op)
-}
 }
 \seealso{
 \code{predict} specifically \code{predict.lm} and \code{fitPlot} from \pkg{FSA}.

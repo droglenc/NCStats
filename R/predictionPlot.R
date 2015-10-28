@@ -26,7 +26,6 @@
 #' @keywords hplot models
 #' 
 #' @examples
-#' \dontrun{
 #' lm1 <- lm(Sepal.Length~Petal.Length*Species,data=iris)
 #' lm2 <- lm(Sepal.Length~Petal.Length+Species,data=iris)
 #' lm3 <- lm(Sepal.Length~Petal.Length,data=iris)
@@ -37,7 +36,6 @@
 #' predictionPlot(lm3,newdf,legend="topleft")
 #' predictionPlot(lm3,newdf,legend="topleft",interval="confidence")
 #' par(op)
-#' }
 #' 
 #' @rdname predictionPlot
 #' @export predictPlot
@@ -49,23 +47,21 @@ predictPlot <- function(...) {
 #' @export predictionPlot
 predictionPlot <- function(mdl,newdata,interval="prediction",conf.level=0.95,
                            lty=1,lwd=3,legend="topright",...) {
-  if (iChk4Namespace("FSA")){
-    lmtype <- iTypeoflm(mdl)
-    if (lmtype$type!="SLR" & lmtype$type!="IVR") stop("\n  Function only works for SLR or IVR models.",call.=FALSE)
-    if (dim(lmtype$mf)[2]>4) stop("\n  Function only works for IVR models with one covariate and two or fewer factors.",call.=FALSE)
-    if (missing(newdata)) stop("\n newdata argument is missing.",call.=FALSE)
-    if (dim(newdata)[1]<1 | dim(newdata)[2]<1) stop("\n newdata is empty",call.=FALSE)
-    if (!all(names(lmtype$mf)[-1] %in% names(newdata))) stop("\n Not all variables found in mdl are in newdata.",call.=FALSE)
-    
-    FSA::fitPlot(mdl,interval=interval,cex.main=0.8,conf.level=conf.level,legend=legend,...)
-    preds <- stats::predict(mdl,newdata,interval=interval,conf.level=conf.level)
-    for (i in 1:dim(newdata)[1]) {
-      graphics::points(rep(newdata[i,1],3),preds[i,],col="seagreen4",pch=95,lwd=lwd,xpd=NA,cex=2)
-      graphics::lines(rep(newdata[i,1],2),preds[i,2:3],col="seagreen4",lty=lty,lwd=lwd,xpd=NA)
-      graphics::text(newdata[i,1],preds[i,1],i,pos=4,col="seagreen4",cex=1.25)
-    }
-    df <- data.frame(1:dim(newdata)[1],newdata,preds)
-    names(df) <- c("obs",names(newdata),colnames(preds))
-    df    
+  lmtype <- iTypeoflm(mdl)
+  if (lmtype$type!="SLR" & lmtype$type!="IVR") stop("\n  Function only works for SLR or IVR models.",call.=FALSE)
+  if (dim(lmtype$mf)[2]>4) stop("\n  Function only works for IVR models with one covariate and two or fewer factors.",call.=FALSE)
+  if (missing(newdata)) stop("\n newdata argument is missing.",call.=FALSE)
+  if (dim(newdata)[1]<1 | dim(newdata)[2]<1) stop("\n newdata is empty",call.=FALSE)
+  if (!all(names(lmtype$mf)[-1] %in% names(newdata))) stop("\n Not all variables found in mdl are in newdata.",call.=FALSE)
+  
+  FSA::fitPlot(mdl,interval=interval,cex.main=0.8,conf.level=conf.level,legend=legend,...)
+  preds <- stats::predict(mdl,newdata,interval=interval,conf.level=conf.level)
+  for (i in 1:dim(newdata)[1]) {
+    graphics::points(rep(newdata[i,1],3),preds[i,],col="seagreen4",pch=95,lwd=lwd,xpd=NA,cex=2)
+    graphics::lines(rep(newdata[i,1],2),preds[i,2:3],col="seagreen4",lty=lty,lwd=lwd,xpd=NA)
+    graphics::text(newdata[i,1],preds[i,1],i,pos=4,col="seagreen4",cex=1.25)
   }
+  df <- data.frame(1:dim(newdata)[1],newdata,preds)
+  names(df) <- c("obs",names(newdata),colnames(preds))
+  df
 }

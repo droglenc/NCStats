@@ -33,7 +33,6 @@
 #' @keywords htest
 #' 
 #' @examples
-#' \dontrun{
 #' # example from chisq.test()
 #' x <- c(A = 20, B = 15, C = 25)
 #' ( x.chi <- chisq.test(x) )
@@ -76,7 +75,6 @@
 #' p <- obs/sum(obs) 
 #' se.p <- sqrt(p[1]*p[2]/sum(obs))
 #' rbind(p[1]+c(1,-1)*qnorm(0.025)*se.p,p[2]+c(1,-1)*qnorm(0.025)*se.p)
-#' }
 #' 
 #' @export
 gofCI <- function(chi,conf.level=0.95,
@@ -90,13 +88,11 @@ gofCI <- function(chi,conf.level=0.95,
   obs <- chi$observed
   lvls <- length(obs)
   if (type!="goodman") {
-    if (iChk4Namespace("FSA")) {
-      # Ogle's ad hoc brute-force methods
-      cis <- matrix(NA,nrow=lvls,ncol=2)
-      # get CIs
-      for (i in 1:lvls) cis[i,] <- FSA::binCI(obs[i],sum(obs),conf.level,type)
-      res <- cbind(prop.table(obs),cis,chi$expected/sum(chi$expected))
-    }
+    # Ogle's ad hoc brute-force methods
+    cis <- matrix(NA,nrow=lvls,ncol=2)
+    # get CIs
+    for (i in 1:lvls) cis[i,] <- FSA::binCI(obs[i],sum(obs),conf.level,type)
+    res <- cbind(prop.table(obs),cis,chi$expected/sum(chi$expected))
   } else {
     # Goodman's method, modified from code by by Paul Rabie
     # Generally better if lvls<10
