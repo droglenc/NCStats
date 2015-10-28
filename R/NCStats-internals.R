@@ -50,6 +50,12 @@ iChk4Namespace <- function(pkg) {
 
 
 ##################################################################
+# Try to determine if RStudio is being used.
+##################################################################
+iCheckRStudio <- function () "tools:rstudio" %in% search()
+
+
+##################################################################
 # Internal functions used in distrib().
 ##################################################################
 c.region <- function(xval,x,fx,lower.tail,area,plot,show.ans,shade.col,lbl.col,show.lbl,cex.ans=1,...) {

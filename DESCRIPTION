@@ -21,6 +21,7 @@ Imports:
     plotrix,
     TeachingDemos
 Suggests:
-    tcltk,
-    relax
+    manipulate,
+    relax,
+    tcltk
 License: GPL (>= 2)

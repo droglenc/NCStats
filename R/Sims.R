@@ -20,119 +20,126 @@
 #' }
 #' 
 #' @export
-ciSim <- function(reps=100,method=c("z","Z","t","T"),mu=100,sigma=10) {
-  ## Internal plot refresher function
-  iCIRefresh <- function(...) {
-    n <- relax::slider(no=1)
-    conf <- relax::slider(no=2)
-    tail <- relax::slider(no=3)
-    # change tail number to character
-    tail <- ifelse(tail==-1,"less.than",ifelse(tail==0,"two.sided","greater.than"))     
-    iCISimPlot(n,conf,tail,reps,method,mu,sigma)
-  } # end iCIRefresh internal function
-  
-  ## Main function
-  if (iChk4Namespace("relax")) {
-    method <- match.arg(method)
-    relax::gslider(iCIRefresh,prompt=TRUE,
-                   sl.names=   c( "n", "Confidence (C)", "Tail Type (-1=less,1=grtr)"),
-                   sl.mins=    c(  10,             0.80,                -1),
-                   sl.maxs=    c( 100,             0.99,                 1),
-                   sl.deltas=  c(   5,             0.01,                 1),
-                   sl.defaults=c(  10,             0.95,                 0),
-                   title = "Confidence Region Simulator",
-                   but.functions= function(...){
-                     relax::slider(obj.name="rerand",obj.value="Y");iCIRefresh()
-                   },
-                   but.names=c("Re-Randomize"),
-                   pos.of.panel="left",vscale=1.5)
+ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
+  ## Trying to fix "no visible bindings" problem for Check
+  n <- conf.level <- alternative <- NULL
+  method <- match.arg(method)
+  ## use manipulate if RStudio is being used.
+  if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
+    rerand <- TRUE
+    manipulate::manipulate(
+      {
+      if (rerand) set.seed(sample(1:10000))
+      iCISimPlot(n,conf.level,alternative,reps,method,mu,sigma)
+      },
+        n=manipulate::slider(10,100,step=5,initial=10),
+        conf.level=manipulate::picker(0.80,0.90,0.95,0.99),
+        alternative=manipulate::picker("two.sided","less","greater"),
+        rerand=manipulate::button("Rerandomize")
+    ) # end manipulate
+  } else {
+    ## Internal plot refresher function
+    iCIRefresh <- function(...) {
+      n <- relax::slider(no=1)
+      conf <- relax::slider(no=2)
+      alternative <- relax::slider(no=3)
+      # change alternative number to character
+      alternative <- ifelse(alternative==-1,"less",ifelse(alternative==0,"two.sided","greater"))
+      iCISimPlot(n,conf,alternative,reps,method,mu,sigma)
+    } ## end iCIRefresh internal function
+    if (iChk4Namespace("relax")) {
+      relax::gslider(iCIRefresh,prompt=TRUE,
+                     sl.names=   c( "n", "Confidence (C)", "alternative Type (-1=less,1=grtr)"),
+                     sl.mins=    c(  10,             0.80,                -1),
+                     sl.maxs=    c( 100,             0.99,                 1),
+                     sl.deltas=  c(   5,             0.01,                 1),
+                     sl.defaults=c(  10,             0.95,                 0),
+                     title = "Confidence Region Simulator",
+                     but.functions= function(...){
+                       relax::slider(obj.name="rerand",obj.value="Y")
+                       iCIRefresh()
+                     },
+                     but.names=c("Re-Randomize"),
+                     pos.of.panel="left",vscale=1.5)
+    }
   }
 }
 
 
 ## Internal function for actually making the plot
-iCISimPlot <- function(n,conf,tail,reps,method,mu,sigma,...) {
+iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
+                       reps,method,mu,sigma,...) {
+  alternative <- match.arg(alternative)
+  ## Create samples, summaries, and CI
   # Sets x range of plot, allows to see change in width of CIs
   xr <- mu+c(-5,5)*sigma/sqrt(10)
-  # random samples from popn
+  #  random samples from popn
   rnd.reps <- matrix(stats::rnorm(n*reps,mu,sigma),nrow=n)
-  # compute means of random samples
+  #  compute means of random samples
   rnd.mns <- apply(rnd.reps,2,mean)
-  switch(method,
-         Z=, z= { # Make CIs for each resample for Z method
-           SE = rep(sigma/sqrt(n),reps)
-           switch(tail,
-                  less.than = {
-                    crit <- stats::qnorm(conf)
-                    uci <- rnd.mns+crit*SE
-                    lci <- rep(min(xr),reps)
-                  },
-                  greater.than = {
-                    crit <- stats::qnorm(conf)
-                    lci <- rnd.mns-crit*SE
-                    uci <- rep(max(xr),reps)
-                  }, 
-                  two.sided = {
-                    crit <- stats::qnorm(0.5+conf/2)
-                    lci <- rnd.mns-crit*SE
-                    uci <- rnd.mns+crit*SE   
-                  }
-           ) # end tail switch within Z method
-         }, # end Z method
-         T=, t= { # Make CIs for each resample for t method
-           SE = apply(rnd.reps,2,function(x) stats::sd(x)/length(x))
-           switch(tail,
-                  less.than = {
-                    crit <- stats::qt(conf,df=n-1)
-                    uci <- rnd.mns+crit*SE
-                    lci <- rep(min(xr),reps)
-                  },
-                  greater.than = {
-                    crit <- stats::qt(conf,df=n-1)
-                    lci <- rnd.mns-crit*SE
-                    uci <- rep(max(xr),reps)
-                  }, 
-                  two.sided = {
-                    crit <- stats::qt(0.5+conf/2,df=n-1)
-                    lci <- rnd.mns-crit*SE
-                    uci <- rnd.mns+crit*SE
-                  }
-           ) # end tail switch within t method
-         } # end t method
-  ) # end method switch
-  old.par <- graphics::par(mar=c(3,1,3.5,1),mgp=c(2,0.4,0),tcl=-0.2)
-  on.exit(graphics::par(old.par))
+  # Make CIs for each resample
+  if (method=="Z") {
+    SE = rep(sigma/sqrt(n),reps)
+    switch(alternative,
+           less = {
+             crit <- stats::qnorm(conf); zstar <- mu-crit*sigma/sqrt(n)
+             uci <- rnd.mns+crit*SE; lci <- rep(xr[1],reps)
+           },
+           greater = {
+             crit <- stats::qnorm(conf); zstar <- mu+crit*sigma/sqrt(n)
+             lci <- rnd.mns-crit*SE; uci <- rep(xr[2],reps)
+           }, 
+           two.sided = {
+             crit <- stats::qnorm(0.5+conf/2); zstar <- mu+c(-1,1)*crit*sigma/sqrt(n)
+             lci <- rnd.mns-crit*SE; uci <- rnd.mns+crit*SE
+           } )
+    me <- crit*sigma/sqrt(n)
+  } else {
+    SE = apply(rnd.reps,2,function(x) stats::sd(x)/sqrt(length(x)))
+    switch(alternative,
+           less = {
+             crit <- stats::qt(conf,df=n-1)
+             uci <- rnd.mns+crit*SE; lci <- rep(min(xr),reps)
+           },
+           greater = {
+             crit <- stats::qt(conf,df=n-1)
+             lci <- rnd.mns-crit*SE; uci <- rep(max(xr),reps)
+           }, 
+           two.sided = {
+             crit <- stats::qt(0.5+conf/2,df=n-1)
+             lci <- rnd.mns-crit*SE; uci <- rnd.mns+crit*SE
+           }  )
+    me <- mean(crit*SE)
+  }
+  # Identify if a CI contains mu (black) or not (red)
+  colr <- ifelse(((lci>mu) | (uci<mu)),"red","black")
+  # Percent CIs contained mu
+  hit <- paste0(formatC(100*length(colr[colr=="black"])/reps,format="f",digits=0))
+  me <- formatC(me,format="f",digits=3)
+  
+  ## Construct the graphic
+  # Some preparations
+  old.par <- graphics::par(mar=c(3,1,2,1),mgp=c(2,0.4,0),tcl=-0.2)
+  xlbl <- expression(paste("Sample Mean ( ",bar(X)," )"))
+  tmp <- ifelse(method=="Z","","avg ")
+  title <- substitute(paste(hit,"% contain ",mu," (=",muval,"), ",tmp,"m.e.=",me,),
+                      list(hit=hit,tmp=tmp,me=me,muval=mu))
   # make skeleton plot
   graphics::plot(lci,seq(1,reps),type="n",yaxt="n",xlim=xr,
-                 xlab=expression(paste("Sample Mean( ",bar(X)," )")),ylab="",main="")
-  # Put blue vertical line at mu
-  graphics::lines(c(mu,mu),c(-0.1,1.2*reps),lwd=3,lty=3,col="blue")
-  # lable mu line
+                 xlab=xlbl,ylab="",main=title)
+  # Put blue vertical line and label at mu
+  graphics::lines(c(mu,mu),c(-0.1,1.2*reps),col="blue",lwd=3,lty=2)
   graphics::text(mu,-1.5,expression(mu),cex=1.25,col="blue")
-  # Put green vertical lines at crit values of popn (only for Z method)
-  if (method=="Z" | method=="z") {
-    switch(tail,
-           less.than = {   graphics::abline(v=mu-crit*sigma/sqrt(n),col="green",lty=3,lwd=2) },
-           greater.than = {graphics::abline(v=mu+crit*sigma/sqrt(n),col="green",lty=3,lwd=2) }, 
-           two.sided = {   graphics::abline(v=mu+c(-crit,crit)*sigma/sqrt(n),col="green",lty=3,lwd=2) }
-    ) # end tail switch
-  }
-  # Identify if a CI contains mu or not
-  colr <- ifelse(((lci>mu) | (uci<mu)),"red","black")
+  # For z method only, put transparent green vertical lines at
+  #   crit values of popn.
+  if (method=="Z") graphics::abline(v=zstar,col="green",lwd=3,lty=2)
   for (i in 1:reps) {
     # Put CIs on the plot
     graphics::lines(c(lci[i],uci[i]),rep(i,2),col=colr[i])
     # Put means on the plot
-    graphics::points(rnd.mns[i],i,pch=19,col=colr[i])
+    graphics::points(rnd.mns[i],i,pch=19,col=FSA::col2rgbt(colr[i],0.7),cex=0.75)
   }
-  # How many CIs contained mu
-  hit <- length(colr[colr=="black"])
-  graphics::mtext(paste0(hit," of ",reps," (",formatC(100*hit/reps,format="f",digits=1),"%) captured the popn mean"),line=2,cex=1.25,col="red")
-  # Calculate average margin-of-error
-  if (tail=="less.than") { avg.me <- mean(uci-rnd.mns) }
-  else { avg.me <- mean(rnd.mns-lci)}
-  graphics::mtext(paste0("Average margin-of-error is ",round(avg.me,1)),line=0.5,cex=1.25,col="red")
-  invisible(NULL)
+  graphics::par(old.par)
 } # end iCISimPlot internal function
 
 

@@ -4,7 +4,7 @@
 \alias{ciSim}
 \title{A dynamics graphic to illustrate the concept of confidence intervals for a mean.}
 \usage{
-ciSim(reps = 100, method = c("z", "Z", "t", "T"), mu = 100, sigma = 10)
+ciSim(reps = 200, method = c("Z", "t"), mu = 100, sigma = 10)
 }
 \arguments{
 \item{reps}{A single numeric indicating the number of replicate samples to draw from the population}

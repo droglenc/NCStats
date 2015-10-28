@@ -1,5 +1,7 @@
 # 0.4.4 ongoing
 * Added Travis-CI support.
+* `iCheckRStudio()`: Added.
+* `ciSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 200.
 
 # 0.4.3 Oct15
 * Added `ImportFrom` for `nortest` and the "base" packages that are needed.  Moved `car` from `Depends` to `ImportFrom`.  Removed `FSAdata` from `Depends`.
