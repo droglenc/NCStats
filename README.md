@@ -1,6 +1,10 @@
 NCStats
 =======
 
+[![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Travis-CI Build Status](https://travis-ci.org/droglenc/NCStats.svg?branch=master)](https://travis-ci.org/droglenc/NCStats)
+
+
 ## Introduction
 The **NCStats** contains helper functions for statistics courses taught by [Dr. Derek H. Ogle](http://derekogle.com) at [Northland College](http://www.northland.edu).
 

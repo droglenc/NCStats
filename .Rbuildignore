@@ -8,3 +8,6 @@ NEWS.md
 ## Raw data files
 ^data-raw$
 
+## Travis-CI files
+.travis.yml
+^\.travis\.yml$
