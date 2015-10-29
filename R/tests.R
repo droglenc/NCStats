@@ -1,3 +1,53 @@
+#' @title Anderson-Darling test for normality
+#' 
+#' @description Performs the Anderson-Darling test for the composite hypothesis of normality.  This is simply a camel-case wrapper to the \code{\link[nortest]{ad.test}} in \pkg{nortest}.
+#' 
+#' @param x a numeric vector of data values, the number of which must be greater
+#' than 7. Missing values are allowed.
+#' 
+#' @return A list with class "htest" containing the following components:
+#'   \itemize{
+#'     \item statistic the value of the Anderson-Darling statistic.
+#'     \item p.value the p-value for the test.
+#'     \item method the character string \dQuote{Anderson-Darling normality test}.
+#'     \item data.name a character string giving the name(s) of the data.
+#' }
+#' 
+#' @note This is exactly the same as \code{\link[nortest]{ad.test}} in \pkg{nortest} package except that it uses \sQuote{camel-case} naming conventions.
+#' 
+#' @keywords htest
+#' 
+#' @examples
+#' adTest(rnorm(100,mean=5,sd=3))
+#' adTest(runif(100,min=2,max=4))
+#' 
+#' @export
+adTest <- function(x) if (iChk4Namespace("nortest")) nortest::ad.test(x)
+
+
+
+
+#' @title Perform Levene's test for homogeneity of variances
+#'
+#' @description Perform Levene's test for homogeneity of variances
+#'
+#' @param \dots Arguments to pass through to \code{\link[car]{leveneTest}} in \pkg{car}.
+#'
+#' @return See help for \code{\link[car]{leveneTest}} in \pkg{car}.
+#'
+#' @seealso \code{\link[car]{leveneTest}} in \pkg{car}.
+#' 
+#' @note This is a simple pass-through to  \code{\link[car]{leveneTest}} in \pkg{car} for those of us that always put the \sQuote{s} on \sQuote{Levenes}.
+#' 
+#' @keywords misc
+#' 
+#' @export
+#'
+levenesTest <- function(...) car::leveneTest(...)
+
+
+
+
 #' @title Z test for known population standard deviation
 #' 
 #' @description Compute the test of hypothesis and compute confidence interval on the mean of a population when the standard deviation of the population is known.
