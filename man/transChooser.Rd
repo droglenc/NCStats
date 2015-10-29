@@ -4,8 +4,8 @@
 \alias{transChooser}
 \title{A dynamic graphic used to select transformations for simple linear models.}
 \usage{
-transChooser(object, shifty = 0, shiftx = 0, show.stats = TRUE,
-  boxplot = TRUE, alpha = 0.05, col.hist = "gray90", ...)
+transChooser(object, shifty = 0, shiftx = 0, show.stats = FALSE,
+  boxplot = FALSE, alpha = 0.05, col.hist = "gray90")
 }
 \arguments{
 \item{object}{An \code{lm} object or formula depicting a one-way or two-way ANOVA model or a simple linear or indicator variable regression model.}
@@ -45,7 +45,7 @@ This function is designed to allow \sQuote{newbie} students a method that can be
 \examples{
 \dontrun{
 if (require(FSA)) {
-#' data(Mirex)
+data(Mirex)
 Mirex$year <- factor(Mirex$year)
 
 ## example with one-way ANOVA

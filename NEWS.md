@@ -8,6 +8,7 @@
 * `geosd()`: Deleted. Moved to `FSA`.
 * `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `powerSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
+* `transChooser()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Streamlined the code.
 
 # 0.4.3 Oct15
 * Added `ImportFrom` for `nortest` and the "base" packages that are needed.  Moved `car` from `Depends` to `ImportFrom`.  Removed `FSAdata` from `Depends`.
