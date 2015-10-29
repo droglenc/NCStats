@@ -5,6 +5,7 @@
 * `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `geomean()`: Deleted.  Moved to `FSA`.
 * `geosd()`: Deleted. Moved to `FSA`.
+* `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `powerSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 
 # 0.4.3 Oct15

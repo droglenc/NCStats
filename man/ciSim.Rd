@@ -2,24 +2,27 @@
 % Please edit documentation in R/Sims.R
 \name{ciSim}
 \alias{ciSim}
-\title{A dynamics graphic to illustrate the concept of confidence intervals for a mean.}
+\title{A dynamic graph to illustrate the concept of confidence intervals for a mean.}
 \usage{
 ciSim(reps = 200, method = c("Z", "t"), mu = 100, sigma = 10)
 }
 \arguments{
-\item{reps}{A single numeric indicating the number of replicate samples to draw from the population}
+\item{reps}{A single numeric that indicates the number of replicate samples to draw from the population}
 
-\item{method}{A single string indicating whether to make confidence intervals using a normal (\code{="z"}) or t (\code{="t"}) distribution}
+\item{method}{A single string that indicates whether to make confidence intervals using a normal (\code{="Z"}) or t (\code{="t"}) distribution}
 
-\item{mu}{A single numeric indicating the mean of the known normal distribution}
+\item{mu}{A single numeric that indicates the mean of the known normal distribution}
 
-\item{sigma}{A single numeric indicating the standard deviation of the known normal distribution}
+\item{sigma}{A single numeric that indicates the standard deviation of the known normal distribution}
 }
 \value{
-None, but a dynamic graphic with slider bars is produced.
+None, but a dynamic graphic with sliders is produced.
 }
 \description{
-This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and ploting those confidence intervals.  Slider bars then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
+This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and plotting those confidence intervals.  Sliders then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
+}
+\details{
+If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
 }
 \examples{
 \dontrun{

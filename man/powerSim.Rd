@@ -8,23 +8,26 @@ powerSim(mu0 = 100, s.mua = 95, s.sigma = 10, s.n = 30,
   s.alpha = 0.05, lower.tail = TRUE)
 }
 \arguments{
-\item{mu0}{A single numeric that is the null hypothesized mean.}
+\item{mu0}{A single numeric that is the null hypothesized mean}
 
-\item{s.mua}{A single numeric that is the starting value for the actual population mean.}
+\item{s.mua}{A single numeric that is the starting value for the actual population mean}
 
-\item{s.sigma}{A single numeric that is the starting value for the actual population standard deviation.}
+\item{s.sigma}{A single numeric that is the starting value for the actual population standard deviation}
 
-\item{s.n}{A single numeric that is the starting value for the sample size.}
+\item{s.n}{A single numeric that is the starting value for the sample size}
 
-\item{s.alpha}{A single numeric that is the starting value for alpha.}
+\item{s.alpha}{A single numeric that is the starting value for alpha}
 
-\item{lower.tail}{A single logical indicating if the rejection region is into the lower tail or not.}
+\item{lower.tail}{A single logical that indicates if the rejection region is into the lower tail or not}
 }
 \value{
-None, but a dynamic graphic with slider bars is produced.
+None, but a dynamic graphic with sliders is produced.
 }
 \description{
-This function plots the null and actual distributions, highlights the rejection region and the power region, and allows the user to manipulate the effect size, standard deviation, sample size, and alpha to determine the effect on power.
+This function plots the null and actual distributions, highlights the rejection region and the power region, and allows the user to dynamically manipulate the effect size, standard deviation, sample size, and alpha to determine the effect of these parameters on power.
+}
+\details{
+If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
 }
 \examples{
 \dontrun{
