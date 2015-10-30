@@ -1,6 +1,7 @@
 # 0.4.4 ongoing
 * Added Travis-CI support.
 * Converted all data files from .txt to .rdata.
+* Now using Roxygen2 v5.0.0.
 * `iCheckRStudio()`: Added.
 * `ciSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 200.
 * `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.

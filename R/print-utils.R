@@ -125,7 +125,6 @@ print.confint.glht <- function(x,digits=max(3,getOption("digits")-3),justResults
 #' @rdname print.htest
 #' @method print htest
 #' @export
-#' 
 print.htest <- function(x,digits=4,quote=TRUE,...) {
   cat(x$method,"with",x$data.name,"\n")
   out <- character()

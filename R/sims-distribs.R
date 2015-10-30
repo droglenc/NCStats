@@ -34,7 +34,6 @@
 #' 
 #' @rdname simDistrib
 #' @export sbeta
-#' 
 # Beta Distribution Simulator
 sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {
   refresh <- function(...) {

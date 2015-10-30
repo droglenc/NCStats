@@ -1,7 +1,7 @@
 Package: NCStats
 Version: 0.4.4
 Title: Support for Statistics Classes at Northland College
-Description: Functions and simulations to support the Introductory 
+Description: Functions and simulations to support the Introductory
     Statistics and Biometry courses at Northland College. Do not
     use this package for research-grade analyses.
 URL: https://github.com/droglenc/NCStats, http://derekogle.com/
@@ -25,3 +25,4 @@ Suggests:
     relax,
     tcltk
 License: GPL (>= 2)
+RoxygenNote: 5.0.0

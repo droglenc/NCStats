@@ -42,7 +42,6 @@ adTest <- function(x) if (iChk4Namespace("nortest")) nortest::ad.test(x)
 #' @keywords misc
 #' 
 #' @export
-#'
 levenesTest <- function(...) car::leveneTest(...)
 
 

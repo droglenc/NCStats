@@ -290,7 +290,6 @@ iCLTSimPlot <- function(n,shape1,shape2,reps,incl.norm) {
 #' }
 #' 
 #' @export
-#' 
 powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=TRUE) {
   ## Trying to fix "no visible bindings" problem for Check
   mua <- sigma <- n <- alpha <- NULL
