@@ -62,15 +62,13 @@ transChooser <- function(object,shifty=0,shiftx=0,show.stats=FALSE,
   if (!object$type %in%  c("SLR","IVR","ONEWAY","TWOWAY"))
     stop("'object' must be an SLR, IVR, or ANOVA",call.=FALSE)
   ## See if RStudio can be used
-  useManip <- iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)
-  ## Dispatch to proper internal functions
-  if (object$type %in% c("SLR","IVR")) {
-    # Regressions
-    if (useManip) iTC_REGRESS1(object,shifty,shiftx,show.stats,alpha,col.hist)
-    else iTC_REGRESS2(object,shifty,shiftx,show.stats,alpha,col.hist)
-  } else {
-    # ANOVAs
-    if (useManip) iTC_ANOVA1(object,shifty,show.stats,boxplot,alpha,col.hist)
+  if (iCheckRStudio()) {
+    if (iChk4Namespace("manipulate")) {
+      if (object$type %in% c("SLR","IVR")) iTC_REGRESS1(object,shifty,shiftx,show.stats,alpha,col.hist)
+      else iTC_ANOVA1(object,shifty,show.stats,boxplot,alpha,col.hist)
+    }
+  } else {  # use relax and Tcl/Tk
+    if (object$type %in% c("SLR","IVR")) iTC_REGRESS2(object,shifty,shiftx,show.stats,alpha,col.hist)
     else iTC_ANOVA2(object,shifty,show.stats,boxplot,alpha,col.hist)
   }
 }

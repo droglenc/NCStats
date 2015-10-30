@@ -39,7 +39,7 @@
 
 
 ##################################################################
-# Check if a required namespaced can be loaded and, if not, send
+# Check if a required namespace can be loaded and, if not, send
 #   an error message.
 ##################################################################
 iChk4Namespace <- function(pkg) {
@@ -139,8 +139,8 @@ dCDF.plot <- function(x,Fx,...) {
   graphics::points(x,Fx,pch=19)
 }
 
-dPDF.plot <- function(x,fx,show.mnsd=TRUE,...) {
-  bp <- graphics::barplot(fx,space=0,col="white",...)
+dPDF.plot <- function(x,fx,show.mnsd=TRUE,col="gray90",...) {
+  bp <- graphics::barplot(fx,space=0,col=col,...)
   graphics::axis(1,at=bp,labels=x)
   if (show.mnsd) {
     mu <- sum(x*fx)

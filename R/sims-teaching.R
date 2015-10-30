@@ -27,19 +27,21 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
   n <- conf.level <- alternative <- NULL
   method <- match.arg(method)
   ## use manipulate if RStudio is being used.
-  if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
-    rerand <- TRUE
-    manipulate::manipulate(
-      {
-      if (rerand) set.seed(sample(1:10000))
-      iCISimPlot(n,conf.level,alternative,reps,method,mu,sigma)
-      },
+  if (iCheckRStudio()) {
+    if (iChk4Namespace("manipulate")) {
+      rerand <- TRUE
+      manipulate::manipulate(
+        {
+          if (rerand) set.seed(sample(1:10000))
+          iCISimPlot(n,conf.level,alternative,reps,method,mu,sigma)
+        },
         n=manipulate::slider(10,100,step=5,initial=10),
-        conf.level=manipulate::picker(0.80,0.90,0.95,0.99),
+        conf.level=manipulate::picker(0.80,0.90,0.95,0.99,initial=0.95),
         alternative=manipulate::picker("two.sided","less","greater"),
         rerand=manipulate::button("Rerandomize")
-    ) # end manipulate
-  } else {
+      ) # end manipulate
+    }
+  } else { ## use relax and Tcl/Tk
     ## Internal plot refresher function
     iCIRefresh <- function(...) {
       n <- relax::slider(no=1)
@@ -172,19 +174,21 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
 cltSim <- function(reps=1000,incl.norm=FALSE) {
   ## Trying to fix "no visible bindings" problem for Check
   n <- shape1 <- shape2 <- NULL
-  if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
-    rerand <- TRUE
-    manipulate::manipulate(
-      {
-        if (rerand) set.seed(sample(1:10000))
-        iCLTSimPlot(n,shape1,shape2,reps,incl.norm)
-      },
-      n=manipulate::slider(10,100,step=5,initial=10),
-      shape1=manipulate::slider(1,20,step=1,label="Shape 1 (alpha)"),
-      shape2=manipulate::slider(1,20,step=1,label="Shape 2 (beta)"),
-      rerand=manipulate::button("Rerandomize")
-    ) # end manipulate
-  } else {
+  if (iCheckRStudio()) {
+    if (iChk4Namespace("manipulate")) {
+      rerand <- TRUE
+      manipulate::manipulate(
+        {
+          if (rerand) set.seed(sample(1:10000))
+          iCLTSimPlot(n,shape1,shape2,reps,incl.norm)
+        },
+        n=manipulate::slider(10,100,step=5,initial=10),
+        shape1=manipulate::slider(1,20,step=1,label="Shape 1 (alpha)"),
+        shape2=manipulate::slider(1,20,step=1,label="Shape 2 (beta)"),
+        rerand=manipulate::button("Rerandomize")
+      ) # end manipulate
+    }
+  } else {  ## use refresh and Tcl/Tk
     ## internal referesher function
     iCLTrefresh <- function(...) {
       n <- relax::slider(no=1)
@@ -293,20 +297,22 @@ iCLTSimPlot <- function(n,shape1,shape2,reps,incl.norm) {
 powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=TRUE) {
   ## Trying to fix "no visible bindings" problem for Check
   mua <- sigma <- n <- alpha <- NULL
-  if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
-    rerand <- TRUE
-    manipulate::manipulate(
-      {
-        if (rerand) set.seed(sample(1:10000))
-        iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
-      },
-      mua=manipulate::slider(min(mu0,s.mua)-2*s.sigma,max(mu0,s.mua)+2*s.sigma,step=1,
-                             initial=s.mua,label="Actual mu"),
-      sigma=manipulate::slider(1,3*s.sigma,step=1,initial=s.sigma),
-      n=manipulate::slider(2,100,step=1,initial=s.n),
-      alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha)
-    ) # end manipulate
-  } else {
+  if (iCheckRStudio()) {
+    if (iChk4Namespace("manipulate")) {
+      rerand <- TRUE
+      manipulate::manipulate(
+        {
+          if (rerand) set.seed(sample(1:10000))
+          iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
+        },
+        mua=manipulate::slider(min(mu0,s.mua)-2*s.sigma,max(mu0,s.mua)+2*s.sigma,step=1,
+                               initial=s.mua,label="Actual mu"),
+        sigma=manipulate::slider(1,3*s.sigma,step=1,initial=s.sigma),
+        n=manipulate::slider(2,100,step=1,initial=s.n),
+        alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha)
+      ) # end manipulate
+    }
+  } else { ## use relax and Tcl/Tk
     ## internal referesher function
     iPowerRefresh <- function(...) {
       mua <- relax::slider(no=1)
@@ -420,20 +426,22 @@ meanMedian <- function(x=NULL,outlier=c("none","max","min")) {
   } else {
     ## Need to make up data
     outlier <- match.arg(outlier)
-    if (iCheckRStudio() & requireNamespace("manipulate",quietly=TRUE)) {
-      rerand <- TRUE
-      manipulate::manipulate(
-        {
-          if (rerand) set.seed(sample(1:10000))
-          x <- iMMMakeData(n,shape1,shape2,outlier)
-          iMMMakePlots(x)
-        },
-        n=manipulate::slider(10,100,step=1,initial=30),
-        shape1=manipulate::slider(1,10,step=1,label="Shape 1 (alpha)"),
-        shape2=manipulate::slider(1,10,step=1,label="Shape 2 (beta)"),
-        outlier=manipulate::picker("none","min","max"),
-        rerand=manipulate::button("Rerandomize")
-      ) # end manipulate
+    if (iCheckRStudio()) {
+      if (iChk4Namespace("manipulate")) {
+        rerand <- TRUE
+        manipulate::manipulate(
+          {
+            if (rerand) set.seed(sample(1:10000))
+            x <- iMMMakeData(n,shape1,shape2,outlier)
+            iMMMakePlots(x)
+          },
+          n=manipulate::slider(10,100,step=1,initial=30),
+          shape1=manipulate::slider(1,10,step=1,label="Shape 1 (alpha)"),
+          shape2=manipulate::slider(1,10,step=1,label="Shape 2 (beta)"),
+          outlier=manipulate::picker("none","min","max"),
+          rerand=manipulate::button("Rerandomize")
+        ) # end manipulate
+      }
     } else {
       ## internal referesher function
       iMMBRefresh <- function(...) {
