@@ -16,36 +16,31 @@
 \alias{st}
 \title{Demonstrates the shape of the PDF and CDF for the given distribution.}
 \usage{
-sbeta(show.both = TRUE, show.mnsd = TRUE)
+sbeta()
 
-sbinom(show.both = TRUE, show.mnsd = TRUE)
+schisq()
 
-schisq(show.both = TRUE, show.mnsd = TRUE)
+sexp()
 
-sexp(show.both = TRUE, show.mnsd = TRUE)
+sf()
 
-sf(show.both = TRUE, show.mnsd = TRUE)
+sgamma()
 
-sgamma(show.both = TRUE, show.mnsd = TRUE)
+slnorm()
 
-sgeom(show.both = TRUE, show.mnsd = TRUE)
+snorm()
 
-shyper(show.both = TRUE, show.mnsd = TRUE)
+st()
 
-slnorm(show.both = TRUE, show.mnsd = TRUE)
+sbinom()
 
-snbinom(show.both = TRUE, show.mnsd = TRUE)
+sgeom()
 
-snorm(show.both = TRUE, show.mnsd = TRUE)
+shyper()
 
-spois(show.both = TRUE, show.mnsd = TRUE)
+snbinom()
 
-st(show.both = TRUE, show.mnsd = TRUE)
-}
-\arguments{
-\item{show.both}{logical; if \code{TRUE} (default) then show both the PDF and CDF, else just the PDF.}
-
-\item{show.mnsd}{logical; if \code{TRUE} (default) then show the mean and standard deviation on the PDF.}
+spois()
 }
 \value{
 None, but a dynamic graphic with slider bars will be produced.
@@ -54,7 +49,7 @@ None, but a dynamic graphic with slider bars will be produced.
 Dynamically demonstrates the effect of parameter choices on the shape of the PDF and CDF for the given distribution.
 }
 \details{
-A graphic will be produced that is connected to a slider bar where the user can change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.
+If the user is using RStudio and the \pkg{manipulate} package is installed then a dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  The sliders may be used to change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.
 }
 \examples{
 \dontrun{
@@ -75,7 +70,7 @@ st()
 
 }
 \seealso{
-\code{vis.binom}, \code{vis.gamma}, \code{vis.normal}, and \code{vis.t} of the \code{TeachingDemos} package.  Also see \code{\link{dbeta}}, \code{\link{dbinom}}, \code{\link{dchisq}}, etc.
+\code{\link[TeachingDemos]{vis.binom}}, \code{\link[TeachingDemos]{vis.gamma}}, \code{\link[TeachingDemos]{vis.normal}}, and \code{\link[TeachingDemos]{vis.t}} of \code{TeachingDemos}.  Also see \code{\link[stats]{dbeta}}, \code{\link[stats]{dbinom}}, \code{\link{dchisq}}, etc.
 }
 \keyword{distribution}
 \keyword{dynamic}

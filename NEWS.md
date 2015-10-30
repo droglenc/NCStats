@@ -9,6 +9,7 @@
 * `geosd()`: Deleted. Moved to `FSA`.
 * `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `powerSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
+* `sXXX()`: Modified.  Changed all to use `manipulate()` from `manipulate` rather than `slider()` from `relax`.
 * `transChooser()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Streamlined the code.
 
 # 0.4.3 Oct15

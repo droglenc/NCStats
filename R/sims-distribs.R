@@ -2,16 +2,13 @@
 #' 
 #' @description Dynamically demonstrates the effect of parameter choices on the shape of the PDF and CDF for the given distribution.
 #' 
-#' @details A graphic will be produced that is connected to a slider bar where the user can change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.
+#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then a dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  The sliders may be used to change the parameters of the distribution.  The real-time updating of the graphic allows the user to determine the effect of changing each parameter on the shape, mean, and standard deviation of the distribution.  
 #' 
 #' @aliases sbeta sbinom schisq sexp sf sgamma sgeom shyper slnorm snbinom snorm spois st
 #' 
-#' @param show.both logical; if \code{TRUE} (default) then show both the PDF and CDF, else just the PDF.
-#' @param show.mnsd logical; if \code{TRUE} (default) then show the mean and standard deviation on the PDF.
-#' 
 #' @return None, but a dynamic graphic with slider bars will be produced.
 #' 
-#' @seealso \code{vis.binom}, \code{vis.gamma}, \code{vis.normal}, and \code{vis.t} of the \code{TeachingDemos} package.  Also see \code{\link{dbeta}}, \code{\link{dbinom}}, \code{\link{dchisq}}, etc.
+#' @seealso \code{\link[TeachingDemos]{vis.binom}}, \code{\link[TeachingDemos]{vis.gamma}}, \code{\link[TeachingDemos]{vis.normal}}, and \code{\link[TeachingDemos]{vis.t}} of \code{TeachingDemos}.  Also see \code{\link[stats]{dbeta}}, \code{\link[stats]{dbinom}}, \code{\link{dchisq}}, etc.
 #' 
 #' @keywords hplot distribution dynamic
 #' 
@@ -33,400 +30,405 @@
 #' }
 #' 
 #' @rdname simDistrib
-#' @export sbeta
-# Beta Distribution Simulator
-sbeta <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    alpha <- relax::slider(no=1)
-    beta <- relax::slider(no=2)
-    xr <- c(0,1)
-    x <- seq(0.01,0.99,by=0.01)
-    fx <- stats::dbeta(x,alpha,beta)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,stats::pbeta(x,alpha,beta),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("alpha","beta"),
-             sl.mins=    c(    0.2,    0.2),
-             sl.maxs=    c(    5.0,    5.0),
-             sl.deltas=  c(    0.1,    0.1),
-             sl.defaults=c(    1.0,    1.0),
-             title = "Beta Distribution Simulator")
+#' @export
+sbeta <- function() { # Beta Distribution Simulator
+  show.mnsd <- show.both <- alpha <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(0,1)  #range for plotting
+        x <- seq(0.01,0.99,by=0.01)
+        fx <- stats::dbeta(x,alpha,beta)
+        Fx <- stats::pbeta(x,alpha,beta)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="X",ylab="F(x)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, alpha=manipulate::slider(0.2,5,step=0.1,initial=1),
+         beta=manipulate::slider(0.2,5,step=0.1,initial=1),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
+  }
+  graphics::par(old.par)
+}
+
+#' @rdname simDistrib
+#' @export
+schisq <- function() { # chi-square Distribution Simulator
+  show.mnsd <- show.both <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(0,50)
+        x <- seq(0.01,xr[2],by=0.01)
+        fx <- stats::dchisq(x,df)
+        Fx <- stats::pchisq(x,df)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="Chi-Square",ylab="F(chi)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, df=manipulate::slider(1,20,step=1,initial=4),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
+  }
+  graphics::par(old.par)
+}
+
+#' @rdname simDistrib
+#' @export
+sexp <- function() { # Exponential Distribution Simulator
+  show.mnsd <- show.both <- lambda <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(0,7)
+        x <- seq(xr[1],xr[2],by=0.01)
+        fx <- stats::dexp(x,lambda)
+        Fx <- stats::pexp(x,lambda)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, lambda=manipulate::slider(0.2,5,step=0.1,initial=1),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
 }
 
 #' @rdname simDistrib
-#' @export sbinom
-# Binomial Distribution Simulator
-sbinom <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    n <- relax::slider(no=1)
-    p <- relax::slider(no=2)
-    x <- 0:n
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      dPDF.plot(x,stats::dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x,stats::pbinom(x,n,p),xlab="Number of Successes",ylab="F(x)",main="CDF")
-    } else {
-      dPDF.plot(x,stats::dbinom(x,n,p),xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("Sample Size (n)", "PR(Success)"),
-             sl.mins=    c(                1,             0.01),
-             sl.maxs=    c(              100,             0.99),
-             sl.deltas=  c(                1,             0.01),
-             sl.defaults=c(               10,             0.50),
-             title = "Binomial Distribution Simulator",pos.of.panel="left")
+#' @export
+sf <- function() { # F Distribution Simulator
+  show.mnsd <- show.both <- ndf <- ddf <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(0,6)
+        x <- seq(0.01,xr[2],by=0.01)
+        fx <- stats::df(x,ndf,ddf)
+        Fx <- stats::pf(x,ndf,ddf)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="F",ylab="f(f)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="F",ylab="F(f)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="F",ylab="f(f)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, ndf=manipulate::slider(1,10,step=1,initial=1,label="Numerator df"),
+         ddf=manipulate::slider(5,50,step=1,initial=5,label="Denominator df"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export schisq
-# chi-square Distribution Simulator
-schisq <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    df <- relax::slider(no=1)
-    xr <- c(0,50)
-    x <- seq(0.01,xr[2],by=0.01)
-    fx <- stats::dchisq(x,df)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",xlim=xr,main="PDF",show.mnsd)
-      cCDF.plot(x,stats::pchisq(x,df),xlab="Chi-Square",ylab="F(chi)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",xlim=xr,main="PDF",show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("df"),
-             sl.mins=    c(   1),
-             sl.maxs=    c(  20),
-             sl.deltas=  c(   1),
-             sl.defaults=c(   5),
-             title = "Student's t Distribution Simulator",pos.of.panel="left")
+#' @export
+sgamma <- function() {  # Gamma Distribution Simulator
+  show.mnsd <- show.both <- alpha <- lambda <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(0,15)
+        x <- seq(0.01,xr[2],by=0.01)
+        fx <- stats::dgamma(x,alpha,lambda)
+        Fx <- stats::pgamma(x,alpha,lambda)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, alpha=manipulate::slider(0.2,5,step=0.1,initial=1),
+         lambda=manipulate::slider(0.2,5,step=0.1,initial=1),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export sexp
-# Exponential Distribution Simulator
-sexp <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    lambda <- relax::slider(no=1)
-    xr <- c(0,7)
-    x <- seq(xr[1],xr[2],by=0.01)
-    fx <- stats::dexp(x,lambda)
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,stats::pexp(x,lambda),xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("Lambda"),
-             sl.mins=    c(     0.2),
-             sl.maxs=    c(     5.0),
-             sl.deltas=  c(     0.1),
-             sl.defaults=c(     1.0),
-             title = "Exponential Distribution Simulator",pos.of.panel="left")
+#' @export
+slnorm <- function() {  # Log-normal Distribution Simulator
+  show.mnsd <- show.both <- mu <- sigma <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(0,25)
+        x <- seq(xr[1],xr[2],by=0.01)
+        fx <- stats::dlnorm(x,mu,sigma)
+        Fx <- stats::plnorm(x,mu,sigma)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="X",ylab="F(x)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, mu=manipulate::slider(0,2,step=0.1,initial=0,label="log mu"),
+         sigma=manipulate::slider(0.2,2,step=0.2,initial=1,label="log sigma"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export sf
-# F Distribution Simulator
-sf <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    ndf <- relax::slider(no=1)
-    ddf <- relax::slider(no=2)
-    xr <- c(0,6)
-    x <- seq(0.01,xr[2],by=0.01)
-    fx <- stats::df(x,ndf,ddf)
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="F",ylab="f(F)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,stats::pf(x,ndf,ddf),xlab="F",ylab="F(F)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="F",ylab="f(F)",main="PDF",xlim=xr,show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("numerator df","denominator df"),
-             sl.mins=    c(            1,                 5),
-             sl.maxs=    c(           10,                50),
-             sl.deltas=  c(            1,                 1),
-             sl.defaults=c(            1,                 5),
-             title = "F Distribution Simulator",pos.of.panel="left")
+#' @export
+snorm <- function() { # Normal Distribution Simulator
+  show.mnsd <- show.both <- mu <- sigma <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        xr <- c(-10,10)
+        x <- seq(xr[1],xr[2],by=0.01)
+        fx <- stats::dnorm(x,mu,sigma)
+        Fx <- stats::pnorm(x,mu,sigma)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cCDF.plot(x,Fx,xlab="X",ylab="F(x)",main="CDF",xlim=xr)
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+        }
+      }, mu=manipulate::slider(-5,5,step=0.2,initial=0,label="mu"),
+         sigma=manipulate::slider(0.2,2,step=0.2,initial=1,label="sigma"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export sgamma
-# Gamma Distribution Simulator
-sgamma <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    alpha <- relax::slider(no=1)
-    lambda <- relax::slider(no=2)
-    xr <- c(0,15)
-    x <- seq(0.01,xr[2],by=0.01)
-    fx <- stats::dgamma(x,alpha,lambda)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,stats::pgamma(x,alpha,lambda),xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("alpha","Lambda"),
-             sl.mins=    c(    0.2,      0.2),
-             sl.maxs=    c(    5.0,      5.0),
-             sl.deltas=  c(    0.1,      0.1),
-             sl.defaults=c(    1.0,      1.0),
-             title = "Gamma Distribution Simulator",pos.of.panel="left")
+#' @export
+st <- function() { # t Distribution Simulator
+  show.mnsd <- show.both <- show.norm <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        yr <- c(0,0.4)
+        xr <- c(-4,4)
+        x <- seq(xr[1],xr[2],by=0.01)
+        fx <- stats::dt(x,df)
+        fx.norm <- stats::dnorm(x,0,1)
+        Fx <- stats::pt(x,df)
+        Fx.norm <- stats::pnorm(x,0,1)
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=yr,show.mnsd)
+          if (show.norm) graphics::lines(x,fx.norm,col="gray50")
+          cCDF.plot(x,Fx,xlab="t",ylab="F(t)",main="CDF",xlim=xr)
+          if (show.norm) graphics::lines(x,Fx.norm,col="gray50")
+        } else {
+          graphics::par(mfcol=c(1,1))
+          cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=yr,show.mnsd)
+          if (show.norm) graphics::lines(x,fx.norm,col="gray50")
+        }
+      }, df=manipulate::slider(1,50,step=1,initial=2),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD"),
+         show.norm=manipulate::checkbox(FALSE,label="Show standard normal")
+    ) # end manipulate
   }
+  graphics::par(old.par)
+}
+
+
+
+
+#' @rdname simDistrib
+#' @export
+sbinom <- function() { # Binomial Distribution Simulator
+  show.mnsd <- show.both <- n <- p <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        x <- 0:n
+        fx <- stats::dbinom(x,n,p)
+        Fx <- stats::pbinom(x,n,p)
+        xlbl <- "Number of Successes"
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
+        } else {
+          graphics::par(mfcol=c(1,1))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+        }
+      }, n=manipulate::slider(1,100,step=1,initial=10,label="Sample Size (n)"),
+         p=manipulate::slider(0.01,0.99,step=0.01,initial=0.5,label="PR(Success)"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
+  }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export sgeom
-# Geometric Distribution Simulator
-sgeom <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    p <- relax::slider(no=1)
-    x <- 0:300
-    fx <- stats::dgeom(x,p)
-    x2keep <- which(fx>0.001)
-    x1 <- x[c(x2keep,max(x2keep)+1)]; fx1 <- c(fx[x2keep],0)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x1,stats::pgeom(x1,p),xlab="Number of Failures",ylab="F(x)",main="CDF")
-    } else {
-      dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("PR(Success)"),
-             sl.mins=    c(          0.05),
-             sl.maxs=    c(          0.90),
-             sl.deltas=  c(          0.01),
-             sl.defaults=c(          0.50),
-             title = "Geometric Distribution Simulator",pos.of.panel="left")
+#' @export
+sgeom <- function() {  # Geometric Distribution Simulator
+  show.mnsd <- show.both <- p <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        x <- 0:100
+        fx <- stats::dgeom(x,p)
+        x2keep <- which(fx>0.001)
+        x <- x[c(x2keep,max(x2keep)+1)]
+        fx <- c(fx[x2keep],0)
+        Fx <- stats::pgeom(x,p)
+        xlbl <- "Number of Failures"
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
+        } else {
+          graphics::par(mfcol=c(1,1))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+        }
+      }, p=manipulate::slider(0.05,0.90,step=0.01,initial=0.5,label="PR(Success)"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export shyper
-# Hypergeometric Distribution Simulator
-shyper <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    M <- relax::slider(no=1)
-    N <- M+relax::slider(no=2)
-    n <- relax::slider(no=3)
-    if (n > N) stop("Sample size (n) can not be greater than population size (N)",call.=FALSE)
-    x <- 0:(M+1)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      dPDF.plot(x,stats::dhyper(x,M,N-M,n),xlab="Number of Successs",
-                ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x,stats::phyper(x,M,N-M,n),xlab="Number of Successs",ylab="F(x)",main="CDF")
-    } else {
-      dPDF.plot(x,stats::dhyper(x,M,N-M,n),xlab="Number of Successs",ylab="f(x)",main="PDF",show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("Successes in Popn (M)","Failures in Popn (N-M)","Sample Size (n)"),
-             sl.mins=    c(                     10,                      10,                2),
-             sl.maxs=    c(                    200,                     200,              100),
-             sl.deltas=  c(                      1,                       1,                1),
-             sl.defaults=c(                    100,                     100,               10),
-             title = "Hypergeometric Distribution Simulator",pos.of.panel="left")
+#' @export
+shyper <- function() { # Hypergeometric Distribution Simulator
+  show.mnsd <- show.both <- n <- M <- Mf <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        x <- 0:(M+1)
+        fx <- stats::dhyper(x,M,Mf,n)
+        Fx <- stats::phyper(x,M,Mf,n)
+        xlbl <- "Number of Successes"
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
+        } else {
+          graphics::par(mfcol=c(1,1))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+        }
+      }, M=manipulate::slider(10,100,step=1,initial=10,label="Successes in Popn (M)"),
+         Mf=manipulate::slider(50,200,step=1,initial=150,label="Failures in Popn (N-M)"),
+         n=manipulate::slider(2,100,step=1,initial=30,label="Sample Size (n)"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export slnorm
-# Normal Distribution Simulator
-slnorm <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    mu <- relax::slider(no=1)
-    sigma <- relax::slider(no=2)
-    xr <- c(0,25)
-    x <- seq(xr[1],xr[2],by=0.01)
-    fx <- stats::dlnorm(x,mu,sigma)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,stats::pnorm(x,mu,sigma),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("log mu","log sigma"),
-             sl.mins=    c(  0,      0.2),
-             sl.maxs=    c(  2,      2  ),
-             sl.deltas=  c(0.1,      0.2),
-             sl.defaults=c(  0,      1  ),
-             title = "Lognormal Distribution Simulator",pos.of.panel="left")
+#' @export
+snbinom <- function() { # Negative Binomial Distribution Simulator
+  show.mnsd <- show.both <- r <- p <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        x <- 0:(r*300)
+        fx <- stats::dnbinom(x,r,p)
+        x2keep <- which(fx>0.001)
+        x <- x[c(x2keep,max(x2keep)+1)]
+        fx <- c(fx[x2keep],0)
+        Fx <- stats::pnbinom(x,r,p)
+        xlbl <- "Number of Failures"
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
+        } else {
+          graphics::par(mfcol=c(1,1))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+        }
+      }, r=manipulate::slider(1,10,step=1,initial=2,label="Successes to Observe (r)"),
+         p=manipulate::slider(0.05,0.9,step=0.01,initial=0.5,label="PR(Success)"),
+         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
 
 #' @rdname simDistrib
-#' @export snbinom
-# Negative Binomial Distribution Simulator
-snbinom <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    r <- relax::slider(no=1)
-    p <- relax::slider(no=2)
-    x <- 0:(r*300)
-    fx <- stats::dnbinom(x,r,p)
-    x2keep <- which(fx>0.001)
-    x1 <- x[c(x2keep,max(x2keep)+1)]; fx1 <- c(fx[x2keep],0)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x1,stats::pnbinom(x1,r,p),xlab="Number of Failures",ylab="F(x)",main="CDF")
-    } else {
-      dPDF.plot(x1,fx1,xlab="Number of Failures",ylab="f(x)",main="PDF",show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("Successes to Observe (r)","PR(Success)"),
-             sl.mins=    c(                         1,         0.05),
-             sl.maxs=    c(                        10,         0.90),
-             sl.deltas=  c(                         1,         0.01),
-             sl.defaults=c(                         2,         0.50),
-             title = "Negative Binomial Distribution Simulator",pos.of.panel="left")
+#' @export
+spois <- function() {  # Poisson Distribution Simulator
+  show.mnsd <- show.both <- lambda <- NULL   # work-around no visible binding
+  old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
+  if (iCheckRStudio() & iChk4Namespace("manipulate")) {
+    manipulate::manipulate(
+      { # make data
+        x <- 0:200
+        fx <- stats::dpois(x,lambda)
+        x2keep <- which(fx>0.001)
+        x <- x[c(x2keep,max(x2keep)+1)]
+        fx <- c(fx[x2keep],0)
+        Fx <- stats::ppois(x,lambda)
+        xlbl <- "Number of Successes"
+        # make graph
+        if (show.both) {
+          graphics::par(mfcol=c(1,2))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
+        } else {
+          graphics::par(mfcol=c(1,1))
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+        }
+      }, lambda=manipulate::slider(1,30,step=1,initial=5),
+      show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+      show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
+    ) # end manipulate
   }
+  graphics::par(old.par)
 }
-
-#' @rdname simDistrib
-#' @export snorm
-# Normal Distribution Simulator
-snorm <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    mu <- relax::slider(no=1)
-    sigma <- relax::slider(no=2)
-    xr <- c(-10,10)
-    x <- seq(xr[1],xr[2],by=0.01)
-    fx <- stats::dnorm(x,mu,sigma)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-      cCDF.plot(x,stats::pnorm(x,mu,sigma),xlab="X",ylab="F(x)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("mu","sigma"),
-             sl.mins=    c( -5,      0.2),
-             sl.maxs=    c(  5,      2  ),
-             sl.deltas=  c(0.2,      0.2),
-             sl.defaults=c(  0,      1  ),
-             title = "Normal Distribution Simulator",pos.of.panel="left")
-  }
-}
-
-#' @rdname simDistrib
-#' @export spois
-# Poisson Distribution Simulator
-spois <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    lambda <- relax::slider(no=1)
-    x <- 0:200
-    fx <- stats::dpois(x,lambda)
-    x2keep <- which(fx>0.001)
-    x1 <- x[c(x2keep,max(x2keep)+1)]; fx1 <- c(fx[x2keep],0)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      dPDF.plot(x1,fx1,xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
-      dCDF.plot(x1,stats::ppois(x1,lambda),xlab="Number of Successes",ylab="F(x)",main="CDF")
-    } else {
-      dPDF.plot(x1,fx1,xlab="Number of Successes",ylab="f(x)",main="PDF",show.mnsd)
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("Lambda"),
-             sl.mins=    c(       1),
-             sl.maxs=    c(      30),
-             sl.deltas=  c(       1),
-             sl.defaults=c(       5),
-             title = "Poisson Distribution Simulator",pos.of.panel="left")
-  }
-}
-
-#' @rdname simDistrib
-#' @export st
-# t Distribution Simulator
-st <- function(show.both=TRUE,show.mnsd=TRUE) {
-  refresh <- function(...) {
-    df <- relax::slider(no=1)
-    xr <- c(-4,4)
-    x <- seq(xr[1],xr[2],by=0.01)
-    fx <- stats::dt(x,df)
-    fx.norm <- stats::dnorm(x,0,1)
-    old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
-    on.exit(graphics::par(old.par))
-    if (show.both) {
-      graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-      cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=c(0,max(fx.norm)),show.mnsd)
-      graphics::lines(x,fx.norm,col="gray")
-      cCDF.plot(x,stats::pt(x,df),xlab="t",ylab="F(t)",main="CDF",xlim=xr)
-    } else {
-      cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=c(0,max(fx.norm)),show.mnsd)
-      graphics::lines(x,fx.norm,col="gray")
-    }
-  } ## end internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE, hscale=2,
-             sl.names=   c("df"),
-             sl.mins=    c(   1),
-             sl.maxs=    c(  50),
-             sl.deltas=  c(   1),
-             sl.defaults=c(   5),
-             title = "Student's t Distribution Simulator",pos.of.panel="left")
-  }
-} 
