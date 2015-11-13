@@ -2,9 +2,11 @@
 * Added Travis-CI support.
 * Converted all data files from .txt to .rdata.
 * Now using Roxygen2 v5.0.0.
+* Added a suggests for `testthat`.
 * `iCheckRStudio()`: Added.
 * `ciSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 200.
 * `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
+* `corr()`: Added.
 * `geomean()`: Deleted.  Moved to `FSA`.
 * `geosd()`: Deleted. Moved to `FSA`.
 * `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.

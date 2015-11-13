@@ -1,0 +1,10 @@
+context("cor.formula() tests")
+test_that("cor.formula() messages",{
+  expect_error(corr(Sepal.Length~Petal.Length+Sepal.Width,data=iris),"only works with 2")
+  expect_error(corr(~Petal.Length,data=iris),"only works with 2")
+  expect_error(corr(~Sepal.Length+Petal.Length+Sepal.Width,data=iris),"only works with 2")
+  expect_error(corr(Sepal.Length~Species,data=iris),"must be numeric")
+  expect_error(corr(~Sepal.Length+Species,data=iris),"must be numeric")
+  expect_error(corr(Species~Sepal.Length,data=iris),"must be numeric")
+  expect_error(corr(~Species+Sepal.Length,data=iris),"must be numeric")
+})

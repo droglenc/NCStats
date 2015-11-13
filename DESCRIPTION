@@ -23,6 +23,7 @@ Imports:
 Suggests:
     manipulate,
     relax,
-    tcltk
+    tcltk,
+    testthat
 License: GPL (>= 2)
 RoxygenNote: 5.0.0
