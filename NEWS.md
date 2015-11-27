@@ -7,8 +7,10 @@
 * `ciSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 200.
 * `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `corr()`: Added.
+* `corrSim()`: Added.
 * `geomean()`: Deleted.  Moved to `FSA`.
 * `geosd()`: Deleted. Moved to `FSA`.
+* `iqrCalc()`: Added.
 * `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `powerSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `sXXX()`: Modified.  Changed all to use `manipulate()` from `manipulate` rather than `slider()` from `relax`.

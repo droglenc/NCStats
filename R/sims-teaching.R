@@ -531,6 +531,76 @@ iMMMakePlots <- function(x) {
 
 
 
+#' @title Dynamic simulations to demonstrate how the correlation is computed.
+#' 
+#' @description This function simulates bivariate data with a known correlation coefficient.  A crosshairs at the bivariate means and color coding of the product of standardized values helps illustrate how the concept of the correlation.  Optionally, rectangles from each point to the bivariate mean can be include to demonstrate how the correlation sums these areas (concept from \code{\link[TeachingDemos]{cor.rect.plot}}).
+#' 
+#' @details Requires RStudio and the \pkg{manipulate} package to be installed.  The dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
+#' 
+#' @return None, but a a dynamic graphic with sliders is produced.
+#' 
+#' @keywords dynamic
+#' 
+#' @examples
+#' \dontrun{
+#' corrSim()
+#' }
+#' 
+#' @export
+corrSim <- function() {
+  if (iChk4Namespace("manipulate")) {
+    ## Trying to hangle global binding issue
+    r <- n <- rectangles <- NULL
+    rerand <- TRUE
+    manipulate::manipulate(
+      {
+        if (rerand) set.seed(sample(1:10000))
+        iPlotCorrData(r,n,rectangles)
+      },
+      r=manipulate::slider(-1,1,step=0.05,initial=0),
+      n=manipulate::slider(20,300,step=10,initial=100),
+      rectangles=manipulate::checkbox(FALSE,label="Show Rectangles"),
+      rerand=manipulate::button("Rerandomize")
+    ) # end manipulate
+  }  
+}
+
+# Internal function to produce the plot
+iPlotCorrData <- function(r,n,rects,trans=ifelse(n<100,0.1,0.05)) {
+  old.par <- graphics::par(mar=c(1,1.5,2,1.5),mgp=c(2,0.4,0),
+                           tcl=-0.2,xaxt="n",yaxt="n")
+  # constructs data
+  res <- as.data.frame(MASS::mvrnorm(n,Sigma=matrix(c(1,r,r,1),nrow=2),
+                                     mu=c(0,0),empirical=TRUE))
+  names(res) <- c("X","Y")
+  # finds those with positive products
+  res <- res[order(res$X^2+res$Y^2,decreasing=TRUE),]
+  w <- res$X*res$Y>0
+  # makes base graphic
+  rng <- c(-max(abs(res)),max(abs(res)))
+  graphics::plot(0,xlim=rng,ylim=rng,col="white",
+                 main=paste("r =",formatC(r,format="f",digits=2)))
+  graphics::abline(h=0,col="gray80",lty=2,lwd=3)
+  graphics::abline(v=0,col="gray80",lty=2,lwd=3)
+  # add rectangles if asked for
+  if (rects) {
+    if (all(w)) {
+      graphics::rect(0,0,res$X,res$Y,col=col2rgbt("red",trans),border=NA)
+    } else if (all(!w)) {
+      graphics::rect(0,0,res$X,res$Y,col=col2rgbt("blue",trans),border=NA)
+    } else {
+      graphics::rect(0,0,res$X[w],res$Y[w],col=col2rgbt("red",trans),border=NA)
+      graphics::rect(0,0,res$X[!w],res$Y[!w],col=col2rgbt("blue",trans),border=NA)
+    }
+  }
+  # add the points (color coded)
+  graphics::points(Y~X,data=res[w,],pch=19,col="red")
+  graphics::points(Y~X,data=res[!w,],pch=19,col="blue")
+  graphics::par(old.par)
+}
+
+
+
 #' @title Plot targets and histograms for illustrating accuracy and precision.
 #' 
 #' @description Plot \dQuote{targets} and histograms for illustrating accuracy and precision.  The user can choose the number of points to sample.
@@ -701,4 +771,124 @@ print.sdCalc <- function(x,...) {
   vrnc <- x$tbl[nrow(x$tbl),"diffs.sq"]/(x$n-1)
   cat("\nVariance = s^2 =",round(x$tbl[nrow(x$tbl),"diffs.sq"],x$digits),"/",x$n-1,"=",round(vrnc,x$digits),"\n")
   cat("\nStd. Dev = s = sqrt(",round(vrnc,x$digits),") = ",round(sqrt(vrnc),x$digits),"\n",sep="")
+}
+
+
+#' @title Shows the steps in the manual calculation of the median and IQR.
+#' 
+#' @description Shows the steps in the manual calculation of the median and IQR.
+#' 
+#' @aliases iqrCalc print.iqrCalc
+#' 
+#' @param x A numeric vector
+#' @param \dots Other arguments to the generic \code{print} functions (not currently used)
+#' 
+#' @return A list containing the sample size (\code{n}); the sample Q1, median, and Q3 in the name vector \code{vals}; the positions of the sample Q1, median, and Q3 in the named vector \code{pos}; the ordered data (\code{x}); and the ordered lower- (\code{lwr}) and upper-halves (\code{upr}) of the data.
+#' 
+#' @note This function shows the ordered data with the median shown and the ordered lower- and upper-halves of data with the Q1 and Q3 values shown.  This function puts the median into both halves of the data to compute Q1 and Q3.
+#' 
+#' @seealso \code{\link{sdCalc}}
+#' 
+#' @keywords misc
+#' 
+#' @examples
+#' ## Simple examples
+#' iqrCalc(1:7)
+#' iqrCalc(1:8)
+#' iqrCalc(1:9)
+#' iqrCalc(1:10)
+#' 
+#' ## Somewhat more realistic
+#' iqrCalc(sample.int(99,11,replace=TRUE))
+#' iqrCalc(sample.int(99,12,replace=TRUE))
+#' iqrCalc(sample.int(99,13,replace=TRUE))
+#' iqrCalc(sample.int(99,14,replace=TRUE))
+#' 
+#' @rdname iqrCalc
+#' @export
+iqrCalc <- function(x) {
+  # make sure the vector is numeric
+  if (!is.numeric(x)) stop("x must be numeric to compute the sd.",call.=FALSE)
+  # remove missing values
+  x1 <- x[!is.na(x)]
+  # sort data
+  x1 <- x1[order(x1)]
+  # calculate parts
+  n <- length(x1)
+  # find median and split into the two parts
+  mdn.pos <- floor((n+1)/2)
+  if (is.odd(n)) {
+    mdn <- x1[mdn.pos]
+    x1.lwr <- x1[1:mdn.pos]
+    x1.upr <- x1[mdn.pos:n]
+  } else {
+    mdn <- mean(x1[c(mdn.pos,mdn.pos+1)])
+    x1.lwr <- x1[1:mdn.pos]
+    x1.upr <- x1[(mdn.pos+1):n]
+  }
+  # find Q1 and Q3
+  n2 <- length(x1.lwr)
+  q1.pos <- q3.pos <- floor((n2+1)/2)
+  if (is.odd(n2)) {
+    q1 <- x1.lwr[q1.pos]
+    q3 <- x1.upr[q3.pos]
+  } else {
+    q1 <- mean(x1.lwr[c(q1.pos,q1.pos+1)])
+    q3 <- mean(x1.upr[c(q1.pos,q1.pos+1)])
+  }
+  # return results as a list
+  res <- list(n=n,vals=c(Q1=q1,median=mdn,Q3=q3),
+              pos=c(Q1=q1.pos,median=mdn.pos,Q3=q3.pos),
+              x=x1,lwr=x1.lwr,upr=x1.upr)
+  class(res) <- "iqrCalc"
+  res
+}
+
+#' @rdname iqrCalc
+#' @method print iqrCalc
+#' @export
+print.iqrCalc <- function(x,...) {
+  # median
+  tmp <- paste(x$x[1:(x$pos["median"]-1)],collapse=" ")
+  if (FSA::is.odd(x$n)) {
+    cat("Median (",x$vals["median"],") is the value in position ",
+        x$pos["median"],".\n",sep="")
+    tmp <- paste0(tmp," [",x$x[x$pos["median"]],"] ")
+    tmp <- paste0(tmp,paste(x$x[(x$pos["median"]+1):x$n],collapse=" "))
+  } else {
+    cat("Median (",x$vals["median"],") is the average of values in positions ",
+        x$pos["median"]," and ",x$pos["median"]+1,".\n",sep="")
+    tmp <- paste0(tmp," [",x$x[x$pos["median"]]," ",x$x[x$pos["median"]+1],"] ")
+    tmp <- paste0(tmp,paste(x$x[(x$pos["median"]+2):x$n],collapse=" "))
+  }
+  cat("  ",tmp,"\n\n",sep="")
+  # Q1
+  n2 <- length(x$lwr)
+  tmp <- paste(x$lwr[1:(x$pos["Q1"]-1)],collapse=" ")
+  if (FSA::is.odd(n2)) {
+    cat("Q1 (",x$vals["Q1"],") is the value in position ",
+        x$pos["Q1"]," of the lower half.\n",sep="")
+    tmp <- paste0(tmp," [",x$lwr[x$pos["Q1"]],"] ")
+    tmp <- paste0(tmp,paste(x$lwr[(x$pos["Q1"]+1):n2],collapse=" "))
+  } else {
+    cat("Q1 (",x$vals["Q1"],") is average of values in positions ",x$pos["Q1"],
+        " and ",x$pos["Q1"]+1," of the lower half.\n",sep="")
+    tmp <- paste0(tmp," [",x$lwr[x$pos["Q1"]]," ",x$lwr[x$pos["Q1"]+1],"] ")
+    tmp <- paste0(tmp,paste(x$lwr[(x$pos["Q1"]+2):n2],collapse=" "))
+  }
+  cat("  ",tmp,"\n\n",sep="")
+  # q3
+  tmp <- paste(x$upr[1:(x$pos["Q3"]-1)],collapse=" ")
+  if (FSA::is.odd(n2)) {
+    cat("Q3 (",x$vals["Q3"],") is the value in position ",x$pos["Q3"]," of the upper half.\n",sep="")
+    tmp <- paste0(tmp," [",x$upr[x$pos["Q3"]],"] ")
+    tmp <- paste0(tmp,paste(x$upr[(x$pos["Q3"]+1):n2],collapse=" "))
+  } else {
+    cat("Q3 (",x$vals["Q3"],") is average of values in positions ",x$pos["Q3"],
+        " and ",x$pos["Q3"]+1," of the upper half.\n",sep="")
+    tmp <- paste0(tmp," [",x$upr[x$pos["Q3"]]," ",x$upr[x$pos["Q3"]+1],"] ")
+    tmp <- paste0(tmp,paste(x$upr[(x$pos["Q3"]+2):n2],collapse=" "))
+  }
+  cat("  ",tmp,"\n\n",sep="")
+  if (FSA::is.odd(x$n)) cat("**Note that the median (",x$vals["median"],") is in both halves.\n\n",sep="")
 }

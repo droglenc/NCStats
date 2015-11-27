@@ -16,6 +16,7 @@ Imports:
     stats,
     utils,
     car,
+    MASS,
     multcomp,
     nortest,
     plotrix,
@@ -26,4 +27,4 @@ Suggests:
     tcltk,
     testthat
 License: GPL (>= 2)
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

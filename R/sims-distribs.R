@@ -62,7 +62,7 @@ sbeta <- function() { # Beta Distribution Simulator
 #' @rdname simDistrib
 #' @export
 schisq <- function() { # chi-square Distribution Simulator
-  show.mnsd <- show.both <- NULL   # work-around no visible binding
+  show.mnsd <- show.both <- df <- NULL   # work-around no visible binding
   old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
   if (iCheckRStudio() & iChk4Namespace("manipulate")) {
     manipulate::manipulate(
@@ -239,7 +239,7 @@ snorm <- function() { # Normal Distribution Simulator
 #' @rdname simDistrib
 #' @export
 st <- function() { # t Distribution Simulator
-  show.mnsd <- show.both <- show.norm <- NULL   # work-around no visible binding
+  show.mnsd <- show.both <- show.norm <- df <- NULL   # work-around no visible binding
   old.par <- graphics::par(mar=c(3.5,3.5,3.5,1), mgp=c(2,0.75,0))
   if (iCheckRStudio() & iChk4Namespace("manipulate")) {
     manipulate::manipulate(
