@@ -5,7 +5,7 @@
 * Added a suggests for `testthat`.
 * `iCheckRStudio()`: Added.
 * `ciSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 200.
-* `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
+* `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 5000.
 * `corr()`: Added.
 * `corrSim()`: Added.
 * `geomean()`: Deleted.  Moved to `FSA`.

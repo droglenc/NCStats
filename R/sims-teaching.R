@@ -171,7 +171,7 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
 #' }
 #' 
 #' @export
-cltSim <- function(reps=1000,incl.norm=FALSE) {
+cltSim <- function(reps=5000,incl.norm=FALSE) {
   ## Trying to fix "no visible bindings" problem for Check
   n <- shape1 <- shape2 <- NULL
   if (iCheckRStudio()) {

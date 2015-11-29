@@ -4,7 +4,7 @@
 \alias{cltSim}
 \title{A dynamic graph to illustrate the Central Limit Theorem.}
 \usage{
-cltSim(reps = 1000, incl.norm = FALSE)
+cltSim(reps = 5000, incl.norm = FALSE)
 }
 \arguments{
 \item{reps}{Number of resamples to take from the population distribution and means to calculate}
