@@ -10,6 +10,7 @@
 * `corrSim()`: Added.
 * `geomean()`: Deleted.  Moved to `FSA`.
 * `geosd()`: Deleted. Moved to `FSA`.
+* `gofCI()`: Modified.  Suppressed warnings on call to `binCI()` in `FSA` which results in warnings from `Hmisc` about reimporting some functions that were imported by `ggplot2`.
 * `iqrCalc()`: Added.
 * `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
 * `powerSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
