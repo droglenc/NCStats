@@ -58,20 +58,31 @@ iCheckRStudio <- function () "tools:rstudio" %in% search()
 ##################################################################
 # Internal functions used in distrib().
 ##################################################################
-c.region <- function(xval,x,fx,lower.tail,area,plot,show.ans,shade.col,lbl.col,show.lbl,cex.ans=1,...) {
+c.region <- function(xval,x,fx,lower.tail,area,plot,show.ans,
+                     shade.col,lbl.col,show.lbl,cex.ans=1,add=FALSE,...) {
   if (lower.tail) {
     x.shade <- x[x<=xval]
     y.shade <- fx[x<=xval]
     x.shade <- c(x.shade,xval,xval,min(x))
-    y.shade <- c(y.shade,fx[x==xval],0,0)
+    ## extra [1] is for times when xval is in x twice
+    y.shade <- c(y.shade,fx[x==xval][1],0,0)
   } else {
     x.shade <- x[x>=xval]
     y.shade <- fx[x>=xval]
     x.shade <- c(xval,x.shade,max(x),xval)
-    y.shade <- c(fx[x==xval],y.shade,0,0)  
+    ## extra [1] is for times when xval is in x twice
+    y.shade <- c(fx[x==xval][1],y.shade,0,0)  
   }
   if (plot) {
     cPDF.plot(x,fx,show.mnsd=FALSE,...)
+    if (show.lbl) graphics::axis(1,at=xval,labels=round(xval,3),
+                                 line=0.9,tcl=1.5,fg=lbl.col,col.axis=lbl.col)
+    graphics::polygon(x.shade,y.shade,col=shade.col,border=shade.col)
+    graphics::lines(x,fx)
+    if(show.ans) graphics::mtext(paste("Value =",round(xval,3),"; Area =",
+                                       round(area,4)),line=0.2,col="red",cex=cex.ans)
+  }
+  if (add) {
     if (show.lbl) graphics::axis(1,at=xval,labels=round(xval,3),
                                  line=0.9,tcl=1.5,fg=lbl.col,col.axis=lbl.col)
     graphics::polygon(x.shade,y.shade,col=shade.col,border=shade.col)

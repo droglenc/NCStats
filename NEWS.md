@@ -4,6 +4,7 @@
 * Now using Roxygen2 v5.0.0.
 * Added a suggests for `testthat`.
 * `iCheckRStudio()`: Added.
+* `c.region()`: Added the `add=` argument to allow adding a shaded polygon to an existing plot created with `c.region()`.
 * `ciSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 200.
 * `cltSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.  Changed default `reps=` to 5000.
 * `corr()`: Added.

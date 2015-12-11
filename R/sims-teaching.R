@@ -305,11 +305,12 @@ powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=
           if (rerand) set.seed(sample(1:10000))
           iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
         },
-        mua=manipulate::slider(min(mu0,s.mua)-2*s.sigma,max(mu0,s.mua)+2*s.sigma,step=1,
+        mua=manipulate::slider(mu0-1.5*s.sigma,mu0+1.5*s.sigma,step=1,
                                initial=s.mua,label="Actual mu"),
-        sigma=manipulate::slider(1,3*s.sigma,step=1,initial=s.sigma),
-        n=manipulate::slider(2,100,step=1,initial=s.n),
-        alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha)
+        sigma=manipulate::slider(floor(s.sigma/3),ceiling(2*s.sigma),step=1,initial=s.sigma),
+        n=manipulate::slider(10,100,step=1,initial=s.n),
+        alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha),
+        lower.tail=manipulate::checkbox(TRUE,"Ha is less than?")
       ) # end manipulate
     }
   } else { ## use relax and Tcl/Tk
@@ -323,11 +324,11 @@ powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=
     }
     if (iChk4Namespace("relax")) {
       relax::gslider(iPowerRefresh,prompt=TRUE,vscale=1.5,
-                     sl.names=   c(             "Actual mu",   "sigma", "n", "alpha"),
-                     sl.mins=    c(min(mu0,s.mua)-2*s.sigma,         1,   2,    0.01),
-                     sl.maxs=    c(max(mu0,s.mua)+2*s.sigma, 3*s.sigma, 100,    0.30),
-                     sl.deltas=  c(                       1,         1,   1,    0.01),
-                     sl.defaults=c(                   s.mua,   s.sigma, s.n, s.alpha),
+                     sl.names=   c(    "Actual mu",   "sigma", "n", "alpha"),
+                     sl.mins=    c(mu0-1.5*s.sigma,         1,   2,    0.01),
+                     sl.maxs=    c(mu0+1.5*s.sigma, 3*s.sigma, 100,    0.30),
+                     sl.deltas=  c(              1,         1,   1,    0.01),
+                     sl.defaults=c(          s.mua,   s.sigma, s.n, s.alpha),
                      title = "Power Simulator",pos.of.panel="left")
     }
   }
@@ -348,28 +349,32 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
 
   ## Construct the graphics  
   # set commonalities
-  old.par <- graphics::par(mgp=c(2,0.75,0),mfrow=c(2,1))
-  xlmts <- c(min(mu0,s.mua)-1*s.sigma,max(mu0,s.mua)+1*s.sigma)
-  ylmts <- c(0,stats::dnorm(0,0,s.sigma/sqrt(2*s.n)))
+  old.par <- graphics::par(mgp=c(1,0.3,0),tcl=-0.2,mfrow=c(2,1))
+  xlmts <- c(mu0-2*s.sigma,mu0+2*s.sigma)
+  ylmts <- c(0,1.25*stats::dnorm(0,0,s.sigma/sqrt(2*s.n)))
   # build the null distribution
   graphics::par(mar=c(2,1,2,3))
   c.region(cv,x0,norm0,lower.tail,area=NULL,plot=TRUE,show.ans=FALSE,
            shade.col="red",lbl.col="red",show.lbl=TRUE,
-           xlim=xlmts,ylim=ylmts,yaxt="n",ylab="")
+           xlim=xlmts,ylim=ylmts,yaxt="n",ylab="",xlab="")
   graphics::mtext("Null Dist.",4,cex=1.5,line=1)
   graphics::lines(c(mu0,mu0),c(0,max(norm0)),lty=3,lwd=2,col="blue")
   graphics::abline(v=cv,lty=2,lwd=2,col="red")
   
   graphics::text(cv,0.9*ylmts[2],"Reject Ho",pos=ifelse(lower.tail,2,4),col="red")
+  graphics::text(cv,0.9*ylmts[2],"DNR Ho",pos=ifelse(!lower.tail,2,4))
   tmp <- substitute(paste(mu,"=",mua,", ",sigma,"=",sigmaval,", n=",n,", ",alpha,"=",alphaval),
                     list(mua=mua,sigmaval=sigma,n=n,alphaval=format(alpha,nsmall=2)))
   graphics::mtext(tmp,3,line=0.5)
   # build the actual distribution
   graphics::par(mar=c(3,1,1,3))
   c.region(cv,xa,norma,lower.tail,area=NULL,plot=TRUE,show.ans=FALSE,
-           shade.col="green",lbl.col="green",show.lbl=FALSE,
+           shade.col="green",show.lbl=FALSE,
            xlab="",xlim=xlmts,ylim=ylmts,yaxt="n",ylab="")
-  graphics::mtext("means",1,line=1.5,cex=1.25)
+  c.region(cv,xa,norma,!lower.tail,area=NULL,plot=FALSE,add=TRUE,show.ans=FALSE,
+           shade.col="tomato",show.lbl=FALSE,
+           xlab="",xlim=xlmts,ylim=ylmts,yaxt="n",ylab="")
+  graphics::mtext("Sample Means",1,line=1.8,cex=1.25)
   graphics::mtext("Actual Dist.",4,cex=1.5,line=1)
   graphics::lines(c(mua,mua),c(0,max(norma)),lty=3,lwd=2,col="blue")
   graphics::abline(v=cv,lty=2,lwd=2,col="red")
