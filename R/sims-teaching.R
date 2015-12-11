@@ -36,7 +36,7 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
           iCISimPlot(n,conf.level,alternative,reps,method,mu,sigma)
         },
         n=manipulate::slider(10,100,step=5,initial=10),
-        conf.level=manipulate::picker(0.80,0.90,0.95,0.99,initial=0.95),
+        conf.level=manipulate::picker(0.99,0.95,0.90,0.80,initial=0.95),
         alternative=manipulate::picker("two.sided","less","greater"),
         rerand=manipulate::button("Rerandomize")
       ) # end manipulate
@@ -86,16 +86,22 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
     SE = rep(sigma/sqrt(n),reps)
     switch(alternative,
            less = {
-             crit <- stats::qnorm(conf); zstar <- mu-crit*sigma/sqrt(n)
-             uci <- rnd.mns+crit*SE; lci <- rep(xr[1],reps)
+             crit <- stats::qnorm(conf)
+             zstar <- mu-crit*sigma/sqrt(n)
+             uci <- rnd.mns+crit*SE
+             lci <- rep(xr[1],reps)
            },
            greater = {
-             crit <- stats::qnorm(conf); zstar <- mu+crit*sigma/sqrt(n)
-             lci <- rnd.mns-crit*SE; uci <- rep(xr[2],reps)
+             crit <- stats::qnorm(conf)
+             zstar <- mu+crit*sigma/sqrt(n)
+             lci <- rnd.mns-crit*SE
+             uci <- rep(xr[2],reps)
            }, 
            two.sided = {
-             crit <- stats::qnorm(0.5+conf/2); zstar <- mu+c(-1,1)*crit*sigma/sqrt(n)
-             lci <- rnd.mns-crit*SE; uci <- rnd.mns+crit*SE
+             crit <- stats::qnorm(0.5+conf/2)
+             zstar <- mu+c(-1,1)*crit*sigma/sqrt(n)
+             lci <- rnd.mns-crit*SE
+             uci <- rnd.mns+crit*SE
            } )
     me <- crit*sigma/sqrt(n)
   } else {
@@ -103,15 +109,18 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
     switch(alternative,
            less = {
              crit <- stats::qt(conf,df=n-1)
-             uci <- rnd.mns+crit*SE; lci <- rep(min(xr),reps)
+             uci <- rnd.mns+crit*SE
+             lci <- rep(min(xr),reps)
            },
            greater = {
              crit <- stats::qt(conf,df=n-1)
-             lci <- rnd.mns-crit*SE; uci <- rep(max(xr),reps)
+             lci <- rnd.mns-crit*SE
+             uci <- rep(max(xr),reps)
            }, 
            two.sided = {
              crit <- stats::qt(0.5+conf/2,df=n-1)
-             lci <- rnd.mns-crit*SE; uci <- rnd.mns+crit*SE
+             lci <- rnd.mns-crit*SE
+             uci <- rnd.mns+crit*SE
            }  )
     me <- mean(crit*SE)
   }
@@ -119,29 +128,35 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
   colr <- ifelse(((lci>mu) | (uci<mu)),"red","black")
   # Percent CIs contained mu
   hit <- paste0(formatC(100*length(colr[colr=="black"])/reps,format="f",digits=0))
-  me <- formatC(me,format="f",digits=3)
   
   ## Construct the graphic
   # Some preparations
   old.par <- graphics::par(mar=c(3,1,2,1),mgp=c(2,0.4,0),tcl=-0.2)
   xlbl <- expression(paste("Sample Mean ( ",bar(X)," )"))
   tmp <- ifelse(method=="Z","","avg ")
-  title <- substitute(paste(hit,"% contain ",mu," (=",muval,"), ",tmp,"m.e.=",me,),
-                      list(hit=hit,tmp=tmp,me=me,muval=mu))
+  title <- substitute(paste(hit,"% contain ",mu," (=",muval,"), ",tmp,
+                            "m.e.=",me,),
+                      list(hit=hit,tmp=tmp,me=formatC(me,format="f",digits=3),muval=mu))
   # make skeleton plot
-  graphics::plot(lci,seq(1,reps),type="n",yaxt="n",xlim=xr,
+  graphics::plot(lci,seq(1,reps),type="n",yaxt="n",xlim=xr,ylim=c(-reps*0.01,1.01*reps),yaxs="i",
                  xlab=xlbl,ylab="",main=title)
+  # For z method only, put transparent green vertical lines at crit values of popn.
+  if (method=="Z") {
+    tmp <- par("usr")
+    ys <- c(tmp[3],0.995*tmp[4],0.995*tmp[4],tmp[3])
+    clr <- FSA::col2rgbt("black",0.05)
+    switch(alternative,
+           less = { polygon(c(rep(zstar,2),tmp[2],tmp[2]),ys,col=clr,border=NA) },
+           greater = { polygon(c(rep(zstar,2),tmp[1],tmp[1]),ys,col=clr,border=NA) }, 
+           two.sided = { polygon(rep(zstar,each=2),ys,col=clr,border=NA) }  )
+  }
   # Put blue vertical line and label at mu
-  graphics::lines(c(mu,mu),c(-0.1,1.2*reps),col="blue",lwd=3,lty=2)
-  graphics::text(mu,-1.5,expression(mu),cex=1.25,col="blue")
-  # For z method only, put transparent green vertical lines at
-  #   crit values of popn.
-  if (method=="Z") graphics::abline(v=zstar,col="green",lwd=3,lty=2)
+  graphics::lines(c(mu,mu),c(-0.1,1.2*reps),col="gray50",lwd=3)
   for (i in 1:reps) {
     # Put CIs on the plot
-    graphics::lines(c(lci[i],uci[i]),rep(i,2),col=colr[i])
+    graphics::lines(c(lci[i],uci[i]),rep(i,2),col=colr[i],lwd=1)
     # Put means on the plot
-    graphics::points(rnd.mns[i],i,pch=19,col=FSA::col2rgbt(colr[i],0.7),cex=0.75)
+    graphics::points(rnd.mns[i],i,pch=19,col=FSA::col2rgbt(colr[i],0.7),cex=0.5)
   }
   graphics::par(old.par)
 } # end iCISimPlot internal function
@@ -305,11 +320,11 @@ powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=
           if (rerand) set.seed(sample(1:10000))
           iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
         },
+        alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha),
+        n=manipulate::slider(10,100,step=1,initial=s.n),
+        sigma=manipulate::slider(floor(s.sigma/3),ceiling(2*s.sigma),step=1,initial=s.sigma),
         mua=manipulate::slider(mu0-1.5*s.sigma,mu0+1.5*s.sigma,step=1,
                                initial=s.mua,label="Actual mu"),
-        sigma=manipulate::slider(floor(s.sigma/3),ceiling(2*s.sigma),step=1,initial=s.sigma),
-        n=manipulate::slider(10,100,step=1,initial=s.n),
-        alpha=manipulate::slider(0.01,0.30,step=0.01,initial=s.alpha),
         lower.tail=manipulate::checkbox(TRUE,"Ha is less than?")
       ) # end manipulate
     }
@@ -324,11 +339,11 @@ powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=
     }
     if (iChk4Namespace("relax")) {
       relax::gslider(iPowerRefresh,prompt=TRUE,vscale=1.5,
-                     sl.names=   c(    "Actual mu",   "sigma", "n", "alpha"),
-                     sl.mins=    c(mu0-1.5*s.sigma,         1,   2,    0.01),
-                     sl.maxs=    c(mu0+1.5*s.sigma, 3*s.sigma, 100,    0.30),
-                     sl.deltas=  c(              1,         1,   1,    0.01),
-                     sl.defaults=c(          s.mua,   s.sigma, s.n, s.alpha),
+                     sl.names=   rev(c(    "Actual mu",   "sigma", "n", "alpha")),
+                     sl.mins=    rev(c(mu0-1.5*s.sigma,         1,   2,    0.01)),
+                     sl.maxs=    rev(c(mu0+1.5*s.sigma, 3*s.sigma, 100,    0.30)),
+                     sl.deltas=  rev(c(              1,         1,   1,    0.01)),
+                     sl.defaults=rev(c(          s.mua,   s.sigma, s.n, s.alpha)),
                      title = "Power Simulator",pos.of.panel="left")
     }
   }
@@ -374,7 +389,8 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
   c.region(cv,xa,norma,!lower.tail,area=NULL,plot=FALSE,add=TRUE,show.ans=FALSE,
            shade.col="tomato",show.lbl=FALSE,
            xlab="",xlim=xlmts,ylim=ylmts,yaxt="n",ylab="")
-  graphics::mtext("Sample Means",1,line=1.8,cex=1.25)
+  xlbl <- expression(paste("Sample Mean ( ",bar(X)," )"))
+  graphics::mtext(xlbl,1,line=1.8,cex=1.10)
   graphics::mtext("Actual Dist.",4,cex=1.5,line=1)
   graphics::lines(c(mua,mua),c(0,max(norma)),lty=3,lwd=2,col="blue")
   graphics::abline(v=cv,lty=2,lwd=2,col="red")
