@@ -35,9 +35,9 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
           if (rerand) set.seed(sample(1:10000))
           iCISimPlot(n,conf.level,alternative,reps,method,mu,sigma)
         },
-        n=manipulate::slider(10,100,step=5,initial=10),
-        conf.level=manipulate::picker(0.99,0.95,0.90,0.80,initial=0.95),
-        alternative=manipulate::picker("two.sided","less","greater"),
+        n=manipulate::slider(10,100,step=5,initial=10,label="Sample Size (n)"),
+        conf.level=manipulate::picker(0.99,0.95,0.90,0.80,initial=0.95,label="Confidence Level"),
+        alternative=manipulate::picker("two.sided","less","greater",label="Alternative Hypothesis"),
         rerand=manipulate::button("Rerandomize")
       ) # end manipulate
     }

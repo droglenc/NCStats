@@ -47,6 +47,26 @@ levenesTest <- function(...) car::leveneTest(...)
 
 
 
+#' @title Performs a test for outliers
+#'
+#' @description Performs a test for outliers
+#'
+#' @param \dots Arguments to pass through to \code{\link[car]{outlierTest}} in \pkg{car}.
+#'
+#' @return See help for \code{\link[car]{outlierTest}} in \pkg{car}.
+#'
+#' @seealso \code{\link[car]{outlierTest}} in \pkg{car}.
+#' 
+#' @note This is a simple pass-through to  \code{\link[car]{outlierTest}} in \pkg{car}.
+#' 
+#' @keywords misc
+#' 
+#' @export
+outlierTest <- function(...) car::outlierTest(...)
+
+
+
+
 #' @title Z test for known population standard deviation
 #' 
 #' @description Compute the test of hypothesis and compute confidence interval on the mean of a population when the standard deviation of the population is known.

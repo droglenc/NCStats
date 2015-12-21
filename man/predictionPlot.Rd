@@ -48,8 +48,8 @@ op <- par(mfrow=c(2,2),mar=c(3,3,2,1),mgp=c(2,0.7,0))
 newdf <- data.frame(Petal.Length=c(2,4),Species=c("setosa","versicolor"))
 predictionPlot(lm1,newdf,legend="topleft")
 predictionPlot(lm2,newdf,legend="topleft")
-predictionPlot(lm3,newdf,legend="topleft")
-predictionPlot(lm3,newdf,legend="topleft",interval="confidence")
+predictionPlot(lm3,newdf)
+predictionPlot(lm3,newdf,interval="confidence")
 par(op)
 
 }

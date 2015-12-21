@@ -616,8 +616,8 @@ plot.htest <- function(x,smoothness=1000,shade.col="red",shade.col2="red3",...) 
 #' newdf <- data.frame(Petal.Length=c(2,4),Species=c("setosa","versicolor"))
 #' predictionPlot(lm1,newdf,legend="topleft")
 #' predictionPlot(lm2,newdf,legend="topleft")
-#' predictionPlot(lm3,newdf,legend="topleft")
-#' predictionPlot(lm3,newdf,legend="topleft",interval="confidence")
+#' predictionPlot(lm3,newdf)
+#' predictionPlot(lm3,newdf,interval="confidence")
 #' par(op)
 #' 
 #' @rdname predictionPlot
@@ -637,7 +637,11 @@ predictionPlot <- function(mdl,newdata,interval="prediction",conf.level=0.95,
   if (dim(newdata)[1]<1 | dim(newdata)[2]<1) stop("\n newdata is empty",call.=FALSE)
   if (!all(names(lmtype$mf)[-1] %in% names(newdata))) stop("\n Not all variables found in mdl are in newdata.",call.=FALSE)
   
-  FSA::fitPlot(mdl,interval=interval,cex.main=0.8,conf.level=conf.level,legend=legend,...)
+  if (lmtype$type=="SLR") {
+    FSA::fitPlot(mdl,interval=interval,cex.main=0.8,conf.level=conf.level,...)
+  } else {
+    FSA::fitPlot(mdl,interval=interval,cex.main=0.8,conf.level=conf.level,legend=legend,...)
+  }
   preds <- stats::predict(mdl,newdata,interval=interval,conf.level=conf.level)
   for (i in 1:dim(newdata)[1]) {
     graphics::points(rep(newdata[i,1],3),preds[i,],col="seagreen4",pch=95,lwd=lwd,xpd=NA,cex=2)

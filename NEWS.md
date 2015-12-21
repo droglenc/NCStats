@@ -14,7 +14,9 @@
 * `gofCI()`: Modified.  Suppressed warnings on call to `binCI()` in `FSA` which results in warnings from `Hmisc` about reimporting some functions that were imported by `ggplot2`.
 * `iqrCalc()`: Added.
 * `meanMedian()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
+* `outlierTest()`: Added as a pass-through to `outlierTest()` in `car`.
 * `powerSim()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Modified the graphic.  Streamlined the code.
+* `predictionPlot()`: Modified.  Fixed a bug related to `legend=` when a SLR is used.
 * `sXXX()`: Modified.  Changed all to use `manipulate()` from `manipulate` rather than `slider()` from `relax`.
 * `transChooser()`: Modified.  Added support for using `manipulate()` from `manipulate` if RStudio is being used.  Streamlined the code.
 
