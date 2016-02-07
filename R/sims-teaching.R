@@ -142,13 +142,13 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
                  xlab=xlbl,ylab="",main=title)
   # For z method only, put transparent green vertical lines at crit values of popn.
   if (method=="Z") {
-    tmp <- par("usr")
+    tmp <- graphics::par("usr")
     ys <- c(tmp[3],0.995*tmp[4],0.995*tmp[4],tmp[3])
     clr <- FSA::col2rgbt("black",0.05)
     switch(alternative,
-           less = { polygon(c(rep(zstar,2),tmp[2],tmp[2]),ys,col=clr,border=NA) },
-           greater = { polygon(c(rep(zstar,2),tmp[1],tmp[1]),ys,col=clr,border=NA) }, 
-           two.sided = { polygon(rep(zstar,each=2),ys,col=clr,border=NA) }  )
+           less = { graphics::polygon(c(rep(zstar,2),tmp[2],tmp[2]),ys,col=clr,border=NA) },
+           greater = { graphics::polygon(c(rep(zstar,2),tmp[1],tmp[1]),ys,col=clr,border=NA) }, 
+           two.sided = { graphics::polygon(rep(zstar,each=2),ys,col=clr,border=NA) }  )
   }
   # Put blue vertical line and label at mu
   graphics::lines(c(mu,mu),c(-0.1,1.2*reps),col="gray50",lwd=3)
@@ -802,6 +802,7 @@ print.sdCalc <- function(x,...) {
 #' @aliases iqrCalc print.iqrCalc
 #' 
 #' @param x A numeric vector
+#' @param mdnInBoth A logical that indicates whether the median should be placed into both halves or not (DEFAULT) when computing the IQR with odd n.
 #' @param \dots Other arguments to the generic \code{print} functions (not currently used)
 #' 
 #' @return A list containing the sample size (\code{n}); the sample Q1, median, and Q3 in the name vector \code{vals}; the positions of the sample Q1, median, and Q3 in the named vector \code{pos}; the ordered data (\code{x}); and the ordered lower- (\code{lwr}) and upper-halves (\code{upr}) of the data.
@@ -815,9 +816,13 @@ print.sdCalc <- function(x,...) {
 #' @examples
 #' ## Simple examples
 #' iqrCalc(1:7)
+#' iqrCalc(1:7,mdnInBoth=TRUE)
 #' iqrCalc(1:8)
+#' iqrCalc(1:8,mdnInBoth=TRUE)
 #' iqrCalc(1:9)
+#' iqrCalc(1:9,mdnInBoth=TRUE)
 #' iqrCalc(1:10)
+#' iqrCalc(1:10,mdnInBoth=TRUE)
 #' 
 #' ## Somewhat more realistic
 #' iqrCalc(sample.int(99,11,replace=TRUE))
@@ -827,7 +832,7 @@ print.sdCalc <- function(x,...) {
 #' 
 #' @rdname iqrCalc
 #' @export
-iqrCalc <- function(x) {
+iqrCalc <- function(x,mdnInBoth=FALSE) {
   # make sure the vector is numeric
   if (!is.numeric(x)) stop("x must be numeric to compute the sd.",call.=FALSE)
   # remove missing values
@@ -840,8 +845,9 @@ iqrCalc <- function(x) {
   mdn.pos <- floor((n+1)/2)
   if (is.odd(n)) {
     mdn <- x1[mdn.pos]
-    x1.lwr <- x1[1:mdn.pos]
-    x1.upr <- x1[mdn.pos:n]
+    adj <- ifelse(mdnInBoth,0,1)
+    x1.lwr <- x1[1:(mdn.pos-adj)]
+    x1.upr <- x1[(mdn.pos+adj):n]
   } else {
     mdn <- mean(x1[c(mdn.pos,mdn.pos+1)])
     x1.lwr <- x1[1:mdn.pos]
@@ -860,7 +866,7 @@ iqrCalc <- function(x) {
   # return results as a list
   res <- list(n=n,vals=c(Q1=q1,median=mdn,Q3=q3),
               pos=c(Q1=q1.pos,median=mdn.pos,Q3=q3.pos),
-              x=x1,lwr=x1.lwr,upr=x1.upr)
+              x=x1,lwr=x1.lwr,upr=x1.upr,mdnInBoth=mdnInBoth)
   class(res) <- "iqrCalc"
   res
 }
@@ -872,12 +878,12 @@ print.iqrCalc <- function(x,...) {
   # median
   tmp <- paste(x$x[1:(x$pos["median"]-1)],collapse=" ")
   if (FSA::is.odd(x$n)) {
-    cat("Median (",x$vals["median"],") is the value in position ",
+    cat("Median (=",x$vals["median"],") is the value in position ",
         x$pos["median"],".\n",sep="")
     tmp <- paste0(tmp," [",x$x[x$pos["median"]],"] ")
     tmp <- paste0(tmp,paste(x$x[(x$pos["median"]+1):x$n],collapse=" "))
   } else {
-    cat("Median (",x$vals["median"],") is the average of values in positions ",
+    cat("Median (=",x$vals["median"],") is the average of values in positions ",
         x$pos["median"]," and ",x$pos["median"]+1,".\n",sep="")
     tmp <- paste0(tmp," [",x$x[x$pos["median"]]," ",x$x[x$pos["median"]+1],"] ")
     tmp <- paste0(tmp,paste(x$x[(x$pos["median"]+2):x$n],collapse=" "))
@@ -887,12 +893,12 @@ print.iqrCalc <- function(x,...) {
   n2 <- length(x$lwr)
   tmp <- paste(x$lwr[1:(x$pos["Q1"]-1)],collapse=" ")
   if (FSA::is.odd(n2)) {
-    cat("Q1 (",x$vals["Q1"],") is the value in position ",
+    cat("Q1 (=",x$vals["Q1"],") is the value in position ",
         x$pos["Q1"]," of the lower half.\n",sep="")
     tmp <- paste0(tmp," [",x$lwr[x$pos["Q1"]],"] ")
     tmp <- paste0(tmp,paste(x$lwr[(x$pos["Q1"]+1):n2],collapse=" "))
   } else {
-    cat("Q1 (",x$vals["Q1"],") is average of values in positions ",x$pos["Q1"],
+    cat("Q1 (=",x$vals["Q1"],") is average of values in positions ",x$pos["Q1"],
         " and ",x$pos["Q1"]+1," of the lower half.\n",sep="")
     tmp <- paste0(tmp," [",x$lwr[x$pos["Q1"]]," ",x$lwr[x$pos["Q1"]+1],"] ")
     tmp <- paste0(tmp,paste(x$lwr[(x$pos["Q1"]+2):n2],collapse=" "))
@@ -901,15 +907,21 @@ print.iqrCalc <- function(x,...) {
   # q3
   tmp <- paste(x$upr[1:(x$pos["Q3"]-1)],collapse=" ")
   if (FSA::is.odd(n2)) {
-    cat("Q3 (",x$vals["Q3"],") is the value in position ",x$pos["Q3"]," of the upper half.\n",sep="")
+    cat("Q3 (=",x$vals["Q3"],") is the value in position ",x$pos["Q3"]," of the upper half.\n",sep="")
     tmp <- paste0(tmp," [",x$upr[x$pos["Q3"]],"] ")
     tmp <- paste0(tmp,paste(x$upr[(x$pos["Q3"]+1):n2],collapse=" "))
   } else {
-    cat("Q3 (",x$vals["Q3"],") is average of values in positions ",x$pos["Q3"],
+    cat("Q3 (=",x$vals["Q3"],") is average of values in positions ",x$pos["Q3"],
         " and ",x$pos["Q3"]+1," of the upper half.\n",sep="")
     tmp <- paste0(tmp," [",x$upr[x$pos["Q3"]]," ",x$upr[x$pos["Q3"]+1],"] ")
     tmp <- paste0(tmp,paste(x$upr[(x$pos["Q3"]+2):n2],collapse=" "))
   }
   cat("  ",tmp,"\n\n",sep="")
-  if (FSA::is.odd(x$n)) cat("**Note that the median (",x$vals["median"],") is in both halves.\n\n",sep="")
+  if (FSA::is.odd(x$n)) {
+    if (x$mdnInBoth) {
+      cat("**Note that the median (=",x$vals["median"],") IS in both halves.\n\n",sep="")
+    } else {
+      cat("**Note that the median (=",x$vals["median"],") is NOT in both halves.\n\n",sep="")
+    }
+  }
 }

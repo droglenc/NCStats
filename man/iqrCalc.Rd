@@ -5,12 +5,14 @@
 \alias{print.iqrCalc}
 \title{Shows the steps in the manual calculation of the median and IQR.}
 \usage{
-iqrCalc(x)
+iqrCalc(x, mdnInBoth = FALSE)
 
 \method{print}{iqrCalc}(x, ...)
 }
 \arguments{
 \item{x}{A numeric vector}
+
+\item{mdnInBoth}{A logical that indicates whether the median should be placed into both halves or not (DEFAULT) when computing the IQR with odd n.}
 
 \item{\dots}{Other arguments to the generic \code{print} functions (not currently used)}
 }
@@ -26,9 +28,13 @@ This function shows the ordered data with the median shown and the ordered lower
 \examples{
 ## Simple examples
 iqrCalc(1:7)
+iqrCalc(1:7,mdnInBoth=TRUE)
 iqrCalc(1:8)
+iqrCalc(1:8,mdnInBoth=TRUE)
 iqrCalc(1:9)
+iqrCalc(1:9,mdnInBoth=TRUE)
 iqrCalc(1:10)
+iqrCalc(1:10,mdnInBoth=TRUE)
 
 ## Somewhat more realistic
 iqrCalc(sample.int(99,11,replace=TRUE))
