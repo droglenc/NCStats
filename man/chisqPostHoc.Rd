@@ -5,7 +5,7 @@
 \title{Tests for significant differences among all pairs of populations in a chi-square test.}
 \usage{
 chisqPostHoc(chi, popsInRows = TRUE, control = stats::p.adjust.methods,
-  digits = 4)
+  digits = 4, verbose = TRUE)
 }
 \arguments{
 \item{chi}{A \code{chisq.test} object}
@@ -15,6 +15,8 @@ chisqPostHoc(chi, popsInRows = TRUE, control = stats::p.adjust.methods,
 \item{control}{A string indicating the method of control to use (see details)}
 
 \item{digits}{A numeric that controls the number of digits to print}
+
+\item{verbose}{A logical that conrols whether the warning message from the individual \code{chisq.test} calls are printed}
 
 \item{\dots}{Other arguments sent to \code{print}}
 }
@@ -40,6 +42,14 @@ chisqPostHoc(chi1)
 # Transpose the observed table to demonstrate use of popsInRows=FALSE
 ( chi2 <- chisq.test(t(M)) )
 chisqPostHoc(chi2,popsInRows=FALSE)
+
+# How does it handle spares columns
+( obs <- matrix(c(20,0,20,30,20,20,10,0,0),nrow=3,byrow=TRUE) )
+chi1 <- chisq.test(obs)
+chisqPostHoc(chi1)
+( obs <- matrix(c(20,0,0,30,20,20,10,0,0),nrow=3,byrow=TRUE) )
+chi1 <- chisq.test(obs)
+chisqPostHoc(chi1)
 
 }
 \seealso{

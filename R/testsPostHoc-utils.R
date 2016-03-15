@@ -104,6 +104,7 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns
 #' @param popsInRows A logical indicating whether the populations form the rows (default; \code{=TRUE}) of the table or not (\code{=FALSE})
 #' @param control A string indicating the method of control to use (see details)
 #' @param digits A numeric that controls the number of digits to print
+#' @param verbose A logical that conrols whether the warning message from the individual \code{chisq.test} calls are printed
 #' @param \dots Other arguments sent to \code{print}
 #' 
 #' @return A data.frame with a description of the pairwise comparisons, the raw p-values, and the adjusted p-values.
@@ -126,19 +127,39 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns
 #' ( chi2 <- chisq.test(t(M)) )
 #' chisqPostHoc(chi2,popsInRows=FALSE)
 #' 
+#' # How does it handle spares columns
+#' ( obs <- matrix(c(20,0,20,30,20,20,10,0,0),nrow=3,byrow=TRUE) )
+#' chi1 <- chisq.test(obs)
+#' chisqPostHoc(chi1)
+#' ( obs <- matrix(c(20,0,0,30,20,20,10,0,0),nrow=3,byrow=TRUE) )
+#' chi1 <- chisq.test(obs)
+#' chisqPostHoc(chi1)
+#' 
 #' @export
-chisqPostHoc <- function(chi,popsInRows=TRUE,control=stats::p.adjust.methods,digits=4) {
+chisqPostHoc <- function(chi,popsInRows=TRUE,control=stats::p.adjust.methods,digits=4,
+                         verbose=TRUE) {
   control <- match.arg(control)
   tbl <- chi$observed
   if (!popsInRows) tbl <- t(tbl)
   popsNames <- rownames(tbl)
-  
+  if (is.null(popsNames)) popsNames <- 1:ncol(tbl)
   prs <- utils::combn(1:nrow(tbl),2)
   tests <- ncol(prs)
   pvals <- numeric(tests)
   lbls <- character(tests)
   for (i in 1:tests) {
-    pvals[i] <- stats::chisq.test(tbl[prs[,i],])$p.value
+    ## reduce table to only those pairs
+    tmp <- tbl[prs[,i],]
+    ## remove columns that are zeroes for both pops
+    csums <- colSums(tmp)==0
+    if (any(csums)) tmp <- tmp[,!csums]
+    if (!is.matrix(tmp)) {
+      pvals[i] <- NA
+    } else {
+      if (!verbose) options(warn=-1)
+      pvals[i] <- stats::chisq.test(tmp)$p.value
+      if (!verbose) options(warn=0)
+    }
     lbls[i] <- paste(popsNames[prs[,i]],collapse=" vs. ")
   }
   adj.pvals <- stats::p.adjust(pvals,method=control)
