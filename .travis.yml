@@ -3,8 +3,8 @@ sudo: false
 cache: packages
 warnings_are_errors: false
 
-before_install:
-  - Rscript -e 'install.packages(c("nlme"))'
+before_isntall:
+  - Rscript -e 'install.packages(c("nlme","relax"), lib="/home/travis/R-bin/lib/R/library/")'
 
 after_success:
   - Rscript -e 'covr::coveralls()'
