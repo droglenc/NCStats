@@ -1,20 +1,19 @@
 language: r
+sudo: false
+cache: packages
 warnings_are_errors: false
-sudo: required
 
-env:
-  global:
-    - CRAN: http://cran.rstudio.com
-   
+before_install:
+  - Rscript -e 'install.packages(c("nlme"))'
+
+after_success:
+  - Rscript -e 'covr::coveralls()'
+
 notifications:
   email:
     on_success: change
-    on_failure: change
-
-after_success:
-  - Rscript -e 'library(covr);coveralls()'
+    on_failure: always
 
 r_github_packages:
   - jimhester/covr
-  - droglenc/FSA
   
