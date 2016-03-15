@@ -1,4 +1,7 @@
-# 0.4.4 ongoing
+# 0.4.5 ongoing
+* `chisqPostHoc()`: Modified.  Fixed bug when a pair had a column with all zeroes.  Added `verbose=`.  Fixed comparison names if the original matrix did not have row names.
+
+# 0.4.4 Feb16
 * Added Travis-CI support.
 * Converted all data files from .txt to .rdata.
 * Now using Roxygen2 v5.0.0.
