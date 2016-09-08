@@ -6,11 +6,11 @@ NCStats
 
 
 ## Introduction
-The **NCStats** package contains helper functions for statistics courses taught by [Dr. Derek H. Ogle](http://derekogle.com) at [Northland College](http://www.northland.edu).  You can [browse help pages here](http://rforge.net/doc/packages/NCStats/00Index.html).  Recent changes to the package are described in the [News file](https://github.com/droglenc/NCStats/blob/master/NEWS.md)
+The **NCStats** package contains helper functions for statistics courses taught by [Dr. Derek H. Ogle](http://derekogle.com) at [Northland College](http://www.northland.edu).  You can [browse help pages here](http://rforge.net/doc/packages/NCStats/00Index.html).  Recent changes to the package are described in the [News file](https://github.com/droglenc/NCStats/blob/master/NEWS.md).
 
 
 ## Installation
-**NCStats** has not yet been released on CRAN.  The latest version can be installed by running the two lines below in R/RStudio ...
+The latest version of **NCStats** can be installed by running the two lines below in R/RStudio ...
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
