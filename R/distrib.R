@@ -393,7 +393,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
                main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,
                ylim=c(0,1.02*max(fx)),...)
     }
-    invisible(ans)
     graphics::par(op)
+    invisible(ans)
   } else round(ans,digits)
 }
