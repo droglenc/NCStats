@@ -45,10 +45,23 @@ cor(df$x,df$y)
 corr(df$x,df$y)
 corr(y~x,data=df)
 corr(~x+y,data=df)
+corr(df)
 
 ## another example from stats::cor()
 cor(longley)
 corr(longley)
+corr(longley[1:2],longley[3:5])
+
+## handling missing values
+set.seed(3473) # to control randomness
+df <- data.frame(x=c(runif(9),NA),y=c(NA,runif(9)),z=runif(10),w=runif(10))
+corr(~x+y,data=df)
+corr(~x+y,data=df,use="complete.obs")
+corr(~x+y+z,data=df,use="complete.obs")
+corr(~x+y+z,data=df,use="pairwise.complete.obs")
+# no messages below (as no missing values)
+corr(~w+z,data=df,use="complete.obs")
+corr(~w+z,data=df,use="pairwise.complete.obs")
 
 }
 \author{

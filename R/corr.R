@@ -27,10 +27,23 @@
 #' corr(df$x,df$y)
 #' corr(y~x,data=df)
 #' corr(~x+y,data=df)
+#' corr(df)
 #' 
 #' ## another example from stats::cor()
 #' cor(longley)
 #' corr(longley)
+#' corr(longley[1:2],longley[3:5])
+#' 
+#' ## handling missing values
+#' set.seed(3473) # to control randomness
+#' df <- data.frame(x=c(runif(9),NA),y=c(NA,runif(9)),z=runif(10),w=runif(10))
+#' corr(~x+y,data=df)
+#' corr(~x+y,data=df,use="complete.obs")
+#' corr(~x+y+z,data=df,use="complete.obs")
+#' corr(~x+y+z,data=df,use="pairwise.complete.obs")
+#' # no messages below (as no missing values)
+#' corr(~w+z,data=df,use="complete.obs")
+#' corr(~w+z,data=df,use="pairwise.complete.obs")
 #' 
 #' @rdname corr
 #' @export
@@ -43,6 +56,13 @@ corr <- function (x, ...) {
 corr.default <- function(x,y=NULL,use="everything",
                          method=c("pearson","kendall","spearman"),
                          digits=NULL,...) {
+  # Send a message if asked to removing missing values and there were some
+  if (use %in% c("complete.obs","na.or.complete","pairwise.complete.obs")) {
+    tmp <- x
+    if (!is.null(y)) tmp <- cbind(tmp,y)
+    if (nrow(tmp)!=nrow(tmp[stats::complete.cases(tmp),])) message("Some missing values were ignored.")
+  }
+  # Only round if digits are specifically given by the user.
   if (!is.null(digits)) round(stats::cor(x,y,use,method),digits)
   else stats::cor(x,y,use,method)
 }
