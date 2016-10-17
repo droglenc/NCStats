@@ -9,10 +9,10 @@
 corr(x, ...)
 
 \method{corr}{default}(x, y = NULL, use = "everything",
-  method = c("pearson", "kendall", "spearman"), ...)
+  method = c("pearson", "kendall", "spearman"), digits = NULL, ...)
 
 \method{corr}{formula}(x, data, use = "everything", method = c("pearson",
-  "kendall", "spearman"), ...)
+  "kendall", "spearman"), digits = getOption("digits"), ...)
 }
 \arguments{
 \item{x}{A numeric vector, matrix, or data.frame (see details in \code{\link[stats]{cor}}) or a formula (see details here)}
@@ -22,6 +22,8 @@ corr(x, ...)
 \item{use}{An optional character string that defines a method for computing the correlation in the presence of missing values. This must be one of \code{"everything"}, \code{"all.obs"}, \code{"complete.obs"}, \code{"na.or.complete"}, or \code{"pairwise.complete.obs"}}
 
 \item{method}{A single character string that indicates which correlation coefficient is to be computed. Must be one of \code{"pearson"} (default), \code{"kendall"}, or \code{"spearman"}}
+
+\item{digits}{A single numeric that indicates the number of decimals to which the result should be rounded.}
 
 \item{data}{An optional data frame that contains the variables in the formula.}
 
@@ -42,6 +44,7 @@ df <- data.frame(x=1:10,y=2:11)
 cor(df$x,df$y)
 corr(df$x,df$y)
 corr(y~x,data=df)
+corr(~x+y,data=df)
 
 ## another example from stats::cor()
 cor(longley)

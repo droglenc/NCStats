@@ -9,6 +9,7 @@
 #' @param data An optional data frame that contains the variables in the formula.
 #' @param use An optional character string that defines a method for computing the correlation in the presence of missing values. This must be one of \code{"everything"}, \code{"all.obs"}, \code{"complete.obs"}, \code{"na.or.complete"}, or \code{"pairwise.complete.obs"}
 #' @param method A single character string that indicates which correlation coefficient is to be computed. Must be one of \code{"pearson"} (default), \code{"kendall"}, or \code{"spearman"}
+#' @param digits A single numeric that indicates the number of decimals to which the result should be rounded.
 #' @param \dots Unused.
 #'
 #' @return A single numeric if \code{x} and \code{y} are vectors or a numeric matrix if \code{x} and \code{y} are matrices.
@@ -25,6 +26,7 @@
 #' cor(df$x,df$y)
 #' corr(df$x,df$y)
 #' corr(y~x,data=df)
+#' corr(~x+y,data=df)
 #' 
 #' ## another example from stats::cor()
 #' cor(longley)
@@ -39,27 +41,24 @@ corr <- function (x, ...) {
 #' @rdname corr
 #' @export
 corr.default <- function(x,y=NULL,use="everything",
-                         method=c("pearson","kendall","spearman"),...) {
-  stats::cor(x,y,use,method)
+                         method=c("pearson","kendall","spearman"),
+                         digits=NULL,...) {
+  if (!is.null(digits)) round(stats::cor(x,y,use,method),digits)
+  else stats::cor(x,y,use,method)
 }
 
 #' @rdname corr
 #' @export
 corr.formula <- function(x,data,use="everything",
-                         method=c("pearson","kendall","spearman"),...) {
+                         method=c("pearson","kendall","spearman"),
+                         digits=getOption("digits"),...) {
   tmp <- iHndlFormula(x,data)
-  ## Can only have two variables
-  if (tmp$vnum!=2) stop("'corr.formula' only works with 2 variables.",call.=FALSE)
-  ## Handle separately depending on if formula is y~x or ~y+x
-  if (tmp$Rnum==1) {
-    if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable in 'corr.formula' must be numeric.",call.=FALSE)
-    y <- tmp$mf[,tmp$Rpos]
-    if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable in 'corr.formula' must be numeric.",call.=FALSE)    
-    x <- tmp$mf[,tmp$ENumPos]
-  } else {
-    if (any(!tmp$Eclass %in% c("numeric","integer"))) stop("Both RHS variables in 'corr.formula' must be numeric.",call.=FALSE)
-    y <- tmp$mf[,tmp$ENumPos[1]]
-    x <- tmp$mf[,tmp$ENumPos[2]]
-  }
-  corr.default(y,x,use,method)
+  ## Checks
+  if (tmp$vnum<2) stop("Must have at least two variables.",call.=FALSE)
+  if (any(!c(tmp$Rclass,tmp$Eclass) %in% c("numeric","integer"))) stop("All variables must be numeric.",call.=FALSE)
+  ## Put in separate vectors if only two variables so that
+  ##   only a single numbers is returned. Otherwise, leave
+  ##   as a data.frame to get a matrix returned
+  if (tmp$vnum==2) corr.default(tmp$mf[[1]],tmp$mf[[2]],use=use,method=method,digits=digits)
+    else corr.default(tmp$mf,use=use,method=method,digits=digits)
 }
