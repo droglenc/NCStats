@@ -1,6 +1,7 @@
 # 0.4.5 ongoing
 * `ABDLakes`: Modified.  Fixed errors for when there were two or more `local.names`.
 * `chisqPostHoc()`: Modified.  Fixed bug when a pair had a column with all zeroes.  Added `verbose=`.  Fixed comparison names if the original matrix did not have row names.
+* `distrib()`: Modified.  Modified plot so that continuous distributions touch x-axis.
 
 # 0.4.4 Feb16
 * Added Travis-CI support.

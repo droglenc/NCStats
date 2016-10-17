@@ -60,7 +60,7 @@
 #' 
 #' @examples
 #' op <- par(mfrow=c(2,2),mar=c(3.5,1,3.5,1),mgp=c(2,0.75,0))
-#' distrib(46,distrib="binom",type="d",size=100,prob=0.5)
+#' distrib(4,distrib="binom",type="d",size=10,prob=0.5)
 #' distrib(5,distrib="pois",type="p",lambda=2)
 #' distrib(2.2,distrib="exp",type="p",rate=1/2)
 #' distrib(0.6,distrib="norm",type="q",mean=10,sd=3,lower.tail=FALSE)
@@ -376,21 +376,24 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
 
   if (show.alt) cat("Could use:",msg,"\n")
   if (plot) {
+    op <- graphics::par(yaxs="i",xaxs="i")
     if (continuous) {
+      c.region(xval,x,fx,lower.tail,area,plot=TRUE,show.ans=show.ans,
+               shade.col=shade.col,lbl.col=lbl.col,show.lbl=TRUE,
+               main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,xaxt="n",
+               ylim=c(0,1.02*max(fx)),...)
       if (distrib=="norm") {
-        c.region(xval,x,fx,lower.tail,area,plot=TRUE,show.ans=show.ans,
-                 shade.col=shade.col,lbl.col=lbl.col,show.lbl=TRUE,
-                 main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,xaxt="n",...)
-        vals <- formatC(mean+seq(-4,4,1)*sd,format="g",digits=3)
-        graphics::axis(1,at=as.numeric(vals),labels=vals)
-      } else c.region(xval,x,fx,lower.tail,area,plot=TRUE,show.ans=show.ans,
-                      shade.col=shade.col,lbl.col=lbl.col,show.lbl=TRUE,
-                      main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,...)
+        vals <- mean+seq(-4,4,1)*sd
+        graphics::axis(1,at=vals,labels=formatC(vals,format="g",digits=3))
+      } else graphics::axis(1)
+      graphics::box()
     } else {
       d.region(xval,x,fx,reg,area,reverse=reverse,plot=TRUE,show.ans=show.ans,
                shade.col=shade.col,lbl.col=lbl.col,
-               main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,...)
+               main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,
+               ylim=c(0,1.02*max(fx)),...)
     }
     invisible(ans)
+    graphics::par(op)
   } else round(ans,digits)
 }

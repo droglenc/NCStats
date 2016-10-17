@@ -110,7 +110,7 @@ I had hoped to add a \code{plot=} argument to any of the \code{pXXX}, \code{qXXX
 }
 \examples{
 op <- par(mfrow=c(2,2),mar=c(3.5,1,3.5,1),mgp=c(2,0.75,0))
-distrib(46,distrib="binom",type="d",size=100,prob=0.5)
+distrib(4,distrib="binom",type="d",size=10,prob=0.5)
 distrib(5,distrib="pois",type="p",lambda=2)
 distrib(2.2,distrib="exp",type="p",rate=1/2)
 distrib(0.6,distrib="norm",type="q",mean=10,sd=3,lower.tail=FALSE)
