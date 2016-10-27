@@ -2,7 +2,8 @@
 * `ABDLakes`: Modified.  Fixed errors for when there were two or more `local.names`.
 * `chisqPostHoc()`: Modified.  Fixed bug when a pair had a column with all zeroes.  Added `verbose=`.  Fixed comparison names if the original matrix did not have row names.
 * `corr()`: Modified.  Modified to allow more than two variables.  Added `digits=` argument.  Added a message if missing values existed and they were handled with use of `use=`.  Modified tests.
-* `distrib()`: Modified.  Modified plot so that continuous distributions touch x-axis.
+* `c.region()`,`d.region()`: Modified. Changed output of areas and probabilities so that very small numbers showed scientific notation.  This primarily affects `distrib()`.
+* `distrib()`: Modified.  Modified plot so that continuous distributions touch x-axis.  Also see note for `c.region()` and `d.region()`.
 
 # 0.4.4 Feb16
 * Added Travis-CI support.

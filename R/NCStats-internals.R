@@ -80,7 +80,8 @@ c.region <- function(xval,x,fx,lower.tail,area,plot,show.ans,
     graphics::polygon(x.shade,y.shade,col=shade.col,border=shade.col)
     graphics::lines(x,fx)
     if(show.ans) graphics::mtext(paste("Value =",round(xval,3),"; Area =",
-                                       round(area,4)),line=0.2,col="red",cex=cex.ans)
+                                       formatC(area,digits=4)),
+                                 line=0.2,col="red",cex=cex.ans)
   }
   if (add) {
     if (show.lbl) graphics::axis(1,at=xval,labels=round(xval,3),
@@ -88,7 +89,8 @@ c.region <- function(xval,x,fx,lower.tail,area,plot,show.ans,
     graphics::polygon(x.shade,y.shade,col=shade.col,border=shade.col)
     graphics::lines(x,fx)
     if(show.ans) graphics::mtext(paste("Value =",round(xval,3),"; Area =",
-                                       round(area,4)),line=0.2,col="red",cex=cex.ans)
+                                       formatC(area,digits=4)),
+                                 line=0.2,col="red",cex=cex.ans)
   }
   invisible(list(x=x,fx=fx,x.shade=x.shade,y.shade=y.shade))
 }
@@ -136,7 +138,8 @@ d.region <- function(xval,x,fx,region,area,reverse,plot,show.ans,
   if (plot) {
     graphics::rect(xleft,ybottom,xright,ytop,col=shade.col)
     if(show.ans) graphics::mtext(paste("Value =",xval,"; Probability =",
-                                       round(area,4)),line=0.2,col="red",cex=cex.ans)  
+                                       formatC(area,digits=4)),
+                                 line=0.2,col="red",cex=cex.ans)  
   }
   invisible(list(xleft,xright,ybottom,ytop))
 }
