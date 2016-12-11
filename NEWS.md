@@ -1,4 +1,6 @@
 # 0.4.5 ongoing
+* Modified description file.
+* `.onAttach()`: Modified. Streamlined package startup message.
 * `ABDLakes`: Modified.  Fixed errors for when there were two or more `local.names`.
 * `chisqPostHoc()`: Modified.  Fixed bug when a pair had a column with all zeroes.  Added `verbose=`.  Fixed comparison names if the original matrix did not have row names.
 * `corr()`: Modified.  Modified to allow more than two variables.  Added `digits=` argument.  Added a message if missing values existed and they were handled with use of `use=`.  Modified tests.
