@@ -4,16 +4,18 @@
 \alias{srsdf}
 \title{Extract a simple random sample from a data.frame.}
 \usage{
-srsdf(df, n, replace = FALSE, vars = NULL)
+srsdf(df, n, replace = FALSE, vars = NULL, removeRowNames = TRUE)
 }
 \arguments{
 \item{df}{The data frame to be sampled from.}
 
 \item{n}{Number of individuals (i.e., rows) to sample.}
 
-\item{replace}{A logical indicating whether sampling with replacement should be used or not (default).}
+\item{replace}{A logical that indicates whether sampling with replacement should be used or not (default).}
 
-\item{vars}{A vector of strings indicating which variables to include in the returned data.frame.}
+\item{vars}{A vector of strings that indicates which variables to include in the returned data.frame.}
+
+\item{removeRowNames}{A logical that indicates whether the rownames should be removed from the resultant data.frame.}
 }
 \value{
 Returns a data.frame of rows sampled from \code{df}.  Optionally, only includes the columns listed in \code{vars}.

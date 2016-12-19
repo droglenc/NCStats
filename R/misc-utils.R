@@ -324,8 +324,9 @@ mrnorm <- function(n,mean,sd,exact=TRUE,grp.labels=LETTERS[1:length(n)],
 #' 
 #' @param df The data frame to be sampled from.
 #' @param n Number of individuals (i.e., rows) to sample.
-#' @param replace A logical indicating whether sampling with replacement should be used or not (default).
-#' @param vars A vector of strings indicating which variables to include in the returned data.frame.
+#' @param replace A logical that indicates whether sampling with replacement should be used or not (default).
+#' @param vars A vector of strings that indicates which variables to include in the returned data.frame.
+#' @param removeRowNames A logical that indicates whether the rownames should be removed from the resultant data.frame.
 #' 
 #' @return Returns a data.frame of rows sampled from \code{df}.  Optionally, only includes the columns listed in \code{vars}.
 #' 
@@ -346,14 +347,16 @@ mrnorm <- function(n,mean,sd,exact=TRUE,grp.labels=LETTERS[1:length(n)],
 #' ( res3 <- srsdf(ABDLakes,50,replace=TRUE,vars=c("name","area")) )
 #' 
 #' @export
-srsdf <- function(df,n,replace=FALSE,vars=NULL) {
+srsdf <- function(df,n,replace=FALSE,vars=NULL,removeRowNames=TRUE) {
   rows <- sample(1:nrow(df),n,replace=replace)
-  if (is.null(vars)) df[rows,]
+  if (is.null(vars)) res <- df[rows,]
   else {
     lnames <- vars %in% names(df)
-    if (all(lnames)) df[rows,vars]
+    if (all(lnames)) res <- df[rows,vars]
     else stop(paste(paste(vars[lnames],collapse=", "),"is (are) not name(s) found in the data frame."),call.=FALSE)
   }
+  if (removeRowNames) rownames(res) <- NULL
+  res
 }
 
 
