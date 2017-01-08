@@ -141,7 +141,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         area <- val
       }
       if (plot) {
-        x <- seq(0,stats::qchisq(0.999,df=df),length.out=smoothness)
+        x <- seq(0.01,stats::qchisq(0.999,df=df),length.out=smoothness)
         if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- stats::dchisq(x,df=df)
       }
