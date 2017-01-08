@@ -1,15 +1,11 @@
 NCStats To Do
 
 typeoflm and compIntercepts
--- Bug in the fact that compIntercepts will say there is an interaction if the model has only the covariate and the factor.  When this is fixed thanks Mario Hasler <hasler@email.uni-kiel.de>.
 -- Modify typeoflm so that it returns much more information -- number of factors, number of covariates, whether there are interactions, etc.  Hopefully these changes will make it easier to identify what type of linear model is under consideration and to code things in compSlopes and compIntercepts.
-
 
 diagPlot
 -- need to fix to allow use of multiple significant studentized residuals that are not given by outlierTest
 -- need to put comments in code
 
-
 fitPlot
--- get logistic regression plot in here
 -- allow offset or jittering command in two-way ANOVA (so CIs don't overlap) -- I sent this to author.
