@@ -5,7 +5,7 @@
 * `chisqPostHoc()`: Modified.  Fixed bug when a pair had a column with all zeroes.  Added `verbose=`.  Fixed comparison names if the original matrix did not have row names.
 * `corr()`: Modified.  Modified to allow more than two variables.  Added `digits=` argument.  Added a message if missing values existed and they were handled with use of `use=`.  Modified tests.
 * `c.region()`,`d.region()`: Modified. Changed output of areas and probabilities so that very small numbers showed scientific notation.  This primarily affects `distrib()`.
-* `distrib()`: Modified.  Modified plot so that continuous distributions touch x-axis.  Also see note for `c.region()` and `d.region()`. Added check for `lower.tail=` not being a logical (addresses [#1](https://github.com/droglenc/NCStats/issues/1)).
+* `distrib()`: Modified.  Fixed bug when `distrib="chisq"` and `plot=TRUE` (related to choosing a chi-square value of 0 for making the plot). Modified plot so that continuous distributions touch x-axis.  Also see note for `c.region()` and `d.region()`. Added check for `lower.tail=` not being a logical (addresses [#1](https://github.com/droglenc/NCStats/issues/1)).
 * `srsdf()`: Modified. Added `removeRowNames=` argument and defaulted to `TRUE` so that resultant data.frame does not retain original rownames.
 
 # 0.4.4 Feb16
