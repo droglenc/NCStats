@@ -1,4 +1,6 @@
-# 0.4.5 ongoing
+# 0.4.6 ongoing
+
+# 0.4.5 8-Jan-17
 * Modified description file.
 * `.onAttach()`: Modified. Streamlined package startup message.
 * `ABDLakes`: Modified.  Fixed errors for when there were two or more `local.names`.
