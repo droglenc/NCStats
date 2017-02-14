@@ -1,4 +1,6 @@
 # 0.4.6 ongoing
+* `distrib()`: Modified. Fixed bug when `distrib="f"` and `plot=TRUE`. Basically problem was that for some distributions x was set to zero and the density returned was infinity, which led to a `ylim=` bug. Now started x at 0.001.
+* `percTable()`: Modified. Changed `addMargins=` default so that margins are NOT added for 1-D tables. Also changed `digits=` default to `.
 
 # 0.4.5 8-Jan-17
 * Modified description file.

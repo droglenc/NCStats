@@ -160,7 +160,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
         area <- val
       }
       if (plot) {
-        x <- seq(0,stats::qf(0.994,df1=df1,df2=df2),length.out=smoothness)
+        x <- seq(0.001,stats::qf(0.994,df1=df1,df2=df2),length.out=smoothness)
         if (!xval %in% x) x <- sort(c(xval,x))   # needed in case xval == one of x
         fx <- stats::df(x,df1=df1,df2=df2)
       }

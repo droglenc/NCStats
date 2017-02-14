@@ -4,8 +4,7 @@
 \alias{percTable}
 \title{Express table entries as percentage of marginal table.}
 \usage{
-percTable(x, margin = NULL, digits = getOption("digits"),
-  addMargins = TRUE)
+percTable(x, margin = NULL, digits = 1, addMargins = !is.na(ncol(x)))
 }
 \arguments{
 \item{x}{A frequency table likely constructed with \code{\link{table}} or \code{\link{xtabs}}.}
@@ -23,24 +22,25 @@ Same type as \code{x} except with percentages of a margin rather than frequencie
 Same as \code{\link{prop.table}} except that it returns percentages rather than proportions.
 }
 \examples{
-Aye <- sample(c("Yes", "Si", "Oui"), 177, replace = TRUE)
-Bee <- sample(c("Hum", "Buzz"), 177, replace = TRUE)
-( A <- table(Aye, Bee) )
+d <- data.frame(Aye=sample(c("Yes","Si","Oui"),177,replace=TRUE),
+                Bee=sample(c("Hum","Buzz"),177,replace=TRUE))
 
-## what prop.table() would look like
-prop.table(A,margin=1)
+## 1-D
+( A1 <- table(d$Aye) )
+prop.table(A1)
+percTable(A1)
+percTable(A1,digits=3)
+percTable(A1,addMargins=TRUE)
+( A2 <- xtabs(~Aye,data=d) )
+percTable(A2)
 
-## modified for percTable
-# row percentages
-percTable(A,margin=1)
-percTable(A,margin=1,digits=1)
-# column percentages
-percTable(A,margin=2)
-# table percentages
-percTable(A)
-
-## No marginal totals
-percTable(A,addMargins=FALSE)
+## 2-D
+( AB1 <- table(d$Aye,d$Bee) )
+percTable(AB1,margin=1)
+percTable(AB1,margin=2)
+percTable(AB1)
+percTable(AB1,digits=3)
+percTable(AB1,addMargins=FALSE)
 
 }
 \keyword{manip}
