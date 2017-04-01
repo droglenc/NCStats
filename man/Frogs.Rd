@@ -22,4 +22,3 @@ require(MASS)
 round(mvrnorm(n=1000,c(120,225),matrix(c(25,18,18,35),2,2),empirical=TRUE),0)
 }
 \keyword{datasets}
-

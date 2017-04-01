@@ -56,4 +56,3 @@ chisqPostHoc(chi1)
 \code{\link[stats]{chisq.test}} and \code{\link[stats]{p.adjust}}.
 }
 \keyword{htest}
-

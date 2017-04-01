@@ -80,7 +80,7 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns
     x <- rep(1:length(levels(mdl$mf[,ord[1]])),each=length(levels(mdl$mf[,ord[2]])))
     if (is.ordered(mdl$mf[,ord[1]])) x <- levels(mdl$mf[,ord[1]])[x]
   }
-  if (class(lets) == "cld") lets <- lets$mcletters$Letters
+  if (inherits(lets,"cld")) lets <- lets$mcletters$Letters
   if (length(lets) != length(mns)) stop("Length of lets vector is incorrect.",call.=FALSE)
   if (length(pos) == 1) pos <- rep(pos,length(mns))
     else if (length(pos) != length(mns)) stop("Length of pos vector is incorrect.",call.=FALSE)
@@ -464,7 +464,7 @@ glhtSig.glht <- function(object,type=c("single-step","Shaffer","Westfall","free"
 gofCI <- function(chi,conf.level=0.95,
                   type=c("wilson","exact","asymptotic","goodman"),
                   digits=getOption("digits")) {
-  if (class(chi)!="htest") stop("'chi' argument must be the result of chisq.test()",call.=FALSE)
+  if (!inherits(chi,"htest")) stop("'chi' argument must be the result of chisq.test()",call.=FALSE)
   if (chi$method != "Chi-squared test for given probabilities") {
     stop("'chi' argument must be the result of a goodness-of-fit test using chisq.test()",call.=FALSE) 
   }
@@ -703,7 +703,7 @@ predictionPlot <- function(mdl,newdata,interval="prediction",conf.level=0.95,
 #' 
 #' @export
 rSquared <- function(x,digits=getOption("digits"),percent=FALSE) {
-  if (class(x)!="lm") stop(paste("'rSquared' only works if 'x' is an 'lm' object.\n Your 'x' is of the",class(x),"class"),call.=FALSE)
+  if (!inherits(x,"lm")) stop(paste("'rSquared' only works if 'x' is an 'lm' object.\n Your 'x' is of the",class(x),"class"),call.=FALSE)
   r2 <- summary(x)$r.squared
   ifelse(percent,round(r2*100,digits),round(r2,digits))
 }

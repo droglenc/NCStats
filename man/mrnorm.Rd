@@ -53,4 +53,3 @@ Summarize(Y~X,data=rand.data1)
 \code{\link[stats]{rnorm}}.
 }
 \keyword{distribution}
-

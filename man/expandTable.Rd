@@ -46,4 +46,3 @@ with(rawf,table(RowVar,ColVar))
 \code{as.data.frame.table}, \code{type.convert}, and \code{expandTable} in \pkg{epitools}.
 }
 \keyword{manip}
-

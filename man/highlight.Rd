@@ -4,6 +4,8 @@
 \alias{highlight}
 \alias{highlight.default}
 \alias{highlight.formula}
+\alias{highlight.default}
+\alias{highlight.formula}
 \title{Labels a list of points on a two-dimensional plot.}
 \usage{
 highlight(x, ...)
@@ -16,6 +18,8 @@ highlight(x, ...)
 }
 \arguments{
 \item{x}{The vector of x coordinates or a formula of the form \code{y~x}.}
+
+\item{\dots}{Other arguments to be passed to \code{text()}.}
 
 \item{y}{The vector of y coordinates.}
 
@@ -30,8 +34,6 @@ highlight(x, ...)
 \item{pos}{A numeric indicating where to place the labels (see \code{text}.  If left as \code{NULL} then the labels will be placed to minimize label overlap as determined with \code{thigmophobe()} from \pkg{plotrix}.}
 
 \item{data}{The data frame from which the formula should be evaluated.}
-
-\item{\dots}{Other arguments to be passed to \code{text()}.}
 }
 \value{
 None, but an active graphic is modified.
@@ -63,4 +65,3 @@ highlight(y~x,data=df)
 
 }
 \keyword{hplot}
-

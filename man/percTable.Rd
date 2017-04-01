@@ -44,4 +44,3 @@ percTable(AB1,addMargins=FALSE)
 
 }
 \keyword{manip}
-

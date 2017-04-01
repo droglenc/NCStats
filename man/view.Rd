@@ -40,4 +40,3 @@ view(miris,10,which=2:4)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \keyword{manip}
-

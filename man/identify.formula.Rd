@@ -37,4 +37,3 @@ identify(y~x,data=df)
 \code{identify}
 }
 \keyword{hplot}
-

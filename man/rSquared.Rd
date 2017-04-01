@@ -34,4 +34,3 @@ rSquared(lm1,digits=1,percent=TRUE)
 
 }
 \keyword{misc}
-

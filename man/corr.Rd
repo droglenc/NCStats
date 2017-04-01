@@ -17,6 +17,8 @@ corr(x, ...)
 \arguments{
 \item{x}{A numeric vector, matrix, or data.frame (see details in \code{\link[stats]{cor}}) or a formula (see details here)}
 
+\item{\dots}{Unused.}
+
 \item{y}{A numeric vector, matrix, or data.frame (see details in \code{\link[stats]{cor}})}
 
 \item{use}{An optional character string that defines a method for computing the correlation in the presence of missing values. This must be one of \code{"everything"}, \code{"all.obs"}, \code{"complete.obs"}, \code{"na.or.complete"}, or \code{"pairwise.complete.obs"}}
@@ -26,8 +28,6 @@ corr(x, ...)
 \item{digits}{A single numeric that indicates the number of decimals to which the result should be rounded.}
 
 \item{data}{An optional data frame that contains the variables in the formula.}
-
-\item{\dots}{Unused.}
 }
 \value{
 A single numeric if \code{x} and \code{y} are vectors or a numeric matrix if \code{x} and \code{y} are matrices.
@@ -64,11 +64,10 @@ corr(~w+z,data=df,use="complete.obs")
 corr(~w+z,data=df,use="pairwise.complete.obs")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}, but this is largely a wrapper to \code{\link[stats]{cor}} from \pkg{stats} that includes a formula version.
-}
 \seealso{
 See \code{\link[stats]{cor}}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}, but this is largely a wrapper to \code{\link[stats]{cor}} from \pkg{stats} that includes a formula version.
+}
 \keyword{htest}
-

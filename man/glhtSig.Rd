@@ -3,6 +3,7 @@
 \name{glhtSig}
 \alias{glhtSig}
 \alias{glhtSig.glht}
+\alias{glhtSig.glht}
 \title{Extracts names for significantly different comparisons.}
 \usage{
 glhtSig(object, ...)
@@ -13,11 +14,11 @@ glhtSig(object, ...)
 \arguments{
 \item{object}{An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.}
 
+\item{\dots}{Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.}
+
 \item{type}{A function for computing p-values (see \code{\link[multcomp]{glht}}).}
 
 \item{alpha}{A numeric indicated the rejection criterion to be used for identifying significant comparisons.  Defaults to \code{0.05}.}
-
-\item{\dots}{Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.}
 }
 \value{
 A vector containing the names of the paired comparisons that have a p-value less than \code{alpha}.
@@ -36,4 +37,3 @@ This can be very slow to process.  Be patient.
 \code{\link[multcomp]{glht}} and \code{\link[multcomp]{summary.glht}} in \pkg{multcomp}.
 }
 \keyword{misc}
-

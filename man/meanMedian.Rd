@@ -38,4 +38,3 @@ meanMedian(c(1:7,25))
 
 }
 \keyword{dynamic}
-

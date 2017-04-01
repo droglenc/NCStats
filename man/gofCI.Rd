@@ -92,4 +92,3 @@ Wang, H.  2008.  Exact confidence coefficients of simultaneous confidence interv
 \code{\link[FSA]{binCI}} in \pkg{FSA}.
 }
 \keyword{htest}
-

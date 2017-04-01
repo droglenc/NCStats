@@ -75,4 +75,3 @@ plot(chi3.ex)
 }
 \keyword{distribution}
 \keyword{hplot}
-

@@ -14,6 +14,18 @@
 \alias{snorm}
 \alias{spois}
 \alias{st}
+\alias{schisq}
+\alias{sexp}
+\alias{sf}
+\alias{sgamma}
+\alias{slnorm}
+\alias{snorm}
+\alias{st}
+\alias{sbinom}
+\alias{sgeom}
+\alias{shyper}
+\alias{snbinom}
+\alias{spois}
 \title{Demonstrates the shape of the PDF and CDF for the given distribution.}
 \usage{
 sbeta()
@@ -75,4 +87,3 @@ st()
 \keyword{distribution}
 \keyword{dynamic}
 \keyword{hplot}
-

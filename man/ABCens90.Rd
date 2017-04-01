@@ -17,4 +17,3 @@ Online information from the 1990 census.
 Sex, race, and age of residents in Ashland and Bayfield, Wisconsin, in 1990.
 }
 \keyword{datasets}
-

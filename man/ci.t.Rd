@@ -30,4 +30,3 @@ ci.t(2.96,0.32,14)
 \code{\link[FSA]{confint.nlsBoot}} in \pkg{FSA}.
 }
 \keyword{htest}
-

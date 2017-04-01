@@ -40,4 +40,3 @@ data(ABDLakes)
 \code{\link{sample}}.
 }
 \keyword{manip}
-

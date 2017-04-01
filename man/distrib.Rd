@@ -122,4 +122,3 @@ The \code{type=} and \code{distrib=} arguments can be concatenated to provide th
 }
 \keyword{distribution}
 \keyword{hplot}
-

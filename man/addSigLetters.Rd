@@ -86,4 +86,3 @@ par(op)
 \code{\link[FSA]{fitPlot}}.
 }
 \keyword{hplot}
-

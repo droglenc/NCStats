@@ -35,4 +35,3 @@ ciSim(method="t")
 }
 \keyword{dynamic}
 \keyword{misc}
-

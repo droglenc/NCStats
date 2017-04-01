@@ -31,4 +31,3 @@ adTest(runif(100,min=2,max=4))
 
 }
 \keyword{htest}
-

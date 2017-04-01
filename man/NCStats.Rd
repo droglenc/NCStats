@@ -13,4 +13,3 @@ This package contains functions and simulations to support the Introductory Stat
 
 Some of the functions in this package are simple modifications of functions from other packages.  I have attempted to give the authors of these other packages appropriate credit while still documenting my modifications.
 }
-

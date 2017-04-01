@@ -22,4 +22,3 @@ This is a simple pass-through to  \code{\link[car]{leveneTest}} in \pkg{car} for
 \code{\link[car]{leveneTest}} in \pkg{car}.
 }
 \keyword{misc}
-

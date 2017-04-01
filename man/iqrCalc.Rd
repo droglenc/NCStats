@@ -3,6 +3,7 @@
 \name{iqrCalc}
 \alias{iqrCalc}
 \alias{print.iqrCalc}
+\alias{print.iqrCalc}
 \title{Shows the steps in the manual calculation of the median and IQR.}
 \usage{
 iqrCalc(x, mdnInBoth = FALSE)
@@ -47,4 +48,3 @@ iqrCalc(sample.int(99,14,replace=TRUE))
 \code{\link{sdCalc}}
 }
 \keyword{misc}
-

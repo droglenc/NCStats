@@ -44,4 +44,3 @@ online information from Wisconsin Department of Natural Resources.
 Various data for lakes in Ashland, Bayfield, and Douglas counties, Wisconsin.
 }
 \keyword{datasets}
-

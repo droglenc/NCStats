@@ -37,4 +37,3 @@ powerSim(lower.tail=FALSE)
 
 }
 \keyword{dynamic}
-

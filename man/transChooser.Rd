@@ -73,4 +73,3 @@ transChooser(lm4)
 \keyword{dynamic}
 \keyword{hplot}
 \keyword{models}
-

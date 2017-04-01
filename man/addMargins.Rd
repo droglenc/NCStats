@@ -57,4 +57,3 @@ addMargins(A2.tbl)
 }
 \keyword{array}
 \keyword{manip}
-

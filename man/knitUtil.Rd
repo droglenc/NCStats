@@ -3,8 +3,11 @@
 \name{kANOVA}
 \alias{kANOVA}
 \alias{kGLHT}
-\alias{kHtest}
 \alias{kREG}
+\alias{kHtest}
+\alias{kGLHT}
+\alias{kREG}
+\alias{kHtest}
 \title{Specific utilities for use in a knitr document.}
 \usage{
 kANOVA(x)
@@ -49,13 +52,12 @@ Specific utilities for pretty printing various items in a knitr document.
 # None yet
 
 }
-\author{
-Derek H. Ogle, \email{dogle@northland.edu}
-}
 \seealso{
 See \code{\link[multcomp]{glht}} in \pkg{multcomp} for related functionality.
+}
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
 }
 \keyword{hplot}
 \keyword{manip}
 \keyword{models}
-

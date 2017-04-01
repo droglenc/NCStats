@@ -22,4 +22,3 @@ This is a simple pass-through to  \code{\link[car]{outlierTest}} in \pkg{car}.
 \code{\link[car]{outlierTest}} in \pkg{car}.
 }
 \keyword{misc}
-

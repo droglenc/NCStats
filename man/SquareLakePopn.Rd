@@ -23,4 +23,3 @@ head(SquareLakePopn)
 
 }
 \keyword{datasets}
-
