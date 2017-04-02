@@ -63,6 +63,10 @@ transChooser(lm3)
 ## example with IVR
 lm4 <- lm(mirex~weight*year,data=Mirex)
 transChooser(lm4)
+
+## example with IVR (explanatory variables reversed)
+lm4 <- lm(mirex~year*weight,data=Mirex)
+transChooser(lm4)
 }
 }
 

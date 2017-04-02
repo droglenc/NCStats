@@ -49,6 +49,10 @@
 #' ## example with IVR
 #' lm4 <- lm(mirex~weight*year,data=Mirex)
 #' transChooser(lm4)
+#' 
+#' ## example with IVR (explanatory variables reversed)
+#' lm4 <- lm(mirex~year*weight,data=Mirex)
+#' transChooser(lm4)
 #' }
 #' }
 #' 
@@ -64,11 +68,13 @@ transChooser <- function(object,shifty=0,shiftx=0,show.stats=FALSE,
   ## See if RStudio can be used
   if (iCheckRStudio()) {
     if (iChk4Namespace("manipulate")) {
-      if (object$type %in% c("SLR","IVR")) iTC_REGRESS1(object,shifty,shiftx,show.stats,alpha,col.hist)
+      if (object$type %in% c("SLR","IVR")) iTC_REGRESS1(object,shifty,shiftx,
+                                                        show.stats,alpha,col.hist)
       else iTC_ANOVA1(object,shifty,show.stats,boxplot,alpha,col.hist)
     }
   } else {  # use relax and Tcl/Tk
-    if (object$type %in% c("SLR","IVR")) iTC_REGRESS2(object,shifty,shiftx,show.stats,alpha,col.hist)
+    if (object$type %in% c("SLR","IVR")) iTC_REGRESS2(object,shifty,shiftx,
+                                                      show.stats,alpha,col.hist)
     else iTC_ANOVA2(object,shifty,show.stats,boxplot,alpha,col.hist)
   }
 }
@@ -141,30 +147,30 @@ iTC_ANOVA2 <- function(object,shifty,show.stats,boxplot,alpha,col.hist) {
 iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
                                show.stats,alpha,col.hist) {
   if (lambday == 0) {
-    y <- log(object$mf[,1]+shifty)
+    y <- log(object$mf[,object$Rpos]+shifty)
     ylbl <- "log(Y)"
   } else if (lambday == 1) {
-    y <- object$mf[,1]+shifty
+    y <- object$mf[,object$Rpos]+shifty
     ylbl <- "Original Y"
   } else { 
-    y <- (object$mf[,1]+shifty)^lambday
+    y <- (object$mf[,object$Rpos]+shifty)^lambday
     ylbl <- paste0("Y^(",formatC(lambday,format="f",digits=2),")")
   }
   if (lambdax == 0) {
-    x <- log(object$mf[,2]+shiftx)
+    x <- log(object$mf[,object$ENumPos]+shiftx)
     xlbl <- "log(X)"
   } else if (lambdax == 1) {
-    x <- object$mf[,2]+shiftx
+    x <- object$mf[,object$ENumPos]+shiftx
     xlbl <- "Original X"
   } else { 
-    x <- (object$mf[,2]+shiftx)^lambdax
+    x <- (object$mf[,object$ENumPos]+shiftx)^lambdax
     xlbl <- paste0("X^(",formatC(lambdax,format="f",digits=2),")") 
   }
   ## Handle differences between SLR and IVR, and adjust if it
   ##   is one- or two way IVR)
   if (object$type=="SLR") lm1 <- stats::lm(y~x)
-    else if (object$Enum==2) lm1 <- stats::lm(y~x*object$mf[,3])
-      else if (object$Enum==3) lm1 <- stats::lm(y~x*object$mf[,3]*object$mf[,4])
+    else if (object$Enum==2) lm1 <- stats::lm(y~x*object$mf[,object$EFactPos[1]])
+      else if (object$Enum==3) lm1 <- stats::lm(y~x*object$mf[,object$EFactPos[1]]*object$mf[,object$EFactPos[2]])
         else stop("Only works with IVR models with 1 or 2 factors.",call.=FALSE)
   old.par <- graphics::par(mar=c(3.5,3.5,3,1),mgp=c(2,0.5,0),mfcol=c(1,2))
   graphics::hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),
@@ -172,10 +178,12 @@ iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
   if (show.stats) iLblADTest(lm1,alpha,line=0.5)
   if (object$type=="SLR") {
     FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
-                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE)
+                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,
+                   col=FSA::col2rgbt("black",2/3))
   } else {
     FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
-                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,legend=FALSE)
+                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,
+                   col=FSA::col2rgbt("black",2/3),legend=FALSE)
   }
   if (show.stats) iLblOutlierTest(lm1,alpha,line=0.5)
   on.exit(graphics::par(old.par))
@@ -184,17 +192,18 @@ iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
 iAssumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.hist) {
   lambda <- round(lambda,2)
   if (lambda == 0) { 
-    y <- log(object$mf[,1]+shifty)
+    y <- log(object$mf[,object$Rpos]+shifty)
     lbl <- "Residuals from log(Y)"
   } else if (lambda == 1) {
-    y <- object$mf[,1]+shifty
+    y <- object$mf[,object$Rpos]+shifty
     lbl <- "Residuals from Original Y"
   } else {
-    y <- (object$mf[,1]+shifty)^lambda
+    y <- (object$mf[,object$Rpos]+shifty)^lambda
     lbl <- paste0("Residuals from Y^(",formatC(lambda,format="f",digits=2),")") 
   }
   # below controls for whether it is a one-way or two-way ANOVA
-  ifelse(inherits(object,"ONEWAY"), gf <- object$mf[,2], gf <- object$mf[,2]:object$mf[,3])
+  ifelse(inherits(object,"ONEWAY"), gf <- object$mf[,object$EFactPos[1]],
+         gf <- object$mf[,object$EFactPos[1]]:object$mf[,object$EFactPos[2]])
   lm1 <- stats::lm(y~gf)
   old.par <- graphics::par(mar=c(3.5,3.5,2,1), mgp=c(2,0.75,0), mfcol=c(1,2))
   on.exit(graphics::par(old.par))
@@ -203,7 +212,8 @@ iAssumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.h
     iLblADTest(lm1,alpha)
     iLblOutlierTest(lm1,alpha)
   }
-  FSA::residPlot(lm1,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,inclHist=FALSE)
+  FSA::residPlot(lm1,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,
+                 inclHist=FALSE,col=FSA::col2rgbt("black",2/3))
   if (show.stats) iLblLevenesTest(lm1,alpha)
 } ## end internal iAssumPlot_ANOVA
 

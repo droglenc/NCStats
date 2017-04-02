@@ -4,7 +4,7 @@
 * `gofCI()`: Modified. Changed a `if()` with `class()` to `inherits()`.
 * `percTable()`: Modified. Changed `addMargins=` default so that margins are NOT added for 1-D tables. Also changed `digits=` default to 1.
 * `rSquared()`: Modified. Changed a `if()` with `class()` to `inherits()`.
-* `transChooser()`: Modified. Changed a `if()` with `class()` to `inherits()`.
+* `transChooser()`: Modified. Changed a `if()` with `class()` to `inherits()`. Removed hard-coded variable positions and used positions returned from `iTypeoflm()`, which fixed a bug in IVRs where the factor variable was in the model first. Changed default colors for residual plots.
 
 # 0.4.5 8-Jan-17
 * Modified description file.
