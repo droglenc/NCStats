@@ -414,7 +414,8 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
 #' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
 #' 
 #' @param x An optional numeric vector (of actual data) to be used in the visual.
-#' @param outlier A string that indicates whether the outlier should be modeled at the maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).  This is ignored if \code{x} is not \code{NULL}.
+#' @param breaks See description for \code{\link[graphics]{hist}}.
+#' @param outlier A string that indicates whether the outlier should be modeled at the maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).  This is ignored if \code{x} is not \code{NULL} or if this function is run in RStudio.
 #' 
 #' @return None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with sliders (if \code{x} is \code{null}) is produced.
 #' 
@@ -423,27 +424,23 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
 #' @examples
 #' \dontrun{
 #' ## Examples with simulated data
-#' ##   no outlier
 #' meanMedian()
-#' 
-#' ##   outlier at minimum
-#' meanMedian(outlier="min")
-#' 
-#' ##   no outlier
-#' meanMedian(outlier="max")
+#' meanMedian(breaks=20)
 #' }
 #' 
 #' ## Example with user-derived data
 #' meanMedian(c(1:7,25))
+#' meanMedian(c(1:7,25),breaks=3)
 #' 
 #' @export
-meanMedian <- function(x=NULL,outlier=c("none","max","min")) {
+meanMedian <- function(x=NULL,breaks=NULL,outlier=c("none","max","min")) {
   ## Trying to fix "no visible bindings" problem for Check
   n <- shape1 <- shape2 <- NULL
   if (!is.null(x)) {
     ## data was supplied
     if (!is.vector(x) | !is.numeric(x)) stop("'x' must be a numeric vector.",call.=FALSE)
-    iMMMakePlots(x)
+    if (is.null(breaks)) breaks <- "Sturges"
+    iMMMakePlots(x,breaks=breaks)
   } else {
     ## Need to make up data
     outlier <- match.arg(outlier)
@@ -454,7 +451,8 @@ meanMedian <- function(x=NULL,outlier=c("none","max","min")) {
           {
             if (rerand) set.seed(sample(1:10000))
             x <- iMMMakeData(n,shape1,shape2,outlier)
-            iMMMakePlots(x)
+            if (is.null(breaks)) breaks <- seq(0,1,0.1)
+            iMMMakePlots(x,breaks)
           },
           n=manipulate::slider(10,100,step=1,initial=30),
           shape1=manipulate::slider(1,10,step=1,label="Shape 1 (alpha)"),
@@ -468,7 +466,8 @@ meanMedian <- function(x=NULL,outlier=c("none","max","min")) {
       iMMBRefresh <- function(...) {
         # get random data
         x <- iMMMakeData(relax::slider(no=1),relax::slider(no=2),relax::slider(no=3))
-        iMMMakePlots(x)
+        if (is.null(breaks)) breaks <- seq(0,1,0.1)
+        iMMMakePlots(x,breaks)
       } # end iMMBRefresh
       if (iChk4Namespace("relax")) {
         relax::gslider(iMMBRefresh,prompt=TRUE,vscale=1.5,hscale=1.75,
@@ -506,7 +505,7 @@ iMMMakeData <- function(n,shape1,shape2,outlier) {
 }
 
 ## Internal function to do the plotting
-iMMMakePlots <- function(x) {
+iMMMakePlots <- function(x,breaks) {
   ## Prepare the data and some useful values
   x <- x[order(x)]
   mn.x <- mean(x)
@@ -517,11 +516,11 @@ iMMMakePlots <- function(x) {
   old.par <- graphics::par(mfcol=c(2,1))
   # Make the histogram on top
   graphics::par(mar=c(0.05,3.5,2,1),mgp=c(2,0.5,0),tcl=-0.2,xaxt="n")
-  graphics::hist(x,main="",col="gray90",right=FALSE)
+  graphics::hist(x,main="",col="gray90",right=FALSE,breaks=breaks)
   graphics::abline(h=0)
   graphics::abline(v=c(mn.x,mdn.x),col=c("red","blue"),lwd=2)
-  mdn.ttl <- paste("Median =",formatC(mdn.x,format="f",digits=2),ifelse(mdn.x>mn.x," *",""))
-  mn.ttl <- paste("Mean =",formatC(mn.x,format="f",digits=2),ifelse(mn.x>mdn.x," *",""))
+  mdn.ttl <- paste("Median =",formatC(mdn.x,format="f",digits=3),ifelse(mdn.x>mn.x," *",""))
+  mn.ttl <- paste("Mean =",formatC(mn.x,format="f",digits=3),ifelse(mn.x>mdn.x," *",""))
   graphics::mtext(c(mdn.ttl,mn.ttl),line=c(1,0),col=c("blue","red"))
   # Scatterlot on the bottom
   graphics::par(mar=c(3.5,3.5,0.05,1),mgp=c(2,0.5,0),tcl=-0.2,xaxt="s")

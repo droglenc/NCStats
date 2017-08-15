@@ -2,6 +2,7 @@
 * `addSigLetters()`: Modified. Changed a `if()` with `class()` to `inherits()`.
 * `distrib()`: Modified. Fixed bug when `distrib="f"` and `plot=TRUE`. Basic problem was that for some distributions x was set to zero and the density returned was infinity, which led to a `ylim=` bug. Now started x at 0.001.
 * `gofCI()`: Modified. Changed a `if()` with `class()` to `inherits()`.
+* `meanMedian()`: Modified. Added `breaks=`, which defaults to `seq(0,1,0.1)`. Increased number of decimals in printed mean and median results.
 * `percTable()`: Modified. Changed `addMargins=` default so that margins are NOT added for 1-D tables. Also changed `digits=` default to 1.
 * `rSquared()`: Modified. Changed a `if()` with `class()` to `inherits()`.
 * `transChooser()`: Modified. Changed a `if()` with `class()` to `inherits()`. Removed hard-coded variable positions and used positions returned from `iTypeoflm()`, which fixed a bug in IVRs where the factor variable was in the model first. Changed default colors for residual plots.
