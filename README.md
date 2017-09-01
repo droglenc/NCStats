@@ -6,15 +6,15 @@ NCStats
 
 
 ## Introduction
-The **NCStats** package contains helper functions for statistics courses taught by [Dr. Derek H. Ogle](http://derekogle.com) at [Northland College](http://www.northland.edu). You can [browse help pages here](http://rforge.net/doc/packages/NCStats/00Index.html). Recent changes to the package are described [here](https://github.com/droglenc/NCStats/blob/master/NEWS.md).
+The **NCStats** package contains helper functions for statistics courses taught by [Dr. Derek H. Ogle](http://derekogle.com) at [Northland College](http://www.northland.edu). Recent changes to the package are described [here](https://github.com/droglenc/NCStats/blob/master/NEWS.md).
 
 
 ## Installation
 The latest **NCStats** may be installed by running these lines in R/RStudio:
 
 ```r
-if (!require('devtools')) install.packages('devtools'); require('devtools')
-devtools::install_github(c('droglenc/FSA','droglenc/FSAdata','droglenc/NCStats'))
+if (!require('devtools')) install.packages('devtools')
+devtools::install_github('droglenc/NCStats')
 ```
 
 This installation may fail if other packages do not install properly (primarily the **Rcpp** and **curl** packages). These failures may be ameliorated by manually installing packages responsible for the errors (see [these directions](http://derekogle.com/IFAR/supplements/installations/InstallPackagesRStudio.html)).
