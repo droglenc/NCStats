@@ -1,3 +1,5 @@
+# 0.4.7 ongoing
+
 # 0.4.6 1-Sep-17
 * Added `InstallTester.R` to `inst` directory. In theory, this should run without error and provides a way to test that the installation was completed properly.
 * `addSigLetters()`: Modified. Changed a `if()` with `class()` to `inherits()`. Put `\dontrun{}`s in documentation related to `multcomp` to remove CRAN warning.
