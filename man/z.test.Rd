@@ -23,14 +23,13 @@ An object of class \code{htest} containing the results
 Compute the test of hypothesis and compute confidence interval on the mean of a population when the standard deviation of the population is known.
 }
 \details{
-Most introductory statistical texts introduce inference by using the Z test and Z based confidence intervals based on knowing the population standard deviation.  Most statistical packages do not include functions to do Z tests because the T test is usually more appropriate for real world situations.  This function is meant to be used during that short period of learning when the student is learning about inference using Z procedures, but has not learned the T based procedures yet.  Once the student has learned about the T distribution the \code{\link[stats]{t.test}} function should be used instead of this one (but the syntax is very similar, so this function should be an appropriate introductory step to learning \code{\link[stats]{t.test}}).
+Most introductory statistical texts introduce inference by using the Z test and Z based confidence intervals based on knowing the population standard deviation. Most statistical packages do not include functions to do Z tests because the T test is usually more appropriate for real world situations. This function is meant to be used during that short period of learning when the student is learning about inference using Z procedures, but has not learned the T based procedures yet. Once the student has learned about the T distribution the \code{\link[stats]{t.test}} function should be used instead of this one (but the syntax is very similar, so this function should be an appropriate introductory step to learning \code{\link[stats]{t.test}}).
 }
 \note{
 This function should be used for learning only, real data should generally use \code{\link[stats]{t.test}}.
 }
 \examples{
-x <- rnorm(25, 100, 5)
-z.test(x, 99, 5)
+z.test(rnorm(25,100,5),99,5)
 
 }
 \seealso{

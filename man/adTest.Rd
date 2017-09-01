@@ -20,7 +20,7 @@ A list with class "htest" containing the following components:
 }
 }
 \description{
-Performs the Anderson-Darling test for the composite hypothesis of normality.  This is simply a camel-case wrapper to the \code{\link[nortest]{ad.test}} in \pkg{nortest}.
+Performs the Anderson-Darling test for the composite hypothesis of normality. This is simply a camel-case wrapper to the \code{\link[nortest]{ad.test}} in \pkg{nortest}.
 }
 \note{
 This is exactly the same as \code{\link[nortest]{ad.test}} in \pkg{nortest} package except that it uses \sQuote{camel-case} naming conventions.

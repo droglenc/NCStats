@@ -23,11 +23,11 @@ A kx4 matrix, where k is the number of levels of the categorical variable, conta
 Pseudo- confidence intervals for the proportions found in the multinomial levels of a goodness-of-fit test computed using \code{\link[stats]{chisq.test}}.
 }
 \details{
-Computes confidence intervals for the proportion of the total in each level found in \code{$observed} of the \code{chi} object.  The confidence intervals are computed by treating each level as if it is the \dQuote{success} in a binomial confidence interval calculation (using \code{\link[FSA]{binCI}} from \pkg{FSA}).  One of three methods for computing each confidence interval can be used and is declared in the \code{type=} argument.  The three methods are described in detail for \code{\link[FSA]{binCI}}.
+Computes confidence intervals for the proportion of the total in each level found in \code{$observed} of the \code{chi} object. The confidence intervals are computed by treating each level as if it is the \dQuote{success} in a binomial confidence interval calculation (using \code{\link[FSA]{binCI}} from \pkg{FSA}). One of three methods for computing each confidence interval can be used and is declared in the \code{type=} argument. The three methods are described in detail for \code{\link[FSA]{binCI}}.
 
-It should be noted that this is NOT the ideal method for computing confidence intervals for multinomial probabilities.  This area appears to receive a great deal of discussion, but two methoeds that appear to be generally accepted are due to Sison and Ganz (1995) when the number of cells (k) is \dQuote{large} (i.e., greater than 10) and Goodman (1965) when k is small (see May and Johnson 2000).  I have been unable to locate R code for the method of Sison and Ganz (1995) in any existing package, nor could I convert the SAS code provided by May and Johnson (2000) to R code.  As of July, 2011 there were at least two queries on R-help for the Sison and Ganz (1995) code with no replies.
+It should be noted that this is NOT the ideal method for computing confidence intervals for multinomial probabilities. This area appears to receive a great deal of discussion, but two methoeds that appear to be generally accepted are due to Sison and Ganz (1995) when the number of cells (k) is \dQuote{large} (i.e., greater than 10) and Goodman (1965) when k is small (see May and Johnson 2000). I have been unable to locate R code for the method of Sison and Ganz (1995) in any existing package, nor could I convert the SAS code provided by May and Johnson (2000) to R code. As of July, 2011 there were at least two queries on R-help for the Sison and Ganz (1995) code with no replies.
 
-This function was developed largely for use by my Introductory Statistics students in order to allow some post hoc discussion regarding significant results in goodness-of-fit tests.  This function was not developed for research-grade analyses.
+This function was developed largely for use by my Introductory Statistics students in order to allow some post hoc discussion regarding significant results in goodness-of-fit tests. This function was not developed for research-grade analyses.
 }
 \note{
 This function is the Goodman method modified from code provided by Paul Rabie (then at the University  of Minnesota).
@@ -78,15 +78,15 @@ rbind(p[1]+c(1,-1)*qnorm(0.025)*se.p,p[2]+c(1,-1)*qnorm(0.025)*se.p)
 
 }
 \references{
-Glaz, J. and C.P. Sison.  1999.  Simultaneous confidence intervals for multinomial proportions.  Journal of Statistical Planning and Inference 82:251-262.
+Glaz, J. and C.P. Sison. 1999. Simultaneous confidence intervals for multinomial proportions. Journal of Statistical Planning and Inference 82:251-262.
 
-Goodman, L.A.  1965.  On simultaneous confidence intervals for multinomial proportions. Technometrics 7:247-254.
+Goodman, L.A. 1965. On simultaneous confidence intervals for multinomial proportions. Technometrics 7:247-254.
 
-May, W.L. and W.D. Johnson.  2000.  Constructing two-sided simultaneous confidence intervals for multinomial proportions for small counts in a large number of cells.  Journal of Statistical Software 5(6).  Paper and code available at \url{http://www.jstatsoft.org/v05/i06}.
+May, W.L. and W.D. Johnson. 2000. Constructing two-sided simultaneous confidence intervals for multinomial proportions for small counts in a large number of cells. Journal of Statistical Software 5(6). Paper and code available at \url{http://www.jstatsoft.org/v05/i06}.
 
-Sison, C.P and J. Glaz.  1995. Simultaneous confidence intervals and sample size determination for multinomial proportions.  Journal of the American Statistical Association, 90:366-369.  Paper available at \url{http://tx.liberal.ntu.edu.tw/~purplewoo/Literature/!Methodology/!Distribution_SampleSize/SimultConfidIntervJASA.pdf}
+Sison, C.P and J. Glaz. 1995. Simultaneous confidence intervals and sample size determination for multinomial proportions. Journal of the American Statistical Association, 90:366-369. Paper available at \url{http://tx.liberal.ntu.edu.tw/~purplewoo/Literature/!Methodology/!Distribution_SampleSize/SimultConfidIntervJASA.pdf}
 
-Wang, H.  2008.  Exact confidence coefficients of simultaneous confidence intervals for multinomial proportions.  Journal of Multivariate Analysis 99:896-911.
+Wang, H. 2008. Exact confidence coefficients of simultaneous confidence intervals for multinomial proportions. Journal of Multivariate Analysis 99:896-911.
 }
 \seealso{
 \code{\link[FSA]{binCI}} in \pkg{FSA}.

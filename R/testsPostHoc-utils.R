@@ -2,21 +2,21 @@
 #' 
 #' @description Places significance letters next to mean points on an active \code{\link[FSA]{fitPlot}} from a one-way or a two-way ANOVA.
 #' 
-#' @details The graphic of group means must be active for this function to place the characters next to the group mean points.  Typically this graphic is made with the \code{\link[FSA]{fitPlot}} function.
+#' @details The graphic of group means must be active for this function to place the characters next to the group mean points. Typically this graphic is made with the \code{\link[FSA]{fitPlot}} function.
 #' 
 #' @param mdl A \code{lm} object or formula depicting an ANOVA
 #' @param lets A vector of characters to be placed next to each group mean point
 #' @param which A character string listing terms in the fitted model for which the means should be calculated and the letters placed
-#' @param change.order A logical that is used to change the order of the factors in the \code{lm} object.  This is used to change which factor is plotted on the x-axis and which is used to connect means.  Used only with a two-way ANOVA and only if the same argument is used with the \code{fitPlot} function
-#' @param pos A value or vector of values indicating the positiong to place the characters relative to each group mean point.  Note that \code{1}=below, \code{2}=left, \code{3}=above, and \code{4}=right
+#' @param change.order A logical that is used to change the order of the factors in the \code{lm} object. This is used to change which factor is plotted on the x-axis and which is used to connect means. Used only with a two-way ANOVA and only if the same argument is used with the \code{fitPlot} function
+#' @param pos A value or vector of values indicating the positiong to place the characters relative to each group mean point. Note that \code{1}=below, \code{2}=left, \code{3}=above, and \code{4}=right
 #' @param offset A value indicating a proportion of character widths to move the character away from each group mean point
 #' @param col A single or vector of numeric or character representations of colors used for each character
 #' @param cex A single or vector of numeric values used to represent the character expansion values
 #' @param \dots Other arguments to be passed to the \code{text} function
 #' 
-#' @return None.  However, an active graphic is modified.
+#' @return None. However, an active graphic is modified.
 #' 
-#' @note Students are often asked to determine which level means are different if a significant one-way or two-way ANOVA is encountered.  The results of these multiple comparisons are often illustrated by placing \dQuote{significance letters} next to mean points on an interaction of main effects plot.  In R this can be accomplished with a number of \code{text} calls.  This function, however, simplifies this process so that newbie students can create the graphic in an efficient and relatively easy manner (in conjunction with \code{\link[FSA]{fitPlot}}).  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
+#' @note Students are often asked to determine which level means are different if a significant one-way or two-way ANOVA is encountered. The results of these multiple comparisons are often illustrated by placing \dQuote{significance letters} next to mean points on an interaction of main effects plot. In R this can be accomplished with a number of \code{text} calls. This function, however, simplifies this process so that newbie students can create the graphic in an efficient and relatively easy manner (in conjunction with \code{\link[FSA]{fitPlot}}). This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 #' 
 #' @seealso \code{\link[FSA]{fitPlot}}.
 #' 
@@ -31,18 +31,18 @@
 #' lm1 <- lm(mirex~year,data=Mirex)
 #' anova(lm1)
 #' # suppose multiple comparison results from following
-#' if (require(multcomp)) {
-#'   mc1 <- glht(lm1,mcp(year="Tukey"))
-#'   summary(mc1)
+#' \dontrun{
+#' mc1 <- multcomp::glht(lm1,mcp(year="Tukey"))
+#' summary(mc1)
 #' }
 #' fitPlot(lm1,main="")
 #' addSigLetters(lm1,c("a","a","a","a","ab","b"),pos=c(2,2,4,4,4,4))
 #' 
 #' # same example, but using cld() from multcomp
-#' if (require(multcomp)) {
-#'   ( sl1 <- cld(mc1) )
-#'   fitPlot(lm1,main="")
-#'   addSigLetters(lm1,lets=sl1,pos=c(2,2,4,4,4,4))
+#' \dontrun{
+#' ( sl1 <- multcomp::cld(mc1) )
+#' fitPlot(lm1,main="")
+#' addSigLetters(lm1,lets=sl1,pos=c(2,2,4,4,4,4))
 #' }
 #' 
 #' ## two-way ANOVA
@@ -50,11 +50,11 @@
 #' anova(lm2)
 #' 
 #' # suppose multiple comparison results from following
-#' if (require(multcomp)) {
-#'   mc2y <- glht(lm2,mcp(year="Tukey"))
-#'   summary(mc2y)
-#'   mc2s <- glht(lm2,mcp(species="Tukey"))
-#'   summary(mc2s)
+#' \dontrun{
+#' mc2y <- glht(lm2,mcp(year="Tukey"))
+#' summary(mc2y)
+#' mc2s <- glht(lm2,mcp(species="Tukey"))
+#' summary(mc2s)
 #' }
 #' op <- par(mfcol=c(1,2))
 #' fitPlot(lm2,which="year",type="b",pch=19,ylim=c(0.05,0.35),main="")
@@ -65,11 +65,14 @@
 #' }
 #' 
 #' @export
-addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns)),
-                                     offset=0.5,col=rep(1,length(mns)),cex=rep(0,length(mns)),...) {
+addSigLetters <- function(mdl,lets,which,change.order=FALSE,
+                          pos=rep(2,length(mns)),offset=0.5,
+                          col=rep(1,length(mns)),cex=rep(0,length(mns)),
+                          ...) {
   mdl <- iTypeoflm(mdl)
   if (mdl$type!="ONEWAY" & mdl$type!="TWOWAY")
-    stop("\n addSigLetters only works with one or two factors in the model.",call.=FALSE)
+    stop("\n addSigLetters only works with one or two factors in the model.",
+         call.=FALSE)
   if (mdl$type=="ONEWAY" | (mdl$type=="TWOWAY" & !missing(which))) {
     ifelse(missing(which),ord <- 2, ord <- match(which,colnames(mdl$mf)))
     mns <- tapply(mdl$mf[,1],mdl$mf[,ord],mean)
@@ -81,13 +84,17 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns
     if (is.ordered(mdl$mf[,ord[1]])) x <- levels(mdl$mf[,ord[1]])[x]
   }
   if (inherits(lets,"cld")) lets <- lets$mcletters$Letters
-  if (length(lets) != length(mns)) stop("Length of lets vector is incorrect.",call.=FALSE)
+  if (length(lets) != length(mns)) stop("Length of lets vector is incorrect.",
+                                        call.=FALSE)
   if (length(pos) == 1) pos <- rep(pos,length(mns))
-    else if (length(pos) != length(mns)) stop("Length of pos vector is incorrect.",call.=FALSE)
+    else if (length(pos) != length(mns)) stop("Length of pos vector is incorrect.",
+                                              call.=FALSE)
   if (length(col) == 1) col <- rep(col,length(mns))
-    else if (length(col) != length(mns)) stop("Length of col vector is incorrect.",call.=FALSE)
+    else if (length(col) != length(mns)) stop("Length of col vector is incorrect.",
+                                              call.=FALSE)
   if (length(cex) == 1) cex <- rep(cex,length(mns))
-    else if (length(cex) != length(mns)) stop("Length of cex vector is incorrect.",call.=FALSE)
+    else if (length(cex) != length(mns)) stop("Length of cex vector is incorrect.",
+                                              call.=FALSE)
   graphics::text(x,mns,lets,pos=pos,offset=offset,col=col,cex=cex,...)  
 }
 
@@ -98,7 +105,7 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,pos=rep(2,length(mns
 #' 
 #' @description Tests for significant differences among all pairs of populations in a chi-square test.
 #' 
-#' @details Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons.  The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust.methods}}).  This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program.  The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
+#' @details Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons. The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust.methods}}). This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program. The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
 #' 
 #' @param chi A \code{chisq.test} object
 #' @param popsInRows A logical indicating whether the populations form the rows (default; \code{=TRUE}) of the table or not (\code{=FALSE})
@@ -170,178 +177,6 @@ chisqPostHoc <- function(chi,popsInRows=TRUE,control=stats::p.adjust.methods,dig
 
 
 
-
-#' @title Constructs plots of diagnostic measures for linear models.
-#' 
-#' @description Used to construct plots of diagnostic measures for linear models.  Also used to identify \dQuote{extreme} values of diagnostic measures for a linear model.
-#' 
-#' @details This function produces a graphic that consists of at most six separate plots --
-#'   \enumerate{
-#'     \item Studentized residuals versus leverages,
-#'     \item COVRATIO-1 versus fitted values,
-#'     \item Cook's Distance versus fitted values,
-#'     \item DFFits versus fitted values,
-#'     \item DFBetas for slope versus DFBetas for intercept, and
-#'     \item fitted line plot.
-#'   }
-#' 
-#' Each separate graph may have various individuals marked with their observation number.  Observation numbers in red are the most extreme value that exceeds the cutoff value for the diagnostic measure plotted on that particular graph.  Observation numbers in blue are observations that exceeded a cutoff value for at least one of the diagnostic measures NOT plotted on that particular graph.  Thus, observations marked in red are \dQuote{unusual} observations for the diagnostic measure shown on the plot whereas observations marked in blue are \dQuote{unusual} observations for some other diagnostic measure but not for the diagnostic measure shown on the plot.  The fitted line plot has all \dQuote{unusual} observations marked with separate colors and the fitted line with that observation removed shown in the same color.
-#' 
-#' If more than one observation has the same extreme value for one of the diagnostics then only the first individual with the value is returned.
-#' 
-#' If the linear model object is other than a simple linear regression then only the first four plots are constructed.
-#' 
-#' Diagnostic statistic values are computed with the \code{rstudent} and \code{\link[stats]{influence.measures}} functions.
-#' 
-#' @param mdl an \code{lm} object (i.e., returned from fitting a model with \code{lm}).
-#' 
-#' @return In addition to the graphic described in the details, a vector containing the row numbers of observations that were flagged as unusual by one of the diagnostic statistics.  This vector can be assigned to an object and used to modify plots or easily remove the individuals from the data.frame.
-#' 
-#' @note This function is meant to allow newbie students the ability to easily construct plots for diagnosing \dQuote{problem individuals} for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can generally be constructed simply by submitting a saved linear model to this function.  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
-#' 
-#' @seealso \code{\link[FSA]{fitPlot}} and \code{\link[FSA]{residPlot}} from \pkg{FSA}; \code{\link{highlight}}; \code{\link[stats]{influence.measures}}; and \code{\link[car]{outlierTest}} and \code{\link[car]{influence.plot}} in \pkg{car}.
-#' 
-#' @keywords hplot models
-#' 
-#' @examples
-#' lm1 <- lm(Sepal.Length~Petal.Length*Species,data=iris)
-#' diagPlot(lm1)
-#' ## Simple linear regression
-#' lm2 <- lm(Sepal.Length~Petal.Length,data=iris)
-#' # Produces plot and saves flagged observations
-#' pts <- diagPlot(lm2)
-#' if (require(FSA)) {
-#'   # Constructs a fitted line plot
-#'   fitPlot(lm2)
-#'   # Highlights flagged observations on fitted-line plot
-#'   highlight(Sepal.Length~Petal.Length,data=iris,pts=pts)
-#' }
-#' 
-#' ## Example showing outlier detection
-#' df <- data.frame(x=runif(100),y=c(7,runif(99)))
-#' lma <- lm(y~x,data=df)
-#' diagPlot(lma)
-#' 
-#' @export
-diagPlot <- function(mdl) {
-  lmtype <- iTypeoflm(mdl)
-  if (lmtype$type=="SLR") { 
-    old.par <- graphics::par(mfrow=c(3,2),mar=c(3,3,1,1),mgp=c(2,0.75,0),xpd=TRUE)
-  } else { 
-    old.par <- graphics::par(mfrow=c(2,2),mar=c(3,3,1,1),mgp=c(2,0.75,0),xpd=TRUE)
-  } 
-  on.exit(graphics::par(old.par))
-  res <- iSigDiag(mdl)
-  inf <- stats::influence.measures(mdl)
-  all.pts <- unique(res$obs[res$inf])
-  
-  y <- stats::rstudent(mdl)
-  x <- inf$infmat[,"hat"]
-  graphics::plot(y~x,xlab="Leverages (Hats)",ylab="Studentized Residuals",pch=19)
-  all.pts1 <- all.pts[-which(all.pts==res$obs[1])]
-  all.pts1 <- all.pts1[-which(all.pts1==res$obs[2])]
-  if (length(all.pts1)>=1) graphics::text(x[all.pts1],y[all.pts1],all.pts1,col="blue")
-  if (res$inf[1]) graphics::text(x[res$obs[1]],y[res$obs[1]],res$obs[1],col="red",cex=1.5)
-  if (res$inf[2]) graphics::text(x[res$obs[2]],y[res$obs[2]],res$obs[2],col="red",cex=1.5)
-  
-  y <- inf$infmat[,"cov.r"]-1
-  x <- mdl$fitted.values
-  graphics::plot(y~x,ylab="COVRATIO-1",xlab="Fitted Values",pch=19)
-  all.pts1 <- all.pts[-which(all.pts==res$obs[3])]
-  if (length(all.pts1)>=1) graphics::text(x[all.pts1],y[all.pts1],all.pts1,col="blue")
-  if (res$inf[3]) graphics::text(x[res$obs[3]],y[res$obs[3]],res$obs[3],col="red",cex=1.5)  
-  
-  y <- inf$infmat[,"cook.d"]
-  graphics::plot(y~x,ylab="Cook's Distances",xlab="Fitted Values",pch=19)
-  all.pts1 <- all.pts[-which(all.pts==res$obs[4])]
-  if (length(all.pts1)>=1) graphics::text(x[all.pts1],y[all.pts1],all.pts1,col="blue")
-  if (res$inf[4]) graphics::text(x[res$obs[4]],y[res$obs[4]],res$obs[4],col="red",cex=1.5)    
-  
-  y <- inf$infmat[,"dffit"]
-  graphics::plot(y~x,ylab="DFfit",xlab="Fitted Values",pch=19)
-  all.pts1 <- all.pts[-which(all.pts==res$obs[5])]
-  if (length(all.pts1)>=1) graphics::text(x[all.pts1],y[all.pts1],all.pts1,col="blue")
-  if (res$inf[5]) graphics::text(x[res$obs[5]],y[res$obs[5]],res$obs[5],col="red",cex=1.5)   
-  
-  if (lmtype$type=="SLR") {
-    y <- inf$infmat[,2]
-    x <- inf$infmat[,1]
-    graphics::plot(y~x,ylab="Slope DFBetas",xlab="Intercept DFBetas",pch=19)
-    all.pts1 <- all.pts[-which(all.pts==res$obs[6])]
-    all.pts1 <- all.pts1[-which(all.pts1==res$obs[7])]
-    if (length(all.pts1)>=1) graphics::text(x[all.pts1],y[all.pts1],all.pts1,col="blue")
-    if (res$inf[6]) graphics::text(x[res$obs[6]],y[res$obs[6]],res$obs[6],col="red",cex=1.5)
-    if (res$inf[7]) graphics::text(x[res$obs[7]],y[res$obs[7]],res$obs[7],col="red",cex=1.5)
-    
-    FSA::fitPlot(mdl,main="",pch=19)
-    if (length(all.pts)>=1) {
-      clrs <- c("blue","red","cyan","darkgreen","magenta","pink","orange")
-      for (i in 1:length(all.pts)) { 
-        lm2 <- stats::lm(lmtype$mf[-all.pts[i],1]~lmtype$mf[-all.pts[i],2])
-        graphics::abline(lm2,col=clrs[i],xpd=FALSE)
-        graphics::text(lmtype$mf[all.pts[i],2],lmtype$mf[all.pts[i],1],all.pts[i],
-                       col=clrs[i],cex=1.5)
-      } # end i
-    } # end if
-  }
-  cat("\nUnusual Observation Results\n")
-  print(res)
-  cat("\nData for Highlighted Individuals\n")
-  print(data.frame(obs=sort(all.pts),lmtype$mf[sort(all.pts),]))
-  cat("\n")
-  invisible(all.pts)
-}
-
-
-
-iSigDiag <- function(mdl) {
-  k <- dim(mdl$model)[2]-1
-  n <- dim(mdl$model)[1]
-  cat(k,"predictors and",n,"individuals\n")
-  inf <- stats::influence.measures(mdl)
-  meas <- c("|Studentized Residuals|","Leverage","|COVRATIO-1|","Cook's Distance","|DFFits|")
-  val <- cutoff <- obs <- sig <- NULL
-  # leverages (last [1] corrects for two individuals with same value)
-  val <- c(val,max(inf$infmat[,"hat"]))
-  obs <- c(obs,which(inf$infmat[,"hat"]==val[1])[1])
-  # Covariance Ratio
-  val <- c(val,max(abs(inf$infmat[,"cov.r"]-1)))
-  obs <- c(obs,which(abs(inf$infmat[,"cov.r"]-1)==val[2])[1])
-  # Cook's Distance
-  val <- c(val,max(inf$infmat[,"cook.d"]))
-  obs <- c(obs,which(inf$infmat[,"cook.d"]==val[3])[1])
-  # DFFits
-  val <- c(val,max(abs(inf$infmat[,"dffit"])))
-  obs <- c(obs,which(abs(inf$infmat[,"dffit"])==val[4])[1])
-  # cutoff values -- same order
-  cutoff <- round(c(3*(k+1)/n,3*(k+1)/n,4/(n-k-1),2*sqrt((k+1)/(n-k-1))),5)
-  if (iTypeoflm(mdl)$type=="SLR") {
-    meas <- c(meas,"Slope DFBetas","Intercept DFBetas")
-    # DFBetas -- slope
-    val <- c(val,max(inf$infmat[,2]))
-    obs <- c(obs,which(inf$infmat[,2]==val[5])[1])
-    # DFBetas -- intercept
-    val <- c(val,max(inf$infmat[,1]))
-    obs <- c(obs,which(inf$infmat[,1]==val[6])[1])
-    cutoff <- round(c(cutoff,2/sqrt(n),2/sqrt(n)),5)
-  }
-  # significance?
-  sig <- val>cutoff
-  out <- car::outlierTest(mdl)
-  # residuals
-  val <- c(out$rstudent,val)
-  obs <- c(as.numeric(names(out$bonf.p)),obs)
-  cutoff <- c("NA",cutoff)
-  # deal with outlierTest
-  if (is.na(out$bonf.p)) sig <- c(FALSE,sig)
-  else ifelse(out$bonf.p < 0.05,sig <- c(TRUE,sig),sig <- c(FALSE,sig))
-  # put it all together
-  data.frame(measure=meas,value=round(val,5),cutoff=cutoff,inf=sig,obs=as.numeric(obs))
-}
-
-
-
-
 #' @title Extracts names for significantly different comparisons.
 #' 
 #' @description Extracts names for significantly different comparisons from a \code{glht} object.
@@ -350,12 +185,12 @@ iSigDiag <- function(mdl) {
 #' 
 #' @param object An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.
 #' @param type A function for computing p-values (see \code{\link[multcomp]{glht}}).
-#' @param alpha A numeric indicated the rejection criterion to be used for identifying significant comparisons.  Defaults to \code{0.05}.
+#' @param alpha A numeric indicated the rejection criterion to be used for identifying significant comparisons. Defaults to \code{0.05}.
 #' @param \dots Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.
 #' 
 #' @return A vector containing the names of the paired comparisons that have a p-value less than \code{alpha}.
 #' 
-#' @note This can be very slow to process.  Be patient.
+#' @note This can be very slow to process. Be patient.
 #' 
 #' @seealso \code{\link[multcomp]{glht}} and \code{\link[multcomp]{summary.glht}} in \pkg{multcomp}.
 #' 
@@ -386,11 +221,11 @@ glhtSig.glht <- function(object,type=c("single-step","Shaffer","Westfall","free"
 #' 
 #' @description Pseudo- confidence intervals for the proportions found in the multinomial levels of a goodness-of-fit test computed using \code{\link[stats]{chisq.test}}.
 #' 
-#' @details Computes confidence intervals for the proportion of the total in each level found in \code{$observed} of the \code{chi} object.  The confidence intervals are computed by treating each level as if it is the \dQuote{success} in a binomial confidence interval calculation (using \code{\link[FSA]{binCI}} from \pkg{FSA}).  One of three methods for computing each confidence interval can be used and is declared in the \code{type=} argument.  The three methods are described in detail for \code{\link[FSA]{binCI}}.
+#' @details Computes confidence intervals for the proportion of the total in each level found in \code{$observed} of the \code{chi} object. The confidence intervals are computed by treating each level as if it is the \dQuote{success} in a binomial confidence interval calculation (using \code{\link[FSA]{binCI}} from \pkg{FSA}). One of three methods for computing each confidence interval can be used and is declared in the \code{type=} argument. The three methods are described in detail for \code{\link[FSA]{binCI}}.
 #' 
-#' It should be noted that this is NOT the ideal method for computing confidence intervals for multinomial probabilities.  This area appears to receive a great deal of discussion, but two methoeds that appear to be generally accepted are due to Sison and Ganz (1995) when the number of cells (k) is \dQuote{large} (i.e., greater than 10) and Goodman (1965) when k is small (see May and Johnson 2000).  I have been unable to locate R code for the method of Sison and Ganz (1995) in any existing package, nor could I convert the SAS code provided by May and Johnson (2000) to R code.  As of July, 2011 there were at least two queries on R-help for the Sison and Ganz (1995) code with no replies.
+#' It should be noted that this is NOT the ideal method for computing confidence intervals for multinomial probabilities. This area appears to receive a great deal of discussion, but two methoeds that appear to be generally accepted are due to Sison and Ganz (1995) when the number of cells (k) is \dQuote{large} (i.e., greater than 10) and Goodman (1965) when k is small (see May and Johnson 2000). I have been unable to locate R code for the method of Sison and Ganz (1995) in any existing package, nor could I convert the SAS code provided by May and Johnson (2000) to R code. As of July, 2011 there were at least two queries on R-help for the Sison and Ganz (1995) code with no replies.
 #' 
-#' This function was developed largely for use by my Introductory Statistics students in order to allow some post hoc discussion regarding significant results in goodness-of-fit tests.  This function was not developed for research-grade analyses.
+#' This function was developed largely for use by my Introductory Statistics students in order to allow some post hoc discussion regarding significant results in goodness-of-fit tests. This function was not developed for research-grade analyses.
 #' 
 #' @param chi An object from \code{\link[stats]{chisq.test}} representing a goodness-of-fit test
 #' @param conf.level A number indicating the level of confidence to use for constructing confidence intervals (default is \code{0.95})
@@ -404,15 +239,15 @@ glhtSig.glht <- function(object,type=c("single-step","Shaffer","Westfall","free"
 #' 
 #' @seealso \code{\link[FSA]{binCI}} in \pkg{FSA}.
 #' 
-#' @references Glaz, J. and C.P. Sison.  1999.  Simultaneous confidence intervals for multinomial proportions.  Journal of Statistical Planning and Inference 82:251-262.
+#' @references Glaz, J. and C.P. Sison. 1999. Simultaneous confidence intervals for multinomial proportions. Journal of Statistical Planning and Inference 82:251-262.
 #' 
-#' Goodman, L.A.  1965.  On simultaneous confidence intervals for multinomial proportions. Technometrics 7:247-254.
+#' Goodman, L.A. 1965. On simultaneous confidence intervals for multinomial proportions. Technometrics 7:247-254.
 #' 
-#' May, W.L. and W.D. Johnson.  2000.  Constructing two-sided simultaneous confidence intervals for multinomial proportions for small counts in a large number of cells.  Journal of Statistical Software 5(6).  Paper and code available at \url{http://www.jstatsoft.org/v05/i06}.
+#' May, W.L. and W.D. Johnson. 2000. Constructing two-sided simultaneous confidence intervals for multinomial proportions for small counts in a large number of cells. Journal of Statistical Software 5(6). Paper and code available at \url{http://www.jstatsoft.org/v05/i06}.
 #' 
-#' Sison, C.P and J. Glaz.  1995. Simultaneous confidence intervals and sample size determination for multinomial proportions.  Journal of the American Statistical Association, 90:366-369.  Paper available at \url{http://tx.liberal.ntu.edu.tw/~purplewoo/Literature/!Methodology/!Distribution_SampleSize/SimultConfidIntervJASA.pdf}
+#' Sison, C.P and J. Glaz. 1995. Simultaneous confidence intervals and sample size determination for multinomial proportions. Journal of the American Statistical Association, 90:366-369. Paper available at \url{http://tx.liberal.ntu.edu.tw/~purplewoo/Literature/!Methodology/!Distribution_SampleSize/SimultConfidIntervJASA.pdf}
 #' 
-#' Wang, H.  2008.  Exact confidence coefficients of simultaneous confidence intervals for multinomial proportions.  Journal of Multivariate Analysis 99:896-911.
+#' Wang, H. 2008. Exact confidence coefficients of simultaneous confidence intervals for multinomial proportions. Journal of Multivariate Analysis 99:896-911.
 #' 
 #' @keywords htest
 #' 
@@ -498,17 +333,17 @@ gofCI <- function(chi,conf.level=0.95,
 #' 
 #' @description Plots test statistic and p-value area for z-, t-, and chi-square tests.
 #' 
-#' @details This produces a plot of the named sampling distribution with the test statistic and p-value areas shown.  This plot is used primarily for students  to visualize the calcualtion of the p-value in the \code{\link{z.test}}, \code{\link[stats]{t.test}}, and \code{\link[stats]{chisq.test}} functions.  The results from those functions must be saved to an object.
+#' @details This produces a plot of the named sampling distribution with the test statistic and p-value areas shown. This plot is used primarily for students  to visualize the calcualtion of the p-value in the \code{\link{z.test}}, \code{\link[stats]{t.test}}, and \code{\link[stats]{chisq.test}} functions. The results from those functions must be saved to an object.
 #' 
 #' @param x an object saved from \code{\link{z.test}}, \code{\link[stats]{t.test}}, or \code{\link[stats]{chisq.test}}
-#' @param smoothness a single-length numeric indicating the number of points for which to construct the plot.  The larger the number the smoother the plot will appear
-#' @param shade.col a string indicating the color to use for the (primary) shaded area.  If the alternative is two.sided then this area is in the same tail as the test statistic
-#' @param shade.col2 a string indicating the color to use for the (secondary) shaded area.  If the alternative is two.sided then this area is in the opposite tail as the test statistic
+#' @param smoothness a single-length numeric indicating the number of points for which to construct the plot. The larger the number the smoother the plot will appear
+#' @param shade.col a string indicating the color to use for the (primary) shaded area. If the alternative is two.sided then this area is in the same tail as the test statistic
+#' @param shade.col2 a string indicating the color to use for the (secondary) shaded area. If the alternative is two.sided then this area is in the opposite tail as the test statistic
 #' @param \dots optional arguments that are not implemented in this version
 #' 
-#' @return None.  However, a plot is constructed.
+#' @return None. However, a plot is constructed.
 #' 
-#' @note Newbie students can benefit greatly from visualizing the position of the test statistic and the \dQuote{area} of the p-value for common statistical tests using the z-, t-, and chi-square tests.  This function produces a graphic from the results of \code{z.test}, \code{t.test}, and \code{chisq.test} to show these values.  An additional benefit of this function is that newbie students make fewer mistakes in choosing the alternative hypothesis when they can visualize the final result.
+#' @note Newbie students can benefit greatly from visualizing the position of the test statistic and the \dQuote{area} of the p-value for common statistical tests using the z-, t-, and chi-square tests. This function produces a graphic from the results of \code{z.test}, \code{t.test}, and \code{chisq.test} to show these values. An additional benefit of this function is that newbie students make fewer mistakes in choosing the alternative hypothesis when they can visualize the final result.
 #' 
 #' @seealso \code{\link{z.test}}, \code{\link[stats]{t.test}}, and \code{\link[stats]{chisq.test}}.
 #' 
@@ -604,9 +439,9 @@ plot.htest <- function(x,smoothness=1000,shade.col="red",shade.col2="red3",...) 
 
 #' @title Shows the predicted value and interval on a fitted line plot.
 #' 
-#' @description Shows the predicted value and interval on a fitted line plot.  This function is used to illustrate predictions with SLR or IVR models and to show distinctions between confidence and prediction intervals.
+#' @description Shows the predicted value and interval on a fitted line plot. This function is used to illustrate predictions with SLR or IVR models and to show distinctions between confidence and prediction intervals.
 #' 
-#' @details This function produces a fitted line plot with both confidence and prediction bands shown.  It then constructs vertical bars representing the predicted values with the corresponding interval (chosen with \code{interval}) for all observations found in \code{newdata}.
+#' @details This function produces a fitted line plot with both confidence and prediction bands shown. It then constructs vertical bars representing the predicted values with the corresponding interval (chosen with \code{interval}) for all observations found in \code{newdata}.
 #' 
 #' This function is only appropriate for SLR and IVR with a single quantitative covariate and two or fewer factors.
 #' 
@@ -615,13 +450,13 @@ plot.htest <- function(x,smoothness=1000,shade.col="red",shade.col2="red3",...) 
 #' @aliases predictionPlot predictPlot
 #' 
 #' @param mdl an \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls})
-#' @param newdata A data frame in which to look for variables with which to predict.  This cannot be omitted as it is with \code{predict}
+#' @param newdata A data frame in which to look for variables with which to predict. This cannot be omitted as it is with \code{predict}
 #' @param interval a string indicating whether to plot confidence (\code{="confidence"}) or prediction (\code{="prediction"}) intervals
 #' @param conf.level a decimal numeric indicating the level of confidence to use for confidence and prediction intervals (default is \code{0.95})
 #' @param lty a numeric indicating the type of line used for representing the intervals (see \code{par})
 #' @param lwd a numeric indicating the width of line used for representing the intervals (see \code{par})
 #' @param legend Controls use and placement of the legend (see details in \code{\link[FSA]{fitPlot}})
-#' @param \dots Other arguments to the \code{fitPlot} function.  For example, include \code{legend=TRUE} to include a legend on the fitted line plot for an IVR.
+#' @param \dots Other arguments to the \code{fitPlot} function. For example, include \code{legend=TRUE} to include a legend on the fitted line plot for an IVR.
 #' 
 #' @return A data.frame is returned that contains the number of the new observation (for comparison to the graphic that is produced), the values of the variables in \code{newdata}, and the predicted values at those observed values.
 #' 
