@@ -19,12 +19,6 @@ devtools::install_github('droglenc/NCStats')
 
 This installation may fail if other packages do not install properly (primarily the **Rcpp** and **curl** packages). These failures may be ameliorated by manually installing packages responsible for the errors (see [these directions](http://derekogle.com/IFAR/supplements/installations/InstallPackagesRStudio.html)).
 
-If the following code runs without error, then **NCStats** has properly installed on your compter.
-
-```r
-source(system.file("InstallTester.R",package="NCStats"),echo=TRUE)
-```
-
 [E-mail me](mailto:derek@derekogle.com?Subject=NCStats%20Installation%20Question) if you continue to experience difficulties installing **NCStats**.
 
 
