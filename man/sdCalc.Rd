@@ -3,7 +3,6 @@
 \name{sdCalc}
 \alias{sdCalc}
 \alias{print.sdCalc}
-\alias{print.sdCalc}
 \title{Shows the steps in the manual calculation of the standard deviation.}
 \usage{
 sdCalc(x, digits = getOption("digits"))

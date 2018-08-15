@@ -3,11 +3,11 @@
 \name{print.summary.glht}
 \alias{print.summary.glht}
 \alias{print.confint.glht}
-\alias{print.confint.glht}
 \title{Modificaton of print.summary.glht() and print.confint.glth() to streamline output.}
 \usage{
 \method{print}{summary.glht}(x, digits = max(3, getOption("digits") - 3),
-  signif.stars = getOption("show.signif.stars"), justResults = TRUE, ...)
+  signif.stars = getOption("show.signif.stars"), justResults = TRUE,
+  ...)
 
 \method{print}{confint.glht}(x, digits = max(3, getOption("digits") - 3),
   justResults = TRUE, ...)

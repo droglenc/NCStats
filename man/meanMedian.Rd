@@ -4,7 +4,8 @@
 \alias{meanMedian}
 \title{Dynamic simulations to demonstrate how the mean and median are computed.}
 \usage{
-meanMedian(x = NULL, breaks = NULL, outlier = c("none", "max", "min"))
+meanMedian(x = NULL, breaks = NULL, outlier = c("none", "max",
+  "min"))
 }
 \arguments{
 \item{x}{An optional numeric vector (of actual data) to be used in the visual.}

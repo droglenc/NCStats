@@ -1,5 +1,6 @@
 # 0.4.7 ongoing
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
+* Added `Encoding: UTF-8` to DESCRIPTION.
 * `rSquared()`: Removed. Moved to `FSA` (with minor new functionality).
 
 # 0.4.6 1-Sep-17

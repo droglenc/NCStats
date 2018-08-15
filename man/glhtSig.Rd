@@ -3,13 +3,12 @@
 \name{glhtSig}
 \alias{glhtSig}
 \alias{glhtSig.glht}
-\alias{glhtSig.glht}
 \title{Extracts names for significantly different comparisons.}
 \usage{
 glhtSig(object, ...)
 
-\method{glhtSig}{glht}(object, type = c("single-step", "Shaffer", "Westfall",
-  "free", stats::p.adjust.methods), alpha = 0.05, ...)
+\method{glhtSig}{glht}(object, type = c("single-step", "Shaffer",
+  "Westfall", "free", stats::p.adjust.methods), alpha = 0.05, ...)
 }
 \arguments{
 \item{object}{An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.}

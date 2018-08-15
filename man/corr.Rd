@@ -11,8 +11,9 @@ corr(x, ...)
 \method{corr}{default}(x, y = NULL, use = "everything",
   method = c("pearson", "kendall", "spearman"), digits = NULL, ...)
 
-\method{corr}{formula}(x, data, use = "everything", method = c("pearson",
-  "kendall", "spearman"), digits = getOption("digits"), ...)
+\method{corr}{formula}(x, data, use = "everything",
+  method = c("pearson", "kendall", "spearman"),
+  digits = getOption("digits"), ...)
 }
 \arguments{
 \item{x}{A numeric vector, matrix, or data.frame (see details in \code{\link[stats]{cor}}) or a formula (see details here)}

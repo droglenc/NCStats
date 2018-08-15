@@ -5,9 +5,6 @@
 \alias{kGLHT}
 \alias{kREG}
 \alias{kHtest}
-\alias{kGLHT}
-\alias{kREG}
-\alias{kHtest}
 \title{Specific utilities for use in a knitr document.}
 \usage{
 kANOVA(x)

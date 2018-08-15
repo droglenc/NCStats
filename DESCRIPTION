@@ -1,11 +1,14 @@
 Package: NCStats
 Title: Support for Statistics Classes at Northland College
-Version: 0.4.7
-Date: 2018-3-30
+Version: 0.4.6.9000
+Date: 2018-8-13
 Description: Functions and simulations to support the Introductory
     Statistics and Biometry courses at Northland College. Do not
     use this package for research-grade analyses.
-Authors@R: person("Derek","Ogle",email="derek@derekogle.com",role=c("aut","cre"))
+Authors@R: person("Derek","Ogle",
+    email="derek@derekogle.com",
+    role=c("aut","cre"),
+    comment=c(ORCID="0000-0002-0370-9299"))
 URL: https://github.com/droglenc/NCStats
 BugReports: https://github.com/droglenc/NCStats/issues
 License: GPL (>= 2)
@@ -29,4 +32,5 @@ Suggests:
     relax,
     tcltk,
     testthat
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 6.1.0

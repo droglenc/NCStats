@@ -4,16 +4,16 @@
 \alias{distrib}
 \title{Plots calculated areas or values from a wide variety of continuous and discrete distribution functions.}
 \usage{
-distrib(val, distrib = c("norm", "t", "chisq", "f", "beta", "exp", "gamma",
-  "pois", "binom", "geom", "hypergeom", "nbinom"), type = c("p", "q", "d",
-  "forward", "reverse"), digits = getOption("digits"), mean = 0, sd = se,
-  se = 1, df = 1, df1 = df, df2 = 1, shape1 = 1, shape2 = 1,
-  shape = 1, rate = 1, scale = 1/rate, size = 10, prob = 0.5,
-  mu = NULL, lambda = 1, m = NULL, n = NULL, k = NULL,
-  lower.tail = TRUE, plot = TRUE, show.ans = TRUE, show.alt = FALSE,
-  main = NULL, xlab = NULL, ylab = NULL, yaxt = "n",
-  smoothness = 1000, shade.col = "red", shade.trans = 1,
-  lbl.col = "red", ...)
+distrib(val, distrib = c("norm", "t", "chisq", "f", "beta", "exp",
+  "gamma", "pois", "binom", "geom", "hypergeom", "nbinom"), type = c("p",
+  "q", "d", "forward", "reverse"), digits = getOption("digits"),
+  mean = 0, sd = se, se = 1, df = 1, df1 = df, df2 = 1,
+  shape1 = 1, shape2 = 1, shape = 1, rate = 1, scale = 1/rate,
+  size = 10, prob = 0.5, mu = NULL, lambda = 1, m = NULL,
+  n = NULL, k = NULL, lower.tail = TRUE, plot = TRUE,
+  show.ans = TRUE, show.alt = FALSE, main = NULL, xlab = NULL,
+  ylab = NULL, yaxt = "n", smoothness = 1000, shade.col = "red",
+  shade.trans = 1, lbl.col = "red", ...)
 }
 \arguments{
 \item{val}{a single-length numeric containing a value or probability/quantile.}

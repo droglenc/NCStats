@@ -3,13 +3,12 @@
 \name{predictPlot}
 \alias{predictPlot}
 \alias{predictionPlot}
-\alias{predictionPlot}
 \title{Shows the predicted value and interval on a fitted line plot.}
 \usage{
 predictPlot(...)
 
-predictionPlot(mdl, newdata, interval = "prediction", conf.level = 0.95,
-  lty = 1, lwd = 3, legend = "topright", ...)
+predictionPlot(mdl, newdata, interval = "prediction",
+  conf.level = 0.95, lty = 1, lwd = 3, legend = "topright", ...)
 }
 \arguments{
 \item{\dots}{Other arguments to the \code{fitPlot} function. For example, include \code{legend=TRUE} to include a legend on the fitted line plot for an IVR.}

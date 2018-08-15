@@ -3,7 +3,6 @@
 \name{print.summary.lm}
 \alias{print.summary.lm}
 \alias{print.summary.glm}
-\alias{print.summary.glm}
 \title{Modificaton of print.summary.lm() to streamline output}
 \usage{
 \method{print}{summary.lm}(x, digits = max(3, getOption("digits") - 3),

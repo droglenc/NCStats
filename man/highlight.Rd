@@ -4,14 +4,12 @@
 \alias{highlight}
 \alias{highlight.default}
 \alias{highlight.formula}
-\alias{highlight.default}
-\alias{highlight.formula}
 \title{Labels a list of points on a two-dimensional plot.}
 \usage{
 highlight(x, ...)
 
-\method{highlight}{default}(x, y, lbls = NULL, pts = NULL, col = "red",
-  cex = 1.25, pos = NULL, ...)
+\method{highlight}{default}(x, y, lbls = NULL, pts = NULL,
+  col = "red", cex = 1.25, pos = NULL, ...)
 
 \method{highlight}{formula}(x, data = NULL, lbls = NULL, pts = NULL,
   col = "red", cex = 1.25, pos = NULL, ...)

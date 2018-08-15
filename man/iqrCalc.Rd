@@ -3,7 +3,6 @@
 \name{iqrCalc}
 \alias{iqrCalc}
 \alias{print.iqrCalc}
-\alias{print.iqrCalc}
 \title{Shows the steps in the manual calculation of the median and IQR.}
 \usage{
 iqrCalc(x, mdnInBoth = FALSE)
