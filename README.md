@@ -13,8 +13,9 @@ The **NCStats** package contains helper functions for statistics courses taught 
 The latest **NCStats** may be installed by running these lines in R/RStudio:
 
 ```r
-if (!require('devtools')) install.packages('devtools')
+if (!require('devtools')) utils::install.packages('devtools')
 devtools::install_github('droglenc/NCStats')
+if (!require('manipulate')) utils::install.packages('manipulate')
 ```
 
 If the following code runs without error, then **NCStats** has properly installed on your computer.
