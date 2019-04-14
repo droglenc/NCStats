@@ -1,7 +1,7 @@
 Package: NCStats
 Title: Support for Statistics Classes at Northland College
 Version: 0.4.6.9000
-Date: 2018-8-13
+Date: 2019-4-13
 Description: Functions and simulations to support the Introductory
     Statistics and Biometry courses at Northland College. Do not
     use this package for research-grade analyses.
@@ -26,7 +26,8 @@ Imports:
     multcomp,
     nortest,
     plotrix,
-    TeachingDemos
+    TeachingDemos,
+    withr
 Suggests:
     manipulate,
     relax,

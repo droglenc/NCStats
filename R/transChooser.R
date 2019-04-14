@@ -172,7 +172,7 @@ iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
     else if (object$Enum==2) lm1 <- stats::lm(y~x*object$mf[,object$EFactPos[1]])
       else if (object$Enum==3) lm1 <- stats::lm(y~x*object$mf[,object$EFactPos[1]]*object$mf[,object$EFactPos[2]])
         else stop("Only works with IVR models with 1 or 2 factors.",call.=FALSE)
-  old.par <- graphics::par(mar=c(3.5,3.5,3,1),mgp=c(2,0.5,0),mfcol=c(1,2))
+  withr::local_par(list(mar=c(3.5,3.5,3,1),mgp=c(2,0.5,0),mfcol=c(1,2)))
   graphics::hist(lm1$residuals,main="",xlab=paste0("Residuals from ",ylbl,"~",xlbl),
                  yaxt="n",ylab="",col=col.hist)
   if (show.stats) iLblADTest(lm1,alpha,line=0.5)
@@ -186,7 +186,6 @@ iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
                    col=FSA::col2rgbt("black",2/3),legend=FALSE)
   }
   if (show.stats) iLblOutlierTest(lm1,alpha,line=0.5)
-  on.exit(graphics::par(old.par))
 } ## end internal iAssumPlot_REGRESS
 
 iAssumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.hist) {
@@ -205,8 +204,7 @@ iAssumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.h
   ifelse(inherits(object,"ONEWAY"), gf <- object$mf[,object$EFactPos[1]],
          gf <- object$mf[,object$EFactPos[1]]:object$mf[,object$EFactPos[2]])
   lm1 <- stats::lm(y~gf)
-  old.par <- graphics::par(mar=c(3.5,3.5,2,1), mgp=c(2,0.75,0), mfcol=c(1,2))
-  on.exit(graphics::par(old.par))
+  withr::local_par(list(mar=c(3.5,3.5,2,1),mgp=c(2,0.75,0),mfcol=c(1,2)))
   graphics::hist(lm1$residuals,main="",xlab=lbl,yaxt="n",ylab="",col=col.hist)
   if (show.stats) {
     iLblADTest(lm1,alpha)

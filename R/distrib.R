@@ -377,7 +377,7 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
 
   if (show.alt) cat("Could use:",msg,"\n")
   if (plot) {
-    op <- graphics::par(yaxs="i",xaxs="i")
+    withr::local_par(list(yaxs="i",xaxs="i"))
     if (continuous) {
       c.region(xval,x,fx,lower.tail,area,plot=TRUE,show.ans=show.ans,
                shade.col=shade.col,lbl.col=lbl.col,show.lbl=TRUE,
@@ -394,7 +394,6 @@ distrib <- function(val,distrib=c("norm","t","chisq","f","beta","exp","gamma","p
                main=main,xlab=xlab,ylab=ylab,yaxt=yaxt,
                ylim=c(0,1.02*max(fx)),...)
     }
-    graphics::par(op)
     invisible(ans)
   } else round(ans,digits)
 }

@@ -36,8 +36,10 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
           iCISimPlot(n,conf.level,alternative,reps,method,mu,sigma)
         },
         n=manipulate::slider(10,100,step=5,initial=10,label="Sample Size (n)"),
-        conf.level=manipulate::picker(0.99,0.95,0.90,0.80,initial=0.95,label="Confidence Level"),
-        alternative=manipulate::picker("two.sided","less","greater",label="Alternative Hypothesis"),
+        conf.level=manipulate::picker(0.95,0.99,0.90,0.80,initial=0.95,
+                                      label="Confidence Level"),
+        alternative=manipulate::picker("two.sided","less","greater",
+                                       label="Alternative Hypothesis"),
         rerand=manipulate::button("Rerandomize")
       ) # end manipulate
     }
@@ -48,7 +50,8 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
       conf <- relax::slider(no=2)
       alternative <- relax::slider(no=3)
       # change alternative number to character
-      alternative <- ifelse(alternative==-1,"less",ifelse(alternative==0,"two.sided","greater"))
+      alternative <- ifelse(alternative==-1,"less",
+                            ifelse(alternative==0,"two.sided","greater"))
       iCISimPlot(n,conf,alternative,reps,method,mu,sigma)
     } ## end iCIRefresh internal function
     if (iChk4Namespace("relax")) {
@@ -127,19 +130,23 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
   # Identify if a CI contains mu (black) or not (red)
   colr <- ifelse(((lci>mu) | (uci<mu)),"red","black")
   # Percent CIs contained mu
-  hit <- paste0(formatC(100*length(colr[colr=="black"])/reps,format="f",digits=0))
+  hit <- paste0(formatC(100*length(colr[colr=="black"])/reps,format="f",digits=1))
   
   ## Construct the graphic
   # Some preparations
-  old.par <- graphics::par(mar=c(3,1,2,1),mgp=c(2,0.4,0),tcl=-0.2)
+  withr::local_par(list(mar=c(3,1,2,1),mgp=c(2,0.4,0),tcl=-0.2))
   xlbl <- expression(paste("Sample Mean ( ",bar(X)," )"))
   tmp <- ifelse(method=="Z","","avg ")
   title <- substitute(paste(hit,"% contain ",mu," (=",muval,"), ",tmp,
                             "m.e.=",me,),
-                      list(hit=hit,tmp=tmp,me=formatC(me,format="f",digits=3),muval=mu))
+                      list(hit=hit,
+                           tmp=tmp,
+                           me=formatC(me,format="f",digits=3),
+                           muval=mu))
   # make skeleton plot
-  graphics::plot(lci,seq(1,reps),type="n",yaxt="n",xlim=xr,ylim=c(-reps*0.01,1.01*reps),yaxs="i",
-                 xlab=xlbl,ylab="",main=title)
+  graphics::plot(lci,seq(1,reps),type="n",
+                 yaxt="n",yaxs="i",ylab="",
+                 xlab=xlbl,xlim=xr,ylim=c(-reps*0.01,1.01*reps),main=title)
   # For z method only, put transparent green vertical lines at crit values of popn.
   if (method=="Z") {
     tmp <- graphics::par("usr")
@@ -158,7 +165,6 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
     # Put means on the plot
     graphics::points(rnd.mns[i],i,pch=19,col=FSA::col2rgbt(colr[i],0.7),cex=0.5)
   }
-  graphics::par(old.par)
 } # end iCISimPlot internal function
 
 
@@ -251,8 +257,8 @@ iCLTSimPlot <- function(n,shape1,shape2,reps,incl.norm) {
                                   se=formatC(sd.mns,format="f",digits=3)))
   
   ## Construct the graphic -- popn and sampling distributions
-  old.par <- graphics::par(mfcol=c(1,2),mar=c(3,2,2.25,1),mgp=c(1.7,0.4,0),
-                           tcl=-0.2,yaxs="i")
+  withr::local_par(list(mfcol=c(1,2),mar=c(3,2,2.25,1),mgp=c(1.7,0.4,0),
+                        tcl=-0.2,yaxs="i"))
   # Plot the popn dist
   graphics::hist(x,freq=FALSE,breaks=seq(0,1,0.05),yaxt="n",
                  xlab="Variable (X)",ylab="",main="",right=FALSE,col="gray90")
@@ -273,13 +279,13 @@ iCLTSimPlot <- function(n,shape1,shape2,reps,incl.norm) {
   # vertical line at mean
   graphics::lines(c(mn.mns,mn.mns),c(0,max(mns.hist$density)),col="red",lwd=2)
   # horiz line represent +/- SD of mean
-  graphics::lines(c(mn.mns-sd.mns,mn.mns+sd.mns),rep(0.6*max(mns.hist$density),2),col="red",lwd=2)
+  graphics::lines(c(mn.mns-sd.mns,mn.mns+sd.mns),rep(0.6*max(mns.hist$density),2),
+                  col="red",lwd=2)
   # potentially include normal distribution
   if (incl.norm) {
     norm.vals <- seq(min(mns.hist$breaks),max(mns.hist$breaks),length.out=50)
     graphics::lines(norm.vals,stats::dnorm(norm.vals,mn.mns,sd.mns),col="blue")
   }
-  graphics::par(old.par)
 } # end iCLTSimPlot internal function
 
 
@@ -364,11 +370,11 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
 
   ## Construct the graphics  
   # set commonalities
-  old.par <- graphics::par(mgp=c(1,0.3,0),tcl=-0.2,mfrow=c(2,1))
+  withr::local_par(list(mgp=c(1,0.3,0),tcl=-0.2,mfrow=c(2,1)))
   xlmts <- c(mu0-2*s.sigma,mu0+2*s.sigma)
   ylmts <- c(0,1.25*stats::dnorm(0,0,s.sigma/sqrt(2*s.n)))
   # build the null distribution
-  graphics::par(mar=c(2,1,2,3))
+  withr::local_par(list(mar=c(2,1,2,3)))
   c.region(cv,x0,norm0,lower.tail,area=NULL,plot=TRUE,show.ans=FALSE,
            shade.col="red",lbl.col="red",show.lbl=TRUE,
            xlim=xlmts,ylim=ylmts,yaxt="n",ylab="",xlab="")
@@ -382,7 +388,7 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
                     list(mua=mua,sigmaval=sigma,n=n,alphaval=format(alpha,nsmall=2)))
   graphics::mtext(tmp,3,line=0.5)
   # build the actual distribution
-  graphics::par(mar=c(3,1,1,3))
+  withr::local_par(list(mar=c(3,1,1,3)))
   c.region(cv,xa,norma,lower.tail,area=NULL,plot=TRUE,show.ans=FALSE,
            shade.col="green",show.lbl=FALSE,
            xlab="",xlim=xlmts,ylim=ylmts,yaxt="n",ylab="")
@@ -401,7 +407,6 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
   
   graphics::legend(ifelse(lower.tail,"topright","topleft"),
                    legend=paste("beta=",format(1-pwr,nsmall=3)),bty="n")
-  graphics::par(old.par)
 } # end iPowerSimPlot internal function
 
 
@@ -513,9 +518,9 @@ iMMMakePlots <- function(x,breaks) {
   n <- length(x)
   mdn.pos <- (n+1)/2
   ## Construct the graphic
-  old.par <- graphics::par(mfcol=c(2,1))
+  withr::local_par(list(mfcol=c(2,1)))
   # Make the histogram on top
-  graphics::par(mar=c(0.05,3.5,2,1),mgp=c(2,0.5,0),tcl=-0.2,xaxt="n")
+  withr::local_par(list(mar=c(0.05,3.5,2,1),mgp=c(2,0.5,0),tcl=-0.2,xaxt="n"))
   graphics::hist(x,main="",col="gray90",right=FALSE,breaks=breaks)
   graphics::abline(h=0)
   graphics::abline(v=c(mn.x,mdn.x),col=c("red","blue"),lwd=2)
@@ -523,7 +528,7 @@ iMMMakePlots <- function(x,breaks) {
   mn.ttl <- paste("Mean =",formatC(mn.x,format="f",digits=3),ifelse(mn.x>mdn.x," *",""))
   graphics::mtext(c(mdn.ttl,mn.ttl),line=c(1,0),col=c("blue","red"))
   # Scatterlot on the bottom
-  graphics::par(mar=c(3.5,3.5,0.05,1),mgp=c(2,0.5,0),tcl=-0.2,xaxt="s")
+  withr::local_par(list(mar=c(3.5,3.5,0.05,1),mgp=c(2,0.5,0),tcl=-0.2,xaxt="s"))
   graphics::plot(x,1:n,xlab="Quantitative Variable",ylab="Ordered Individual",
                  col.main="blue",xlim=range(pretty(range(x),n=grDevices::nclass.Sturges(x)))) 
   # Put median on the plot
@@ -545,7 +550,6 @@ iMMMakePlots <- function(x,breaks) {
     if (x[i] < mn.x) graphics::lines(c(x[i],mn.x),c(i,i),col="black",lty=3)
     else graphics::lines(c(x[i],mn.x),c(i,i),col="red",lty=3)
   }
-  graphics::par(old.par)
 } # end internal iMMMakePlots
 
 
@@ -587,8 +591,8 @@ corrSim <- function() {
 
 # Internal function to produce the plot
 iPlotCorrData <- function(r,n,rects,trans=ifelse(n<100,0.1,0.05)) {
-  old.par <- graphics::par(mar=c(1,1.5,2,1.5),mgp=c(2,0.4,0),
-                           tcl=-0.2,xaxt="n",yaxt="n")
+  withr::local_par(list(mar=c(1,1.5,2,1.5),mgp=c(2,0.4,0),
+                           tcl=-0.2,xaxt="n",yaxt="n"))
   # constructs data
   res <- as.data.frame(MASS::mvrnorm(n,Sigma=matrix(c(1,r,r,1),nrow=2),
                                      mu=c(0,0),empirical=TRUE))
@@ -616,7 +620,6 @@ iPlotCorrData <- function(r,n,rects,trans=ifelse(n<100,0.1,0.05)) {
   # add the points (color coded)
   graphics::points(Y~X,data=res[w,],pch=19,col="red")
   graphics::points(Y~X,data=res[!w,],pch=19,col="blue")
-  graphics::par(old.par)
 }
 
 
@@ -645,7 +648,7 @@ iPlotCorrData <- function(r,n,rects,trans=ifelse(n<100,0.1,0.05)) {
 #' @export
 accuracyPrecision <- function(n=50,r=4,pts.col="red",pts.trans=0.6,pts.cex=1,
                               mns.col="blue",mns.pch=3,mns.lwd=2) {
-  old.par <- graphics::par(mfcol=c(4,2),mar=c(1.5,3,1.5,0)); on.exit(graphics::par(old.par))
+  withr::local_par(list(mfcol=c(4,2),mar=c(1.5,3,1.5,0)))
   # Standard deviation for precise situations
   ps <- 1/2                                                         
   # Standard deviation for imprecise situations
@@ -676,7 +679,7 @@ accuracyPrecision <- function(n=50,r=4,pts.col="red",pts.trans=0.6,pts.cex=1,
   minbrk <- min(tmp)
   maxbrk <- max(tmp)
   brks <- seq(minbrk,maxbrk,by=0.5)
-  graphics::par(mar=c(2,1,1,1))
+  withr::local_par(list(mar=c(2,1,1,1)))
   # Dist - Accurate and Precise
   iMakeDist(ap.x,ylmts,brks,pts.col,pts.trans,mns.col,mns.lwd)       
   # Dist - Accurate and Imprecise

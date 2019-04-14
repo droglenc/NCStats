@@ -1,7 +1,16 @@
 # 0.4.7 ongoing
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
 * Added `Encoding: UTF-8` to DESCRIPTION.
+* `AccuracyPrecision()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
+* `ciSim()`: Modified. Changed plot title label to show more decimals and defaults to 95% confidence level (addresses [#2](https://github.com/droglenc/NCStats/issues/2)). Changed all uses of `par()` to `withr::local_par()`.
+* `cltSim()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
+* `corrSim()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
+* `distrib()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
+* `meanMedian()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
+* `powerSim()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
 * `rSquared()`: Removed. Moved to `FSA` (with minor new functionality).
+* `sXXX()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
+* `transChooser()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
 
 # 0.4.6 1-Sep-17
 * Added `InstallTester.R` to `inst` directory. In theory, this should run without error and provides a way to test that the installation was completed properly.
