@@ -31,11 +31,3 @@ This installation may fail if other packages do not install properly (primarily 
 
 ## Note About Using Macs
 **NCStats** uses **TCL/TK** for some interactive plots. Some Mac users report problems with using **TCL/TK**. I do not have access to a Mac to test these problems. However, the CRAN page suggests that for recent versions of R (>3.0.0), [XQuartz](https://www.xquartz.org/) must be installed. In the past, some students have reported success installing the **TCL/TK** universal build [located here](http://cran.r-project.org/bin/macosx/tools/) (or [direct link to the file](http://cran.r-project.org/bin/macosx/tools/tcltk-8.5.5-x11.dmg)).
-
-
-## Alternative Installation
-The installation instructions above may not work if **devtools** will not install properly. In these instances, the following code (run in R/RStudio) may properly install **NCStats**.
-
-```r
-source("http://www.rforge.net/NCStats/InstallNCStats.R")
-```
