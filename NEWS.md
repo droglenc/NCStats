@@ -1,4 +1,4 @@
-# 0.4.7 ongoing
+# 0.4.7 27-Aug-19
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
 * Added `Encoding: UTF-8` to DESCRIPTION.
 * `AccuracyPrecision()`: Modified. Changed all uses of `par()` to `withr::local_par()`.
