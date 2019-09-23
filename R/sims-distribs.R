@@ -44,11 +44,13 @@ sbeta <- function() { # Beta Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
           cCDF.plot(x,Fx,xlab="X",ylab="F(x)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
         }
       }, alpha=manipulate::slider(0.2,5,step=0.1,initial=1),
          beta=manipulate::slider(0.2,5,step=0.1,initial=1),
@@ -73,11 +75,13 @@ schisq <- function() { # chi-square Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
           cCDF.plot(x,Fx,xlab="Chi-Square",ylab="F(chi)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="Chi-Square",ylab="f(chi)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
         }
       }, df=manipulate::slider(1,20,step=1,initial=4),
          show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
@@ -101,11 +105,13 @@ sexp <- function() { # Exponential Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
           cCDF.plot(x,Fx,xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
         }
       }, lambda=manipulate::slider(0.2,5,step=0.1,initial=1),
          show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
@@ -129,11 +135,13 @@ sf <- function() { # F Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="F",ylab="f(f)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="F",ylab="f(f)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
           cCDF.plot(x,Fx,xlab="F",ylab="F(f)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="F",ylab="f(f)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="F",ylab="f(f)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
         }
       }, ndf=manipulate::slider(1,10,step=1,initial=1,label="Numerator df"),
          ddf=manipulate::slider(5,50,step=1,initial=5,label="Denominator df"),
@@ -158,11 +166,13 @@ sgamma <- function() {  # Gamma Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
           cCDF.plot(x,Fx,xlab="Time",ylab="F(x)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="Time",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
         }
       }, alpha=manipulate::slider(0.2,5,step=0.1,initial=1),
          lambda=manipulate::slider(0.2,5,step=0.1,initial=1),
@@ -187,11 +197,13 @@ slnorm <- function() {  # Log-normal Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
           cCDF.plot(x,Fx,xlab="X",ylab="F(x)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",
+                    xlim=xr,show.mnsd=show.mnsd)
         }
       }, mu=manipulate::slider(0,2,step=0.1,initial=0,label="log mu"),
          sigma=manipulate::slider(0.2,2,step=0.2,initial=1,label="log sigma"),
@@ -216,15 +228,17 @@ snorm <- function() { # Normal Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",
+                    xlim=xr,ylim=c(0,1),show.mnsd)
           cCDF.plot(x,Fx,xlab="X",ylab="F(x)",main="CDF",xlim=xr)
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",xlim=xr,show.mnsd)
+          cPDF.plot(x,fx,xlab="X",ylab="f(x)",main="PDF",
+                    xlim=xr,ylim=c(0,1),show.mnsd)
         }
       }, mu=manipulate::slider(-5,5,step=0.2,initial=0,label="mu"),
-         sigma=manipulate::slider(0.2,2,step=0.2,initial=1,label="sigma"),
-         show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
+         sigma=manipulate::slider(0.4,2,step=0.2,initial=1,label="sigma"),
+         show.both=manipulate::checkbox(FALSE,label="Show PDF & CDF"),
          show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
     ) # end manipulate
   }
@@ -248,13 +262,15 @@ st <- function() { # t Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=yr,show.mnsd)
+          cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",
+                    xlim=xr,ylim=yr,show.mnsd=show.mnsd)
           if (show.norm) graphics::lines(x,fx.norm,col="gray50")
           cCDF.plot(x,Fx,xlab="t",ylab="F(t)",main="CDF",xlim=xr)
           if (show.norm) graphics::lines(x,Fx.norm,col="gray50")
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",xlim=xr,ylim=yr,show.mnsd)
+          cPDF.plot(x,fx,xlab="t",ylab="f(t)",main="PDF",
+                    xlim=xr,ylim=yr,show.mnsd=show.mnsd)
           if (show.norm) graphics::lines(x,fx.norm,col="gray50")
         }
       }, df=manipulate::slider(1,50,step=1,initial=2),
@@ -283,11 +299,11 @@ sbinom <- function() { # Binomial Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
           dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
         }
       }, n=manipulate::slider(1,100,step=1,initial=10,label="Sample Size (n)"),
          p=manipulate::slider(0.01,0.99,step=0.01,initial=0.5,label="PR(Success)"),
@@ -315,11 +331,11 @@ sgeom <- function() {  # Geometric Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
           dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
         }
       }, p=manipulate::slider(0.05,0.90,step=0.01,initial=0.5,label="PR(Success)"),
          show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
@@ -343,14 +359,16 @@ shyper <- function() { # Hypergeometric Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
           dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
         }
-      }, M=manipulate::slider(10,100,step=1,initial=10,label="Successes in Popn (M)"),
-         Mf=manipulate::slider(50,200,step=1,initial=150,label="Failures in Popn (N-M)"),
+      }, M=manipulate::slider(10,100,step=1,initial=10,
+                              label="Successes in Popn (M)"),
+         Mf=manipulate::slider(50,200,step=1,initial=150,
+                               label="Failures in Popn (N-M)"),
          n=manipulate::slider(2,100,step=1,initial=30,label="Sample Size (n)"),
          show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),
          show.mnsd=manipulate::checkbox(TRUE,label="Show mean & SD")
@@ -376,11 +394,11 @@ snbinom <- function() { # Negative Binomial Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
           dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
         }
       }, r=manipulate::slider(1,10,step=1,initial=2,label="Successes to Observe (r)"),
          p=manipulate::slider(0.05,0.9,step=0.01,initial=0.5,label="PR(Success)"),
@@ -408,11 +426,11 @@ spois <- function() {  # Poisson Distribution Simulator
         # make graph
         if (show.both) {
           withr::local_par(list(mfcol=c(1,2)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
           dCDF.plot(x,Fx,xlab=xlbl,ylab="F(x)",main="CDF")
         } else {
           withr::local_par(list(mfcol=c(1,1)))
-          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd)
+          dPDF.plot(x,fx,xlab=xlbl,ylab="f(x)",main="PDF",show.mnsd=show.mnsd)
         }
       }, lambda=manipulate::slider(1,30,step=1,initial=5),
       show.both=manipulate::checkbox(TRUE,label="Show PDF & CDF"),

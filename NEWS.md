@@ -1,3 +1,6 @@
+# 0.4.8 ongoing
+* `snorm()`: Modified. Changed sigma range, controlled y-axis to be between 0 and 1, and defaulted to not showing the CDF.
+
 # 0.4.7 27-Aug-19
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
 * Added `Encoding: UTF-8` to DESCRIPTION.
