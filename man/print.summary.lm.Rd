@@ -5,15 +5,25 @@
 \alias{print.summary.glm}
 \title{Modificaton of print.summary.lm() to streamline output}
 \usage{
-\method{print}{summary.lm}(x, digits = max(3, getOption("digits") - 3),
+\method{print}{summary.lm}(
+  x,
+  digits = max(3, getOption("digits") - 3),
   symbolic.cor = x$symbolic.cor,
-  signif.stars = getOption("show.signif.stars"), show.call = FALSE,
-  show.resids = FALSE, ...)
+  signif.stars = getOption("show.signif.stars"),
+  show.call = FALSE,
+  show.resids = FALSE,
+  ...
+)
 
-\method{print}{summary.glm}(x, digits = max(3, getOption("digits") - 3),
+\method{print}{summary.glm}(
+  x,
+  digits = max(3, getOption("digits") - 3),
   symbolic.cor = x$symbolic.cor,
-  signif.stars = getOption("show.signif.stars"), show.call = FALSE,
-  show.resids = FALSE, ...)
+  signif.stars = getOption("show.signif.stars"),
+  show.call = FALSE,
+  show.resids = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{summary.lm} to be printed}

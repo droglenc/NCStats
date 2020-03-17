@@ -4,8 +4,7 @@
 \alias{plot.htest}
 \title{Plots test statistic and p-value area for z-, t-, and chi-square tests.}
 \usage{
-\method{plot}{htest}(x, smoothness = 1000, shade.col = "red",
-  shade.col2 = "red3", ...)
+\method{plot}{htest}(x, smoothness = 1000, shade.col = "red", shade.col2 = "red3", ...)
 }
 \arguments{
 \item{x}{an object saved from \code{\link{z.test}}, \code{\link[stats]{t.test}}, or \code{\link[stats]{chisq.test}}}

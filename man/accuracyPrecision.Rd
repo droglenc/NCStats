@@ -4,8 +4,16 @@
 \alias{accuracyPrecision}
 \title{Plot targets and histograms for illustrating accuracy and precision.}
 \usage{
-accuracyPrecision(n = 50, r = 4, pts.col = "red", pts.trans = 0.6,
-  pts.cex = 1, mns.col = "blue", mns.pch = 3, mns.lwd = 2)
+accuracyPrecision(
+  n = 50,
+  r = 4,
+  pts.col = "red",
+  pts.trans = 0.6,
+  pts.cex = 1,
+  mns.col = "blue",
+  mns.pch = 3,
+  mns.lwd = 2
+)
 }
 \arguments{
 \item{n}{Number of random points to put on each target and histogram.}

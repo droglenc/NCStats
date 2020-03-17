@@ -4,8 +4,12 @@
 \alias{gofCI}
 \title{Pseudo- confidence intervals for multinomial levels.}
 \usage{
-gofCI(chi, conf.level = 0.95, type = c("wilson", "exact", "asymptotic",
-  "goodman"), digits = getOption("digits"))
+gofCI(
+  chi,
+  conf.level = 0.95,
+  type = c("wilson", "exact", "asymptotic", "goodman"),
+  digits = getOption("digits")
+)
 }
 \arguments{
 \item{chi}{An object from \code{\link[stats]{chisq.test}} representing a goodness-of-fit test}

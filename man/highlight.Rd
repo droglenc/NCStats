@@ -8,11 +8,27 @@
 \usage{
 highlight(x, ...)
 
-\method{highlight}{default}(x, y, lbls = NULL, pts = NULL,
-  col = "red", cex = 1.25, pos = NULL, ...)
+\method{highlight}{default}(
+  x,
+  y,
+  lbls = NULL,
+  pts = NULL,
+  col = "red",
+  cex = 1.25,
+  pos = NULL,
+  ...
+)
 
-\method{highlight}{formula}(x, data = NULL, lbls = NULL, pts = NULL,
-  col = "red", cex = 1.25, pos = NULL, ...)
+\method{highlight}{formula}(
+  x,
+  data = NULL,
+  lbls = NULL,
+  pts = NULL,
+  col = "red",
+  cex = 1.25,
+  pos = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{The vector of x coordinates or a formula of the form \code{y~x}.}

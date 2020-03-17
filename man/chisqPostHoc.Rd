@@ -4,8 +4,13 @@
 \alias{chisqPostHoc}
 \title{Tests for significant differences among all pairs of populations in a chi-square test.}
 \usage{
-chisqPostHoc(chi, popsInRows = TRUE, control = stats::p.adjust.methods,
-  digits = 4, verbose = TRUE)
+chisqPostHoc(
+  chi,
+  popsInRows = TRUE,
+  control = stats::p.adjust.methods,
+  digits = 4,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{chi}{A \code{chisq.test} object}

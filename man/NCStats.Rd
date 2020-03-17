@@ -3,7 +3,6 @@
 \docType{package}
 \name{NCStats}
 \alias{NCStats}
-\alias{NCStats-package}
 \title{Support for statistics classes at Northland College.}
 \description{
 Support for statistics classes at Northland College.

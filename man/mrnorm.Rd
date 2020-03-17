@@ -4,8 +4,15 @@
 \alias{mrnorm}
 \title{Multiple Simulations from Normal Distributions}
 \usage{
-mrnorm(n, mean, sd, exact = TRUE, grp.labels = LETTERS[1:length(n)],
-  var.labels = c("measure", "group"), digits = NULL)
+mrnorm(
+  n,
+  mean,
+  sd,
+  exact = TRUE,
+  grp.labels = LETTERS[1:length(n)],
+  var.labels = c("measure", "group"),
+  digits = NULL
+)
 }
 \arguments{
 \item{n}{vector of number of observations.}

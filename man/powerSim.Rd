@@ -4,8 +4,14 @@
 \alias{powerSim}
 \title{Dynamic simulation of power calculation in 1-sample mean problems.}
 \usage{
-powerSim(mu0 = 100, s.mua = 95, s.sigma = 10, s.n = 30,
-  s.alpha = 0.05, lower.tail = TRUE)
+powerSim(
+  mu0 = 100,
+  s.mua = 95,
+  s.sigma = 10,
+  s.n = 30,
+  s.alpha = 0.05,
+  lower.tail = TRUE
+)
 }
 \arguments{
 \item{mu0}{A single numeric that is the null hypothesized mean}

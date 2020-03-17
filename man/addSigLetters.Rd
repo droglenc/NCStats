@@ -4,9 +4,17 @@
 \alias{addSigLetters}
 \title{Places significance letters next to mean points on a fitPlot.}
 \usage{
-addSigLetters(mdl, lets, which, change.order = FALSE, pos = rep(2,
-  length(mns)), offset = 0.5, col = rep(1, length(mns)), cex = rep(0,
-  length(mns)), ...)
+addSigLetters(
+  mdl,
+  lets,
+  which,
+  change.order = FALSE,
+  pos = rep(2, length(mns)),
+  offset = 0.5,
+  col = rep(1, length(mns)),
+  cex = rep(0, length(mns)),
+  ...
+)
 }
 \arguments{
 \item{mdl}{A \code{lm} object or formula depicting an ANOVA}
