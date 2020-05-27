@@ -446,3 +446,42 @@ percTable <- function(x,margin=NULL,digits=1,addMargins=!is.na(ncol(x))) {
   if (addMargins) ifelse(is.null(margin),res <- addMargins(res),res <- addMargins(res,margin=margin))
   res
 }
+
+
+
+
+
+#' @title A ggplot2 theme.
+#' 
+#' @description A basic ggplot2 theme for use in statistics courses at Northland College.
+#' 
+#' @param base_size	The base font size.
+#' @param base_family The base font family.
+#' @param base_line_size The base size for line elements.
+#' @param base_rect_size The base size for rect elements.
+#' 
+#' @return A function that will apply a theme to a ggplot2 object.
+#' 
+#' @keywords manip graphics
+#' 
+#' @examples
+#' p <- ggplot2::ggplot(data=data.frame(x=c(1,2,3,1,3,1),
+#'                                      y=c(1,3,1,2.3,2.3,1)),
+#'                      mapping=ggplot2::aes(x=x,y=y)) +
+#'   ggplot2::geom_polygon()
+#' p
+#' p + theme_NCStats()
+#' @export
+theme_NCStats <- function(base_size=12,base_family="",
+                          base_line_size=base_size/24,base_rect_size=base_size/24) {
+  ggplot2::theme_bw(base_size=base_size,base_family=base_family,
+                    base_line_size=base_line_size,base_rect_size=base_rect_size) +
+    ggplot2::theme(
+      panel.grid=ggplot2::element_blank(),
+      axis.title.x=ggplot2::element_text(
+        margin=ggplot2::margin(t=3.25,b=0,r=0,l=0,unit="mm")),
+      axis.title.y=ggplot2::element_text(
+        margin=ggplot2::margin(t=0,b=0,r=3.25,l=0,unit="mm"))
+    )
+}
+
