@@ -112,7 +112,6 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,
 #' @param control A string indicating the method of control to use (see details)
 #' @param digits A numeric that controls the number of digits to print
 #' @param verbose A logical that conrols whether the warning message from the individual \code{chisq.test} calls are printed
-#' @param \dots Other arguments sent to \code{print}
 #' 
 #' @return A data.frame with a description of the pairwise comparisons, the raw p-values, and the adjusted p-values.
 #' 

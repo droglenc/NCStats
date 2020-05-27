@@ -28,8 +28,6 @@ transChooser(
 \item{alpha}{A numeric used to decide the significance cutoff when choosing the color to print the assumption test p-values. Only has an effect if \code{show.stats=TRUE}.}
 
 \item{col.hist}{A string used to depict the color of bars in the histogram.}
-
-\item{\dots}{Other arguments to the generic function.}
 }
 \value{
 None. However, a dynamic graphic is produced.

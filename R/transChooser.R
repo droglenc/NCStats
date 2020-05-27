@@ -18,7 +18,6 @@
 #' @param alpha A numeric used to decide the significance cutoff when choosing the color to print the assumption test p-values. Only has an effect if \code{show.stats=TRUE}.
 #' @param boxplot A logical indicating if the residual plot should be constructed as a boxplot (\code{=TRUE}; default) or as a traditional residual plot (\code{=FALSE}). Only effective if a one- or two-way ANOVA model is being examined.
 #' @param col.hist A string used to depict the color of bars in the histogram.
-#' @param \dots Other arguments to the generic function.
 #' 
 #' @return None. However, a dynamic graphic is produced.
 #' 
