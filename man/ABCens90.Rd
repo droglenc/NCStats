@@ -4,12 +4,14 @@
 \name{ABCens90}
 \alias{ABCens90}
 \title{Data on Ashland and Bayfield County (WI) residents in 1990.}
-\format{A data frame with 30335 observations on the following 3 variables:
+\format{
+A data frame with 30335 observations on the following 3 variables:
  \describe{
    \item{race}{Race of the individual (\code{white}, \code{black}, \code{natAmer}, \code{asian}, and \code{other}}
    \item{sex}{Sex of the individual (male or female)}
    \item{age}{Age of the individual (in yrs)}
- }}
+ }
+}
 \source{
 Online information from the 1990 census.
 }

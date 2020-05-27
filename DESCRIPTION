@@ -29,9 +29,10 @@ Imports:
     TeachingDemos,
     withr
 Suggests:
+    ggplot2,
     manipulate,
     relax,
     tcltk,
     testthat
 Encoding: UTF-8
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

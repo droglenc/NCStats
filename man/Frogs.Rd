@@ -4,11 +4,13 @@
 \name{Frogs}
 \alias{Frogs}
 \title{Numbers of frogs on lakes as determined by call and visual methods.}
-\format{A data frame with 1000 observations on the following 2 variables:
+\format{
+A data frame with 1000 observations on the following 2 variables:
   \describe{
     \item{call}{Abundance determined from the \sQuote{call} method.}
     \item{visual}{Abundance determined from the \sQuote{visual} method.}
-  }}
+  }
+}
 \source{
 Randomly determined from realistic values provided by the Sigurd Olson Environmental Institute, Northland College, Ashland, WI.
 }

@@ -4,7 +4,8 @@
 \name{ABDLakes}
 \alias{ABDLakes}
 \title{Data for lakes in Ashland, Bayfield, and Douglas counties, Wisconsin.}
-\format{A data frame with 1499 observations on the following 31 variables:
+\format{
+A data frame with 1499 observations on the following 31 variables:
   \describe{
     \item{county}{County that lake is in (Ashland, Bayfield, Douglas).}
     \item{waterbody.type}{Type of waterbody (LP=, RF=).}
@@ -36,7 +37,8 @@
     \item{cat}{catfish abundance code (C=common,A=abundant,P=present; NA is not present).}
     \item{sturg}{sturgeon abundance code (C=common,A=abundant,P=present; NA is not present).}
     \item{merc.warn}{mercury warning code (???).}
-  }}
+  }
+}
 \source{
 online information from Wisconsin Department of Natural Resources.
 }

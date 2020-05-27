@@ -22,8 +22,6 @@ chisqPostHoc(
 \item{digits}{A numeric that controls the number of digits to print}
 
 \item{verbose}{A logical that conrols whether the warning message from the individual \code{chisq.test} calls are printed}
-
-\item{\dots}{Other arguments sent to \code{print}}
 }
 \value{
 A data.frame with a description of the pairwise comparisons, the raw p-values, and the adjusted p-values.
