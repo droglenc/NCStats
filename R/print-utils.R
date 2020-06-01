@@ -4,7 +4,7 @@
 #' 
 #' @aliases print.summary.glht print.confint.glht
 #' 
-#' @param x An object of class \code{\link[multcomp]{summary.glht}} or \code{\link[multcomp]{confint.glht}} to be printed
+#' @param x An object of class \code{\link[multcomp:methods]{summary.glht}} or \code{\link[multcomp:methods]{confint.glht}} to be printed
 #' @param digits A single numeric that indicates the number of digits to use
 #' @param justResults A single logical that indicates whether just the most pertinent numerical results are printed (\code{=TRUE}; default) or all information as in the default functions from \pkg{multcomp}
 #' @param signif.stars A logical that if \code{=TRUE} then \sQuote{significance stars} will be printed for each coefficient

@@ -105,7 +105,7 @@ addSigLetters <- function(mdl,lets,which,change.order=FALSE,
 #' 
 #' @description Tests for significant differences among all pairs of populations in a chi-square test.
 #' 
-#' @details Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons. The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust.methods}}). This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program. The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
+#' @details Post-hoc tests for which pairs of populations differ following a significant chi-square test can be constructed by performing all chi-square tests for all pairs of populations and then adjusting the resulting p-values for inflation due to multiple comparisons. The adjusted p-values can be computed with a wide variety of methods (see \code{\link[stats]{p.adjust}}). This function basically works as a wrapper function that sends the unadjusted \dQuote{raw} p-values from each pair-wise chi-square test to the \code{\link[stats]{p.adjust}} function in the base R program. The \code{\link[stats]{p.adjust}} function should be consulted for further description of the methods used.
 #' 
 #' @param chi A \code{chisq.test} object
 #' @param popsInRows A logical indicating whether the populations form the rows (default; \code{=TRUE}) of the table or not (\code{=FALSE})
@@ -185,13 +185,13 @@ chisqPostHoc <- function(chi,popsInRows=TRUE,control=stats::p.adjust.methods,dig
 #' @param object An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.
 #' @param type A function for computing p-values (see \code{\link[multcomp]{glht}}).
 #' @param alpha A numeric indicated the rejection criterion to be used for identifying significant comparisons. Defaults to \code{0.05}.
-#' @param \dots Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.
+#' @param \dots Other arguments to pass through to \code{\link[multcomp:methods]{summary.glht}}.
 #' 
 #' @return A vector containing the names of the paired comparisons that have a p-value less than \code{alpha}.
 #' 
 #' @note This can be very slow to process. Be patient.
 #' 
-#' @seealso \code{\link[multcomp]{glht}} and \code{\link[multcomp]{summary.glht}} in \pkg{multcomp}.
+#' @seealso \code{\link[multcomp]{glht}} and \code{\link[multcomp:methods]{summary.glht}} in \pkg{multcomp}.
 #' 
 #' @keywords misc
 #' 

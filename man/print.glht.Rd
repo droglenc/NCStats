@@ -16,7 +16,7 @@
 \method{print}{confint.glht}(x, digits = max(3, getOption("digits") - 3), justResults = TRUE, ...)
 }
 \arguments{
-\item{x}{An object of class \code{\link[multcomp]{summary.glht}} or \code{\link[multcomp]{confint.glht}} to be printed}
+\item{x}{An object of class \code{\link[multcomp:methods]{summary.glht}} or \code{\link[multcomp:methods]{confint.glht}} to be printed}
 
 \item{digits}{A single numeric that indicates the number of digits to use}
 

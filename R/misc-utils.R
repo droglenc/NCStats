@@ -63,7 +63,7 @@ addMargins <- function(A,margin=seq_along(dim(A)),...) {
 #' 
 #' @return Returns a matrix containing the lower and upper values of the confidence interval.
 #' 
-#' @seealso \code{\link[FSA]{confint.nlsBoot}} in \pkg{FSA}.
+#' @seealso \code{\link[FSA:nlsBoot]{confint.nlsBoot}} in \pkg{FSA}.
 #' 
 #' @keywords htest
 #' 
@@ -279,7 +279,7 @@ identify.formula <- function(x,data=NULL,...) {
 #' 
 #' @note This function can be used to generate \dQuote{realistic} data when one knows the sample size, mean, and standard deviation for several groups and it can be assumed that the data in each group follows a normal distribution.  Thus, this function can be used to generate \dQuote{actual} data for, for example, one-way and two-way ANOVA from summaries of group sample sizes, means, and standard deviations.  Note that standard deviations can often be estimated by \dQuote{back-calculating} from given standard errors or confidence intervals.
 #' 
-#' @seealso \code{\link[stats]{rnorm}}.
+#' @seealso \code{\link[stats:Normal]{rnorm}}.
 #' 
 #' @keywords distribution
 #' 
@@ -481,7 +481,8 @@ theme_NCStats <- function(base_size=12,base_family="",
       axis.title.x=ggplot2::element_text(
         margin=ggplot2::margin(t=3.25,b=0,r=0,l=0,unit="mm")),
       axis.title.y=ggplot2::element_text(
-        margin=ggplot2::margin(t=0,b=0,r=3.25,l=0,unit="mm"))
+        margin=ggplot2::margin(t=0,b=0,r=3.25,l=0,unit="mm")),
+      axis.text=ggplot2::element_text(color="black")
     )
 }
 

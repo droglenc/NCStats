@@ -17,7 +17,7 @@ glhtSig(object, ...)
 \arguments{
 \item{object}{An object saved from \code{\link[multcomp]{glht}} from the \pkg{multcomp} package.}
 
-\item{\dots}{Other arguments to pass through to \code{\link[multcomp]{summary.glht}}.}
+\item{\dots}{Other arguments to pass through to \code{\link[multcomp:methods]{summary.glht}}.}
 
 \item{type}{A function for computing p-values (see \code{\link[multcomp]{glht}}).}
 
@@ -37,6 +37,6 @@ This can be very slow to process. Be patient.
 
 }
 \seealso{
-\code{\link[multcomp]{glht}} and \code{\link[multcomp]{summary.glht}} in \pkg{multcomp}.
+\code{\link[multcomp]{glht}} and \code{\link[multcomp:methods]{summary.glht}} in \pkg{multcomp}.
 }
 \keyword{misc}

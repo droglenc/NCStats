@@ -70,7 +70,7 @@ st()
 
 }
 \seealso{
-\code{\link[TeachingDemos]{vis.binom}}, \code{\link[TeachingDemos]{vis.gamma}}, \code{\link[TeachingDemos]{vis.normal}}, and \code{\link[TeachingDemos]{vis.t}} of \code{TeachingDemos}.  Also see \code{\link[stats]{dbeta}}, \code{\link[stats]{dbinom}}, \code{\link{dchisq}}, etc.
+\code{\link[TeachingDemos]{vis.binom}}, \code{\link[TeachingDemos:vis.binom]{vis.gamma}}, \code{\link[TeachingDemos:vis.binom]{vis.normal}}, and \code{\link[TeachingDemos:vis.binom]{vis.t}} of \code{TeachingDemos}.  Also see \code{\link[stats:Beta]{dbeta}}, \code{\link[stats:Binomial]{dbinom}}, \code{\link[stats:Chisquare]{dchisq}}, etc.
 }
 \keyword{distribution}
 \keyword{dynamic}

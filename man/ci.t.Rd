@@ -27,6 +27,6 @@ ci.t(2.96,0.32,14)
 
 }
 \seealso{
-\code{\link[FSA]{confint.nlsBoot}} in \pkg{FSA}.
+\code{\link[FSA:nlsBoot]{confint.nlsBoot}} in \pkg{FSA}.
 }
 \keyword{htest}

@@ -10,7 +10,7 @@ corrSim()
 None, but a a dynamic graphic with sliders is produced.
 }
 \description{
-This function simulates bivariate data with a known correlation coefficient.  A crosshairs at the bivariate means and color coding of the product of standardized values helps illustrate how the concept of the correlation.  Optionally, rectangles from each point to the bivariate mean can be include to demonstrate how the correlation sums these areas (concept from \code{\link[TeachingDemos]{cor.rect.plot}}).
+This function simulates bivariate data with a known correlation coefficient.  A crosshairs at the bivariate means and color coding of the product of standardized values helps illustrate how the concept of the correlation.  Optionally, rectangles from each point to the bivariate mean can be include to demonstrate how the correlation sums these areas (concept from \code{\link[TeachingDemos:correct]{cor.rect.plot}}).
 }
 \details{
 Requires RStudio and the \pkg{manipulate} package to be installed.  The dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
