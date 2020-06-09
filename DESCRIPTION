@@ -30,6 +30,7 @@ Imports:
     withr
 Suggests:
     ggplot2,
+    ggpubr,
     manipulate,
     relax,
     tcltk,

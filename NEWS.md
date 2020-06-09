@@ -1,8 +1,10 @@
 # 0.4.8 ongoing
 * Changed to depending on `R >=3.5.0`, because that is the latest version required by packages (i.e., `car`, `FSA`, `plotrix`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
+* Added suggests for `ggplot2` and `ggpubr`.
 * Fixed bad links to other documentation files in documentation files.
 * `chisqPostHoc()`: Modified documentation to eliminate check errors.
 * `snorm()`: Modified. Changed sigma range, controlled y-axis to be between 0 and 1, and defaulted to not showing the CDF.
+* `stat_SLR_equation()`: Added.
 * `theme_NCStats()`: Added.
 * `transChooser()`: Modified documentation to eliminate check errors.
 
