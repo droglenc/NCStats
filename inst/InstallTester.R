@@ -49,12 +49,20 @@ plot(area~dep.max,data=tmp2)
 highlight(area~dep.max,data=tmp2,lbls=county)
 
 ## test of TeachingDemos functions
-z.test(rnorm(25,100,5),99,5)
+df <- data.frame(x=rnorm(25,100,5))
+z.test(df$x,mu=99,sd=5)
+
+## test of TeachingDemos functions
+t.test(~x,data=df,mu=99)
 
 ## Make sure all dependent and imported packages would load
 library(car)
+library(ggplot2)
 library(MASS)
+library(mosaic)
 library(multcomp)
 library(nortest)
 library(plotrix)
 library(TeachingDemos)
+library(withr)
+library(manipulate)

@@ -101,10 +101,12 @@ p +
 p2 <- p + ggplot2::facet_wrap(~Species)
 p2 + stat_SLR_equation()
 p2 + stat_SLR_equation(cf.digits=2)
-p2 + stat_SLR_equation(cf.digits=c(1,3))
+p2 + stat_SLR_equation(cf.digits=c(3,4))
 p2 + 
-  stat_SLR_equation(ggplot2::aes(label=..eq.label..),label.x.npc=0,label.y.npc=1.0) +
-  stat_SLR_equation(ggplot2::aes(label=..rr.label..),label.x.npc=0,label.y.npc=0.9)
+  stat_SLR_equation(ggplot2::aes(label=..eq.label..),
+                    label.x.npc=0,label.y.npc=1.0,cf.digits=c(3,4)) +
+  stat_SLR_equation(ggplot2::aes(label=..rr.label..),
+                    label.x.npc=0,label.y.npc=0.9,rr.digits=3)
 
 }
 \references{
