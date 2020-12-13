@@ -14,6 +14,6 @@ below to see their documentation.
 \describe{
   \item{car}{\code{\link[car]{outlierTest}}}
 
-  \item{mosaic}{\code{\link[mosaic]{t.test}}}
+  \item{mosaic}{\code{\link[mosaic:ttest]{t.test}}}
 }}
 

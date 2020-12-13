@@ -3,6 +3,7 @@
 * Added suggests for `ggplot2` and `ggpubr`.
 * Fixed bad links to other documentation files in documentation files.
 * Updated installTester.R file.
+* `assumptionCheck()`: Added.
 * `chisqPostHoc()`: Modified documentation to eliminate check errors.
 * `outlierTest()`: Removed. Now just imports and then exports `outlierTest()` from `car`.
 * `snorm()`: Modified. Changed sigma range, controlled y-axis to be between 0 and 1, and defaulted to not showing the CDF.
