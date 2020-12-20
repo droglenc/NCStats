@@ -171,8 +171,8 @@ iAssumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.h
     lbl <- paste0("Residuals from Y^(",formatC(lambda,format="f",digits=2),")") 
   }
   # below controls for whether it is a one-way or two-way ANOVA
-  ifelse(inherits(object,"ONEWAY"), gf <- object$mf[,object$EFactPos[1]],
-         gf <- object$mf[,object$EFactPos[1]]:object$mf[,object$EFactPos[2]])
+  gf <- object$mf[,object$EFactPos]
+  if (inherits(object,"TWOWAY")) gf <- interaction(object$mf[,object$EFactPos])
   lm1 <- stats::lm(y~gf)
   withr::local_par(list(mar=c(3.5,3.5,2,1),mgp=c(2,0.75,0),mfcol=c(1,2)))
   graphics::hist(lm1$residuals,main="",xlab=lbl,yaxt="n",ylab="",col=col.hist)
