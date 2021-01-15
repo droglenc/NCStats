@@ -1,4 +1,4 @@
-# 0.4.8 ongoing
+# 0.4.8 15-Jan-21
 * Changed to depending on `R >=3.5.0`, because that is the latest version required by packages (i.e., `car`, `FSA`, `plotrix`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
 * Added suggests for `ggplot2` and `ggpubr`.
 * Fixed bad links to other documentation files in documentation files.
