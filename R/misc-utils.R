@@ -150,6 +150,61 @@ expandTable <- function(x,var.names=NULL,...) {
 
 
 
+#' @name filterD
+#' 
+#' @title Subsets/filters a data frame and drops the unused levels.
+#' 
+#' @description Subsets/filters a data frame and drops the unused levels.
+#' 
+#' @details Newbie students using R expect that when a factor variable is filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use \code{\link[base]{droplevels}} immediately following \code{\link[dplyr]{filter}}. This generally becomes a repetitive sequence for most newbie students; thus, \code{filterD} incorporate these two functions into one function.
+#' 
+#' \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[base]{droplevels}} just before the data.frame is returned. Otherwise, there is no new code here.
+#' 
+#' This function is only used for data frames.
+#' 
+#' @param x A data frame.
+#' @param except Indices of columns from which NOT to drop levels.
+#' @param \dots further arguments to be passed to \code{\link[dplyr]{filter}}.
+#'
+#' @return A data frame with the filtered rows.
+#'
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' 
+#' @section IFAR Chapter: Basic Data Manipulations.
+#'
+#' @seealso See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality. See \code{drop.levels} in \pkg{gdata} and \code{droplevels} for related functionality.
+#'
+#' @keywords misc
+#'
+#' @examples
+#' ## The problem -- note use of unused level in the final table.
+#' levels(iris$Species)
+#' iris.set1 <- subset(iris,Species=="setosa" | Species=="versicolor")
+#' levels(iris.set1$Species)
+#' xtabs(~Species,data=iris)
+#'
+#' ## A fix using filterD
+#' iris.set3 <- filterD(iris,Species=="setosa" | Species=="versicolor")
+#' levels(iris.set3$Species)
+#' xtabs(~Species,data=iris.set3)
+#'
+NULL
+
+#' @rdname filterD
+#' @export
+filterD <- function(x,...,except=NULL) {
+  res <- dplyr::filter(x,...)
+  res <- droplevels(res,except)
+  if (nrow(res)==0)
+    WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
+  res
+}
+
+
+
+
+
+
 #' @title Labels a list of points on a two-dimensional plot.
 #' 
 #' @description Labels a list of points on a two-dimensional plot.
@@ -318,6 +373,50 @@ mrnorm <- function(n,mean,sd,exact=TRUE,grp.labels=LETTERS[1:length(n)],
 
 
 
+#' @title Express table entries as percentage of marginal table.
+#' 
+#' @description Same as \code{\link{prop.table}} except that it returns percentages rather than proportions.
+#' 
+#' @param x A frequency table likely constructed with \code{\link{table}} or \code{\link{xtabs}}.
+#' @param margin A numeric representing an index, or vector of indices, to generate the margin for -- \code{margin=1} computes row percentages, \code{margin=2} computes column percentages, and \code{margin=NULL} (default) produces table percentages.
+#' @param digits A numeric indicating the number of decimals to round the percentages to.
+#' @param addMargins A logical indicating whether marginal totals should be appended to the table or not.  If \code{addMargins=TRUE} then the appended marginal totals will correspond to which margin is chosen with \code{margin=} (as in \code{\link{addMargins}}).
+#' 
+#' @return Same type as \code{x} except with percentages of a margin rather than frequencies.
+#' 
+#' @keywords manip
+#' 
+#' @examples
+#' d <- data.frame(Aye=sample(c("Yes","Si","Oui"),177,replace=TRUE),
+#'                 Bee=sample(c("Hum","Buzz"),177,replace=TRUE))
+#' 
+#' ## 1-D
+#' ( A1 <- table(d$Aye) )
+#' prop.table(A1)
+#' percTable(A1)
+#' percTable(A1,digits=3)
+#' percTable(A1,addMargins=TRUE)
+#' ( A2 <- xtabs(~Aye,data=d) )
+#' percTable(A2)
+#' 
+#' ## 2-D
+#' ( AB1 <- table(d$Aye,d$Bee) )
+#' percTable(AB1,margin=1)
+#' percTable(AB1,margin=2)
+#' percTable(AB1)
+#' percTable(AB1,digits=3)
+#' percTable(AB1,addMargins=FALSE)
+#' 
+#' @export
+percTable <- function(x,margin=NULL,digits=1,addMargins=!is.na(ncol(x))) {
+  res <- round(100*prop.table(x,margin=margin),digits)
+  if (addMargins) ifelse(is.null(margin),res <- addMargins(res),res <- addMargins(res,margin=margin))
+  res
+}
+
+
+
+
 #' @title Extract a simple random sample from a data.frame.
 #' 
 #' @description Extract a simple random sample from a data.frame, allowing user to choose particular variables.
@@ -401,50 +500,6 @@ view <- function(x,n=6L,which=NULL) {
     if (is.matrix(x)) x[sort(sample(1:N,n)),]
     else x[sort(sample(1:N,n)),names(x)]
   } else x[sort(sample(1:N,n)),which]
-}
-
-
-
-
-#' @title Express table entries as percentage of marginal table.
-#' 
-#' @description Same as \code{\link{prop.table}} except that it returns percentages rather than proportions.
-#' 
-#' @param x A frequency table likely constructed with \code{\link{table}} or \code{\link{xtabs}}.
-#' @param margin A numeric representing an index, or vector of indices, to generate the margin for -- \code{margin=1} computes row percentages, \code{margin=2} computes column percentages, and \code{margin=NULL} (default) produces table percentages.
-#' @param digits A numeric indicating the number of decimals to round the percentages to.
-#' @param addMargins A logical indicating whether marginal totals should be appended to the table or not.  If \code{addMargins=TRUE} then the appended marginal totals will correspond to which margin is chosen with \code{margin=} (as in \code{\link{addMargins}}).
-#' 
-#' @return Same type as \code{x} except with percentages of a margin rather than frequencies.
-#' 
-#' @keywords manip
-#' 
-#' @examples
-#' d <- data.frame(Aye=sample(c("Yes","Si","Oui"),177,replace=TRUE),
-#'                 Bee=sample(c("Hum","Buzz"),177,replace=TRUE))
-#' 
-#' ## 1-D
-#' ( A1 <- table(d$Aye) )
-#' prop.table(A1)
-#' percTable(A1)
-#' percTable(A1,digits=3)
-#' percTable(A1,addMargins=TRUE)
-#' ( A2 <- xtabs(~Aye,data=d) )
-#' percTable(A2)
-#' 
-#' ## 2-D
-#' ( AB1 <- table(d$Aye,d$Bee) )
-#' percTable(AB1,margin=1)
-#' percTable(AB1,margin=2)
-#' percTable(AB1)
-#' percTable(AB1,digits=3)
-#' percTable(AB1,addMargins=FALSE)
-#' 
-#' @export
-percTable <- function(x,margin=NULL,digits=1,addMargins=!is.na(ncol(x))) {
-  res <- round(100*prop.table(x,margin=margin),digits)
-  if (addMargins) ifelse(is.null(margin),res <- addMargins(res),res <- addMargins(res,margin=margin))
-  res
 }
 
 
