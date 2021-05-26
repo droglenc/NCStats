@@ -1,7 +1,0 @@
-NCStats To Do
-
-typeoflm and compIntercepts
--- Modify typeoflm so that it returns much more information -- number of factors, number of covariates, whether there are interactions, etc.  Hopefully these changes will make it easier to identify what type of linear model is under consideration and to code things in compSlopes and compIntercepts.
-
-fitPlot
--- allow offset or jittering command in two-way ANOVA (so CIs don't overlap) -- I sent this to author.

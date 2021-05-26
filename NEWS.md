@@ -1,5 +1,9 @@
 # 0.4.9 ongoing
 * Removed suggestion of `relax` package (see below).
+* Removed Travis-CI.
+* No longer using coveralls for coverage statistics. Changed to codecov.io.
+* Added GitHub Action for CI/CD (used `usethis::use_github_action_check_standard()`).
+* Added GitHub Action for code coverage with codecov.io.
 
 * `assumptionCheck()`: Modified. Removed option to use `relax()` and Tcl/Tk version of the dynamic graphic.
 * `ciSim()`: Modified. Removed option to use `relax()` and Tcl/Tk version of the dynamic graphic.

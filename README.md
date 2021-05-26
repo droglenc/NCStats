@@ -1,8 +1,10 @@
 NCStats
 =======
 
+<!-- badges: start -->
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![Travis-CI Build Status](https://travis-ci.org/droglenc/NCStats.svg?branch=master)](https://travis-ci.org/droglenc/NCStats)
+[![R-CMD-check](https://github.com/droglenc/NCStats/workflows/R-CMD-check/badge.svg)](https://github.com/droglenc/NCStats/actions)
+<!-- badges: end -->
 
 
 ## Introduction
