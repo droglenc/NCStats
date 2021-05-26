@@ -2,14 +2,14 @@
 #' 
 #' @description This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and plotting those confidence intervals.  Sliders then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
 #' 
-#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 #' 
 #' @param reps A single numeric that indicates the number of replicate samples to draw from the population
 #' @param method A single string that indicates whether to make confidence intervals using a normal (\code{="Z"}) or t (\code{="t"}) distribution
 #' @param mu A single numeric that indicates the mean of the known normal distribution
 #' @param sigma A single numeric that indicates the standard deviation of the known normal distribution
 #' 
-#' @return None, but a dynamic graphic with sliders is produced.
+#' @return None, but a dynamic graphic with sliders is produced (if using RStudio).
 #' 
 #' @keywords misc dynamic
 #' 
@@ -42,32 +42,6 @@ ciSim <- function(reps=200,method=c("Z","t"),mu=100,sigma=10) {
                                        label="Alternative Hypothesis"),
         rerand=manipulate::button("Rerandomize")
       ) # end manipulate
-    }
-  } else { ## use relax and Tcl/Tk
-    ## Internal plot refresher function
-    iCIRefresh <- function(...) {
-      n <- relax::slider(no=1)
-      conf <- relax::slider(no=2)
-      alternative <- relax::slider(no=3)
-      # change alternative number to character
-      alternative <- ifelse(alternative==-1,"less",
-                            ifelse(alternative==0,"two.sided","greater"))
-      iCISimPlot(n,conf,alternative,reps,method,mu,sigma)
-    } ## end iCIRefresh internal function
-    if (iChk4Namespace("relax")) {
-      relax::gslider(iCIRefresh,prompt=TRUE,
-                     sl.names=   c( "n", "Confidence (C)", "alternative Type (-1=less,1=grtr)"),
-                     sl.mins=    c(  10,             0.80,                -1),
-                     sl.maxs=    c( 100,             0.99,                 1),
-                     sl.deltas=  c(   5,             0.01,                 1),
-                     sl.defaults=c(  10,             0.95,                 0),
-                     title = "Confidence Region Simulator",
-                     but.functions= function(...){
-                       relax::slider(obj.name="rerand",obj.value="Y")
-                       iCIRefresh()
-                     },
-                     but.names=c("Rerandomize"),
-                     pos.of.panel="left",vscale=1.5)
     }
   }
 }
@@ -177,12 +151,12 @@ iCISimPlot <- function(n,conf,alternative=c("two.sided","less","greater"),
 #' 
 #' The two graphs are dynamically controlled by three sliders.  The first two sliders control the shape parameters of the beta distribution used to model the population distribution sampled from.  A wide variety of shapes may be created with these two shape parameters.  The third slider controls the size of each sample taken from the population distribution.  The sliders may be used to detect how changes in the shape of the population and the size of the sample effect the shape, center, and dispersion of the sampling distribution.
 #' 
-#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio. The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 #' 
 #' @param reps Number of resamples to take from the population distribution and means to calculate
 #' @param incl.norm A logical that indicates whether a normal density curve should be superimposed on the sampling distribution
 #' 
-#' @return None, but a dynamic graph with sliders is produced.
+#' @return None, but a dynamic graph with sliders is produced (if using RStudio).
 #' 
 #' @keywords misc dynamic
 #' 
@@ -208,29 +182,6 @@ cltSim <- function(reps=5000,incl.norm=FALSE) {
         shape2=manipulate::slider(1,20,step=1,label="Shape 2 (beta)"),
         rerand=manipulate::button("Rerandomize")
       ) # end manipulate
-    }
-  } else {  ## use refresh and Tcl/Tk
-    ## internal referesher function
-    iCLTrefresh <- function(...) {
-      n <- relax::slider(no=1)
-      shape1 <- relax::slider(no=2)
-      shape2 <- relax::slider(no=3)
-      iCLTSimPlot(n,shape1,shape2,reps,incl.norm)
-    } # end iCLTrefresh internal function
-    if (iChk4Namespace("relax")) {
-      relax::gslider(iCLTrefresh,prompt=TRUE,hscale=2,
-                     sl.names=   c( "n", "Shape 1 (alpha)", "Shape 2 (beta)"),
-                     sl.mins=    c(  10,                 1,                1),
-                     sl.maxs=    c( 100,                20,               20),
-                     sl.deltas=  c(   5,                 1,                1),
-                     sl.defaults=c(  10,                 1,                1),
-                     title = "Sampling Distribution Simulator",
-                     but.functions= function(...){
-                       relax::slider(obj.name="rerand",obj.value="Y")
-                       iCLTrefresh()
-                     },
-                     but.names=c("Rerandomize"),
-                     pos.of.panel="left")
     }
   }
 }
@@ -295,7 +246,7 @@ iCLTSimPlot <- function(n,shape1,shape2,reps,incl.norm) {
 #' 
 #' @description This function plots the null and actual distributions, highlights the rejection region and the power region, and allows the user to dynamically manipulate the effect size, standard deviation, sample size, and alpha to determine the effect of these parameters on power.
 #' 
-#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio. The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 #' 
 #' @param mu0 A single numeric that is the null hypothesized mean
 #' @param s.mua A single numeric that is the starting value for the actual population mean
@@ -304,7 +255,7 @@ iCLTSimPlot <- function(n,shape1,shape2,reps,incl.norm) {
 #' @param s.alpha A single numeric that is the starting value for alpha
 #' @param lower.tail A single logical that indicates if the rejection region is into the lower tail or not
 #' 
-#' @return None, but a dynamic graphic with sliders is produced.
+#' @return None, but a dynamic graphic with sliders is produced (if using RStudio).
 #' 
 #' @keywords dynamic
 #' 
@@ -333,24 +284,6 @@ powerSim <- function(mu0=100,s.mua=95,s.sigma=10,s.n=30,s.alpha=0.05,lower.tail=
                                initial=s.mua,label="Actual mu"),
         lower.tail=manipulate::checkbox(TRUE,"Ha is less than?")
       ) # end manipulate
-    }
-  } else { ## use relax and Tcl/Tk
-    ## internal referesher function
-    iPowerRefresh <- function(...) {
-      mua <- relax::slider(no=1)
-      sigma <- relax::slider(no=2)
-      n <- relax::slider(no=3)
-      alpha <- relax::slider(no=4)
-      iPowerSimPlot(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail)
-    }
-    if (iChk4Namespace("relax")) {
-      relax::gslider(iPowerRefresh,prompt=TRUE,vscale=1.5,
-                     sl.names=   rev(c(    "Actual mu",   "sigma", "n", "alpha")),
-                     sl.mins=    rev(c(mu0-1.5*s.sigma,         1,   2,    0.01)),
-                     sl.maxs=    rev(c(mu0+1.5*s.sigma, 3*s.sigma, 100,    0.30)),
-                     sl.deltas=  rev(c(              1,         1,   1,    0.01)),
-                     sl.defaults=rev(c(          s.mua,   s.sigma, s.n, s.alpha)),
-                     title = "Power Simulator",pos.of.panel="left")
     }
   }
 }
@@ -416,13 +349,13 @@ iPowerSimPlot <- function(mua,sigma,n,alpha,mu0,s.mua,s.sigma,s.n,lower.tail){
 #' 
 #' @description This function visually illustrates how the mean \dQuote{balances} distances and the median \dQuote{balances} individuals in a random sample from a known population.  The user may plot their own data or compute a random sample from a beta distribution where the number of individuals in the sample and the shape of the population may be dynamically manipulated to determine how these attributes affect the calculation of the mean and median.
 #' 
-#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+#' @details If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio. The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 #' 
 #' @param x An optional numeric vector (of actual data) to be used in the visual.
 #' @param breaks See description for \code{\link[graphics]{hist}}.
 #' @param outlier A string that indicates whether the outlier should be modeled at the maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).  This is ignored if \code{x} is not \code{NULL} or if this function is run in RStudio.
 #' 
-#' @return None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with sliders (if \code{x} is \code{null}) is produced.
+#' @return None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with sliders (if \code{x} is \code{null}) is produced (if using RStudio).
 #' 
 #' @keywords dynamic
 #' 
@@ -465,29 +398,6 @@ meanMedian <- function(x=NULL,breaks=NULL,outlier=c("none","max","min")) {
           outlier=manipulate::picker("none","min","max"),
           rerand=manipulate::button("Rerandomize")
         ) # end manipulate
-      }
-    } else {
-      ## internal referesher function
-      iMMBRefresh <- function(...) {
-        # get random data
-        x <- iMMMakeData(relax::slider(no=1),relax::slider(no=2),relax::slider(no=3))
-        if (is.null(breaks)) breaks <- seq(0,1,0.1)
-        iMMMakePlots(x,breaks)
-      } # end iMMBRefresh
-      if (iChk4Namespace("relax")) {
-        relax::gslider(iMMBRefresh,prompt=TRUE,vscale=1.5,hscale=1.75,
-                       sl.names=   c("n", "Shape 1 (alpha)", "Shape 2 (beta)"),
-                       sl.mins=    c( 10,                 1,                1),
-                       sl.maxs=    c(100,                10,               10),
-                       sl.deltas=  c(  1,                 1,                1),
-                       sl.defaults=c( 30,                 1,                1),
-                       title = "Mean vs. Median Simulator",
-                       but.functions= function(...){
-                         relax::slider(obj.name="rerand",obj.value="Y")
-                         iMMBRefresh()
-                       },
-                       but.names=c("Re-Randomize"),
-                       pos.of.panel="left")
       }
     }
   }

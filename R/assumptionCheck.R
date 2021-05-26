@@ -101,18 +101,13 @@ transChooser <- function(object,shifty=0,shiftx=0,show.stats=TRUE,
                                                           show.stats,alpha,col.hist)
         else iTC_ANOVA1(object,shifty,show.stats,boxplot,alpha,col.hist)
       }
-    } else {  # use relax and Tcl/Tk
-      if (object$type %in% c("SLR","IVR")) iTC_REGRESS2(object,shifty,shiftx,
-                                                        show.stats,alpha,col.hist)
-      else iTC_ANOVA2(object,shifty,show.stats,boxplot,alpha,col.hist)
     }
   })
 }
 
 
 ################################################################################
-## Internal functions that are used by assumptionCheck and both the manipulate
-##   and the relax versions of transChooser().
+## Internal functions used by assumptionCheck().
 ################################################################################
 iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
                                show.stats,alpha,col.hist) {
@@ -236,39 +231,4 @@ iTC_ANOVA1 <- function(object,shifty,show.stats,boxplot,alpha,col.hist) {
     show.stats=manipulate::checkbox(TRUE,label="Show Test Results"),
     boxplot=manipulate::checkbox(TRUE,label="Use Boxplot for Residuals")
   ) # end manipulate
-}
-
-
-##############################################################
-## Internal functions that use the relax package            ##
-##############################################################
-iTC_REGRESS2 <- function(object,shifty,shiftx,show.stats,alpha,col.hist) {  
-  refresh <- function(...) {
-    iAssumPlot_REGRESS(object,lambday=relax::slider(no=1),lambdax=relax::slider(no=2),
-                       shifty=shifty,shiftx=shiftx,show.stats=show.stats,
-                       alpha=alpha,col.hist=col.hist)
-  }  # end refresh internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE,hscale=2,
-                   title="Regression Power Transformation Chooser",
-                   sl.names=c("lambday","lambdax"),
-                   sl.mins=c(-1.0,-1.0),sl.maxs=c(1.0,1.0),
-                   sl.deltas=c(0.05,0.05),sl.defaults=c(1.0,1.0),
-                   pos.of.panel="left")
-  }
-}
-
-    
-iTC_ANOVA2 <- function(object,shifty,show.stats,boxplot,alpha,col.hist) {
-  refresh <- function(...) {
-    iAssumPlot_ANOVA(object,lambda=relax::slider(no=1),
-                     shifty=shifty,show.stats=show.stats,boxplot=boxplot,
-                     alpha=alpha,col.hist=col.hist)
-  } # end refresh internal function
-  if (iChk4Namespace("relax")) {
-    relax::gslider(refresh,prompt=TRUE,hscale=2,
-                   title="ANOVA Power Transformation Chooser",
-                   sl.names= c("lambda"),sl.mins=c(-1.0),sl.maxs=c(1.0),
-                   sl.deltas=c(0.05),sl.defaults=c(1.0),pos.of.panel="left")
-  }
 }

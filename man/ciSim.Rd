@@ -16,13 +16,13 @@ ciSim(reps = 200, method = c("Z", "t"), mu = 100, sigma = 10)
 \item{sigma}{A single numeric that indicates the standard deviation of the known normal distribution}
 }
 \value{
-None, but a dynamic graphic with sliders is produced.
+None, but a dynamic graphic with sliders is produced (if using RStudio).
 }
 \description{
 This function demonstrates the concept of confidence regions by drawing a large number of random samples from a known normal distribution, computing a confidence interval for each sample, and plotting those confidence intervals.  Sliders then let the user change the level of confidence, the sample size, or the type of confidence region (interval or bound) to see how that effects the confidence interval widths (margin-of-error) and capture probability.
 }
 \details{
-If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 }
 \examples{
 \dontrun{

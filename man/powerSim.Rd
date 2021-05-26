@@ -27,13 +27,13 @@ powerSim(
 \item{lower.tail}{A single logical that indicates if the rejection region is into the lower tail or not}
 }
 \value{
-None, but a dynamic graphic with sliders is produced.
+None, but a dynamic graphic with sliders is produced (if using RStudio).
 }
 \description{
 This function plots the null and actual distributions, highlights the rejection region and the power region, and allows the user to dynamically manipulate the effect size, standard deviation, sample size, and alpha to determine the effect of these parameters on power.
 }
 \details{
-If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio. The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 }
 \examples{
 \dontrun{

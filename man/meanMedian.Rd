@@ -14,13 +14,13 @@ meanMedian(x = NULL, breaks = NULL, outlier = c("none", "max", "min"))
 \item{outlier}{A string that indicates whether the outlier should be modeled at the maximum (\code{="max"}), minimum (\code{="min"}), or not at all \code{="none"}).  This is ignored if \code{x} is not \code{NULL} or if this function is run in RStudio.}
 }
 \value{
-None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with sliders (if \code{x} is \code{null}) is produced.
+None, but a graphic (if \code{x} is not \code{null}) or a dynamic graphic with sliders (if \code{x} is \code{null}) is produced (if using RStudio).
 }
 \description{
 This function visually illustrates how the mean \dQuote{balances} distances and the median \dQuote{balances} individuals in a random sample from a known population.  The user may plot their own data or compute a random sample from a beta distribution where the number of individuals in the sample and the shape of the population may be dynamically manipulated to determine how these attributes affect the calculation of the mean and median.
 }
 \details{
-If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio. The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 }
 \examples{
 \dontrun{

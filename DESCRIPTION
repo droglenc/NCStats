@@ -34,7 +34,6 @@ Imports:
 Suggests:
     ggpubr,
     manipulate,
-    relax,
     tcltk,
     testthat
 Encoding: UTF-8

@@ -12,7 +12,7 @@ cltSim(reps = 5000, incl.norm = FALSE)
 \item{incl.norm}{A logical that indicates whether a normal density curve should be superimposed on the sampling distribution}
 }
 \value{
-None, but a dynamic graph with sliders is produced.
+None, but a dynamic graph with sliders is produced (if using RStudio).
 }
 \description{
 A dynamic graph to illustrate the central limit theorem (CLT).  The user can change the population distribution that is sampled from and the sample size.
@@ -22,7 +22,7 @@ This function produces two graphics.  The left graphic is a histogram of the ind
 
 The two graphs are dynamically controlled by three sliders.  The first two sliders control the shape parameters of the beta distribution used to model the population distribution sampled from.  A wide variety of shapes may be created with these two shape parameters.  The third slider controls the size of each sample taken from the population distribution.  The sliders may be used to detect how changes in the shape of the population and the size of the sample effect the shape, center, and dispersion of the sampling distribution.
 
-If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio.  The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.  If the user is not using RStudio or the \pkg{manipulate} package is not installed, then an attempt is made to produce the dynamic graph with Tcl/Tk using the functions in the \pkg{relax} package.
+If the user is using RStudio and the \pkg{manipulate} package is installed then the dynamic graph is produced in the \dQuote{Plots} pane of RStudio. The plot controls may be accessed through the \dQuote{gear} that is in the upper-left corner of the plot.
 }
 \examples{
 \dontrun{
