@@ -3,7 +3,7 @@
 * Removed Travis-CI.
 * No longer using coveralls for coverage statistics. Changed to codecov.io.
 * Added GitHub Action for CI/CD (used `usethis::use_github_action_check_standard()`).
-* Added GitHub Action for code coverage with codecov.io.
+* Added GitHub Action for code coverage with codecov.io (used `usethis::use_github_action("test-coverage")`).
 
 * `assumptionCheck()`: Modified. Removed option to use `relax()` and Tcl/Tk version of the dynamic graphic.
 * `ciSim()`: Modified. Removed option to use `relax()` and Tcl/Tk version of the dynamic graphic.
