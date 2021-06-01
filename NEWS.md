@@ -11,6 +11,7 @@
 * `filterD()`: Added (from `FSA`).
 * `meanMedian()`: Modified. Removed option to use `relax()` and Tcl/Tk version of the dynamic graphic.
 * `powerSim()`: Modified. Removed option to use `relax()` and Tcl/Tk version of the dynamic graphic.
+* `residPlot()`: Added (from `FSA`).
 
 # 0.4.8 15-Jan-21
 * Changed to depending on `R >=3.5.0`, because that is the latest version required by packages (i.e., `car`, `FSA`, `plotrix`) that `NCStats` imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.

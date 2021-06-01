@@ -142,13 +142,13 @@ iAssumPlot_REGRESS <- function(object,lambday,lambdax,shifty,shiftx,
                  yaxt="n",ylab="",col=col.hist)
   if (show.stats) iLblADTest(lm1,alpha,line=0.5)
   if (object$type=="SLR") {
-    FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
-                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,
-                   col=FSA::col2rgbt("black",2/3))
+    residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
+              ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,
+              col=FSA::col2rgbt("black",2/3))
   } else {
-    FSA::residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
-                   ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,
-                   col=FSA::col2rgbt("black",2/3),legend=FALSE)
+    residPlot(lm1,main="",xlab=paste0("Fitted Values from ",ylbl,"~",xlbl),
+              ylab=paste0("Residuals from ",ylbl,"~",xlbl),inclHist=FALSE,
+              col=FSA::col2rgbt("black",2/3),legend=FALSE)
   }
   if (show.stats) iLblOutlierTest(lm1,alpha,line=0.5)
 } ## end internal iAssumPlot_REGRESS
@@ -175,8 +175,8 @@ iAssumPlot_ANOVA <- function(object,lambda,shifty,show.stats,boxplot,alpha,col.h
     iLblADTest(lm1,alpha)
     iLblOutlierTest(lm1,alpha)
   }
-  FSA::residPlot(lm1,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,
-                 inclHist=FALSE,col=FSA::col2rgbt("black",2/3))
+  residPlot(lm1,outlier.test=TRUE,bp=boxplot,main="",ylab=lbl,
+            inclHist=FALSE,col=FSA::col2rgbt("black",2/3))
   if (show.stats) iLblLevenesTest(lm1,alpha)
 } ## end internal iAssumPlot_ANOVA
 

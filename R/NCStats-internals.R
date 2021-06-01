@@ -9,7 +9,6 @@
 #'   \itemize{
 #'     \item \code{c.region} and \code{d.region} are used in \code{\link{distrib}}, \code{\link{plot.htest}} and \code{\link{powerSim}}.
 #'     \item \code{cCDF.plot}, \code{cPDF.plot}, \code{dCDF.plot}, and \code{dPDF.plot} are all used in the distribution simulators -- e.g., \code{\link{sbeta}}, \code{\link{snorm}}, etc..
-#'     \item \code{assumPlot_ANOVA}, \code{assumPlot_REGRESS}, \code{lblADTest}, \code{lblNCVTest}, \code{lblOutTest}, and \code{lblLevTest} functions are all used in \code{\link{transChooser}}.
 #' }
 #' 
 #' @rdname NCStats-internals
@@ -17,39 +16,17 @@
 #' 
 #' @keywords internal
 #' 
-#' @aliases .onAttach cCDF.plot cPDF.plot dCDF.plot dPDF.plot c.region d.region assumPlot_ANOVA assumPlot_REGRESS lblADTest lblNCVTest lblOutTest lblLevTest
+#' @aliases .onAttach cCDF.plot cPDF.plot dCDF.plot dPDF.plot c.region d.region iChk4Namespace iChkRStudio iHndlFormula iLegendHelp iTypeoflm STOP WARN
 #' 
 
-##################################################################
-## Sends a start-up message to the console when the package is loaded.
-##################################################################
+# Sends a start-up message to the console when the package is loaded.
 .onAttach <- function(lib,pkg,...) {
   vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
   msg <- paste0("## NCStats v",vers," by Derek H. Ogle, Northland College.")
   packageStartupMessage(msg)
 }
 
-
-##################################################################
-# Check if a required namespace can be loaded and, if not, send
-#   an error message.
-##################################################################
-iChk4Namespace <- function(pkg) {
-  res <- requireNamespace(pkg,quietly=TRUE)
-  if (!res) stop(paste0("The '",pkg," package must be installed."))
-  res
-}
-
-
-##################################################################
-# Try to determine if RStudio is being used.
-##################################################################
-iCheckRStudio <- function () "tools:rstudio" %in% search()
-
-
-##################################################################
 # Internal functions used in distrib().
-##################################################################
 c.region <- function(xval,x,fx,lower.tail,area,plot,show.ans,
                      shade.col,lbl.col,show.lbl,cex.ans=1,add=FALSE,...) {
   if (lower.tail) {
@@ -97,7 +74,8 @@ cPDF.plot <- function(x,fx,show.mnsd=TRUE,...) {
     x.vals <- rep(x,round(10000*fx,0))
     mu <- mean(x.vals)
     sigma <- stats::sd(x.vals)
-    graphics::mtext(paste("Mean = ",round(mu,1),", SD = ",round(sigma,1)),line=0.25,col="blue")
+    graphics::mtext(paste("Mean = ",round(mu,1),", SD = ",round(sigma,1)),
+                    line=0.25,col="blue")
     d.max <- max(fx)
     graphics::lines(rep(mu,2),c(0,d.max),col="blue",lwd=2)
     graphics::lines(c(mu-sigma,mu+sigma),rep(0.6*d.max,2),col="blue",lwd=2)
@@ -155,45 +133,23 @@ dPDF.plot <- function(x,fx,show.mnsd=TRUE,col="gray90",...) {
                           round(sigma,1)),line=0.25,col="blue")
     mu.pos <- mu+bp[1]  # needed to place values on plot properly
     graphics::lines(rep(mu.pos,2),c(0,max(fx)),col="blue",lwd=2)
-    graphics::lines(c(mu.pos-sigma,mu.pos+sigma),rep(0.6*max(fx),2),col="blue",lwd=2)
+    graphics::lines(c(mu.pos-sigma,mu.pos+sigma),rep(0.6*max(fx),2),
+                    col="blue",lwd=2)
   }
   invisible(bp)
 }
 
 
-##############################################################
-## Internal functions for handling formulas and types of lm
-##    These are from FSA
-##############################################################
-iTypeoflm <- function(mdl) {
-  if (any(class(mdl)!="lm")) STOP("'iTypeoflm' only works with objects from 'lm()'.")
-  tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
-  if (tmp$Enum==0) STOP("Object must have one response and at least one explanatory variable")
-  if (!tmp$Rclass %in% c("numeric","integer")) STOP("Response variable must be numeric")
-  if (any(tmp$Eclass=="character")) WARN("An explanatory variable is a 'character' class. If behavior is different\n than you expected you may want to change this to a 'factor' class.")
-  if (tmp$Etype=="factor") { #ANOVA
-    if (tmp$EFactNum>2) STOP("Function only works for one- or two-way ANOVA.")
-    if (tmp$EFactNum==2) lmtype <- "TWOWAY"
-    else lmtype <- "ONEWAY"
-  } else { # not an anova
-    if (tmp$Enum==1) lmtype <- "SLR"
-    else if (tmp$Etype=="mixed") lmtype <- "IVR"
-    else if (all(grepl(tmp$Enames[1],tmp$Enames[-1]))) lmtype <- "POLY"
-    else lmtype <- "MLR"
-  }
-  tmp <- c(list(type=lmtype,mdl=mdl),tmp)
-  class(tmp) <- c(lmtype,"list")
-  tmp
+# Check if a required namespace can be loaded; if not, send error message.
+iChk4Namespace <- function(pkg) {
+  res <- requireNamespace(pkg,quietly=TRUE)
+  if (!res) stop(paste0("The '",pkg," package must be installed."))
+  res
 }
 
 
-################################################################################
-# same as stop() and warning() but with call.=FALSE as default
-################################################################################
-STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
-WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
-  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
-}
+# Determine if RStudio is being used.
+iCheckRStudio <- function () "tools:rstudio" %in% search()
 
 
 iHndlFormula <- function(formula,data,expNumR=NULL,
@@ -217,7 +173,8 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
                                            seq_len(nchar(fcLHS)))),
              LHSgt1 <- TRUE, LHSgt1 <- FALSE)
       # STOP if there is more than one variable on LHS
-      if (LHSgt1) STOP("Function does not work with more than one variable on the LHS.")
+      if (LHSgt1) 
+        STOP("Function does not work with more than one variable on the LHS.")
       else {
         # There is a LHS and it has only one variable.
         Rpos <- Rnum <- 1
@@ -282,4 +239,62 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
        EFactNum=EFactNum,EFactPos=EFactPos,
        metExpNumR=metExpNumR,metExpNumE=metExpNumE,
        metExpNumENums=metExpNumENums,metExpNumEFacts=metExpNumEFacts)
+}
+
+iLegendHelp <- function(legend) {
+  do.legend <- FALSE
+  x <- y <- NULL
+  if (inherits(legend,"logical")) {
+    if(legend) { # nocov start
+      do.legend <- TRUE
+      x <- graphics::locator(1)
+    } # nocov end
+  } else if (!is.null(legend)) {
+    do.legend <- TRUE
+    if (inherits(legend,"character")) {
+      if (!(legend %in% c("bottomright","bottom","bottomleft","left",
+                          "topleft","top","topright","right","center")))
+        STOP("Must use proper keyword for 'legend'.")
+      x <- legend
+    } else {
+      x <- legend[1]
+      y <- legend[2]
+    }
+  }
+  list(do.legend=do.legend,x=x,y=y)
+}
+
+# Internal function for handling formulas and types of lm
+iTypeoflm <- function(mdl) {
+  if (any(class(mdl)!="lm"))
+    STOP("'iTypeoflm' only works with objects from 'lm()'.")
+  tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
+  if (tmp$Enum==0) 
+    STOP("Object must have one response and at least one explanatory variable")
+  if (!tmp$Rclass %in% c("numeric","integer")) 
+    STOP("Response variable must be numeric")
+  if (any(tmp$Eclass=="character")) 
+    WARN("An explanatory variable is a 'character' class. If behavior is different\n than you expected you may want to change this to a 'factor' class.")
+  if (tmp$Etype=="factor") { #ANOVA
+    if (tmp$EFactNum>2) 
+      STOP("Function only works for one- or two-way ANOVA.")
+    if (tmp$EFactNum==2) lmtype <- "TWOWAY"
+    else lmtype <- "ONEWAY"
+  } else { # not an anova
+    if (tmp$Enum==1) lmtype <- "SLR"
+    else if (tmp$Etype=="mixed") lmtype <- "IVR"
+    else if (all(grepl(tmp$Enames[1],tmp$Enames[-1]))) lmtype <- "POLY"
+    else lmtype <- "MLR"
+  }
+  tmp <- c(list(type=lmtype,mdl=mdl),tmp)
+  class(tmp) <- c(lmtype,"list")
+  tmp
+}
+
+
+# same as stop() and warning() but with call.=FALSE as default
+STOP <- function(...,call.=FALSE,domain=NULL)
+  stop(...,call.=call.,domain=domain)
+WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
+  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }

@@ -9,12 +9,13 @@
 \alias{dPDF.plot}
 \alias{c.region}
 \alias{d.region}
-\alias{assumPlot_ANOVA}
-\alias{assumPlot_REGRESS}
-\alias{lblADTest}
-\alias{lblNCVTest}
-\alias{lblOutTest}
-\alias{lblLevTest}
+\alias{iChk4Namespace}
+\alias{iChkRStudio}
+\alias{iHndlFormula}
+\alias{iLegendHelp}
+\alias{iTypeoflm}
+\alias{STOP}
+\alias{WARN}
 \title{Internal functions used in NCStats.}
 \usage{
 .onAttach(lib, pkg, ...)
@@ -31,7 +32,6 @@ Take note of the following uses:
   \itemize{
     \item \code{c.region} and \code{d.region} are used in \code{\link{distrib}}, \code{\link{plot.htest}} and \code{\link{powerSim}}.
     \item \code{cCDF.plot}, \code{cPDF.plot}, \code{dCDF.plot}, and \code{dPDF.plot} are all used in the distribution simulators -- e.g., \code{\link{sbeta}}, \code{\link{snorm}}, etc..
-    \item \code{assumPlot_ANOVA}, \code{assumPlot_REGRESS}, \code{lblADTest}, \code{lblNCVTest}, \code{lblOutTest}, and \code{lblLevTest} functions are all used in \code{\link{transChooser}}.
 }
 }
 \keyword{internal}
